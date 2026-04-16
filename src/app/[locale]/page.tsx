@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
+import Image from 'next/image';
 
 const ACTIVITY_LABELS_EN: Record<string, string> = {
   exchange: 'Exchange', dapp_fin: 'DeFi', dapp_util: 'Utility DApp', nft: 'NFT',
@@ -17,7 +18,8 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="py-20 sm:py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-navy dark:text-white">
+          <Image src="/logo.svg" alt="Regul8" width={400} height={94} className="mx-auto mb-8" priority />
+          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-gray-600 dark:text-gray-300">
             {t('hero')}
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
