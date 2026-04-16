@@ -3,108 +3,141 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
-import type { ActivityKey, Jurisdiction, WizardAnswers } from '@/types';
-import StepActivity from '@/components/wizard/StepActivity';
-import StepSubtype from '@/components/wizard/StepSubtype';
-import StepJurisdiction from '@/components/wizard/StepJurisdiction';
-import StepProfile from '@/components/wizard/StepProfile';
+import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
+import XRPLBadge from '@/components/ui/XRPLBadge';
 
-const TOTAL_STEPS = 4;
+const ACTIVITY_KEYS = Object.keys(ACTIVITIES) as ActivityKey[];
+const JURISDICTION_KEYS = Object.keys(JURISDICTIONS) as Jurisdiction[];
 
 export default function WizardPage() {
   const t = useTranslations('wizard');
+  const tw = useTranslations('wizard');
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [answers, setAnswers] = useState<Partial<WizardAnswers>>({});
+  const [selectedActivities, setSelectedActivities] = useState<ActivityKey[]>([]);
+  const [selectedJurisdictions, setSelectedJurisdictions] = useState<Jurisdiction[]>([]);
 
-  const update = (patch: Partial<WizardAnswers>) => {
-    setAnswers((prev) => ({ ...prev, ...patch }));
+  const toggleActivity = (a: ActivityKey) => {
+    setSelectedActivities((prev) =>
+      prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]
+    );
   };
 
-  const canNext = () => {
-    if (step === 1) return !!answers.activity;
-    if (step === 2) return true; // subtype is optional
-    if (step === 3) return !!answers.jurisdiction;
-    return true;
+  const toggleJurisdiction = (j: Jurisdiction) => {
+    setSelectedJurisdictions((prev) =>
+      prev.includes(j) ? prev.filter((x) => x !== j) : [...prev, j]
+    );
   };
 
-  const handleNext = () => {
-    if (step < TOTAL_STEPS) {
-      setStep(step + 1);
-    } else {
-      // Navigate to report with query params
-      const params = new URLSearchParams();
-      if (answers.activity) params.set('activity', answers.activity);
-      if (answers.subtype) params.set('subtype', answers.subtype);
-      if (answers.jurisdiction) params.set('jurisdiction', answers.jurisdiction);
-      if (answers.stage) params.set('stage', answers.stage);
-      if (answers.model) params.set('model', answers.model);
-      if (answers.chain) params.set('chain', answers.chain);
-      router.push(`/report?${params.toString()}`);
-    }
+  const canSubmit = selectedActivities.length > 0 && selectedJurisdictions.length > 0;
+
+  const handleSubmit = () => {
+    const params = new URLSearchParams();
+    params.set('activities', selectedActivities.join(','));
+    params.set('jurisdictions', selectedJurisdictions.join(','));
+    router.push(`/report?${params.toString()}`);
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
-      <p className="text-sm text-gray-500 mb-8">
-        {t('step', { current: step, total: TOTAL_STEPS })}
+      <p className="text-sm text-gray-500 mb-10">
+        {t('step1.subtitle')}
       </p>
 
-      {/* Progress dots */}
-      <div className="flex gap-2 mb-8">
-        {Array.from({ length: TOTAL_STEPS }, (_, i) => (
-          <div
-            key={i}
-            className={`h-2 flex-1 rounded-full transition-colors ${
-              i < step ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'
-            }`}
-          />
-        ))}
-      </div>
+      {/* Activities — multi-select */}
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-1">{t('step1.title')}</h2>
+        <p className="text-xs text-gray-500 mb-4">Select all that apply</p>
+        <div className="grid sm:grid-cols-2 gap-2">
+          {ACTIVITY_KEYS.map((key) => {
+            const active = selectedActivities.includes(key);
+            return (
+              <button
+                key={key}
+                onClick={() => toggleActivity(key)}
+                className={`flex items-center justify-between px-4 py-3 rounded-lg border text-left transition-all ${
+                  active
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                    : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <span className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                    active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                  }`}>
+                    {active && (
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </span>
+                  <span className="text-sm font-medium">{tw(`activities.${key}`)}</span>
+                </span>
+                {ACTIVITIES[key].xrpl && <XRPLBadge />}
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-      {/* Step content */}
-      {step === 1 && (
-        <StepActivity
-          selected={answers.activity}
-          onSelect={(activity: ActivityKey) => update({ activity })}
-        />
-      )}
-      {step === 2 && (
-        <StepSubtype
-          activity={answers.activity!}
-          selected={answers.subtype}
-          onSelect={(subtype: string) => update({ subtype })}
-        />
-      )}
-      {step === 3 && (
-        <StepJurisdiction
-          selected={answers.jurisdiction}
-          onSelect={(jurisdiction: Jurisdiction) => update({ jurisdiction })}
-        />
-      )}
-      {step === 4 && (
-        <StepProfile
-          answers={answers}
-          onUpdate={update}
-        />
-      )}
+      {/* Jurisdictions — multi-select */}
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-1">{t('step3.title')}</h2>
+        <p className="text-xs text-gray-500 mb-4">Select all that apply</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          {JURISDICTION_KEYS.map((code) => {
+            const j = JURISDICTIONS[code];
+            const active = selectedJurisdictions.includes(code);
+            return (
+              <button
+                key={code}
+                onClick={() => toggleJurisdiction(code)}
+                className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-left transition-all ${
+                  active
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                    : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
+                }`}
+              >
+                <span className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                  active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                }`}>
+                  {active && (
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className="text-xl">{j.flag}</span>
+                <span className="text-sm font-medium">{j.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-      {/* Navigation */}
-      <div className="flex justify-between mt-8">
-        <button
-          onClick={() => setStep(Math.max(1, step - 1))}
-          className={`btn-secondary ${step === 1 ? 'invisible' : ''}`}
-        >
-          {t('back')}
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={!canNext()}
-          className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {step === TOTAL_STEPS ? t('generate') : t('next')} &rarr;
-        </button>
+      {/* Summary + Submit */}
+      <div className="sticky bottom-0 bg-[var(--background)] border-t border-[var(--border)] -mx-4 px-4 py-4">
+        <div className="flex items-center justify-between max-w-4xl mx-auto">
+          <div className="text-sm text-gray-500">
+            {selectedActivities.length > 0 && (
+              <span>{selectedActivities.length} activit{selectedActivities.length > 1 ? 'ies' : 'y'}</span>
+            )}
+            {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
+            {selectedJurisdictions.length > 0 && (
+              <span>{selectedJurisdictions.length} jurisdiction{selectedJurisdictions.length > 1 ? 's' : ''}</span>
+            )}
+            {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && (
+              <span className="ml-2 font-semibold text-blue-600">= {selectedActivities.length * selectedJurisdictions.length} results</span>
+            )}
+          </div>
+          <button
+            onClick={handleSubmit}
+            disabled={!canSubmit}
+            className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {t('generate')} &rarr;
+          </button>
+        </div>
       </div>
     </div>
   );

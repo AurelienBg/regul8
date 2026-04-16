@@ -87,6 +87,46 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland FINMA", "EU MiCA via EEA"],
       authority: "FMA Liechtenstein"
     },
+    jp: {
+      regime: "FSA — Crypto-Asset Exchange Service Provider (CAESP)",
+      risk: "high",
+      licenses: ["CAESP registration (FSA)", "Type I Financial Instruments Business (if derivatives)"],
+      obligations: ["KYC/AML (JAFIC)", "Cold wallet segregation", "Annual FSA audit", "User asset protection trust", "Travel Rule", "Advertising restrictions"],
+      time: "12–24 months",
+      cost: "¥10M–¥50M ($70K–$350K)",
+      alts: ["Singapore MAS", "Dubai VARA", "EU MiCA"],
+      authority: "Financial Services Agency (FSA Japan)"
+    },
+    kr: {
+      regime: "VASP Registration (Special Financial Transactions Act)",
+      risk: "high",
+      licenses: ["VASP registration (FIU)", "ISMS-P certification mandatory", "Real-name bank partnership"],
+      obligations: ["KYC with real-name bank accounts", "AML (AMLCFT Act)", "ISMS-P information security certification", "Travel Rule (>₩1M)", "Annual reporting to FIU"],
+      time: "12–18 months",
+      cost: "₩100M–₩500M ($75K–$375K)",
+      alts: ["Japan FSA", "Singapore MAS", "EU MiCA"],
+      authority: "Financial Intelligence Unit (FIU) / Financial Services Commission (FSC)"
+    },
+    in: {
+      regime: "VDA Taxation + FIU Registration (PMLA)",
+      risk: "high",
+      licenses: ["FIU-IND registration (mandatory since March 2025)", "No formal licensing framework yet"],
+      obligations: ["30% flat tax on VDA income", "1% TDS on all transfers >₹10K", "KYC/AML under PMLA", "FIU reporting", "No loss offset allowed"],
+      time: "3–6 months (FIU registration)",
+      cost: "₹10L–₹50L ($12K–$60K)",
+      alts: ["Dubai VARA", "Singapore MAS", "EU MiCA"],
+      authority: "FIU-IND / SEBI (proposed) / RBI"
+    },
+    br: {
+      regime: "BCB — Virtual Asset Service Provider (Marco Legal das Criptomoedas)",
+      risk: "med",
+      licenses: ["BCB VASP authorization (Law 14.478/2022)", "CVM registration if securities"],
+      obligations: ["KYC/AML", "Asset segregation", "Governance requirements", "BCB reporting", "Consumer protection (CDC)"],
+      time: "6–12 months",
+      cost: "R$200K–R$1M ($40K–$200K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "Banco Central do Brasil (BCB) / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -174,6 +214,47 @@ export const REGULATIONS: RegData = {
       cost: "CHF 30K\u2013100K",
       alts: ["Switzerland FINMA", "EU MiCA via EEA"],
       authority: "FMA Liechtenstein"
+    },
+    jp: {
+      regime: "FSA — Electronic Payment Instrument (stablecoin law 2023)",
+      risk: "high",
+      licenses: ["Banking licence or trust company licence", "Fund transfer service provider"],
+      obligations: ["1:1 reserve in bank deposits or trust", "Redemption at par on demand", "KYC/AML", "FSA reporting"],
+      time: "12–24 months",
+      cost: "¥20M–¥100M ($140K–$700K)",
+      alts: ["Singapore MAS (SCS)", "EU MiCA"],
+      authority: "FSA Japan",
+      xrplNote: "Japan's 2023 stablecoin law is one of the first comprehensive frameworks. RLUSD could qualify under this regime for Japanese market."
+    },
+    kr: {
+      regime: "FSC — Stablecoin regulation (proposed 2025)",
+      risk: "high",
+      licenses: ["Expected: FSC authorization + bank partnership", "VASP registration (existing)"],
+      obligations: ["1:1 reserve (expected)", "Real-name bank account", "KYC/AML", "ISMS-P certification"],
+      time: "12–18 months (once framework enacted)",
+      cost: "₩200M–₩1B ($150K–$750K)",
+      alts: ["Japan FSA (established framework)", "Singapore MAS (SCS)"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "RBI — No stablecoin framework (effectively banned for INR-pegged)",
+      risk: "high",
+      licenses: ["No licence available for INR-pegged stablecoins", "FIU registration for foreign stablecoins"],
+      obligations: ["30% VDA tax", "1% TDS", "RBI hostile stance on private stablecoins", "CBDC (e-Rupee) preferred by RBI"],
+      time: "N/A — regulatory clarity pending",
+      cost: "N/A",
+      alts: ["Dubai VARA", "Singapore MAS", "EU MiCA"],
+      authority: "RBI / SEBI (proposed)"
+    },
+    br: {
+      regime: "BCB — Real-pegged stablecoin regulation (emerging)",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if investment element"],
+      obligations: ["KYC/AML", "Reserve management", "BCB reporting", "Consumer protection"],
+      time: "6–12 months",
+      cost: "R$300K–R$1.5M ($60K–$300K)",
+      alts: ["EU MiCA", "Singapore MAS"],
+      authority: "BCB / CVM"
     },
   },
 
@@ -264,6 +345,47 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland FINMA", "EU MiCA via EEA"],
       authority: "FMA Liechtenstein"
     },
+    jp: {
+      regime: "FSA — Crypto-Asset Custody (CAESP framework)",
+      risk: "high",
+      licenses: ["CAESP registration (FSA)", "Trust company licence (for institutional)"],
+      obligations: ["Cold wallet segregation (>95%)", "User asset protection trust", "KYC/AML (JAFIC)", "FSA annual audit", "Insurance or reserves"],
+      time: "12–24 months",
+      cost: "¥15M–¥80M ($105K–$560K)",
+      alts: ["Singapore MAS", "EU MiCA", "Liechtenstein TVTG"],
+      authority: "FSA Japan",
+      xrplNote: "Japan FSA requires strict cold wallet segregation. XRPL SignerList multisig can provide on-chain proof of segregation. MPC/TSS solutions from Fireblocks widely used by Japanese exchanges."
+    },
+    kr: {
+      regime: "VASP Registration + ISMS-P (custody provisions)",
+      risk: "high",
+      licenses: ["VASP registration (FIU)", "ISMS-P certification"],
+      obligations: ["Real-name bank partnership", "Cold storage majority", "KYC/AML", "ISMS-P information security", "Insurance"],
+      time: "12–18 months",
+      cost: "₩150M–₩700M ($110K–$520K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FIU / FSC Korea"
+    },
+    in: {
+      regime: "FIU-IND Registration (no specific custody framework)",
+      risk: "med",
+      licenses: ["FIU-IND registration", "No specific custody licence yet"],
+      obligations: ["KYC/AML under PMLA", "FIU reporting", "30% VDA tax applies", "1% TDS on transfers"],
+      time: "3–6 months",
+      cost: "₹10L–₹30L ($12K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND"
+    },
+    br: {
+      regime: "BCB VASP — Custody provisions (Law 14.478)",
+      risk: "med",
+      licenses: ["BCB VASP authorization"],
+      obligations: ["Asset segregation", "KYC/AML", "Governance", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$200K–R$800K ($40K–$160K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -352,6 +474,47 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland FINMA", "EU MiCA via EEA"],
       authority: "FMA Liechtenstein"
     },
+    jp: {
+      regime: "FSA — CAESP or Financial Instruments (depending on function)",
+      risk: "high",
+      licenses: ["CAESP registration (if exchange function)", "Type I/II Financial Instruments Business (if derivatives/lending)"],
+      obligations: ["KYC/AML", "User asset protection", "FSA compliance", "Smart contract audit recommended"],
+      time: "12–24 months",
+      cost: "¥10M–¥50M ($70K–$350K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan",
+      xrplNote: "XRPL native DEX + AMM (XLS-30): FSA may consider front-end DApp as CAESP if it facilitates exchange. Protocol-level AMM has no operator — but front-end analysis required."
+    },
+    kr: {
+      regime: "VASP + potential FSC fintech sandbox",
+      risk: "high",
+      licenses: ["VASP registration", "ISMS-P certification", "FSC sandbox for innovative products"],
+      obligations: ["KYC with real-name accounts", "AML/AMLCFT", "ISMS-P security"],
+      time: "12–18 months",
+      cost: "₩100M–₩500M ($75K–$375K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FIU / FSC Korea"
+    },
+    in: {
+      regime: "No specific DeFi framework — VDA tax applies",
+      risk: "med",
+      licenses: ["FIU-IND registration", "No DeFi-specific licence"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML under PMLA if centralized elements"],
+      time: "3–6 months",
+      cost: "₹5L–₹20L ($6K–$24K)",
+      alts: ["Singapore", "Dubai VARA"],
+      authority: "FIU-IND / SEBI"
+    },
+    br: {
+      regime: "BCB VASP + CVM oversight (if securities element)",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities/derivatives"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$150K–R$600K ($30K–$120K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -438,6 +601,46 @@ export const REGULATIONS: RegData = {
       cost: "CHF 5K\u201325K",
       alts: ["Switzerland", "EU"],
       authority: "FMA Liechtenstein"
+    },
+    jp: {
+      regime: "Minimal regulation if no crypto-asset exchange function",
+      risk: "low",
+      licenses: ["No FSA licence for pure utility", "CAESP if token exchange involved"],
+      obligations: ["Consumer protection (Act on Specified Commercial Transactions)", "Data protection (APPI)"],
+      time: "1–3 months",
+      cost: "¥1M–¥5M ($7K–$35K)",
+      alts: ["Singapore", "EU"],
+      authority: "FSA (only if crypto-asset)"
+    },
+    kr: {
+      regime: "Unregulated if no VA service",
+      risk: "low",
+      licenses: ["No VASP registration needed if pure utility"],
+      obligations: ["PIPA (data protection)", "Consumer protection"],
+      time: "1–2 months",
+      cost: "₩10M–₩30M ($7K–$22K)",
+      alts: ["Japan", "Singapore"],
+      authority: "FSC (only if VA)"
+    },
+    in: {
+      regime: "No specific regulation for utility DApps",
+      risk: "low",
+      licenses: ["FIU registration if VDA involved"],
+      obligations: ["IT Act compliance", "Data protection (DPDP Act 2023)"],
+      time: "1–2 months",
+      cost: "₹2L–₹10L ($2.4K–$12K)",
+      alts: ["Singapore", "EU"],
+      authority: "MeitY / FIU-IND"
+    },
+    br: {
+      regime: "Minimal regulation for pure utility",
+      risk: "low",
+      licenses: ["BCB VASP only if VA service"],
+      obligations: ["Consumer protection (CDC)", "LGPD (data protection)"],
+      time: "1–3 months",
+      cost: "R$20K–R$100K ($4K–$20K)",
+      alts: ["EU", "Singapore"],
+      authority: "BCB (only if VA)"
     },
   },
 
@@ -526,6 +729,46 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland", "EU"],
       authority: "FMA"
     },
+    jp: {
+      regime: "FSA — NFTs generally unregulated unless fungible/financial",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "No specific NFT regulation — VASP if exchange",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "VDA tax on NFT transactions (30%)",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "No specific NFT framework — BCB/CVM if financial",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -612,6 +855,46 @@ export const REGULATIONS: RegData = {
       cost: "CHF 15K\u201380K",
       alts: ["Switzerland FINMA"],
       authority: "FMA"
+    },
+    jp: {
+      regime: "FSA case-by-case token classification",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "FSC token classification required",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "No framework — VDA taxation applies",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "BCB/CVM classification based on function",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
     },
   },
 
@@ -700,6 +983,46 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland DLT Act", "EU DLT Pilot"],
       authority: "FMA"
     },
+    jp: {
+      regime: "FSA — Security Token Offering (STO) regime",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "FSC — Tokenised securities (STO sandbox)",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "SEBI sandbox for tokenised securities (proposed)",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "CVM — Digital asset securities framework",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -786,6 +1109,46 @@ export const REGULATIONS: RegData = {
       cost: "CHF 15K\u201360K",
       alts: ["Switzerland", "UAE"],
       authority: "FMA"
+    },
+    jp: {
+      regime: "FSA + Consumer Affairs Agency (gacha/loot box rules)",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "Game Rating Committee + FSC (P2E restricted)",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "No specific GameFi rules — online gaming tax applies",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "No specific GameFi regulation",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
     },
   },
 
@@ -874,6 +1237,46 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland FINMA"],
       authority: "FMA"
     },
+    jp: {
+      regime: "FSA — Fund Transfer Service Provider",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "VASP + Electronic Financial Transactions Act",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "RBI — Payment aggregator framework",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "BCB — Payment institution licence (PIX ecosystem)",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -959,6 +1362,46 @@ export const REGULATIONS: RegData = {
       cost: "CHF 10K\u201330K",
       alts: ["Switzerland"],
       authority: "FMA"
+    },
+    jp: {
+      regime: "FSA — utility token generally outside CAESP",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "Not regulated if pure utility",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "VDA tax applies even for utility tokens",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "Minimal regulation for pure utility",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
     },
   },
 
@@ -1046,6 +1489,46 @@ export const REGULATIONS: RegData = {
       alts: ["Switzerland FINMA"],
       authority: "FMA"
     },
+    jp: {
+      regime: "FSA — Type I Financial Instruments (STO)",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "FSC — Capital Markets Act applies",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "SEBI — Securities law applies (proposed framework)",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "CVM — Securities token offering",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1131,6 +1614,46 @@ export const REGULATIONS: RegData = {
       cost: "CHF 20K\u2013100K",
       alts: ["Switzerland FINMA"],
       authority: "FMA"
+    },
+    jp: {
+      regime: "FSA — stricter classification applies",
+      risk: "med",
+      licenses: ["FSA registration or classification"],
+      obligations: ["KYC/AML", "FSA compliance", "Consumer protection"],
+      time: "6–18 months",
+      cost: "¥5M–¥30M ($35K–$210K)",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "FSA Japan"
+    },
+    kr: {
+      regime: "FSC — treated as security if any investment element",
+      risk: "med",
+      licenses: ["VASP registration or FSC authorization"],
+      obligations: ["KYC/AML", "ISMS-P", "Real-name bank account"],
+      time: "6–18 months",
+      cost: "₩50M–₩300M ($37K–$225K)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC / FIU Korea"
+    },
+    in: {
+      regime: "Dual SEBI/RBI analysis required",
+      risk: "med",
+      licenses: ["FIU-IND registration", "SEBI authorization if securities"],
+      obligations: ["30% VDA tax", "1% TDS", "KYC/AML PMLA"],
+      time: "3–12 months",
+      cost: "₹5L–₩30L ($6K–$36K)",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "FIU-IND / SEBI / RBI"
+    },
+    br: {
+      regime: "CVM/BCB — dual classification",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CVM if securities"],
+      obligations: ["KYC/AML", "Consumer protection", "BCB reporting"],
+      time: "6–12 months",
+      cost: "R$100K–R$500K ($20K–$100K)",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "BCB / CVM"
     },
   },
 };

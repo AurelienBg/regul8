@@ -1,6 +1,6 @@
 export type Risk = 'high' | 'med' | 'low'
 
-export type Jurisdiction = 'eu' | 'us' | 'uae' | 'sg' | 'uk' | 'hk' | 'ch' | 'li'
+export type Jurisdiction = 'eu' | 'us' | 'uae' | 'sg' | 'uk' | 'hk' | 'ch' | 'li' | 'jp' | 'kr' | 'in' | 'br'
 
 export type ActivityKey =
   | 'exchange'
@@ -69,6 +69,10 @@ export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string }>
   hk: { name: 'Hong Kong', flag: '🇭🇰' },
   ch: { name: 'Switzerland', flag: '🇨🇭' },
   li: { name: 'Liechtenstein', flag: '🇱🇮' },
+  jp: { name: 'Japan', flag: '🇯🇵' },
+  kr: { name: 'South Korea', flag: '🇰🇷' },
+  in: { name: 'India', flag: '🇮🇳' },
+  br: { name: 'Brazil', flag: '🇧🇷' },
 }
 
 export const ACTIVITIES: Record<ActivityKey, { xrpl: boolean }> = {
