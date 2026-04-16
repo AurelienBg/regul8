@@ -27,7 +27,7 @@ export default function Header() {
             <Image src="/logo.svg" alt="Regul8" width={160} height={38} className="h-9 w-auto" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -47,7 +47,7 @@ export default function Header() {
             <LanguageSwitcher />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label="Menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="md:hidden border-t border-[var(--border)] bg-[var(--card)] px-4 py-2">
+        <nav className="lg:hidden border-t border-[var(--border)] bg-[var(--card)] px-4 py-2">
           {links.map((link) => (
             <Link
               key={link.href}
