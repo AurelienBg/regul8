@@ -23,9 +23,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-[var(--card)]/80 backdrop-blur-md border-b border-[var(--border)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.svg" alt="Regul8" width={40} height={40} />
-            <span className="font-bold text-xl">Regul8</span>
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.svg" alt="Regul8" width={160} height={38} className="h-9 w-auto" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">

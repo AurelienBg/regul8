@@ -18,7 +18,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="py-20 sm:py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <Image src="/logo.svg" alt="Regul8" width={400} height={94} className="mx-auto mb-8" priority />
+          <Image src="/logo.svg" alt="Regul8" width={680} height={160} className="mx-auto mb-10 w-full max-w-[720px] h-auto" priority />
           <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-gray-600 dark:text-gray-300">
             {t('hero')}
           </h1>
