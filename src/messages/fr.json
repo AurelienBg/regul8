@@ -1,0 +1,159 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "wizard": "Vérification",
+    "search": "Recherche IA",
+    "glossary": "Glossaire",
+    "compare": "Comparer",
+    "xrpl": "Hub XRPL"
+  },
+  "landing": {
+    "hero": "Naviguez la régulation crypto. Partout.",
+    "subtitle": "Comprenez quelles réglementations, licences et obligations de conformité s'appliquent à votre startup — dans le monde entier.",
+    "ctaWizard": "Vérifier ma conformité",
+    "ctaSearch": "Poser une question",
+    "features": {
+      "wizard": "Wizard Guidé",
+      "wizardDesc": "Répondez à 4 questions simples. Obtenez une feuille de route complète pour votre activité et juridiction.",
+      "search": "Recherche IA",
+      "searchDesc": "Posez n'importe quelle question de conformité en langage courant. Réponses instantanées et contextuelles par Claude.",
+      "compare": "Comparateur de Juridictions",
+      "compareDesc": "Comparez les réglementations entre juridictions côte à côte. Trouvez la meilleure configuration pour votre startup."
+    },
+    "xrplSection": "Couverture XRPL Complète",
+    "xrplDesc": "Support natif pour XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow et 10 implémentations custody.",
+    "jurisdictions": "8 Juridictions Couvertes",
+    "activities": "Tous Types d'Activité"
+  },
+  "wizard": {
+    "title": "Vérification de Conformité",
+    "step": "Étape {current} sur {total}",
+    "next": "Suivant",
+    "back": "Retour",
+    "generate": "Générer le Rapport",
+    "step1": {
+      "title": "Que fait votre projet ?",
+      "subtitle": "Sélectionnez l'activité qui décrit le mieux votre projet."
+    },
+    "step2": {
+      "title": "Précisez",
+      "subtitle": "Sélectionnez le sous-type applicable."
+    },
+    "step3": {
+      "title": "Où opérez-vous ?",
+      "subtitle": "Sélectionnez votre juridiction principale."
+    },
+    "step4": {
+      "title": "À propos de votre projet",
+      "subtitle": "Aidez-nous à personnaliser l'analyse."
+    },
+    "activities": {
+      "exchange": "Exchange / Plateforme de Trading",
+      "dapp_fin": "DApp — Financière (DEX, AMM, Lending)",
+      "dapp_util": "DApp — Utilitaire (Social, Identité, DAO)",
+      "nft": "NFT Minting / Marketplace",
+      "mpt": "MPT / Multi-Purpose Token",
+      "rwa": "RWA — Tokenisation d'Actifs Réels",
+      "stablecoin": "Stablecoin / Token de Paiement Digital",
+      "gaming": "Gaming / GameFi / NFT Gaming",
+      "custody": "Custody Crypto / Wallet",
+      "payment": "Paiement Crypto / Remittance",
+      "token_utility": "Émission de Token — Utility",
+      "token_security": "Émission de Token — Security",
+      "token_hybrid": "Émission de Token — Hybride"
+    },
+    "stages": {
+      "idea": "Idée / Recherche",
+      "mvp": "MVP / Prototype",
+      "growth": "Croissance / Produit live",
+      "scale": "Scale / Expansion"
+    },
+    "models": {
+      "b2c": "B2C (consommateurs)",
+      "b2b": "B2B (entreprises)",
+      "both": "B2C & B2B"
+    },
+    "chainPlaceholder": "Chain (optionnel, ex: XRPL, Ethereum, Polygon...)"
+  },
+  "report": {
+    "title": "Rapport de Conformité",
+    "regime": "Régime Applicable",
+    "risk": "Niveau de Risque",
+    "licenses": "Licences Requises",
+    "obligations": "Obligations Clés",
+    "timeline": "Délai Estimé",
+    "cost": "Coût Estimé",
+    "alternatives": "Juridictions Alternatives",
+    "xrplNote": "Note Spécifique XRPL",
+    "custodyNote": "Note Custody",
+    "narrative": "Feuille de Route Conformité",
+    "checklist": "Actions Immédiates",
+    "newCheck": "Nouvelle Vérification",
+    "share": "Partager le Rapport",
+    "riskHigh": "Élevé",
+    "riskMed": "Moyen",
+    "riskLow": "Faible",
+    "generating": "Génération de votre rapport de conformité..."
+  },
+  "search": {
+    "title": "Recherche IA Conformité",
+    "placeholder": "Posez votre question de conformité...",
+    "submit": "Demander",
+    "examples": {
+      "1": "Ai-je besoin d'un agrément CASP pour mon front-end DEX XRPL en France ?",
+      "2": "Quelle est la différence entre EMT et ART sous MiCA ?",
+      "3": "Comment fonctionne la custody MPT sur XRPL ?",
+      "4": "Qu'est-ce que le TVTG du Liechtenstein ?"
+    },
+    "thinking": "Réflexion en cours..."
+  },
+  "glossary": {
+    "title": "Glossaire Réglementaire",
+    "searchPlaceholder": "Rechercher un terme...",
+    "categories": {
+      "all": "Tous",
+      "eu": "UE",
+      "us": "USA",
+      "intl": "International",
+      "general": "Général",
+      "xrpl": "XRPL"
+    },
+    "relatedTerms": "Associés",
+    "xrplSpecific": "XRPL"
+  },
+  "compare": {
+    "title": "Comparateur de Juridictions",
+    "selectActivity": "Sélectionnez une activité",
+    "selectJurisdictions": "Sélectionnez 2 à 3 juridictions à comparer",
+    "regime": "Régime",
+    "risk": "Risque",
+    "licenses": "Licences",
+    "obligations": "Obligations",
+    "timeline": "Délai",
+    "cost": "Coût",
+    "compare": "Comparer"
+  },
+  "xrpl": {
+    "title": "Hub Réglementaire XRPL",
+    "subtitle": "Tout ce que vous devez savoir sur la conformité XRPL — statut légal du XRP, fonctionnalités natives et implémentations custody.",
+    "xrpStatus": "Statut Légal XRP par Juridiction",
+    "evmSidechain": "XRPL EVM Sidechain",
+    "nativeFeatures": "Fonctionnalités Natives XRPL",
+    "custodyMatrix": "Matrice d'Implémentation Custody",
+    "custodial": "Custodial",
+    "nonCustodial": "Non-Custodial",
+    "greyZone": "Zone Grise",
+    "mechanism": "Mécanisme",
+    "euLicence": "Licence EU Requise",
+    "technicalDetails": "Détails Techniques",
+    "useCase": "Cas d'Usage",
+    "xrplObjects": "Objets XRPL",
+    "startWizard": "Lancer la Vérification XRPL"
+  },
+  "common": {
+    "disclaimer": "Regul8 fournit des informations générales à des fins éducatives uniquement. Ce n'est pas un conseil juridique. Les informations peuvent ne pas être à jour. Consultez toujours un avocat qualifié spécialisé en droit des actifs numériques pour des conseils adaptés à votre situation spécifique.",
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "learnMore": "En savoir plus"
+  }
+}

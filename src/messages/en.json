@@ -1,0 +1,159 @@
+{
+  "nav": {
+    "home": "Home",
+    "wizard": "Compliance Check",
+    "search": "AI Search",
+    "glossary": "Glossary",
+    "compare": "Compare",
+    "xrpl": "XRPL Hub"
+  },
+  "landing": {
+    "hero": "Navigate crypto regulation. Anywhere.",
+    "subtitle": "Understand which regulations, licences, and compliance obligations apply to your startup — globally.",
+    "ctaWizard": "Start compliance check",
+    "ctaSearch": "Ask a question",
+    "features": {
+      "wizard": "Guided Wizard",
+      "wizardDesc": "Answer 4 simple questions. Get a full compliance roadmap for your activity and jurisdiction.",
+      "search": "AI-Powered Search",
+      "searchDesc": "Ask any compliance question in plain language. Get instant, contextual answers powered by Claude.",
+      "compare": "Jurisdiction Comparator",
+      "compareDesc": "Compare regulations across jurisdictions side by side. Find the best setup for your startup."
+    },
+    "xrplSection": "Deep XRPL Coverage",
+    "xrplDesc": "Native support for XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow, and 10 custody implementations.",
+    "jurisdictions": "8 Jurisdictions Covered",
+    "activities": "All Activity Types"
+  },
+  "wizard": {
+    "title": "Compliance Check",
+    "step": "Step {current} of {total}",
+    "next": "Next",
+    "back": "Back",
+    "generate": "Generate Report",
+    "step1": {
+      "title": "What does your project do?",
+      "subtitle": "Select the activity that best describes your project."
+    },
+    "step2": {
+      "title": "Tell us more",
+      "subtitle": "Select the sub-type that applies."
+    },
+    "step3": {
+      "title": "Where are you operating?",
+      "subtitle": "Select your primary jurisdiction."
+    },
+    "step4": {
+      "title": "About your project",
+      "subtitle": "Help us tailor the analysis."
+    },
+    "activities": {
+      "exchange": "Exchange / Trading Platform",
+      "dapp_fin": "DApp — Financial (DEX, AMM, Lending)",
+      "dapp_util": "DApp — Utility (Social, Identity, DAO)",
+      "nft": "NFT Minting / Marketplace",
+      "mpt": "MPT / Multi-Purpose Token",
+      "rwa": "RWA — Real-World Asset Tokenisation",
+      "stablecoin": "Stablecoin / Digital Payment Token",
+      "gaming": "Gaming / GameFi / NFT Gaming",
+      "custody": "Crypto Custody / Wallet",
+      "payment": "Crypto Payment / Remittance",
+      "token_utility": "Token Issuance — Utility",
+      "token_security": "Token Issuance — Security",
+      "token_hybrid": "Token Issuance — Hybrid"
+    },
+    "stages": {
+      "idea": "Idea / Research",
+      "mvp": "MVP / Prototype",
+      "growth": "Growth / Live product",
+      "scale": "Scale / Expansion"
+    },
+    "models": {
+      "b2c": "B2C (consumers)",
+      "b2b": "B2B (businesses)",
+      "both": "Both B2C & B2B"
+    },
+    "chainPlaceholder": "Chain (optional, e.g. XRPL, Ethereum, Polygon...)"
+  },
+  "report": {
+    "title": "Compliance Report",
+    "regime": "Applicable Regime",
+    "risk": "Risk Level",
+    "licenses": "Licences Required",
+    "obligations": "Key Obligations",
+    "timeline": "Estimated Timeline",
+    "cost": "Estimated Cost",
+    "alternatives": "Alternative Jurisdictions",
+    "xrplNote": "XRPL-Specific Note",
+    "custodyNote": "Custody Note",
+    "narrative": "Compliance Roadmap",
+    "checklist": "Immediate Actions",
+    "newCheck": "New Compliance Check",
+    "share": "Share Report",
+    "riskHigh": "High",
+    "riskMed": "Medium",
+    "riskLow": "Low",
+    "generating": "Generating your compliance report..."
+  },
+  "search": {
+    "title": "AI Compliance Search",
+    "placeholder": "Ask any compliance question...",
+    "submit": "Ask",
+    "examples": {
+      "1": "Do I need a CASP licence for my XRPL DEX front-end in France?",
+      "2": "What's the difference between EMT and ART under MiCA?",
+      "3": "How does MPT custody work on XRPL?",
+      "4": "What is the Liechtenstein TVTG framework?"
+    },
+    "thinking": "Thinking..."
+  },
+  "glossary": {
+    "title": "Regulatory Glossary",
+    "searchPlaceholder": "Search terms...",
+    "categories": {
+      "all": "All",
+      "eu": "EU",
+      "us": "USA",
+      "intl": "International",
+      "general": "General",
+      "xrpl": "XRPL"
+    },
+    "relatedTerms": "Related",
+    "xrplSpecific": "XRPL"
+  },
+  "compare": {
+    "title": "Jurisdiction Comparator",
+    "selectActivity": "Select an activity",
+    "selectJurisdictions": "Select 2–3 jurisdictions to compare",
+    "regime": "Regime",
+    "risk": "Risk",
+    "licenses": "Licences",
+    "obligations": "Obligations",
+    "timeline": "Timeline",
+    "cost": "Cost",
+    "compare": "Compare"
+  },
+  "xrpl": {
+    "title": "XRPL Regulatory Hub",
+    "subtitle": "Everything you need to know about XRPL compliance — XRP legal status, native features, and custody implementations.",
+    "xrpStatus": "XRP Legal Status by Jurisdiction",
+    "evmSidechain": "XRPL EVM Sidechain",
+    "nativeFeatures": "Native XRPL Features",
+    "custodyMatrix": "Custody Implementation Matrix",
+    "custodial": "Custodial",
+    "nonCustodial": "Non-Custodial",
+    "greyZone": "Grey Zone",
+    "mechanism": "Mechanism",
+    "euLicence": "EU Licence Requirement",
+    "technicalDetails": "Technical Details",
+    "useCase": "Use Case",
+    "xrplObjects": "XRPL Objects",
+    "startWizard": "Start XRPL Compliance Check"
+  },
+  "common": {
+    "disclaimer": "Regul8 provides general information for educational purposes only. This is not legal advice. Information may not be up to date. Always consult a qualified lawyer specializing in digital asset law for advice specific to your situation.",
+    "loading": "Loading...",
+    "error": "An error occurred. Please try again.",
+    "learnMore": "Learn more"
+  }
+}

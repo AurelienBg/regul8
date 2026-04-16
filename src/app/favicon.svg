@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Octet grid favicon — 8-dot pattern representing "8" in Regul8 -->
+  <!-- Top cluster (3 dots) -->
+  <circle cx="10" cy="6" r="4" fill="#3B82F6"/>
+  <circle cx="22" cy="6" r="4" fill="#3B82F6"/>
+  <circle cx="16" cy="6" r="4" fill="#7C3AED"/>
+  <!-- Middle row (2 dots) -->
+  <circle cx="10" cy="16" r="4" fill="#3B82F6"/>
+  <circle cx="22" cy="16" r="4" fill="#3B82F6"/>
+  <!-- Bottom cluster (3 dots forming the 8) -->
+  <circle cx="10" cy="26" r="4" fill="#0F172A"/>
+  <circle cx="16" cy="26" r="4" fill="#3B82F6"/>
+  <circle cx="22" cy="26" r="4" fill="#0F172A"/>
+</svg>

@@ -1,0 +1,1136 @@
+import type { RegData } from '@/types';
+
+export const REGULATIONS: RegData = {
+  // ═══════════════════════════════════════════════════════════════
+  // EXCHANGE / TRADING PLATFORM
+  // ═══════════════════════════════════════════════════════════════
+  exchange: {
+    eu: {
+      regime: "CASP (MiCA) + DASP (AMF France)",
+      risk: "high",
+      licenses: ["CASP authorization (ESMA/NCA)", "DASP AMF registration (France)"],
+      obligations: ["Full KYC/KYB", "AML/CFT program", "MiCA whitepaper", "Capital min. \u20AC125K", "FATF Travel Rule >\u20AC1K", "Market abuse rules", "Governance & fit-and-proper", "Environmental impact disclosure"],
+      time: "12\u201318 months",
+      cost: "\u20AC50K\u2013\u20AC200K",
+      alts: ["Singapore MAS (~6 months)", "Dubai VARA (~9 months)", "Liechtenstein TVTG (3\u20139 months)", "Lithuania/Estonia as EU hub"],
+      authority: "AMF (France) / ESMA (EU)",
+      xrplNote: "XRPL has a native DEX (order book built into the protocol). A front-end DApp accessing it for EU users may still need CASP if it routes orders or controls funds."
+    },
+    us: {
+      regime: "FinCEN MSB + State MTL + BitLicense (NY)",
+      risk: "high",
+      licenses: ["FinCEN MSB registration", "Money Transmitter Licence (per state, ~48 states)", "BitLicense (NY only)"],
+      obligations: ["KYC/AML/BSA compliance", "SAR filings", "OFAC sanctions screening", "Travel Rule >$3K", "State-by-state bonding requirements"],
+      time: "18\u201336 months",
+      cost: "$200K\u2013$1M+",
+      alts: ["Wyoming LLC (crypto-friendly)", "EU MiCA as primary market", "Liechtenstein TVTG"],
+      authority: "FinCEN / NYDFS / state regulators",
+      xrplNote: "XRPL DEX front-end: SEC may treat as unregistered exchange. XRP itself classified as utility in secondary market sales (SEC v. Ripple, July 2023) \u2014 but other XRPL tokens may be securities."
+    },
+    uae: {
+      regime: "VARA \u2014 VASP Full Market Product",
+      risk: "med",
+      licenses: ["VASP licence (VARA)", "VARA tech audit"],
+      obligations: ["KYC/AML", "Capital requirements", "Local director", "Asset segregation", "Cyber-security framework"],
+      time: "6\u201312 months",
+      cost: "$50K\u2013$150K",
+      alts: ["ADGM FSRA (Abu Dhabi)", "Singapore MAS", "EU MiCA passport"],
+      authority: "VARA Dubai / FSRA ADGM"
+    },
+    sg: {
+      regime: "MAS \u2014 Major Payment Institution (PSA)",
+      risk: "med",
+      licenses: ["MPI licence", "or SPI (lower thresholds)"],
+      obligations: ["KYC/AML MAS guidelines", "Tech Risk Management", "Annual audits", "Travel Rule", "User protection measures"],
+      time: "6\u201312 months",
+      cost: "SGD 50K\u2013150K",
+      alts: ["Dubai VARA", "Hong Kong SFC VASP", "EU MiCA"],
+      authority: "Monetary Authority of Singapore (MAS)"
+    },
+    uk: {
+      regime: "FCA Cryptoasset Registration",
+      risk: "med",
+      licenses: ["FCA crypto business registration", "EMI licence if fiat involved"],
+      obligations: ["AML/KYC", "FATF Travel Rule", "Consumer Duty (retail)", "Financial promotions regime"],
+      time: "12\u201318 months",
+      cost: "\u00A330K\u2013\u00A3100K",
+      alts: ["EU MiCA passporting", "Gibraltar DLT Provider Licence"],
+      authority: "Financial Conduct Authority (FCA)"
+    },
+    hk: {
+      regime: "SFC VASP Licence (VATP)",
+      risk: "high",
+      licenses: ["SFC VASP licence", "Type 1 if securities involved"],
+      obligations: ["KYC/AML AMLO", "Asset segregation", "Cold storage >98%", "Retail investor safeguards", "Insurance requirements"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20132M",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "Securities & Futures Commission (SFC)"
+    },
+    ch: {
+      regime: "FINMA VQF/SRO + DLT Trading Facility",
+      risk: "med",
+      licenses: ["VQF or SRO membership (AML)", "DLT Trading Facility licence if exchange"],
+      obligations: ["AML Swiss AMLA", "KYC/KYB", "Travel Rule", "Beneficial ownership"],
+      time: "6\u201318 months",
+      cost: "CHF 50K\u2013500K",
+      alts: ["Liechtenstein TVTG", "EU MiCA"],
+      authority: "FINMA Switzerland"
+    },
+    li: {
+      regime: "TVTG \u2014 Token Exchange (TE) SP licence",
+      risk: "low",
+      licenses: ["SP Token Exchange licence (FMA)", "EEA passporting available"],
+      obligations: ["AML TVTG", "Fit & proper management", "Annual FMA report", "Client asset segregation"],
+      time: "3\u20139 months",
+      cost: "CHF 20K\u201380K",
+      alts: ["Switzerland FINMA", "EU MiCA via EEA"],
+      authority: "FMA Liechtenstein"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // STABLECOIN / DIGITAL PAYMENT TOKEN
+  // ═══════════════════════════════════════════════════════════════
+  stablecoin: {
+    eu: {
+      regime: "MiCA EMT (E-Money Token) or ART (Asset-Referenced Token)",
+      risk: "high",
+      licenses: ["EMI or credit institution licence (EMT)", "NCA authorization (ART)", "CASP if distributing"],
+      obligations: ["1:1 reserve requirement (EMT)", "Whitepaper filed with NCA", "Reserve asset management", "Redemption rights at par (EMT)", "S-EMT/S-ART rules if significant (>\u20AC5B or >10M holders)", "Quarterly reporting", "Capital requirements"],
+      time: "12\u201324 months",
+      cost: "\u20AC100K\u2013\u20AC500K+",
+      alts: ["Liechtenstein TVTG (faster)", "Singapore MAS (PSA)", "Switzerland FINMA"],
+      authority: "ECB + NCA (for S-EMT) / ESMA + NCA (for S-ART)",
+      xrplNote: "RLUSD is Ripple\u2019s USD-backed stablecoin on XRPL + Ethereum. Reference EMT implementation. Uses IOU/trust line model on XRPL. Issuer must be EMI or credit institution under MiCA.",
+      custodyNote: "Stablecoin on XRPL uses IOU/Trust Line model. Gateway holds reserve assets \u2014 custodial by definition. freeze and globalFreeze flags provide compliance controls."
+    },
+    us: {
+      regime: "State-level regulation + proposed federal stablecoin bill",
+      risk: "high",
+      licenses: ["State MTL in most states", "NY BitLicense or trust charter", "Federal stablecoin charter (pending legislation)"],
+      obligations: ["1:1 reserve backing", "Monthly reserve attestations", "State-by-state compliance", "OFAC screening", "BSA/AML program"],
+      time: "18\u201336 months",
+      cost: "$500K\u2013$2M+",
+      alts: ["EU MiCA (clearer framework)", "Switzerland FINMA"],
+      authority: "State regulators / OCC (proposed) / FinCEN"
+    },
+    uae: {
+      regime: "VARA Payment Token + CBUAE oversight",
+      risk: "med",
+      licenses: ["VARA payment token licence", "CBUAE approval if AED-pegged"],
+      obligations: ["Reserve management", "KYC/AML", "Audit requirements", "Capital requirements"],
+      time: "6\u201312 months",
+      cost: "$100K\u2013$300K",
+      alts: ["Singapore MAS", "EU MiCA", "Liechtenstein TVTG"],
+      authority: "VARA / CBUAE"
+    },
+    sg: {
+      regime: "MAS \u2014 Single-Currency Stablecoin (SCS) Framework",
+      risk: "med",
+      licenses: ["MPI licence (PSA)", "SCS-specific requirements"],
+      obligations: ["Reserve \u2265100% in cash/equivalents", "Timely redemption", "Disclosure requirements", "MAS Technology Risk Management"],
+      time: "6\u201312 months",
+      cost: "SGD 100K\u2013300K",
+      alts: ["EU MiCA", "Dubai VARA"],
+      authority: "Monetary Authority of Singapore (MAS)"
+    },
+    uk: {
+      regime: "FCA \u2014 Fiat-backed stablecoin regime (upcoming)",
+      risk: "med",
+      licenses: ["FCA authorisation (proposed)", "EMI licence (current)"],
+      obligations: ["Reserve backing requirements", "Redemption at par", "Consumer protection", "AML/KYC"],
+      time: "12\u201318 months",
+      cost: "\u00A350K\u2013\u00A3200K",
+      alts: ["EU MiCA (established framework)", "Singapore MAS"],
+      authority: "FCA / Bank of England (systemic stablecoins)"
+    },
+    hk: {
+      regime: "HKMA Stablecoin Licensing Regime",
+      risk: "med",
+      licenses: ["HKMA stablecoin issuer licence (from 2024/2025)"],
+      obligations: ["Full reserve backing", "Redemption at par within 1 business day", "Governance requirements", "AML/KYC"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20131.5M",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "Hong Kong Monetary Authority (HKMA)"
+    },
+    ch: {
+      regime: "FINMA \u2014 Deposit-taking or collective investment scheme",
+      risk: "med",
+      licenses: ["Banking licence or FinTech licence", "VQF/SRO membership (AML)"],
+      obligations: ["Deposit guarantee scheme (if banking licence)", "AML AMLA", "Reserve management", "FINMA reporting"],
+      time: "6\u201318 months",
+      cost: "CHF 100K\u2013500K",
+      alts: ["Liechtenstein TVTG", "EU MiCA"],
+      authority: "FINMA Switzerland"
+    },
+    li: {
+      regime: "TVTG \u2014 Token Emitter SP + EEA passporting",
+      risk: "low",
+      licenses: ["SP Token Emitter licence (FMA)", "EMI equivalent if fiat-pegged"],
+      obligations: ["AML TVTG", "Reserve management", "FMA annual report", "Fit & proper"],
+      time: "3\u20139 months",
+      cost: "CHF 30K\u2013100K",
+      alts: ["Switzerland FINMA", "EU MiCA via EEA"],
+      authority: "FMA Liechtenstein"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // CRYPTO CUSTODY / WALLET
+  // ═══════════════════════════════════════════════════════════════
+  custody: {
+    eu: {
+      regime: "CASP Art. 75 MiCA \u2014 Custody & Administration",
+      risk: "high",
+      licenses: ["CASP custody authorization (NCA)", "Capital min. \u20AC150K (custody)"],
+      obligations: ["Asset segregation (on-chain + off-chain)", "Liability for loss of assets", "Governance & cybersecurity", "Record-keeping 5 years", "Insurance or own funds coverage", "KYC/AML", "FATF Travel Rule"],
+      time: "12\u201318 months",
+      cost: "\u20AC100K\u2013\u20AC350K",
+      alts: ["Liechtenstein TVTG Token Custodian (3\u20139 months)", "Switzerland FINMA", "Singapore MAS"],
+      authority: "NCA / ESMA",
+      xrplNote: "XRPL offers 10 custody implementation methods with different regulatory classifications. SingleKey (custodial), SignerList multisig (grey zone depending on quorum), MPC/TSS (grey zone), Escrow/PayChannels/Checks (non-custodial). See custody implementations for details.",
+      custodyNote: "Under MiCA Art. 75, custodians are liable for loss of crypto-assets unless they prove the loss arose from events beyond reasonable control. This applies to any service holding private keys on behalf of clients."
+    },
+    us: {
+      regime: "State trust charter or qualified custodian (SEC)",
+      risk: "high",
+      licenses: ["State trust charter (e.g. NY, Wyoming, South Dakota)", "FinCEN MSB registration", "SEC qualified custodian status (if institutional)"],
+      obligations: ["BSA/AML compliance", "SAR filings", "OFAC screening", "SOC 2 Type II audit", "Cold storage requirements", "Insurance"],
+      time: "12\u201324 months",
+      cost: "$300K\u2013$1M+",
+      alts: ["Wyoming SPDI charter (faster)", "EU MiCA CASP", "Liechtenstein TVTG"],
+      authority: "State regulators / SEC / FinCEN",
+      xrplNote: "XRPL custody: SEC qualified custodian rules apply. MPC/TSS solutions (Fireblocks, Silence Labs) popular for institutional XRPL custody. SignerList multisig provides native on-chain alternative."
+    },
+    uae: {
+      regime: "VARA \u2014 VA Custody Services",
+      risk: "med",
+      licenses: ["VARA VA custody licence"],
+      obligations: ["Asset segregation", "Cold storage majority", "KYC/AML", "Insurance requirements", "Tech audit"],
+      time: "6\u201312 months",
+      cost: "$75K\u2013$200K",
+      alts: ["ADGM FSRA", "Singapore MAS", "Liechtenstein TVTG"],
+      authority: "VARA Dubai / FSRA ADGM"
+    },
+    sg: {
+      regime: "MAS \u2014 Digital Payment Token custody (PSA)",
+      risk: "med",
+      licenses: ["MPI or SPI licence (PSA)", "Custodial services authorization"],
+      obligations: ["Safeguarding of customer assets", "Tech Risk Management", "AML/KYC", "Segregation of assets", "Annual audit"],
+      time: "6\u201312 months",
+      cost: "SGD 75K\u2013200K",
+      alts: ["Hong Kong SFC", "EU MiCA", "Liechtenstein TVTG"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 Cryptoasset custody (CASS-like rules upcoming)",
+      risk: "med",
+      licenses: ["FCA cryptoasset registration", "CASS custody rules (proposed)"],
+      obligations: ["AML/KYC", "Asset segregation", "Consumer Duty", "Adequate insurance", "Operational resilience"],
+      time: "12\u201318 months",
+      cost: "\u00A350K\u2013\u00A3150K",
+      alts: ["EU MiCA", "Liechtenstein TVTG", "Switzerland FINMA"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC VATP \u2014 custody requirements",
+      risk: "high",
+      licenses: ["SFC VASP licence (includes custody)", "Type 1 licensed corporation"],
+      obligations: ["Cold storage >98%", "Insurance >\u00BD of assets", "Asset segregation", "KYC/AML AMLO", "Annual audit"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20132M",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 DLT Act custody provisions",
+      risk: "med",
+      licenses: ["VQF/SRO membership (AML)", "DLT Trading Facility or FinTech licence"],
+      obligations: ["Segregation of client crypto-assets in bankruptcy", "AML AMLA", "KYC/KYB", "Reporting"],
+      time: "6\u201318 months",
+      cost: "CHF 50K\u2013300K",
+      alts: ["Liechtenstein TVTG", "EU MiCA"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Token Custodian SP licence",
+      risk: "low",
+      licenses: ["SP Token Custodian licence (FMA)", "EEA passporting available"],
+      obligations: ["AML TVTG", "Fit & proper", "Asset segregation", "FMA annual reporting"],
+      time: "3\u20139 months",
+      cost: "CHF 15K\u201380K",
+      alts: ["Switzerland FINMA", "EU MiCA via EEA"],
+      authority: "FMA Liechtenstein"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // DAPP \u2014 FINANCIAL (DEX, AMM, Lending)
+  // ═══════════════════════════════════════════════════════════════
+  dapp_fin: {
+    eu: {
+      regime: "MiCA CASP (if operator identifiable) or DeFi exclusion",
+      risk: "high",
+      licenses: ["CASP authorization if identifiable operator", "DLT Pilot Regime (for security tokens)"],
+      obligations: ["If CASP: full KYC/AML, capital, whitepaper", "If truly decentralized: MiCA exclusion (no identifiable operator)", "Front-end operator analysis required", "Market abuse rules if listed tokens"],
+      time: "12\u201318 months (if CASP needed)",
+      cost: "\u20AC50K\u2013\u20AC200K",
+      alts: ["Liechtenstein TVTG", "Switzerland (flexible DeFi stance)", "Singapore MAS"],
+      authority: "AMF (France) / ESMA",
+      xrplNote: "XRPL native DEX + AMM (XLS-30): protocol-level features with no single operator. However, a front-end DApp routing users to XRPL DEX/AMM may trigger CASP obligations if it controls order flow or fund routing. DFSA-style decentralization test applies."
+    },
+    us: {
+      regime: "SEC / CFTC jurisdiction + FinCEN MSB",
+      risk: "high",
+      licenses: ["FinCEN MSB (if touching funds)", "SEC broker-dealer (if securities)", "CFTC registration (if derivatives/swaps)"],
+      obligations: ["Howey Test analysis for each token", "BSA/AML", "OFAC screening", "Potential SEC enforcement risk"],
+      time: "18\u201336 months",
+      cost: "$200K\u2013$1M+",
+      alts: ["EU MiCA (clearer DeFi rules)", "Singapore (more pragmatic)"],
+      authority: "SEC / CFTC / FinCEN",
+      xrplNote: "XRPL AMM and DEX: SEC may view front-end interfaces as facilitating unregistered exchange. XRP itself not a security in secondary sales, but other XRPL tokens require individual Howey analysis."
+    },
+    uae: {
+      regime: "VARA \u2014 DeFi framework (evolving)",
+      risk: "med",
+      licenses: ["VARA VASP licence (if identifiable operator)"],
+      obligations: ["KYC/AML", "Smart contract audit", "Governance framework", "Capital requirements"],
+      time: "6\u201312 months",
+      cost: "$50K\u2013$150K",
+      alts: ["Singapore MAS", "Liechtenstein TVTG", "EU MiCA"],
+      authority: "VARA Dubai"
+    },
+    sg: {
+      regime: "MAS PSA \u2014 DPT service provider",
+      risk: "med",
+      licenses: ["MPI/SPI licence if facilitating exchange", "Exemption if fully decentralized"],
+      obligations: ["KYC/AML", "Tech Risk Management", "User protection"],
+      time: "6\u201312 months",
+      cost: "SGD 50K\u2013150K",
+      alts: ["Dubai VARA", "EU MiCA", "Liechtenstein TVTG"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 crypto business registration",
+      risk: "med",
+      licenses: ["FCA registration", "Possible MiFID II scope (if derivatives)"],
+      obligations: ["AML/KYC", "Consumer Duty", "Financial promotions"],
+      time: "12\u201318 months",
+      cost: "\u00A330K\u2013\u00A3100K",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 VATP licensing (if centralized elements)",
+      risk: "high",
+      licenses: ["SFC VASP licence", "Type 7 if automated trading"],
+      obligations: ["KYC/AML AMLO", "Smart contract audit", "Retail safeguards"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20131.5M",
+      alts: ["Singapore MAS", "Dubai VARA"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 case-by-case DeFi analysis",
+      risk: "med",
+      licenses: ["VQF/SRO (AML)", "FinTech or DLT licence if applicable"],
+      obligations: ["AML if financial intermediary", "KYC for on/off-ramps"],
+      time: "6\u201312 months",
+      cost: "CHF 30K\u2013200K",
+      alts: ["Liechtenstein TVTG", "EU MiCA"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 multiple SP types applicable",
+      risk: "low",
+      licenses: ["Relevant SP licence(s) from FMA"],
+      obligations: ["AML TVTG", "Fit & proper", "Smart contract documentation"],
+      time: "3\u20139 months",
+      cost: "CHF 15K\u201380K",
+      alts: ["Switzerland FINMA", "EU MiCA via EEA"],
+      authority: "FMA Liechtenstein"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // DAPP \u2014 UTILITY (Social, Identity, DAO)
+  // ═══════════════════════════════════════════════════════════════
+  dapp_util: {
+    eu: {
+      regime: "MiCA light regime (utility tokens) or outside scope",
+      risk: "low",
+      licenses: ["No CASP needed if purely utility", "Whitepaper notification to NCA if token >\u20AC1M"],
+      obligations: ["Whitepaper (simplified)", "No misleading marketing", "GDPR if handling personal data", "DAO: risk of requalification as company"],
+      time: "1\u20133 months",
+      cost: "\u20AC5K\u2013\u20AC30K",
+      alts: ["Liechtenstein TVTG (most comprehensive DAO framework)"],
+      authority: "NCA / ESMA",
+      xrplNote: "XRPL-based identity or social DApps using Trust Lines or NFTs (XLS-20) for credentials: utility token treatment likely under MiCA. No CASP needed if no financial service."
+    },
+    us: {
+      regime: "Minimal federal regulation (if no financial service)",
+      risk: "low",
+      licenses: ["No federal licence if pure utility", "State consumer protection laws apply"],
+      obligations: ["Howey Test analysis (ensure not a security)", "Privacy laws (state level, CCPA)", "DAO: legal wrapper recommended (Wyoming DAO LLC)"],
+      time: "1\u20133 months",
+      cost: "$5K\u2013$20K",
+      alts: ["Wyoming (DAO LLC available)"],
+      authority: "SEC (only if token is security) / FTC"
+    },
+    uae: {
+      regime: "Minimal regulation for pure utility DApps",
+      risk: "low",
+      licenses: ["VARA advisory may apply if tokens involved"],
+      obligations: ["Data protection (DIFC/ADGM)", "Consumer protection"],
+      time: "1\u20133 months",
+      cost: "$5K\u2013$20K",
+      alts: ["Singapore", "EU"],
+      authority: "VARA (advisory)"
+    },
+    sg: {
+      regime: "Not regulated if no DPT service",
+      risk: "low",
+      licenses: ["No MAS licence needed if pure utility"],
+      obligations: ["PDPA (data protection)", "Consumer protection"],
+      time: "1\u20132 months",
+      cost: "SGD 5K\u201320K",
+      alts: ["EU", "UAE"],
+      authority: "MAS (only if DPT)"
+    },
+    uk: {
+      regime: "Unregulated if no financial service",
+      risk: "low",
+      licenses: ["No FCA registration needed if pure utility"],
+      obligations: ["Consumer Rights Act", "UK GDPR", "Financial promotions ban (if marketing tokens)"],
+      time: "1\u20132 months",
+      cost: "\u00A35K\u2013\u00A315K",
+      alts: ["EU", "Singapore"],
+      authority: "FCA (only if financial element)"
+    },
+    hk: {
+      regime: "Unregulated if no VA service",
+      risk: "low",
+      licenses: ["No SFC licence needed if pure utility"],
+      obligations: ["PDPO (data protection)", "Consumer protection"],
+      time: "1\u20132 months",
+      cost: "HKD 20K\u201350K",
+      alts: ["Singapore", "EU"],
+      authority: "SFC (only if VA)"
+    },
+    ch: {
+      regime: "Utility tokens \u2014 FINMA no-action",
+      risk: "low",
+      licenses: ["No FINMA licence for pure utility tokens"],
+      obligations: ["AML only if financial intermediary", "Data protection"],
+      time: "1\u20132 months",
+      cost: "CHF 5K\u201320K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 light SP requirements",
+      risk: "low",
+      licenses: ["SP registration (simplified) or full licence depending on service"],
+      obligations: ["AML TVTG (light)", "Documentation requirements"],
+      time: "1\u20133 months",
+      cost: "CHF 5K\u201325K",
+      alts: ["Switzerland", "EU"],
+      authority: "FMA Liechtenstein"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NFT MINTING / MARKETPLACE
+  // ═══════════════════════════════════════════════════════════════
+  nft: {
+    eu: {
+      regime: "MiCA exclusion (unique NFTs) or ART (if fungible series)",
+      risk: "med",
+      licenses: ["No CASP for truly unique 1/1 NFTs", "CASP + ART rules if large fungible series", "Marketplace CASP if intermediating trades"],
+      obligations: ["Uniqueness assessment (MiCA Art. 4)", "AML if marketplace", "Consumer protection (distance selling)", "IP rights management"],
+      time: "3\u20136 months (marketplace) or 1 month (1/1 NFTs)",
+      cost: "\u20AC10K\u2013\u20AC100K",
+      alts: ["Liechtenstein TVTG", "Singapore (light touch)"],
+      authority: "NCA / ESMA",
+      xrplNote: "XRPL NFTs (XLS-20): native standard with broker mode. Broker mode enables non-custodial marketplace \u2014 atomic swap, broker never holds NFT. No CASP needed for broker mode. TransferFee enables on-chain royalties (0\u201350%)."
+    },
+    us: {
+      regime: "SEC analysis required (Howey Test per collection)",
+      risk: "med",
+      licenses: ["No specific NFT licence", "SEC registration if deemed security", "State consumer protection"],
+      obligations: ["Howey Test analysis per collection", "IP/copyright compliance", "State sales tax considerations", "AML if marketplace with volume"],
+      time: "1\u20136 months",
+      cost: "$10K\u2013$100K",
+      alts: ["EU (MiCA exclusion for unique NFTs)", "Singapore"],
+      authority: "SEC / FTC / state regulators"
+    },
+    uae: {
+      regime: "VARA \u2014 VA Advisory for NFTs",
+      risk: "low",
+      licenses: ["VARA advisory (NFT-specific guidance)", "Full VASP licence for marketplace"],
+      obligations: ["AML for marketplace", "Consumer protection"],
+      time: "3\u20136 months",
+      cost: "$20K\u2013$75K",
+      alts: ["Singapore", "EU MiCA exclusion"],
+      authority: "VARA"
+    },
+    sg: {
+      regime: "MAS \u2014 generally outside PSA scope",
+      risk: "low",
+      licenses: ["No MAS licence for unique NFTs", "PSA if NFT used as DPT"],
+      obligations: ["Consumer protection", "AML if marketplace"],
+      time: "1\u20133 months",
+      cost: "SGD 10K\u201350K",
+      alts: ["UAE", "EU"],
+      authority: "MAS (only if DPT)"
+    },
+    uk: {
+      regime: "FCA \u2014 unregulated (unique NFTs)",
+      risk: "low",
+      licenses: ["No FCA registration for unique NFTs", "Registration if fractionalized or fungible"],
+      obligations: ["Consumer Rights Act", "AML if marketplace", "Financial promotions (if investment)"],
+      time: "1\u20133 months",
+      cost: "\u00A35K\u2013\u00A330K",
+      alts: ["EU", "Singapore"],
+      authority: "FCA (limited)"
+    },
+    hk: {
+      regime: "SFC \u2014 case-by-case assessment",
+      risk: "low",
+      licenses: ["SFC licensing if fractionalized or securities-like"],
+      obligations: ["AML AMLO if marketplace", "Consumer protection"],
+      time: "1\u20136 months",
+      cost: "HKD 20K\u2013200K",
+      alts: ["Singapore", "UAE"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 no specific NFT rules",
+      risk: "low",
+      licenses: ["No FINMA licence for unique NFTs", "Securities law if investment NFTs"],
+      obligations: ["AML if financial intermediary", "Consumer protection"],
+      time: "1\u20133 months",
+      cost: "CHF 10K\u201340K",
+      alts: ["Liechtenstein TVTG", "EU"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Token as container model",
+      risk: "low",
+      licenses: ["SP licence if providing NFT services"],
+      obligations: ["AML TVTG", "Token classification documentation"],
+      time: "1\u20133 months",
+      cost: "CHF 10K\u201340K",
+      alts: ["Switzerland", "EU"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // MPT / MULTI-PURPOSE TOKEN (XLS-33)
+  // ═══════════════════════════════════════════════════════════════
+  mpt: {
+    eu: {
+      regime: "MiCA \u2014 classification depends on use (Utility/EMT/ART)",
+      risk: "high",
+      licenses: ["CASP if providing services around MPT", "EMI if fiat-backed", "NCA authorization if ART"],
+      obligations: ["Legal qualification mandatory before launch", "Whitepaper", "KYC/AML", "lsfRequireAuth enables on-chain KYC gating", "lsfLocked enables AML holds"],
+      time: "6\u201318 months",
+      cost: "\u20AC50K\u2013\u20AC300K",
+      alts: ["Liechtenstein TVTG (flexible token classification)", "Switzerland FINMA"],
+      authority: "NCA / ESMA",
+      xrplNote: "MPT (XLS-33) is XRPL\u2019s programmable token standard. No explicit MiCA category yet. lsfRequireAuth = on-chain KYC gating. lsfLocked = AML holds. Transfer fees programmable. Legal qualification critical before launch."
+    },
+    us: {
+      regime: "SEC/CFTC analysis required per use case",
+      risk: "high",
+      licenses: ["Depends on classification (security vs. commodity vs. utility)", "SEC registration if security", "CFTC if commodity derivative"],
+      obligations: ["Howey Test analysis", "If security: Reg D/Reg S/Reg A+ exemptions", "BSA/AML if financial service"],
+      time: "6\u201324 months",
+      cost: "$100K\u2013$500K",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "SEC / CFTC"
+    },
+    uae: {
+      regime: "VARA \u2014 case-by-case token classification",
+      risk: "med",
+      licenses: ["VARA VASP licence based on token use"],
+      obligations: ["Token classification filing", "KYC/AML", "Smart contract audit"],
+      time: "6\u201312 months",
+      cost: "$50K\u2013$150K",
+      alts: ["Singapore", "EU MiCA", "Liechtenstein TVTG"],
+      authority: "VARA"
+    },
+    sg: {
+      regime: "MAS PSA if DPT, SFA if security",
+      risk: "med",
+      licenses: ["MPI/SPI if DPT", "Capital Markets Services licence if security"],
+      obligations: ["Token classification", "KYC/AML", "Tech Risk Management"],
+      time: "6\u201312 months",
+      cost: "SGD 50K\u2013200K",
+      alts: ["UAE", "EU MiCA"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 depends on token classification",
+      risk: "med",
+      licenses: ["FCA registration if cryptoasset", "FCA authorization if security token"],
+      obligations: ["Token classification", "AML/KYC", "Consumer Duty if retail"],
+      time: "6\u201318 months",
+      cost: "\u00A330K\u2013\u00A3150K",
+      alts: ["EU MiCA", "Liechtenstein TVTG"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 case-by-case",
+      risk: "med",
+      licenses: ["SFC licensing depends on classification"],
+      obligations: ["Legal opinion on classification", "AML AMLO"],
+      time: "6\u201318 months",
+      cost: "HKD 200K\u20131M",
+      alts: ["Singapore", "UAE"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA token classification framework",
+      risk: "med",
+      licenses: ["Depends on FINMA classification (payment/utility/asset)"],
+      obligations: ["FINMA classification filing", "AML if financial element"],
+      time: "3\u201312 months",
+      cost: "CHF 30K\u2013200K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Token as Container Model (most flexible)",
+      risk: "low",
+      licenses: ["Relevant SP licence(s)", "FMA token classification"],
+      obligations: ["AML TVTG", "Token documentation", "Fit & proper"],
+      time: "3\u20139 months",
+      cost: "CHF 15K\u201380K",
+      alts: ["Switzerland FINMA"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // RWA \u2014 REAL-WORLD ASSET TOKENISATION
+  // ═══════════════════════════════════════════════════════════════
+  rwa: {
+    eu: {
+      regime: "MiCA ART + MiFID II (if securities) + DLT Pilot Regime",
+      risk: "high",
+      licenses: ["CASP or investment firm licence", "DLT Pilot Regime participation (sandbox)", "Prospectus (if securities)"],
+      obligations: ["Prospectus Regulation compliance", "MiFID II if securities", "AML/KYC", "Asset valuation and audits", "Investor suitability assessment"],
+      time: "12\u201324 months",
+      cost: "\u20AC100K\u2013\u20AC500K+",
+      alts: ["Liechtenstein TVTG (Physical Validator SP)", "Switzerland (DLT Act)", "Singapore"],
+      authority: "NCA / ESMA / AMF",
+      xrplNote: "XRPL supports RWA tokenisation via IOU/Trust Lines (existing) or MPT XLS-33 (programmable compliance flags). Escrow enables delivery-vs-payment. Trust Line freeze flags provide compliance enforcement."
+    },
+    us: {
+      regime: "SEC Securities law + Reg D/S/A+ exemptions",
+      risk: "high",
+      licenses: ["SEC registration or exemption (Reg D/Reg S/Reg A+)", "Broker-dealer registration", "ATS registration if secondary trading"],
+      obligations: ["Securities law full compliance", "Accredited investor verification (Reg D)", "SEC filing requirements", "Transfer restrictions"],
+      time: "6\u201324 months",
+      cost: "$200K\u2013$1M+",
+      alts: ["EU DLT Pilot Regime", "Liechtenstein TVTG", "Switzerland"],
+      authority: "SEC / FINRA"
+    },
+    uae: {
+      regime: "ADGM/DIFC \u2014 digital securities framework",
+      risk: "med",
+      licenses: ["FSRA licence (ADGM)", "DFSA licence (DIFC)"],
+      obligations: ["Prospectus requirements", "KYC/AML", "Custody of underlying assets"],
+      time: "6\u201312 months",
+      cost: "$75K\u2013$250K",
+      alts: ["Singapore", "EU DLT Pilot", "Liechtenstein"],
+      authority: "FSRA ADGM / DFSA DIFC"
+    },
+    sg: {
+      regime: "MAS SFA \u2014 Capital Markets Products",
+      risk: "med",
+      licenses: ["Capital Markets Services licence", "Recognized Market Operator (if exchange)"],
+      obligations: ["SFA prospectus", "KYC/AML", "Ongoing disclosure"],
+      time: "6\u201318 months",
+      cost: "SGD 100K\u2013400K",
+      alts: ["EU DLT Pilot", "Liechtenstein TVTG"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 Security Token Offering (STO) rules",
+      risk: "high",
+      licenses: ["FCA authorized firm", "Prospectus exemption or full prospectus"],
+      obligations: ["FCA Handbook (COBS)", "Consumer Duty", "AML/KYC", "Custody rules (CASS)"],
+      time: "12\u201318 months",
+      cost: "\u00A3100K\u2013\u00A3400K",
+      alts: ["EU DLT Pilot", "Liechtenstein TVTG"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 security token regime",
+      risk: "high",
+      licenses: ["Type 1 (dealing) and/or Type 9 (asset management)", "SFC authorization"],
+      obligations: ["SFO compliance", "Professional investor restriction", "Custody requirements"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20132M",
+      alts: ["Singapore", "EU DLT Pilot"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA DLT Act \u2014 tokenised securities",
+      risk: "med",
+      licenses: ["DLT Trading Facility licence", "Securities dealer (if applicable)"],
+      obligations: ["DLT Act compliance", "AML AMLA", "Prospectus (if public offering)"],
+      time: "6\u201318 months",
+      cost: "CHF 100K\u2013500K",
+      alts: ["Liechtenstein TVTG", "EU DLT Pilot"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Physical Validator + Token Emitter SP",
+      risk: "low",
+      licenses: ["SP Physical Validator licence", "SP Token Emitter licence"],
+      obligations: ["AML TVTG", "Physical asset validation", "Token documentation", "EEA passporting for distribution"],
+      time: "3\u20139 months",
+      cost: "CHF 20K\u2013100K",
+      alts: ["Switzerland DLT Act", "EU DLT Pilot"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // GAMING / GAMEFI / NFT GAMING
+  // ═══════════════════════════════════════════════════════════════
+  gaming: {
+    eu: {
+      regime: "MiCA + national gambling laws + JONUM (France)",
+      risk: "med",
+      licenses: ["CASP if in-game token is crypto-asset", "Gambling licence if chance + monetary gain", "JONUM compliance (France): 3 criteria test"],
+      obligations: ["JONUM test (France): public offer + chance-based gain + financial sacrifice", "Consumer protection", "Age verification", "If gambling: national gambling authority licence", "Loot box disclosure (NL, BE bans)"],
+      time: "6\u201318 months",
+      cost: "\u20AC30K\u2013\u20AC200K",
+      alts: ["Singapore (lighter GameFi stance)", "UAE (VARA gaming-friendly)", "Liechtenstein"],
+      authority: "NCA / ANJ (France gambling) / ESMA",
+      xrplNote: "XRPL NFTs (XLS-20) for in-game items: non-custodial broker mode avoids CASP. Payment Channels enable streaming micropayments for gameplay. Sorare/ANJ precedent (2022) relevant for France."
+    },
+    us: {
+      regime: "State gambling laws + SEC/FTC analysis",
+      risk: "med",
+      licenses: ["State gambling licence if chance-based rewards", "SEC analysis if token is security"],
+      obligations: ["Gambling law compliance (state-by-state)", "FTC consumer protection", "COPPA if under-13 users", "Loot box disclosure (emerging)"],
+      time: "6\u201318 months",
+      cost: "$50K\u2013$300K",
+      alts: ["EU (clearer framework)", "Singapore"],
+      authority: "State gambling commissions / SEC / FTC"
+    },
+    uae: {
+      regime: "VARA \u2014 gaming-friendly VASP framework",
+      risk: "low",
+      licenses: ["VARA advisory for GameFi", "Full VASP if exchange element"],
+      obligations: ["KYC for withdrawals", "Consumer protection", "No gambling (Islamic law)"],
+      time: "3\u20136 months",
+      cost: "$20K\u2013$75K",
+      alts: ["Singapore", "Liechtenstein"],
+      authority: "VARA"
+    },
+    sg: {
+      regime: "MAS + Remote Gambling Act analysis",
+      risk: "low",
+      licenses: ["No MAS licence if pure gaming utility", "Remote Gambling Act if chance + real-money"],
+      obligations: ["Gambling analysis", "Consumer protection", "PDPA"],
+      time: "3\u20136 months",
+      cost: "SGD 20K\u201375K",
+      alts: ["UAE", "EU"],
+      authority: "MAS / Casino Regulatory Authority"
+    },
+    uk: {
+      regime: "Gambling Commission + FCA analysis",
+      risk: "med",
+      licenses: ["Gambling Commission licence if gambling element", "FCA registration if crypto-asset"],
+      obligations: ["Gambling Act 2005", "Consumer protection", "Age verification", "AML"],
+      time: "6\u201312 months",
+      cost: "\u00A320K\u2013\u00A3100K",
+      alts: ["UAE", "Singapore"],
+      authority: "Gambling Commission / FCA"
+    },
+    hk: {
+      regime: "Gambling Ordinance + SFC analysis",
+      risk: "med",
+      licenses: ["Gambling licence if applicable", "SFC if securities-like tokens"],
+      obligations: ["Gambling Ordinance compliance", "Consumer protection"],
+      time: "6\u201312 months",
+      cost: "HKD 100K\u2013500K",
+      alts: ["Singapore", "UAE"],
+      authority: "Home Affairs / SFC"
+    },
+    ch: {
+      regime: "FINMA + Swiss Gambling Act",
+      risk: "med",
+      licenses: ["FINMA token classification", "Gambling licence if applicable"],
+      obligations: ["Swiss Gambling Act", "AML if financial element", "Consumer protection"],
+      time: "3\u201312 months",
+      cost: "CHF 20K\u2013150K",
+      alts: ["Liechtenstein", "UAE"],
+      authority: "FINMA / Gambling supervisory authority"
+    },
+    li: {
+      regime: "TVTG + gambling law analysis",
+      risk: "low",
+      licenses: ["SP licence for token services", "Gambling licence if applicable"],
+      obligations: ["AML TVTG", "Token classification"],
+      time: "3\u20136 months",
+      cost: "CHF 15K\u201360K",
+      alts: ["Switzerland", "UAE"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // CRYPTO PAYMENT / REMITTANCE
+  // ═══════════════════════════════════════════════════════════════
+  payment: {
+    eu: {
+      regime: "CASP (MiCA) + PSD2/PSD3 (if fiat conversion)",
+      risk: "med",
+      licenses: ["CASP authorization (crypto transfer service)", "EMI or PI licence (if fiat on/off-ramp)", "PSD2/PSD3 compliance (fiat leg)"],
+      obligations: ["KYC/AML", "FATF Travel Rule", "PSD2 SCA (if fiat)", "Transaction monitoring", "Consumer protection"],
+      time: "6\u201318 months",
+      cost: "\u20AC50K\u2013\u20AC200K",
+      alts: ["Liechtenstein TVTG", "Singapore MAS", "UAE VARA"],
+      authority: "NCA / ESMA / ECB",
+      xrplNote: "XRPL Payment Channels enable streaming micropayments with instant off-chain settlement. No custody = no CASP for channel itself. If converting to fiat at exit: CASP transfer service or EMI licence may apply. IOU/Trust Lines for cross-border remittance."
+    },
+    us: {
+      regime: "FinCEN MSB + State MTL",
+      risk: "high",
+      licenses: ["FinCEN MSB registration", "State MTL (each state)", "BitLicense (NY)"],
+      obligations: ["BSA/AML", "OFAC screening", "Travel Rule >$3K", "State bonding"],
+      time: "12\u201336 months",
+      cost: "$150K\u2013$500K+",
+      alts: ["EU MiCA", "Singapore MAS"],
+      authority: "FinCEN / state regulators"
+    },
+    uae: {
+      regime: "VARA + CBUAE",
+      risk: "med",
+      licenses: ["VARA VASP licence", "CBUAE stored value licence (if applicable)"],
+      obligations: ["KYC/AML", "Capital requirements", "Transaction reporting"],
+      time: "6\u201312 months",
+      cost: "$50K\u2013$150K",
+      alts: ["Singapore MAS", "EU MiCA"],
+      authority: "VARA / CBUAE"
+    },
+    sg: {
+      regime: "MAS PSA \u2014 Payment service provider",
+      risk: "med",
+      licenses: ["MPI or SPI licence"],
+      obligations: ["KYC/AML", "Safeguarding of customer funds", "Tech Risk Management"],
+      time: "6\u201312 months",
+      cost: "SGD 50K\u2013150K",
+      alts: ["UAE VARA", "EU MiCA"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 EMI/PI + crypto registration",
+      risk: "med",
+      licenses: ["EMI or PI licence (fiat)", "FCA cryptoasset registration"],
+      obligations: ["AML/KYC", "Consumer Duty", "Safeguarding client funds", "PSD2 SCA"],
+      time: "12\u201318 months",
+      cost: "\u00A350K\u2013\u00A3200K",
+      alts: ["EU MiCA", "Singapore MAS"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC + HKMA \u2014 SVF/stored value",
+      risk: "med",
+      licenses: ["SVF licence (HKMA)", "SFC if VA involved"],
+      obligations: ["AML AMLO", "Consumer protection", "Capital requirements"],
+      time: "6\u201318 months",
+      cost: "HKD 200K\u2013800K",
+      alts: ["Singapore MAS", "UAE VARA"],
+      authority: "HKMA / SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 FinTech licence or full banking",
+      risk: "med",
+      licenses: ["FinTech licence (up to CHF 100M deposits)", "VQF/SRO (AML)"],
+      obligations: ["AML AMLA", "KYC", "FINMA reporting"],
+      time: "6\u201312 months",
+      cost: "CHF 50K\u2013200K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Token Exchange/Transfer SP",
+      risk: "low",
+      licenses: ["Relevant SP licence", "EMI equivalent (if fiat)"],
+      obligations: ["AML TVTG", "Fit & proper", "FMA reporting"],
+      time: "3\u20139 months",
+      cost: "CHF 15K\u201370K",
+      alts: ["Switzerland FINMA"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // TOKEN ISSUANCE \u2014 UTILITY
+  // ═══════════════════════════════════════════════════════════════
+  token_utility: {
+    eu: {
+      regime: "MiCA Utility Token regime (light)",
+      risk: "low",
+      licenses: ["No CASP authorisation needed", "Whitepaper notification to NCA (if offering >\u20AC1M)"],
+      obligations: ["Publish MiCA whitepaper", "No misleading marketing", "NCA notification", "Right of withdrawal (14 days if retail)"],
+      time: "1\u20133 months",
+      cost: "\u20AC10K\u2013\u20AC50K",
+      alts: ["Liechtenstein TVTG", "Switzerland"],
+      authority: "NCA"
+    },
+    us: {
+      regime: "Howey Test analysis \u2014 must prove NOT a security",
+      risk: "med",
+      licenses: ["No licence if genuinely utility", "SEC registration if fails Howey Test"],
+      obligations: ["Howey Test legal opinion", "No investment marketing", "Consumer protection"],
+      time: "1\u20136 months",
+      cost: "$20K\u2013$100K (legal opinion)",
+      alts: ["EU MiCA (clearer utility framework)"],
+      authority: "SEC"
+    },
+    uae: {
+      regime: "VARA \u2014 utility token advisory",
+      risk: "low",
+      licenses: ["VARA advisory filing"],
+      obligations: ["Token classification", "Consumer protection"],
+      time: "1\u20133 months",
+      cost: "$10K\u2013$30K",
+      alts: ["Singapore", "EU"],
+      authority: "VARA"
+    },
+    sg: {
+      regime: "MAS \u2014 outside PSA if pure utility",
+      risk: "low",
+      licenses: ["No MAS licence for pure utility"],
+      obligations: ["Ensure not DPT or capital markets product"],
+      time: "1\u20132 months",
+      cost: "SGD 10K\u201330K",
+      alts: ["EU MiCA", "Liechtenstein"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 unregulated utility token",
+      risk: "low",
+      licenses: ["No FCA registration for utility tokens"],
+      obligations: ["Financial promotions regime (marketing)", "Consumer protection"],
+      time: "1\u20132 months",
+      cost: "\u00A35K\u2013\u00A320K",
+      alts: ["EU MiCA"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 generally unregulated utility",
+      risk: "low",
+      licenses: ["No licence for pure utility"],
+      obligations: ["Legal opinion recommended", "Consumer protection"],
+      time: "1\u20132 months",
+      cost: "HKD 20K\u201350K",
+      alts: ["Singapore", "EU"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 utility token classification",
+      risk: "low",
+      licenses: ["No FINMA licence", "FINMA no-action letter recommended"],
+      obligations: ["Token classification filing", "AML only if financial intermediary"],
+      time: "1\u20133 months",
+      cost: "CHF 10K\u201340K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 SP Token Emitter (light)",
+      risk: "low",
+      licenses: ["SP Token Emitter (simplified)"],
+      obligations: ["AML TVTG (light)", "Token documentation"],
+      time: "1\u20133 months",
+      cost: "CHF 10K\u201330K",
+      alts: ["Switzerland"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // TOKEN ISSUANCE \u2014 SECURITY
+  // ═══════════════════════════════════════════════════════════════
+  token_security: {
+    eu: {
+      regime: "MiFID II + Prospectus Regulation + DLT Pilot Regime",
+      risk: "high",
+      licenses: ["Investment firm licence (MiFID II)", "DLT Pilot Regime (sandbox alternative)", "Prospectus approval"],
+      obligations: ["Full prospectus (or exemption)", "MiFID II investor protection", "KYC/AML/KYB", "CASS-equivalent custody rules", "Ongoing disclosure"],
+      time: "12\u201324 months",
+      cost: "\u20AC200K\u2013\u20AC500K+",
+      alts: ["DLT Pilot Regime (simplified)", "Liechtenstein TVTG", "Switzerland DLT Act"],
+      authority: "NCA / ESMA"
+    },
+    us: {
+      regime: "SEC Securities Act \u2014 Reg D / Reg S / Reg A+",
+      risk: "high",
+      licenses: ["SEC registration or exemption", "Broker-dealer registration", "ATS if secondary market"],
+      obligations: ["Reg D: accredited investors only, no general solicitation (506b) or with verification (506c)", "Reg S: offshore only", "Reg A+: up to $75M mini-IPO", "Transfer agent requirements", "Blue sky state compliance"],
+      time: "6\u201318 months",
+      cost: "$200K\u2013$1M+",
+      alts: ["Reg S (non-US focus)", "EU DLT Pilot", "Liechtenstein TVTG"],
+      authority: "SEC / FINRA"
+    },
+    uae: {
+      regime: "ADGM/DIFC \u2014 Regulated digital securities",
+      risk: "med",
+      licenses: ["FSRA licence (ADGM)", "DFSA licence (DIFC)"],
+      obligations: ["Prospectus", "KYC/AML", "Investor suitability"],
+      time: "6\u201312 months",
+      cost: "$100K\u2013$300K",
+      alts: ["Singapore", "EU DLT Pilot"],
+      authority: "FSRA / DFSA"
+    },
+    sg: {
+      regime: "MAS SFA \u2014 Digital token offering",
+      risk: "med",
+      licenses: ["Capital Markets Services licence", "SFA prospectus or exemption"],
+      obligations: ["SFA compliance", "KYC/AML", "Ongoing disclosure"],
+      time: "6\u201318 months",
+      cost: "SGD 100K\u2013400K",
+      alts: ["EU DLT Pilot", "Liechtenstein"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 Security Token Offering",
+      risk: "high",
+      licenses: ["FCA authorized firm", "Prospectus approval"],
+      obligations: ["FCA Handbook", "Prospectus Regulation", "Consumer Duty", "CASS custody"],
+      time: "12\u201318 months",
+      cost: "\u00A3150K\u2013\u00A3400K",
+      alts: ["EU DLT Pilot", "Liechtenstein"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 Type 1/Type 9 licensing",
+      risk: "high",
+      licenses: ["Type 1 (dealing in securities)", "Type 9 (asset management)"],
+      obligations: ["SFO full compliance", "Professional investors (institutional focus)", "Custody requirements"],
+      time: "12\u201318 months",
+      cost: "HKD 500K\u20132M",
+      alts: ["Singapore", "EU"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 Asset token / DLT Act",
+      risk: "med",
+      licenses: ["Securities dealer licence or DLT Trading Facility", "Bank licence (if deposits)"],
+      obligations: ["Prospectus (Swiss CO)", "AML AMLA", "DLT Act compliance"],
+      time: "6\u201318 months",
+      cost: "CHF 100K\u2013500K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 SP Token Emitter + EEA distribution",
+      risk: "low",
+      licenses: ["SP Token Emitter licence", "EEA prospectus passporting"],
+      obligations: ["AML TVTG", "Prospectus (or exemption)", "Fit & proper", "FMA annual report"],
+      time: "3\u20139 months",
+      cost: "CHF 25K\u2013100K",
+      alts: ["Switzerland FINMA"],
+      authority: "FMA"
+    },
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // TOKEN ISSUANCE \u2014 HYBRID
+  // ═══════════════════════════════════════════════════════════════
+  token_hybrid: {
+    eu: {
+      regime: "MiCA + MiFID II analysis \u2014 stricter regime applies",
+      risk: "high",
+      licenses: ["CASP + potentially investment firm licence", "Legal qualification mandatory"],
+      obligations: ["Dual analysis: utility vs security elements", "Whitepaper + prospectus if security elements", "KYC/AML", "The stricter regime always applies"],
+      time: "12\u201324 months",
+      cost: "\u20AC100K\u2013\u20AC400K",
+      alts: ["Liechtenstein TVTG (flexible classification)", "Switzerland FINMA"],
+      authority: "NCA / ESMA"
+    },
+    us: {
+      regime: "SEC analysis \u2014 likely security if any investment element",
+      risk: "high",
+      licenses: ["SEC registration or exemption", "State compliance"],
+      obligations: ["Howey Test \u2014 any investment expectation = security", "Full securities compliance", "Legal opinion critical"],
+      time: "6\u201318 months",
+      cost: "$150K\u2013$500K+",
+      alts: ["Structure as pure utility in US + security elsewhere"],
+      authority: "SEC"
+    },
+    uae: {
+      regime: "VARA \u2014 classification determines path",
+      risk: "med",
+      licenses: ["VARA VASP licence", "FSRA if security elements (ADGM)"],
+      obligations: ["Token classification", "KYC/AML", "Dual compliance"],
+      time: "6\u201312 months",
+      cost: "$75K\u2013$200K",
+      alts: ["Singapore", "EU"],
+      authority: "VARA / FSRA"
+    },
+    sg: {
+      regime: "MAS \u2014 dual PSA/SFA analysis",
+      risk: "med",
+      licenses: ["MPI (DPT element) + CMS (security element)"],
+      obligations: ["Dual classification analysis", "KYC/AML", "Tech Risk Management"],
+      time: "6\u201318 months",
+      cost: "SGD 100K\u2013350K",
+      alts: ["UAE", "EU"],
+      authority: "MAS"
+    },
+    uk: {
+      regime: "FCA \u2014 stricter classification applies",
+      risk: "high",
+      licenses: ["FCA authorization", "Potential prospectus"],
+      obligations: ["Security classification if investment element", "Consumer Duty", "AML/KYC"],
+      time: "12\u201318 months",
+      cost: "\u00A3100K\u2013\u00A3300K",
+      alts: ["EU", "Liechtenstein"],
+      authority: "FCA"
+    },
+    hk: {
+      regime: "SFC \u2014 security classification likely",
+      risk: "high",
+      licenses: ["SFC licensing (Type 1/9)"],
+      obligations: ["SFO compliance", "Legal opinion required"],
+      time: "12\u201318 months",
+      cost: "HKD 300K\u20131.5M",
+      alts: ["Singapore"],
+      authority: "SFC"
+    },
+    ch: {
+      regime: "FINMA \u2014 hybrid = asset token treatment",
+      risk: "med",
+      licenses: ["FINMA classification \u2014 treated as strictest element"],
+      obligations: ["Full FINMA analysis", "AML AMLA", "Prospectus if security"],
+      time: "6\u201318 months",
+      cost: "CHF 75K\u2013400K",
+      alts: ["Liechtenstein TVTG"],
+      authority: "FINMA"
+    },
+    li: {
+      regime: "TVTG \u2014 Token Container Model (handles hybrid natively)",
+      risk: "low",
+      licenses: ["SP licence(s) for relevant services", "EEA distribution"],
+      obligations: ["AML TVTG", "Token documentation", "Legal qualification"],
+      time: "3\u20139 months",
+      cost: "CHF 20K\u2013100K",
+      alts: ["Switzerland FINMA"],
+      authority: "FMA"
+    },
+  },
+};
