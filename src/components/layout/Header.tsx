@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -15,7 +16,6 @@ export default function Header() {
     { href: '/wizard', label: t('wizard') },
     { href: '/search', label: t('search') },
     { href: '/glossary', label: t('glossary') },
-    { href: '/compare', label: t('compare') },
     { href: '/xrpl', label: t('xrpl') },
   ] as const;
 
@@ -45,6 +45,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <LanguageSwitcher />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}

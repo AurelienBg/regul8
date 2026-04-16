@@ -4,8 +4,21 @@
     "wizard": "Compliance Check",
     "search": "AI Search",
     "glossary": "Glossary",
-    "compare": "Compare",
     "xrpl": "XRPL Hub"
+  },
+  "jurisdictions": {
+    "eu": "EU / France",
+    "us": "USA",
+    "uae": "UAE / Dubai",
+    "sg": "Singapore",
+    "uk": "United Kingdom",
+    "hk": "Hong Kong",
+    "ch": "Switzerland",
+    "li": "Liechtenstein",
+    "jp": "Japan",
+    "kr": "South Korea",
+    "in": "India",
+    "br": "Brazil"
   },
   "landing": {
     "hero": "Navigate crypto regulation. Anywhere.",

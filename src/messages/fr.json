@@ -4,8 +4,21 @@
     "wizard": "Vérification",
     "search": "Recherche IA",
     "glossary": "Glossaire",
-    "compare": "Comparer",
     "xrpl": "Hub XRPL"
+  },
+  "jurisdictions": {
+    "eu": "UE / France",
+    "us": "USA",
+    "uae": "EAU / Dubaï",
+    "sg": "Singapour",
+    "uk": "Royaume-Uni",
+    "hk": "Hong Kong",
+    "ch": "Suisse",
+    "li": "Liechtenstein",
+    "jp": "Japon",
+    "kr": "Corée du Sud",
+    "in": "Inde",
+    "br": "Brésil"
   },
   "landing": {
     "hero": "Naviguez la régulation crypto. Partout.",

@@ -21,6 +21,18 @@ export default function ReportPage() {
 
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    if (typeof window === 'undefined') return;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback: select text
+    }
+  };
 
   if (activities.length === 0 || jurisdictions.length === 0) {
     return (
@@ -108,9 +120,31 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 gap-2 flex-wrap">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
-        <Link href="/wizard" className="btn-secondary text-sm">{t('newCheck')}</Link>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleShare}
+            className="btn-secondary text-sm flex items-center gap-2"
+          >
+            {copied ? (
+              <>
+                <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Copied!
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                {t('share')}
+              </>
+            )}
+          </button>
+          <Link href="/wizard" className="btn-secondary text-sm">{t('newCheck')}</Link>
+        </div>
       </div>
 
       {/* Results grid */}

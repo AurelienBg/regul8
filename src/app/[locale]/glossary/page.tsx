@@ -1,17 +1,21 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 
+const slugify = (term: string) =>
+  term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export default function GlossaryPage() {
   const t = useTranslations('glossary');
   const tc = useTranslations('common');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string>('all');
+  const [highlighted, setHighlighted] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     return GLOSSARY_TERMS.filter((term) => {
@@ -22,6 +26,42 @@ export default function GlossaryPage() {
       return matchSearch && matchCategory;
     });
   }, [search, category]);
+
+  const termExists = (name: string) =>
+    GLOSSARY_TERMS.some((g) => g.term.toLowerCase() === name.toLowerCase());
+
+  const jumpToTerm = (name: string) => {
+    // Clear filters so target is visible
+    setSearch('');
+    setCategory('all');
+    const slug = slugify(name);
+    // Let React render, then scroll
+    setTimeout(() => {
+      const el = document.getElementById(`term-${slug}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setHighlighted(slug);
+        setTimeout(() => setHighlighted(null), 2000);
+      }
+    }, 50);
+  };
+
+  // Handle hash on load (e.g. /glossary#term-casp)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (hash.startsWith('#term-')) {
+      const slug = hash.slice(6);
+      setTimeout(() => {
+        const el = document.getElementById(`term-${slug}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setHighlighted(slug);
+          setTimeout(() => setHighlighted(null), 2000);
+        }
+      }, 200);
+    }
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -55,25 +95,49 @@ export default function GlossaryPage() {
 
       {/* Terms grid */}
       <div className="grid sm:grid-cols-2 gap-4">
-        {filtered.map((term) => (
-          <div key={term.term} className="card">
-            <div className="flex items-center gap-2 mb-2">
-              <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
-              {term.xrplSpecific && <XRPLBadge />}
-            </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{term.definition}</p>
-            {term.relatedTerms && term.relatedTerms.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-1">
-                <span className="text-xs text-gray-500">{t('relatedTerms')}:</span>
-                {term.relatedTerms.map((rt) => (
-                  <span key={rt} className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
-                    {rt}
-                  </span>
-                ))}
+        {filtered.map((term) => {
+          const slug = slugify(term.term);
+          const isHighlighted = highlighted === slug;
+          return (
+            <div
+              key={term.term}
+              id={`term-${slug}`}
+              className={`card transition-all ${
+                isHighlighted ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
+                {term.xrplSpecific && <XRPLBadge />}
               </div>
-            )}
-          </div>
-        ))}
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{term.definition}</p>
+              {term.relatedTerms && term.relatedTerms.length > 0 && (
+                <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                  <span className="text-xs text-gray-500">{t('relatedTerms')}:</span>
+                  {term.relatedTerms.map((rt) => {
+                    const exists = termExists(rt);
+                    return exists ? (
+                      <button
+                        key={rt}
+                        onClick={() => jumpToTerm(rt)}
+                        className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors cursor-pointer"
+                      >
+                        {rt}
+                      </button>
+                    ) : (
+                      <span
+                        key={rt}
+                        className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-500"
+                      >
+                        {rt}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
