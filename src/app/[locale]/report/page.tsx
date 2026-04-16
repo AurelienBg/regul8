@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
@@ -18,6 +19,9 @@ export default function ReportPage() {
   const activities = (params.get('activities') ?? '').split(',').filter(Boolean) as ActivityKey[];
   const jurisdictions = (params.get('jurisdictions') ?? '').split(',').filter(Boolean) as Jurisdiction[];
 
+  const [aiAnalysis, setAiAnalysis] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+
   if (activities.length === 0 || jurisdictions.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
@@ -28,6 +32,79 @@ export default function ReportPage() {
   }
 
   const hasCustody = activities.includes('custody');
+
+  // Build context summary for AI
+  const buildAiContext = () => {
+    const sections: string[] = [];
+    for (const activity of activities) {
+      for (const j of jurisdictions) {
+        const r = lookupRegulation(activity, j);
+        if (!r) continue;
+        sections.push(`## ${activity.toUpperCase()} — ${JURISDICTIONS[j]?.name}
+Regime: ${r.regime}
+Risk: ${r.risk}
+Licences: ${r.licenses.join(', ')}
+Obligations: ${r.obligations.join(', ')}
+Timeline: ${r.time}
+Cost: ${r.cost}
+Authority: ${r.authority}
+${r.xrplNote ? `XRPL note: ${r.xrplNote}` : ''}
+${r.custodyNote ? `Custody note: ${r.custodyNote}` : ''}`);
+      }
+    }
+    return sections.join('\n\n');
+  };
+
+  const handleAiAnalysis = async () => {
+    setAiLoading(true);
+    setAiAnalysis('');
+
+    const context = buildAiContext();
+    const query = `Based on the following regulatory data for a startup, provide:
+
+1. **Compliance Roadmap** — Step-by-step plan (numbered, 5-7 steps) with priorities and order
+2. **Key Risks** — Top 3-5 risks to watch, especially grey zones and regulatory gaps
+3. **Recommendations** — Concrete, actionable advice: which jurisdiction to prioritize, which licence to get first, what to prepare
+4. **Cost & Timeline Optimization** — How to reduce time and cost (e.g., start with Liechtenstein TVTG, passport to EU)
+
+Regulatory context:
+${context}
+
+Be specific, actionable, and direct. Highlight any XRPL-specific considerations.`;
+
+    try {
+      const res = await fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      });
+
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+      if (!reader) throw new Error('No reader');
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n').filter((l) => l.startsWith('data: '));
+        for (const line of lines) {
+          const data = line.slice(6);
+          if (data === '[DONE]') break;
+          try {
+            const { text } = JSON.parse(data);
+            setAiAnalysis((prev) => prev + text);
+          } catch {
+            // skip
+          }
+        }
+      }
+    } catch {
+      setAiAnalysis('Error generating analysis. Please check your API key.');
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -59,7 +136,6 @@ export default function ReportPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* Regime */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
                     {jurisdictions.map((j) => {
@@ -67,7 +143,6 @@ export default function ReportPage() {
                       return <td key={j} className="p-3 font-semibold text-sm">{r?.regime ?? 'N/A'}</td>;
                     })}
                   </tr>
-                  {/* Risk */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('risk')}</td>
                     {jurisdictions.map((j) => {
@@ -75,7 +150,6 @@ export default function ReportPage() {
                       return <td key={j} className="p-3">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
                     })}
                   </tr>
-                  {/* Licences */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('licenses')}</td>
                     {jurisdictions.map((j) => {
@@ -93,7 +167,6 @@ export default function ReportPage() {
                       );
                     })}
                   </tr>
-                  {/* Obligations */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('obligations')}</td>
                     {jurisdictions.map((j) => {
@@ -111,7 +184,6 @@ export default function ReportPage() {
                       );
                     })}
                   </tr>
-                  {/* Timeline */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('timeline')}</td>
                     {jurisdictions.map((j) => {
@@ -119,7 +191,6 @@ export default function ReportPage() {
                       return <td key={j} className="p-3 font-bold text-sm">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
-                  {/* Cost */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('cost')}</td>
                     {jurisdictions.map((j) => {
@@ -127,7 +198,6 @@ export default function ReportPage() {
                       return <td key={j} className="p-3 font-bold text-sm">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
-                  {/* Authority */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">Authority</td>
                     {jurisdictions.map((j) => {
@@ -135,7 +205,6 @@ export default function ReportPage() {
                       return <td key={j} className="p-3 text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
                     })}
                   </tr>
-                  {/* Alternatives */}
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('alternatives')}</td>
                     {jurisdictions.map((j) => {
@@ -153,7 +222,6 @@ export default function ReportPage() {
               </table>
             </div>
           ) : (
-            /* Single jurisdiction — card layout */
             jurisdictions.map((j) => {
               const r = lookupRegulation(activity, j);
               if (!r) return <p key={j} className="text-gray-500">No data for {JURISDICTIONS[j]?.name}</p>;
@@ -240,16 +308,56 @@ export default function ReportPage() {
       {/* Custody implementations */}
       {hasCustody && <CustodyImplementations />}
 
+      {/* AI Analysis Section */}
+      <section className="mt-12 pt-8 border-t-2 border-[var(--border)]">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-xrpl flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold">AI Compliance Audit</h2>
+            <p className="text-sm text-gray-500">Get a personalised roadmap, risk analysis, and recommendations</p>
+          </div>
+        </div>
+
+        {!aiAnalysis && !aiLoading && (
+          <button
+            onClick={handleAiAnalysis}
+            className="btn-primary w-full sm:w-auto text-base px-8 py-4"
+          >
+            Generate AI Analysis &rarr;
+          </button>
+        )}
+
+        {aiLoading && !aiAnalysis && (
+          <div className="flex items-center gap-3 text-gray-500">
+            <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <span>Analyzing your regulatory profile...</span>
+          </div>
+        )}
+
+        {aiAnalysis && (
+          <div className="card mt-4 bg-gradient-to-br from-blue-50/50 to-xrpl-50/30 dark:from-blue-900/10 dark:to-xrpl/5">
+            <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
+              {aiAnalysis}
+            </div>
+            {!aiLoading && (
+              <button
+                onClick={handleAiAnalysis}
+                className="mt-4 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                Regenerate analysis
+              </button>
+            )}
+          </div>
+        )}
+      </section>
+
       {/* Disclaimer */}
       <div className="mt-8 p-4 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800">
         <p className="text-xs text-amber-800 dark:text-amber-200">{tc('disclaimer')}</p>
-      </div>
-
-      {/* Deepen with AI */}
-      <div className="mt-6 text-center">
-        <Link href="/search" className="btn-secondary">
-          Deepen with AI Search &rarr;
-        </Link>
       </div>
     </div>
   );
