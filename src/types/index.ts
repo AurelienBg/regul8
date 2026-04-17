@@ -49,6 +49,35 @@ export interface GlossaryTerm {
   category?: 'eu' | 'us' | 'intl' | 'general' | 'xrpl'
 }
 
+export type DecisionVerdict = 'yes' | 'no' | 'maybe'
+
+export interface DecisionQuestion {
+  type: 'question'
+  question: string
+  hint?: string
+  choices: { label: string; next: string }[]
+}
+
+export interface DecisionOutcome {
+  type: 'outcome'
+  verdict: DecisionVerdict
+  title: string
+  explanation: string
+  nextSteps?: string[]
+  relatedTerms?: string[]
+}
+
+export type DecisionNode = DecisionQuestion | DecisionOutcome
+
+export interface DecisionTree {
+  id: string
+  title: string
+  description: string
+  icon: string
+  rootId: string
+  nodes: Record<string, DecisionNode>
+}
+
 export interface XRPLCustodyMethod {
   id: string
   name: string

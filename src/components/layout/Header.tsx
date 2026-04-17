@@ -15,6 +15,7 @@ export default function Header() {
   const links = [
     { href: '/wizard', label: t('wizard') },
     { href: '/search', label: t('search') },
+    { href: '/learn', label: t('learn') },
     { href: '/glossary', label: t('glossary') },
     { href: '/xrpl', label: t('xrpl') },
   ] as const;
