@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
 
-const ACTIVITY_LABELS: Record<ActivityKey, string> = {
+const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
   exchange: 'Exchange / Trading',
   dapp_fin: 'DeFi DApp',
   dapp_util: 'Utility DApp',
@@ -22,7 +23,73 @@ const ACTIVITY_LABELS: Record<ActivityKey, string> = {
   token_hybrid: 'Hybrid token',
 };
 
+const ACTIVITY_LABELS_FR: Record<ActivityKey, string> = {
+  exchange: 'Exchange / Trading',
+  dapp_fin: 'DApp DeFi',
+  dapp_util: 'DApp utilitaire',
+  nft: 'Marketplace NFT',
+  mpt: 'MPT (XLS-33)',
+  rwa: 'Tokenisation RWA',
+  stablecoin: 'Stablecoin',
+  gaming: 'Gaming / GameFi',
+  custody: 'Custody / Wallet',
+  payment: 'Paiement / Remise',
+  token_utility: 'Utility token',
+  token_security: 'Security token',
+  token_hybrid: 'Token hybride',
+};
+
 export default function CompareActivitiesPage() {
+  const locale = useLocale();
+  const isFr = locale === 'fr';
+  const ACTIVITY_LABELS = isFr ? ACTIVITY_LABELS_FR : ACTIVITY_LABELS_EN;
+  const tr = isFr ? {
+    title: "Comparateur d'activités",
+    subtitle: 'Choisissez une juridiction et 2 à 5 activités. Voyez toutes les obligations réglementaires côte à côte.',
+    jurisdiction: 'Juridiction',
+    activities: 'Activités',
+    selectAtLeast2: 'Sélectionnez au moins 2 activités à comparer.',
+    comparedIn: 'activités comparées en',
+    field: 'Champ',
+    regime: 'Régime',
+    risk: 'Risque',
+    licences: 'Licences',
+    obligations: 'Obligations',
+    timeline: 'Délai',
+    cost: 'Coût',
+    authority: 'Autorité',
+    xrplNote: 'Note XRPL',
+    more: 'de plus',
+    runningTitle: 'Plusieurs activités cumulées ?',
+    runningBody1: 'Les régulateurs examinent le profil ',
+    runningBody2: 'combiné',
+    runningBody3: " — l'exigence la plus stricte s'applique généralement à toute l'entreprise. Prévoyez le capital, la gouvernance et les licences pour l'obligation la plus élevée de votre stack.",
+    fullWizard: 'Wizard complet avec multi-juridictions',
+    disclaimer: "Information générale uniquement. Pour votre situation spécifique, consultez un avocat qualifié.",
+  } : {
+    title: 'Activity Comparator',
+    subtitle: 'Pick one jurisdiction and 2–5 activities. See all regulatory obligations side-by-side.',
+    jurisdiction: 'Jurisdiction',
+    activities: 'Activities',
+    selectAtLeast2: 'Select at least 2 activities to compare.',
+    comparedIn: 'activities compared in',
+    field: 'Field',
+    regime: 'Regime',
+    risk: 'Risk',
+    licences: 'Licences',
+    obligations: 'Obligations',
+    timeline: 'Timeline',
+    cost: 'Cost',
+    authority: 'Authority',
+    xrplNote: 'XRPL note',
+    more: 'more',
+    runningTitle: 'Running multiple activities together?',
+    runningBody1: 'Regulators look at the ',
+    runningBody2: 'combined',
+    runningBody3: ' profile — the strictest requirement usually applies across the whole business. Plan capital, governance, and licences for the highest obligation in your stack.',
+    fullWizard: 'Full wizard with multi-jurisdiction',
+    disclaimer: 'General information only. For your specific situation, consult a qualified lawyer.',
+  };
   const [jurisdiction, setJurisdiction] = useState<Jurisdiction>('eu');
   const [selected, setSelected] = useState<ActivityKey[]>(['exchange', 'custody', 'payment']);
 
@@ -50,15 +117,15 @@ export default function CompareActivitiesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Activity Comparator</h1>
+        <h1 className="text-3xl font-bold mb-2">{tr.title}</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Pick one jurisdiction and 2–5 activities. See all regulatory obligations side-by-side.
+          {tr.subtitle}
         </p>
       </header>
 
       {/* Jurisdiction picker */}
       <section className="mb-6">
-        <label className="block text-sm font-semibold mb-2">Jurisdiction</label>
+        <label className="block text-sm font-semibold mb-2">{tr.jurisdiction}</label>
         <div className="flex flex-wrap gap-2">
           {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => (
             <button
@@ -80,7 +147,7 @@ export default function CompareActivitiesPage() {
       {/* Activity picker */}
       <section className="mb-8">
         <label className="block text-sm font-semibold mb-2">
-          Activities ({selected.length}/5)
+          {tr.activities} ({selected.length}/5)
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => {
@@ -112,14 +179,14 @@ export default function CompareActivitiesPage() {
       {/* Comparison table */}
       {rows.length < 2 ? (
         <div className="card text-center text-gray-500 py-12">
-          <p>Select at least 2 activities to compare.</p>
+          <p>{tr.selectAtLeast2}</p>
         </div>
       ) : (
         <>
           <div className="mb-4 flex items-center gap-3">
             <span className="text-2xl">{jurisdictionMeta.flag}</span>
             <h2 className="text-xl font-bold">
-              {rows.length} activities compared in {jurisdictionMeta.name}
+              {rows.length} {tr.comparedIn} {jurisdictionMeta.name}
             </h2>
           </div>
 
@@ -128,7 +195,7 @@ export default function CompareActivitiesPage() {
               <thead>
                 <tr>
                   <th className="text-left p-3 border-b border-[var(--border)] w-44 text-xs uppercase text-gray-500">
-                    Field
+                    {tr.field}
                   </th>
                   {rows.map((r) => (
                     <th
@@ -143,7 +210,7 @@ export default function CompareActivitiesPage() {
               </thead>
               <tbody>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Regime</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.regime}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 font-semibold">
                       {r.result?.regime}
@@ -151,7 +218,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Risk</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.risk}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3">
                       {r.result && <RiskBadge risk={r.result.risk} />}
@@ -159,7 +226,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Licences</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.licences}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3">
                       <ul className="space-y-1">
@@ -176,7 +243,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Obligations</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.obligations}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3">
                       <ul className="list-disc ml-4 text-xs space-y-1">
@@ -184,14 +251,14 @@ export default function CompareActivitiesPage() {
                           <li key={i}>{o}</li>
                         ))}
                         {r.result && r.result.obligations.length > 4 && (
-                          <li className="text-gray-500">+{r.result.obligations.length - 4} more</li>
+                          <li className="text-gray-500">+{r.result.obligations.length - 4} {tr.more}</li>
                         )}
                       </ul>
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Timeline</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.timeline}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 font-semibold">
                       {r.result?.time}
@@ -199,7 +266,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Cost</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.cost}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 font-semibold">
                       {r.result?.cost}
@@ -207,7 +274,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">Authority</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.authority}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 text-sm">
                       {r.result?.authority}
@@ -215,7 +282,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">XRPL note</td>
+                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.xrplNote}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 text-xs text-gray-600 dark:text-gray-400">
                       {r.result?.xrplNote ?? '—'}
@@ -228,22 +295,20 @@ export default function CompareActivitiesPage() {
 
           <section className="mt-10 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
             <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">
-              Running multiple activities together?
+              {tr.runningTitle}
             </div>
             <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
-              Regulators look at the <strong>combined</strong> profile — the strictest requirement usually
-              applies across the whole business. Plan capital, governance, and licences for the highest
-              obligation in your stack.
+              {tr.runningBody1}<strong>{tr.runningBody2}</strong>{tr.runningBody3}
             </p>
             <Link href="/wizard" className="btn-primary text-sm inline-block">
-              Full wizard with multi-jurisdiction &rarr;
+              {tr.fullWizard} &rarr;
             </Link>
           </section>
         </>
       )}
 
       <p className="text-xs text-gray-500 text-center mt-10 italic">
-        General information only. For your specific situation, consult a qualified lawyer.
+        {tr.disclaimer}
       </p>
     </div>
   );
