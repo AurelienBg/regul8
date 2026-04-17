@@ -116,7 +116,7 @@ export default function CompareActivitiesPage() {
   const jurisdictionMeta = JURISDICTIONS[jurisdiction];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <header className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{tr.title}</h1>
         <p className="text-gray-600 dark:text-gray-400">
@@ -211,25 +211,25 @@ export default function CompareActivitiesPage() {
               </thead>
               <tbody>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.regime}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.regime}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3">
+                    <td key={r.activity} className="p-3 align-top">
                       {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : 'N/A'}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.risk}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.risk}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3">
+                    <td key={r.activity} className="p-3 align-top">
                       {r.result && <RiskBadge risk={r.result.risk} />}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.licences}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.licences}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3">
+                    <td key={r.activity} className="p-3 align-top">
                       <ul className="space-y-1">
                         {r.result?.licenses.map((l, i) => (
                           <li
@@ -244,9 +244,9 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.obligations}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.obligations}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3">
+                    <td key={r.activity} className="p-3 align-top">
                       <ul className="list-disc ml-4 text-xs space-y-1">
                         {r.result?.obligations.slice(0, 4).map((o, i) => (
                           <li key={i}>{o}</li>
@@ -259,33 +259,33 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.timeline}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.timeline}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3 font-semibold">
+                    <td key={r.activity} className="p-3 align-top font-semibold">
                       {r.result?.time}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.cost}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.cost}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3 font-semibold">
+                    <td key={r.activity} className="p-3 align-top font-semibold">
                       {r.result?.cost}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.authority}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.authority}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3 text-sm">
+                    <td key={r.activity} className="p-3 align-top text-sm">
                       {r.result?.authority}
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.xrplNote}</td>
+                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.xrplNote}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3 text-xs text-gray-600 dark:text-gray-400">
+                    <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                       {r.result?.xrplNote ?? '—'}
                     </td>
                   ))}

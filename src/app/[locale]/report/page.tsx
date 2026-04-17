@@ -237,21 +237,21 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                 </thead>
                 <tbody>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('risk')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('risk')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('licenses')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('licenses')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
@@ -268,7 +268,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('obligations')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('obligations')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
@@ -285,28 +285,28 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('timeline')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('timeline')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top font-bold text-sm">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('cost')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('cost')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top font-bold text-sm">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t("authority")}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t("authority")}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('alternatives')}</td>
+                    <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{t('alternatives')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
