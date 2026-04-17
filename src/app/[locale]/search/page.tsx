@@ -1,14 +1,17 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { matchFaq } from '@/data/faq';
 
 export default function SearchPage() {
   const t = useTranslations('search');
   const tc = useTranslations('common');
+  const locale = useLocale();
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fromFaq, setFromFaq] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
   const examples = [t('examples.1'), t('examples.2'), t('examples.3'), t('examples.4')];
@@ -17,6 +20,17 @@ export default function SearchPage() {
     if (!q.trim()) return;
     setQuery(q);
     setResponse('');
+    setFromFaq(false);
+
+    // Try FAQ match first — instant, no API call
+    const faq = matchFaq(q);
+    if (faq) {
+      const answer = locale === 'fr' ? faq.answer.fr : faq.answer.en;
+      setResponse(answer);
+      setFromFaq(true);
+      return;
+    }
+
     setLoading(true);
 
     abortRef.current?.abort();
@@ -126,6 +140,12 @@ export default function SearchPage() {
       {/* Response */}
       {response && (
         <div className="card">
+          {fromFaq && (
+            <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+              <span>📚</span>
+              <span>{t('fromKnowledgeBase')}</span>
+            </div>
+          )}
           <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
             {response}
           </div>

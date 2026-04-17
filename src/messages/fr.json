@@ -120,7 +120,8 @@
       "3": "Comment fonctionne la custody MPT sur XRPL ?",
       "4": "Qu'est-ce que le TVTG du Liechtenstein ?"
     },
-    "thinking": "Réflexion en cours..."
+    "thinking": "Réflexion en cours...",
+    "fromKnowledgeBase": "Base de connaissances · instantané"
   },
   "glossary": {
     "title": "Glossaire Réglementaire",
@@ -142,6 +143,37 @@
       "regulator": "Régulateur",
       "concept": "Concept",
       "infra": "Infrastructure"
+    },
+    "topicTooltips": {
+      "all": "Afficher les termes de tous les angles",
+      "licence": {
+        "question": "Quel agrément devez-vous obtenir ?",
+        "examples": "Exemples : CASP, MSB, MTL, BitLicense, VASP, EMI, PSAN, DASP"
+      },
+      "regime": {
+        "question": "Quelle est la loi ou le cadre lui-même ?",
+        "examples": "Exemples : MiCA, BSA, TVTG, GENIUS Act, CLARITY Act, MiFID II, PSD2"
+      },
+      "obligation": {
+        "question": "Que devez-vous faire au quotidien pour être conforme ?",
+        "examples": "Exemples : KYC, KYB, AML, CFT, Travel Rule, SAR"
+      },
+      "token": {
+        "question": "Comment votre actif est-il classé ?",
+        "examples": "Exemples : EMT, ART, STO, ICO, NFT, RWA, RLUSD, MPT, DPT"
+      },
+      "regulator": {
+        "question": "Qui vous surveille ?",
+        "examples": "Exemples : AMF, SEC, CFTC, FinCEN, FATF, FINMA, MAS, SFC, FCA, VARA"
+      },
+      "concept": {
+        "question": "Tests et doctrines théoriques",
+        "examples": "Exemples : Test de Howey"
+      },
+      "infra": {
+        "question": "Couches techniques et concepts de l'écosystème",
+        "examples": "Exemples : TradFi, CeFi, DeFi, DAO, Smart Contract, DLT, Trust Line, IOU, Escrow, SignerList"
+      }
     },
     "scopes": {
       "local": {

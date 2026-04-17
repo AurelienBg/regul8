@@ -288,20 +288,26 @@ export default function GlossaryPage() {
           {t('filterByTopic')}
         </div>
         <div className="flex gap-1 flex-wrap">
-          {TOPICS.map((tp) => (
-            <button
-              key={tp}
-              onClick={() => setTopic(tp)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                topic === tp
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              {tp !== 'all' && <span>{TOPIC_ICONS[tp as Topic]}</span>}
-              {t(`topics.${tp}`)}
-            </button>
-          ))}
+          {TOPICS.map((tp) => {
+            const tooltip = tp === 'all'
+              ? t('topicTooltips.all')
+              : `${t(`topicTooltips.${tp}.question`)}\n\n${t(`topicTooltips.${tp}.examples`)}`;
+            return (
+              <button
+                key={tp}
+                onClick={() => setTopic(tp)}
+                title={tooltip}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                  topic === tp
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+              >
+                {tp !== 'all' && <span>{TOPIC_ICONS[tp as Topic]}</span>}
+                {t(`topics.${tp}`)}
+              </button>
+            );
+          })}
         </div>
       </div>
 
