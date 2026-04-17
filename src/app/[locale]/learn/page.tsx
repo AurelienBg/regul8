@@ -33,9 +33,9 @@ const MODES = [
     href: '/learn/maps',
     icon: '🗺️',
     title: 'Visual Maps',
-    description: 'One-pager diagrams: MiCA token taxonomy, XRPL custody matrix, global regimes world map.',
-    cta: 'Coming soon',
-    available: false,
+    description: 'One-pager diagrams: MiCA token taxonomy, XRPL custody matrix, jurisdiction arbitrage scatter.',
+    cta: 'Browse maps',
+    available: true,
   },
 ];
 
