@@ -10,6 +10,32 @@ const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 const slugify = (term: string) =>
   term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
+// Term-specific flag overrides (for intl category, a term maps to a specific jurisdiction)
+const TERM_FLAGS: Record<string, string> = {
+  // Switzerland
+  FINMA: '🇨🇭', VQF: '🇨🇭', SRO: '🇨🇭', AMLA: '🇨🇭',
+  // Singapore
+  MAS: '🇸🇬', DPT: '🇸🇬',
+  // Hong Kong
+  SFC: '🇭🇰', HKMA: '🇭🇰', AMLO: '🇭🇰',
+  // UK
+  FCA: '🇬🇧', CASS: '🇬🇧',
+  // UAE
+  VARA: '🇦🇪',
+  // Liechtenstein
+  TVTG: '🇱🇮',
+  // Global bodies — no flag
+  VASP: '🌐', FATF: '🌐', 'Travel Rule': '🌐',
+  AML: '🌐', CFT: '🌐', KYC: '🌐', KYB: '🌐',
+};
+
+function flagForTerm(term: { term: string; category?: string }): string | null {
+  if (TERM_FLAGS[term.term]) return TERM_FLAGS[term.term];
+  if (term.category === 'eu') return '🇪🇺';
+  if (term.category === 'us') return '🇺🇸';
+  return null;
+}
+
 export default function GlossaryPage() {
   const t = useTranslations('glossary');
   const tc = useTranslations('common');
@@ -112,6 +138,9 @@ export default function GlossaryPage() {
               }`}
             >
               <div className="flex items-center gap-2 mb-2">
+                {flagForTerm(term) && (
+                  <span className="text-lg leading-none" aria-hidden="true">{flagForTerm(term)}</span>
+                )}
                 <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
                 {term.xrplSpecific && <XRPLBadge />}
               </div>
