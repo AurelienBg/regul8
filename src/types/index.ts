@@ -78,6 +78,21 @@ export interface DecisionTree {
   nodes: Record<string, DecisionNode>
 }
 
+export interface CaseStudy {
+  id: string
+  icon: string
+  title: string
+  subtitle: string
+  date: string
+  jurisdictions: Jurisdiction[]
+  keyTakeaway: string
+  timeline?: { date: string; event: string }[]
+  sections: { heading: string; paragraphs: string[] }[]
+  whyItMatters: string[]
+  relatedTerms: string[]
+  relatedTrees?: string[]
+}
+
 export interface XRPLCustodyMethod {
   id: string
   name: string
