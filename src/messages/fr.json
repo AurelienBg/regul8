@@ -120,6 +120,8 @@
     "timeline": "Délai Estimé",
     "cost": "Coût Estimé",
     "alternatives": "Juridictions Alternatives",
+    "authority": "Autorité",
+    "noSelection": "Aucune activité ni juridiction sélectionnée.",
     "xrplNote": "Note Spécifique XRPL",
     "custodyNote": "Note Custody",
     "narrative": "Feuille de Route Conformité",

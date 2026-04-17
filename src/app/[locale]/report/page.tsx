@@ -55,7 +55,7 @@ export default function ReportPage() {
   if (activities.length === 0 || jurisdictions.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <p className="text-gray-500 mb-4">No activities or jurisdictions selected.</p>
+        <p className="text-gray-500 mb-4">{t('noSelection')}</p>
         <Link href="/wizard" className="btn-primary">{t('newCheck')}</Link>
       </div>
     );
@@ -290,7 +290,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">Authority</td>
+                    <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t("authority")}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
@@ -358,7 +358,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       <p className="font-bold">{r.cost}</p>
                     </div>
                     <div className="col-span-2">
-                      <p className="text-xs text-gray-500">Authority</p>
+                      <p className="text-xs text-gray-500">{t("authority")}</p>
                       <p className="text-sm">{r.authority}</p>
                     </div>
                   </div>

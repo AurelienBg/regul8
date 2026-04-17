@@ -120,6 +120,8 @@
     "timeline": "Estimated Timeline",
     "cost": "Estimated Cost",
     "alternatives": "Alternative Jurisdictions",
+    "authority": "Authority",
+    "noSelection": "No activities or jurisdictions selected.",
     "xrplNote": "XRPL-Specific Note",
     "custodyNote": "Custody Note",
     "narrative": "Compliance Roadmap",
