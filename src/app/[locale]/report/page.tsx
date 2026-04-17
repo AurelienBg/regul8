@@ -12,6 +12,7 @@ import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function ReportPage() {
   const t = useTranslations('report');
@@ -447,6 +448,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
           <div className="card mt-4 bg-gradient-to-br from-blue-50/50 to-xrpl-50/30 dark:from-blue-900/10 dark:to-xrpl/5">
             <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed ai-markdown">
               <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 components={{
                   h1: (p) => <h3 className="text-lg font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
                   h2: (p) => <h4 className="text-base font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
@@ -460,6 +462,10 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                   code: (p) => <code className="px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-xs" {...p} />,
                   a: (p) => <a className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...p} />,
                   hr: () => <hr className="my-4 border-gray-200 dark:border-gray-700" />,
+                  table: (p) => <table className="w-full text-sm my-3 border-collapse" {...p} />,
+                  thead: (p) => <thead className="bg-gray-100 dark:bg-gray-800" {...p} />,
+                  th: (p) => <th className="text-left p-2 border border-gray-200 dark:border-gray-700 font-semibold" {...p} />,
+                  td: (p) => <td className="p-2 border border-gray-200 dark:border-gray-700 align-top" {...p} />,
                 }}
               >
                 {aiAnalysis}
