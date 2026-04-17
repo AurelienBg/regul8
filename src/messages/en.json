@@ -143,6 +143,32 @@
       "concept": "Concept",
       "infra": "Infrastructure"
     },
+    "scopes": {
+      "local": {
+        "label": "Local",
+        "tooltip": "Applies only if you physically operate there",
+        "explanation": "Territorial — applies only if you incorporate or operate physically in that jurisdiction. Example: BitLicense applies only to businesses operating in New York."
+      },
+      "extra": {
+        "label": "Extraterritorial",
+        "tooltip": "Applies when you serve users from this jurisdiction, even if you're based elsewhere",
+        "explanation": "Extraterritorial — applies whenever you serve or target users of that jurisdiction, regardless of where your company is incorporated. Example: MiCA applies to any business serving EU users, even if based outside the EU."
+      },
+      "global": {
+        "label": "Global standard",
+        "tooltip": "International standard adopted across most jurisdictions",
+        "explanation": "International standard — adopted or transposed by most jurisdictions worldwide. Example: FATF's Travel Rule and KYC/AML principles are applied almost universally."
+      }
+    },
+    "legend": {
+      "title": "What do the flags, topics and scopes mean?",
+      "flagsTitle": "Flags",
+      "flagsBody": "Indicate where the regulation, regulator or licence comes from. 🌐 = international body or rule adopted globally.",
+      "topicsTitle": "Topics",
+      "topicsBody": "Cross-cutting classification of what each term is — a licence, a regime, a compliance duty, etc.",
+      "scopesTitle": "Scopes",
+      "scopesBody": "Tells you WHEN a regulation applies to you — based on where you operate, where your users are, or as a global standard."
+    },
     "filterByGeography": "Filter by geography",
     "filterByTopic": "Filter by topic",
     "relatedTerms": "Related",

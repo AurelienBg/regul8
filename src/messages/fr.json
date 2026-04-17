@@ -143,6 +143,32 @@
       "concept": "Concept",
       "infra": "Infrastructure"
     },
+    "scopes": {
+      "local": {
+        "label": "Territorial",
+        "tooltip": "S'applique uniquement si vous opérez physiquement sur place",
+        "explanation": "Territorial — s'applique uniquement si vous êtes incorporé ou opérez physiquement dans cette juridiction. Exemple : la BitLicense ne s'applique qu'aux entreprises opérant à New York."
+      },
+      "extra": {
+        "label": "Extraterritorial",
+        "tooltip": "S'applique dès que vous servez des users de cette juridiction, même depuis ailleurs",
+        "explanation": "Extraterritorial — s'applique dès que vous servez ou ciblez des utilisateurs de cette juridiction, peu importe où votre société est incorporée. Exemple : MiCA s'applique à toute entreprise servant des users UE, même basée hors UE."
+      },
+      "global": {
+        "label": "Standard global",
+        "tooltip": "Standard international adopté dans la plupart des juridictions",
+        "explanation": "Standard international — adopté ou transposé par la plupart des juridictions dans le monde. Exemple : la Travel Rule du GAFI et les principes KYC/AML sont appliqués quasiment partout."
+      }
+    },
+    "legend": {
+      "title": "Que signifient les drapeaux, angles et portées ?",
+      "flagsTitle": "Drapeaux",
+      "flagsBody": "Indiquent l'origine de la régulation, du régulateur ou de la licence. 🌐 = organisme international ou règle adoptée mondialement.",
+      "topicsTitle": "Angles",
+      "topicsBody": "Classification transverse : licence, régime, obligation, type de token, régulateur, concept ou infrastructure.",
+      "scopesTitle": "Portées",
+      "scopesBody": "Vous dit QUAND une régulation s'applique à vous — selon où vous opérez, où sont vos users, ou en tant que standard global."
+    },
     "filterByGeography": "Filtrer par géographie",
     "filterByTopic": "Filtrer par angle",
     "relatedTerms": "Associés",

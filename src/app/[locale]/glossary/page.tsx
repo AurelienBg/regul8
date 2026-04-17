@@ -10,6 +10,48 @@ const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
 const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'concept', 'infra'] as const;
 
+type Scope = 'local' | 'extra' | 'global';
+const SCOPE_ICONS: Record<Scope, string> = {
+  local: '📍',
+  extra: '🌐',
+  global: '🌍',
+};
+const SCOPE_STYLES: Record<Scope, string> = {
+  local: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200',
+  extra: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200',
+  global: 'bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-200',
+};
+
+// Scope mapping for each term that has a clear applicability rule.
+// local = only if you operate physically in that jurisdiction
+// extra = applies based on users served, even if you're elsewhere
+// global = international standard adopted everywhere
+const TERM_SCOPES: Record<string, Scope> = {
+  // Local (territorial only)
+  BitLicense: 'local',
+  MTL: 'local',
+  PSAN: 'local',
+  VARA: 'local',
+  // Extraterritorial (most crypto regulations)
+  MiCA: 'extra', CASP: 'extra', DASP: 'extra', EMI: 'extra',
+  EMT: 'extra', ART: 'extra', 'S-EMT': 'extra', 'S-ART': 'extra',
+  'DLT Pilot Regime': 'extra', JONUM: 'extra',
+  'Prospectus Regulation': 'extra', 'MiFID II': 'extra',
+  PSD2: 'extra', PSD3: 'extra',
+  ESMA: 'extra', AMF: 'extra', NCA: 'extra',
+  'Howey Test': 'extra', FinCEN: 'extra', MSB: 'extra',
+  BSA: 'extra', SAR: 'extra', OFAC: 'extra',
+  MAS: 'extra', DPT: 'extra',
+  SFC: 'extra', HKMA: 'extra', AMLO: 'extra',
+  FCA: 'extra', CASS: 'extra',
+  FINMA: 'extra', VQF: 'extra', SRO: 'extra', AMLA: 'extra',
+  TVTG: 'extra',
+  // Global standards (adopted worldwide)
+  FATF: 'global', 'Travel Rule': 'global',
+  AML: 'global', CFT: 'global', KYC: 'global', KYB: 'global',
+  VASP: 'global',
+};
+
 const TOPIC_ICONS: Record<Topic, string> = {
   licence: '🪪',
   regime: '📜',
@@ -101,6 +143,7 @@ export default function GlossaryPage() {
   const [category, setCategory] = useState<string>('all');
   const [topic, setTopic] = useState<string>('all');
   const [highlighted, setHighlighted] = useState<string | null>(null);
+  const [legendOpen, setLegendOpen] = useState(false);
 
   const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
     locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
@@ -155,7 +198,56 @@ export default function GlossaryPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-2xl font-bold mb-6">{t('title')}</h1>
+      <h1 className="text-2xl font-bold mb-4">{t('title')}</h1>
+
+      {/* Legend (collapsible) */}
+      <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50">
+        <button
+          onClick={() => setLegendOpen(!legendOpen)}
+          className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
+        >
+          <span className="flex items-center gap-2">
+            <span>💡</span>
+            <span>{t('legend.title')}</span>
+          </span>
+          <span className={`transition-transform ${legendOpen ? 'rotate-180' : ''}`}>▾</span>
+        </button>
+        {legendOpen && (
+          <div className="px-4 pb-4 pt-1 text-xs text-gray-700 dark:text-gray-300 space-y-3 border-t border-[var(--border)]">
+            <div>
+              <div className="font-semibold mb-1 mt-2">🏳️ {t('legend.flagsTitle')}</div>
+              <p className="text-gray-600 dark:text-gray-400">{t('legend.flagsBody')}</p>
+            </div>
+            <div>
+              <div className="font-semibold mb-1">🎯 {t('legend.topicsTitle')}</div>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">{t('legend.topicsBody')}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {(['licence','regime','obligation','token','regulator','concept','infra'] as Topic[]).map((tp) => (
+                  <span key={tp} className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[tp]}`}>
+                    <span>{TOPIC_ICONS[tp]}</span>
+                    <span>{t(`topics.${tp}`)}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="font-semibold mb-1">📏 {t('legend.scopesTitle')}</div>
+              <p className="text-gray-600 dark:text-gray-400 mb-2">{t('legend.scopesBody')}</p>
+              <div className="space-y-1.5">
+                {(['local', 'extra', 'global'] as Scope[]).map((sc) => (
+                  <div key={sc} className="flex items-start gap-2">
+                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 mt-0.5 ${SCOPE_STYLES[sc]}`}>
+                      <span>{SCOPE_ICONS[sc]}</span>
+                      <span>{t(`scopes.${sc}.label`)}</span>
+                    </span>
+                    <span className="flex-1 text-gray-600 dark:text-gray-400">{t(`scopes.${sc}.explanation`)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Search */}
       <div className="mb-4">
@@ -236,6 +328,15 @@ export default function GlossaryPage() {
                   <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[termTopic]}`}>
                     <span>{TOPIC_ICONS[termTopic]}</span>
                     <span>{t(`topics.${termTopic}`)}</span>
+                  </span>
+                )}
+                {TERM_SCOPES[term.term] && (
+                  <span
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${SCOPE_STYLES[TERM_SCOPES[term.term]]}`}
+                    title={t(`scopes.${TERM_SCOPES[term.term]}.tooltip`)}
+                  >
+                    <span>{SCOPE_ICONS[TERM_SCOPES[term.term]]}</span>
+                    <span>{t(`scopes.${TERM_SCOPES[term.term]}.label`)}</span>
                   </span>
                 )}
                 {term.xrplSpecific && <XRPLBadge />}
