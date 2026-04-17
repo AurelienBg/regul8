@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
+import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 
@@ -231,7 +232,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 font-semibold text-sm">{r?.regime ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 font-semibold text-sm">{r?.regime ? <LinkedText>{r.regime}</LinkedText> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -250,7 +251,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                           {r ? (
                             <ul className="space-y-1">
                               {r.licenses.map((l, i) => (
-                                <li key={i} className="text-xs"><span className="badge-license">{l}</span></li>
+                                <li key={i} className="text-xs"><span className="badge-license"><LinkedText>{l}</LinkedText></span></li>
                               ))}
                             </ul>
                           ) : 'N/A'}
@@ -267,7 +268,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                           {r ? (
                             <ul className="space-y-1">
                               {r.obligations.map((o, i) => (
-                                <li key={i} className="text-xs text-gray-600 dark:text-gray-400">&bull; {o}</li>
+                                <li key={i} className="text-xs text-gray-600 dark:text-gray-400">&bull; <LinkedText>{o}</LinkedText></li>
                               ))}
                             </ul>
                           ) : 'N/A'}

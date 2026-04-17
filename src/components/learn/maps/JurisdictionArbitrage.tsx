@@ -19,19 +19,28 @@ type Jur = {
   costK: number;
   risk: 'low' | 'med' | 'high';
   access: 'narrow' | 'wide' | 'huge';
+  /** Place the name above the dot instead of below (used to avoid overlap). */
+  labelAbove?: boolean;
 };
 
+/**
+ * labelDy: vertical pixel offset for the label, used to avoid overlapping
+ * labels when two dots are vertically close. Default = below the dot.
+ * Negative values push the label above the dot.
+ */
 const JURS: Jur[] = [
   { code: 'li', labelEn: 'Liechtenstein', labelFr: 'Liechtenstein', flag: '🇱🇮', speedMonths: 6, costK: 50, risk: 'low', access: 'wide' },
   { code: 'ch', labelEn: 'Switzerland', labelFr: 'Suisse', flag: '🇨🇭', speedMonths: 12, costK: 250, risk: 'low', access: 'wide' },
-  { code: 'uae', labelEn: 'UAE / Dubai', labelFr: 'EAU / Dubaï', flag: '🇦🇪', speedMonths: 9, costK: 100, risk: 'med', access: 'wide' },
-  { code: 'sg', labelEn: 'Singapore', labelFr: 'Singapour', flag: '🇸🇬', speedMonths: 9, costK: 90, risk: 'med', access: 'wide' },
-  { code: 'uk', labelEn: 'United Kingdom', labelFr: 'Royaume-Uni', flag: '🇬🇧', speedMonths: 15, costK: 80, risk: 'med', access: 'wide' },
-  { code: 'eu', labelEn: 'EU (MiCA)', labelFr: 'UE (MiCA)', flag: '🇪🇺', speedMonths: 15, costK: 200, risk: 'high', access: 'huge' },
-  { code: 'hk', labelEn: 'Hong Kong', labelFr: 'Hong Kong', flag: '🇭🇰', speedMonths: 15, costK: 250, risk: 'high', access: 'wide' },
+  // UAE/SG same month (9), nearby costs — stagger labels
+  { code: 'uae', labelEn: 'UAE / Dubai', labelFr: 'EAU / Dubaï', flag: '🇦🇪', speedMonths: 9, costK: 110, risk: 'med', access: 'wide', labelAbove: true },
+  { code: 'sg', labelEn: 'Singapore', labelFr: 'Singapour', flag: '🇸🇬', speedMonths: 9, costK: 75, risk: 'med', access: 'wide' },
+  // UK/EU/HK cluster around speed 15 — spread speeds + stagger
+  { code: 'uk', labelEn: 'United Kingdom', labelFr: 'Royaume-Uni', flag: '🇬🇧', speedMonths: 14, costK: 80, risk: 'med', access: 'wide' },
+  { code: 'eu', labelEn: 'EU (MiCA)', labelFr: 'UE (MiCA)', flag: '🇪🇺', speedMonths: 16, costK: 200, risk: 'high', access: 'huge' },
+  { code: 'hk', labelEn: 'Hong Kong', labelFr: 'Hong Kong', flag: '🇭🇰', speedMonths: 16, costK: 300, risk: 'high', access: 'wide', labelAbove: true },
   { code: 'us', labelEn: 'USA', labelFr: 'USA', flag: '🇺🇸', speedMonths: 27, costK: 800, risk: 'high', access: 'huge' },
-  { code: 'br', labelEn: 'Brazil', labelFr: 'Brésil', flag: '🇧🇷', speedMonths: 10, costK: 60, risk: 'med', access: 'wide' },
-  { code: 'jp', labelEn: 'Japan', labelFr: 'Japon', flag: '🇯🇵', speedMonths: 18, costK: 200, risk: 'high', access: 'wide' },
+  { code: 'br', labelEn: 'Brazil', labelFr: 'Brésil', flag: '🇧🇷', speedMonths: 10, costK: 55, risk: 'med', access: 'wide', labelAbove: true },
+  { code: 'jp', labelEn: 'Japan', labelFr: 'Japon', flag: '🇯🇵', speedMonths: 20, costK: 180, risk: 'high', access: 'wide' },
 ];
 
 const COPY = {
@@ -69,12 +78,12 @@ const COPY = {
   },
 };
 
-const W = 900;
-const H = 520;
-const PAD_L = 80;
-const PAD_R = 40;
-const PAD_T = 40;
-const PAD_B = 70;
+const W = 1080;
+const H = 560;
+const PAD_L = 90;
+const PAD_R = 60;
+const PAD_T = 50;
+const PAD_B = 80;
 const PLOT_W = W - PAD_L - PAD_R;
 const PLOT_H = H - PAD_T - PAD_B;
 
@@ -174,6 +183,7 @@ export default function JurisdictionArbitrage() {
             const cy = yPos(j.costK);
             const r = accessRadius[j.access];
             const label = locale === 'fr' ? j.labelFr : j.labelEn;
+            const labelY = j.labelAbove ? cy - r - 8 : cy + r + 14;
             return (
               <g key={j.code}>
                 <circle cx={cx} cy={cy} r={r + 4} className="fill-white dark:fill-gray-900" opacity="0.9" />
@@ -183,7 +193,7 @@ export default function JurisdictionArbitrage() {
                 </text>
                 <text
                   x={cx}
-                  y={cy + r + 14}
+                  y={labelY}
                   textAnchor="middle"
                   fontSize="11"
                   className="fill-gray-800 dark:fill-gray-200 font-semibold"

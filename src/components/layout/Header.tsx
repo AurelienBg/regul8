@@ -60,7 +60,7 @@ export default function Header() {
                 href={link.href}
                 className={`min-w-[96px] px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors ${
                   link.isActive(pathname)
-                    ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+                    ? 'bg-blue-500 text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800'
                 }`}
               >
@@ -98,7 +98,7 @@ export default function Header() {
               onClick={() => setMobileOpen(false)}
               className={`block px-3 py-2.5 rounded-lg text-sm font-medium ${
                 link.isActive(pathname)
-                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+                  ? 'bg-blue-500 text-white'
                   : 'text-gray-600 dark:text-gray-400'
               }`}
             >
