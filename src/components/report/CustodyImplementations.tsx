@@ -1,11 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { XRPL_CUSTODY_METHODS } from '@/data/custody-xrpl';
+import { XRPL_CUSTODY_METHODS_FR } from '@/data/xrpl.fr';
 
 export default function CustodyImplementations() {
   const t = useTranslations('xrpl');
+  const locale = useLocale();
+  const methods = locale === 'fr' ? XRPL_CUSTODY_METHODS_FR : XRPL_CUSTODY_METHODS;
   const [expanded, setExpanded] = useState<string | null>(null);
 
   const custodyColor = (c: 'yes' | 'no' | 'grey') =>
@@ -20,7 +23,7 @@ export default function CustodyImplementations() {
         {t('custodyMatrix')}
       </h3>
       <div className="space-y-2">
-        {XRPL_CUSTODY_METHODS.map((method) => (
+        {methods.map((method) => (
           <div key={method.id} className="card p-0 overflow-hidden">
             <button
               onClick={() => setExpanded(expanded === method.id ? null : method.id)}

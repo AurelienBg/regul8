@@ -1,6 +1,9 @@
+'use client';
+
+import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
-const MAPS = [
+const MAPS_EN = [
   {
     id: 'mica-taxonomy',
     icon: '🌳',
@@ -21,24 +24,60 @@ const MAPS = [
   },
 ];
 
+const MAPS_FR = [
+  {
+    id: 'mica-taxonomy',
+    icon: '🌳',
+    title: 'Taxonomie des tokens MiCA',
+    description: "Arbre complet des catégories de tokens sous MiCA — dans le périmètre (EMT/ART/Autres), exclus (NFTs, CBDCs, DeFi pur), avec exemples.",
+  },
+  {
+    id: 'xrpl-custody',
+    icon: '🔐',
+    title: 'Matrice custody XRPL',
+    description: 'Les 10 méthodes de custody XRPL classées en Custodial / Zone grise / Non-custodial, avec les implications de licence UE.',
+  },
+  {
+    id: 'jurisdiction-arbitrage',
+    icon: '🌍',
+    title: "Carte d'arbitrage des juridictions",
+    description: "Nuage de points délai-de-licence vs coût de setup. Trouvez votre sweet spot entre temps, budget, risque et accès marché.",
+  },
+];
+
 export default function VisualMapsListPage() {
+  const locale = useLocale();
+  const isFr = locale === 'fr';
+  const maps = isFr ? MAPS_FR : MAPS_EN;
+  const tr = isFr ? {
+    back: 'Apprendre',
+    title: 'Cartes visuelles',
+    subtitle: 'Des visualisations en une page qui rendent la régulation tangible.',
+    open: 'Ouvrir',
+  } : {
+    back: 'Learn',
+    title: 'Visual Maps',
+    subtitle: 'One-pager visualizations that make regulation tangible.',
+    open: 'Open',
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-2">
         <Link href="/learn" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-          &larr; Learn
+          &larr; {tr.back}
         </Link>
       </div>
       <header className="text-center mb-12">
         <div className="text-5xl mb-4">🗺️</div>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3">Visual Maps</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          One-pager visualizations that make regulation tangible.
+          {tr.subtitle}
         </p>
       </header>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {MAPS.map((m) => (
+        {maps.map((m) => (
           <Link
             key={m.id}
             href={`/learn/maps/${m.id}`}
@@ -50,7 +89,7 @@ export default function VisualMapsListPage() {
             </h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{m.description}</p>
             <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              Open &rarr;
+              {tr.open} &rarr;
             </span>
           </Link>
         ))}

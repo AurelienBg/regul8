@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { getDecisionTree } from '@/data/decision-trees';
+import { getDecisionTreeFr } from '@/data/decision-trees.fr';
 import DecisionTreeRunner from '@/components/learn/DecisionTreeRunner';
 
 type Params = { id: string; locale: string };
 
 export default function DecisionTreePage({ params }: { params: Params }) {
-  const tree = getDecisionTree(params.id);
+  const isFr = params.locale === 'fr';
+  const tree = isFr ? getDecisionTreeFr(params.id) : getDecisionTree(params.id);
   if (!tree) notFound();
 
   return (
@@ -16,7 +18,7 @@ export default function DecisionTreePage({ params }: { params: Params }) {
           href="/learn/decision-trees"
           className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
         >
-          &larr; All trees
+          &larr; {isFr ? 'Tous les arbres' : 'All trees'}
         </Link>
       </div>
 

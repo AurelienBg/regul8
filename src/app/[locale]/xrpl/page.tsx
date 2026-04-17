@@ -1,15 +1,20 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { XRPL_KNOWLEDGE, XRPL_FEATURES } from '@/data/xrpl';
+import { XRPL_KNOWLEDGE_FR, XRPL_FEATURES_FR } from '@/data/xrpl.fr';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 
 export default function XRPLPage() {
   const t = useTranslations('xrpl');
   const tc = useTranslations('common');
+  const locale = useLocale();
+  const isFr = locale === 'fr';
+  const knowledge = isFr ? XRPL_KNOWLEDGE_FR : XRPL_KNOWLEDGE;
+  const features = isFr ? XRPL_FEATURES_FR : XRPL_FEATURES;
 
-  const statusEntries = Object.entries(XRPL_KNOWLEDGE.xrp_legal_status.jurisdiction_notes);
+  const statusEntries = Object.entries(knowledge.xrp_legal_status.jurisdiction_notes);
 
   const flagMap: Record<string, string> = {
     eu: '\uD83C\uDDEA\uD83C\uDDFA', us: '\uD83C\uDDFA\uD83C\uDDF8', sg: '\uD83C\uDDF8\uD83C\uDDEC',
@@ -28,7 +33,7 @@ export default function XRPLPage() {
       {/* XRP Legal Status */}
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-4">{t('xrpStatus')}</h2>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{XRPL_KNOWLEDGE.xrp_legal_status.summary}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{knowledge.xrp_legal_status.summary}</p>
         <div className="grid sm:grid-cols-2 gap-3">
           {statusEntries.map(([code, note]) => (
             <div key={code} className="card p-4">
@@ -46,10 +51,10 @@ export default function XRPLPage() {
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-4">{t('evmSidechain')}</h2>
         <div className="card">
-          <p className="text-sm mb-3">{XRPL_KNOWLEDGE.xrpl_evm_sidechain.summary}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{XRPL_KNOWLEDGE.xrpl_evm_sidechain.regulatory_treatment}</p>
+          <p className="text-sm mb-3">{knowledge.xrpl_evm_sidechain.summary}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{knowledge.xrpl_evm_sidechain.regulatory_treatment}</p>
           <p className="text-xs text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3">
-            {XRPL_KNOWLEDGE.xrpl_evm_sidechain.bridge_note}
+            {knowledge.xrpl_evm_sidechain.bridge_note}
           </p>
         </div>
       </section>
@@ -61,14 +66,14 @@ export default function XRPLPage() {
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="border-b border-[var(--border)]">
-                <th className="text-left p-3">Feature</th>
-                <th className="text-left p-3">Standard</th>
-                <th className="text-left p-3">Status</th>
-                <th className="text-left p-3">Regulatory Note</th>
+                <th className="text-left p-3">{t('tableFeature')}</th>
+                <th className="text-left p-3">{t('tableStandard')}</th>
+                <th className="text-left p-3">{t('tableStatus')}</th>
+                <th className="text-left p-3">{t('tableRegNote')}</th>
               </tr>
             </thead>
             <tbody>
-              {XRPL_FEATURES.map((f) => (
+              {features.map((f) => (
                 <tr key={f.name} className="border-b border-[var(--border)]">
                   <td className="p-3 font-medium">{f.name}</td>
                   <td className="p-3"><code className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800">{f.standard}</code></td>

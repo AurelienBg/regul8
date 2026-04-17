@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { useLocale } from 'next-intl';
 import type { DecisionTree, DecisionNode, DecisionVerdict } from '@/types';
 import { Link } from '@/i18n/routing';
 
@@ -30,28 +31,60 @@ function computeMaxDepth(tree: DecisionTree): number {
   return dfs(tree.rootId);
 }
 
-const verdictStyles: Record<DecisionVerdict, { pill: string; card: string; emoji: string; label: string }> = {
+const verdictStyles: Record<DecisionVerdict, { pill: string; card: string; emoji: string; labelEn: string; labelFr: string }> = {
   yes: {
     pill: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200',
     card: 'border-red-200 dark:border-red-900/40',
     emoji: '🔴',
-    label: 'YES',
+    labelEn: 'YES',
+    labelFr: 'OUI',
   },
   no: {
     pill: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
     card: 'border-emerald-200 dark:border-emerald-900/40',
     emoji: '🟢',
-    label: 'NO',
+    labelEn: 'NO',
+    labelFr: 'NON',
   },
   maybe: {
     pill: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
     card: 'border-amber-200 dark:border-amber-900/40',
     emoji: '🟡',
-    label: 'GREY ZONE',
+    labelEn: 'GREY ZONE',
+    labelFr: 'ZONE GRISE',
   },
 };
 
 export default function DecisionTreeRunner({ tree }: Props) {
+  const locale = useLocale();
+  const isFr = locale === 'fr';
+  const tr = isFr ? {
+    result: 'Résultat',
+    progress: 'Progression',
+    yourAnswers: 'Vos réponses',
+    question: 'Question',
+    back: 'Retour',
+    restart: 'Recommencer',
+    nextSteps: 'Étapes recommandées',
+    relatedTerms: 'Termes associés',
+    tryAnother: 'Essayer une autre réponse',
+    fullCheck: 'Vérification complète',
+    otherTrees: 'Autres arbres',
+    disclaimer: "Information générale uniquement. Pour votre situation spécifique, consultez un avocat qualifié.",
+  } : {
+    result: 'Result',
+    progress: 'Progress',
+    yourAnswers: 'Your answers',
+    question: 'Question',
+    back: 'Back',
+    restart: 'Restart',
+    nextSteps: 'Recommended next steps',
+    relatedTerms: 'Related terms',
+    tryAnother: 'Try another answer',
+    fullCheck: 'Full compliance check',
+    otherTrees: 'Other trees',
+    disclaimer: 'This is general information only. For your specific situation, consult a qualified lawyer.',
+  };
   const [currentId, setCurrentId] = useState<string>(tree.rootId);
   const [history, setHistory] = useState<HistoryStep[]>([]);
 
@@ -93,7 +126,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
       <div className="mb-6">
         <div className="flex justify-between items-baseline mb-2">
           <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            {isOutcome ? 'Result' : 'Progress'}
+            {isOutcome ? tr.result : tr.progress}
           </span>
           <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
             {isOutcome ? `${maxDepth} / ${maxDepth}` : `${currentStep} / ${maxDepth}`}
@@ -112,7 +145,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
       {/* Trail */}
       {history.length > 0 && (
         <div className="mb-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)]">
-          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Your answers</div>
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{tr.yourAnswers}</div>
           <ol className="space-y-1.5">
             {history.map((h, i) => (
               <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex gap-2">
@@ -132,7 +165,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
       {currentNode.type === 'question' && (
         <div className="card">
           <div className="mb-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
-            Question {currentStep} / {maxDepth}
+            {tr.question} {currentStep} / {maxDepth}
           </div>
           <h2 className="text-xl font-bold mb-3">{currentNode.question}</h2>
           {currentNode.hint && (
@@ -156,10 +189,10 @@ export default function DecisionTreeRunner({ tree }: Props) {
               disabled={history.length === 0}
               className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              &larr; Back
+              &larr; {tr.back}
             </button>
             <button onClick={handleRestart} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-              Restart
+              {tr.restart}
             </button>
           </div>
         </div>
@@ -171,7 +204,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
           <div className="flex items-center gap-3 mb-3">
             <span className="text-3xl">{verdictStyles[currentNode.verdict].emoji}</span>
             <span className={`px-3 py-1 rounded-full text-xs font-bold ${verdictStyles[currentNode.verdict].pill}`}>
-              {verdictStyles[currentNode.verdict].label}
+              {isFr ? verdictStyles[currentNode.verdict].labelFr : verdictStyles[currentNode.verdict].labelEn}
             </span>
           </div>
           <h2 className="text-2xl font-bold mb-3">{currentNode.title}</h2>
@@ -180,7 +213,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
           {currentNode.nextSteps && currentNode.nextSteps.length > 0 && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 uppercase tracking-wide">
-                Recommended next steps
+                {tr.nextSteps}
               </h3>
               <ul className="space-y-2">
                 {currentNode.nextSteps.map((step, i) => (
@@ -196,7 +229,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
           {currentNode.relatedTerms && currentNode.relatedTerms.length > 0 && (
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3 uppercase tracking-wide">
-                Related terms
+                {tr.relatedTerms}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {currentNode.relatedTerms.map((term, i) => (
@@ -213,17 +246,17 @@ export default function DecisionTreeRunner({ tree }: Props) {
 
           <div className="pt-4 border-t border-[var(--border)] flex flex-wrap gap-3">
             <button onClick={handleRestart} className="btn-primary text-sm">
-              &larr; Try another answer
+              &larr; {tr.tryAnother}
             </button>
             <Link href="/wizard" className="btn-secondary text-sm">
-              Full compliance check
+              {tr.fullCheck}
             </Link>
             <Link href="/learn/decision-trees" className="btn-secondary text-sm">
-              Other trees
+              {tr.otherTrees}
             </Link>
           </div>
           <p className="text-xs text-gray-500 mt-6 italic">
-            This is general information only. For your specific situation, consult a qualified lawyer.
+            {tr.disclaimer}
           </p>
         </div>
       )}

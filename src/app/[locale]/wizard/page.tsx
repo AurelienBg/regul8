@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
 import XRPLBadge from '@/components/ui/XRPLBadge';
@@ -13,6 +13,9 @@ export default function WizardPage() {
   const t = useTranslations('wizard');
   const tw = useTranslations('wizard');
   const router = useRouter();
+  const locale = useLocale();
+  const isFr = locale === 'fr';
+  const selectAll = isFr ? "Sélectionnez tout ce qui s'applique" : 'Select all that apply';
   const [selectedActivities, setSelectedActivities] = useState<ActivityKey[]>([]);
   const [selectedJurisdictions, setSelectedJurisdictions] = useState<Jurisdiction[]>([]);
 
@@ -86,7 +89,7 @@ export default function WizardPage() {
         <div>
           <h2 className="text-lg font-semibold mb-1">{t('step3.title')}</h2>
           <p className="text-xs text-gray-500 mb-4">Select all that apply</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {JURISDICTION_KEYS.map((code) => {
               const j = JURISDICTIONS[code];
               const active = selectedJurisdictions.includes(code);
