@@ -93,7 +93,6 @@ const MICA: LearningPath = {
   ],
   relatedTerms: ['MiCA', 'CASP', 'EMT', 'ART', 'AMF', 'ESMA', 'Utility Token', 'DeFi'],
   relatedTrees: ['casp'],
-  relatedCases: ['rlusd-stablecoin'],
 }
 
 // -----------------------------------------------------------------------------
@@ -190,7 +189,6 @@ const XRPL_CUSTODY: LearningPath = {
   ],
   relatedTerms: ['Custody', 'CASP', 'SignerList', 'MPC', 'TSS', 'Trust Line', 'IOU', 'Escrow', 'Payment Channel', 'RLUSD'],
   relatedTrees: ['xrpl-custody', 'casp'],
-  relatedCases: ['rlusd-stablecoin'],
 }
 
 // -----------------------------------------------------------------------------
@@ -272,7 +270,6 @@ const HOWEY: LearningPath = {
   ],
   relatedTerms: ['Howey Test', 'SEC', 'SEC v. Ripple', 'Reg D', 'Reg S', 'Reg A+', 'Utility Token'],
   relatedTrees: ['howey'],
-  relatedCases: ['sec-v-ripple'],
 }
 
 export const LEARNING_PATHS: LearningPath[] = [MICA, XRPL_CUSTODY, HOWEY]

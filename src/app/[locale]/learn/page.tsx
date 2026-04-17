@@ -20,15 +20,6 @@ const MODES = [
     available: true,
   },
   {
-    id: 'case-studies',
-    href: '/learn/cases',
-    icon: '📖',
-    title: 'Case Studies',
-    description: 'Real regulatory cases explained: SEC v. Ripple, RLUSD structure, Sorare + ANJ, Binance → Dubai move.',
-    cta: 'Read cases',
-    available: true,
-  },
-  {
     id: 'visual-maps',
     href: '/learn/maps',
     icon: '🗺️',

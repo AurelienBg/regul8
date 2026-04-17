@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { LEARNING_PATHS, getLearningPath } from '@/data/learning-paths';
 import { getDecisionTree } from '@/data/decision-trees';
-import { getCaseStudy } from '@/data/case-studies';
 import { JURISDICTIONS } from '@/types';
 import PathBlockRenderer from '@/components/learn/PathBlockRenderer';
 
@@ -79,11 +78,11 @@ export default async function LearningPathPage({ params }: { params: Params }) {
       ))}
 
       {/* Cross-references */}
-      {((p.relatedTrees && p.relatedTrees.length > 0) || (p.relatedCases && p.relatedCases.length > 0)) && (
+      {p.relatedTrees && p.relatedTrees.length > 0 && (
         <section className="mt-12 mb-10">
           <h2 className="text-xl font-bold mb-4">Explore further</h2>
           <div className="grid sm:grid-cols-2 gap-3">
-            {p.relatedTrees?.map((tid) => {
+            {p.relatedTrees.map((tid) => {
               const t = getDecisionTree(tid);
               if (!t) return null;
               return (
@@ -96,24 +95,6 @@ export default async function LearningPathPage({ params }: { params: Params }) {
                   <div className="flex-1">
                     <div className="font-semibold text-sm">{t.title}</div>
                     <div className="text-xs text-gray-500">Decision tree</div>
-                  </div>
-                  <span className="text-gray-400">&rarr;</span>
-                </Link>
-              );
-            })}
-            {p.relatedCases?.map((cid) => {
-              const c = getCaseStudy(cid);
-              if (!c) return null;
-              return (
-                <Link
-                  key={cid}
-                  href={`/learn/cases/${cid}`}
-                  className="card hover:border-blue-500 transition-colors flex items-center gap-3 py-4"
-                >
-                  <span className="text-2xl">{c.icon}</span>
-                  <div className="flex-1">
-                    <div className="font-semibold text-sm">{c.title}</div>
-                    <div className="text-xs text-gray-500">Case study</div>
                   </div>
                   <span className="text-gray-400">&rarr;</span>
                 </Link>

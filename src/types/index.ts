@@ -78,21 +78,6 @@ export interface DecisionTree {
   nodes: Record<string, DecisionNode>
 }
 
-export interface CaseStudy {
-  id: string
-  icon: string
-  title: string
-  subtitle: string
-  date: string
-  jurisdictions: Jurisdiction[]
-  keyTakeaway: string
-  timeline?: { date: string; event: string }[]
-  sections: { heading: string; paragraphs: string[] }[]
-  whyItMatters: string[]
-  relatedTerms: string[]
-  relatedTrees?: string[]
-}
-
 export type PathBlock =
   | { kind: 'p'; text: string }
   | { kind: 'h3'; text: string }
@@ -118,7 +103,6 @@ export interface LearningPath {
   sections: PathSection[]
   relatedTerms: string[]
   relatedTrees?: string[]
-  relatedCases?: string[]
 }
 
 export interface XRPLCustodyMethod {
