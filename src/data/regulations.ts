@@ -146,14 +146,14 @@ export const REGULATIONS: RegData = {
       custodyNote: "Stablecoin on XRPL uses IOU/Trust Line model. Gateway holds reserve assets \u2014 custodial by definition. freeze and globalFreeze flags provide compliance controls."
     },
     us: {
-      regime: "State-level regulation + proposed federal stablecoin bill",
+      regime: "GENIUS Act (federal stablecoin framework, signed July 2025) + State MTL + BitLicense (NY)",
       risk: "high",
-      licenses: ["State MTL in most states", "NY BitLicense or trust charter", "Federal stablecoin charter (pending legislation)"],
-      obligations: ["1:1 reserve backing", "Monthly reserve attestations", "State-by-state compliance", "OFAC screening", "BSA/AML program"],
-      time: "18\u201336 months",
+      licenses: ["Federal OCC Payment Stablecoin Issuer charter (GENIUS Act)", "OR state-qualified issuer under GENIUS dual path", "State MTL where applicable", "NY BitLicense or NY Trust charter"],
+      obligations: ["1:1 backing in cash + short-term US Treasuries (<93 days) + repos", "Monthly disclosures signed by CFO + annual independent attestation", "Redemption at par within T+1", "Bank-grade AML/KYC + OFAC screening", "No interest/yield payments to holders", "Bankruptcy-remote segregation of reserves", "Foreign issuers may passport if comparable regime (reciprocity)"],
+      time: "12\u201324 months (federal path) / 6\u201312 months (state path)",
       cost: "$500K\u2013$2M+",
-      alts: ["EU MiCA (clearer framework)", "Switzerland FINMA"],
-      authority: "State regulators / OCC (proposed) / FinCEN"
+      alts: ["EU MiCA EMT (comparable 1:1 framework)", "Switzerland FINMA", "Dubai VARA payment token"],
+      authority: "OCC (federal) / State regulators / FinCEN"
     },
     uae: {
       regime: "VARA Payment Token + CBUAE oversight",
@@ -275,15 +275,15 @@ export const REGULATIONS: RegData = {
       custodyNote: "Under MiCA Art. 75, custodians are liable for loss of crypto-assets unless they prove the loss arose from events beyond reasonable control. This applies to any service holding private keys on behalf of clients."
     },
     us: {
-      regime: "State trust charter or qualified custodian (SEC)",
+      regime: "State trust charter + SEC qualified custodian rule + CLARITY Act custody provisions (2025)",
       risk: "high",
-      licenses: ["State trust charter (e.g. NY, Wyoming, South Dakota)", "FinCEN MSB registration", "SEC qualified custodian status (if institutional)"],
-      obligations: ["BSA/AML compliance", "SAR filings", "OFAC screening", "SOC 2 Type II audit", "Cold storage requirements", "Insurance"],
+      licenses: ["State trust charter (NY, Wyoming SPDI, South Dakota, etc.)", "FinCEN MSB registration", "SEC qualified custodian status for institutional clients", "CLARITY Act: CFTC-registered 'digital commodity custodian' for CFTC-jurisdiction assets"],
+      obligations: ["BSA/AML compliance", "SAR filings", "OFAC screening", "SOC 2 Type II audit", "Cold storage requirements (institutional clients)", "Insurance (crime + cyber policy)", "CLARITY Act: segregation of customer digital commodities + prohibition on rehypothecation absent consent", "GENIUS Act: special rules apply when custodying qualifying stablecoins"],
       time: "12\u201324 months",
       cost: "$300K\u2013$1M+",
-      alts: ["Wyoming SPDI charter (faster)", "EU MiCA CASP", "Liechtenstein TVTG"],
-      authority: "State regulators / SEC / FinCEN",
-      xrplNote: "XRPL custody: SEC qualified custodian rules apply. MPC/TSS solutions (Fireblocks, Silence Labs) popular for institutional XRPL custody. SignerList multisig provides native on-chain alternative."
+      alts: ["Wyoming SPDI charter (faster path)", "EU MiCA CASP", "Liechtenstein TVTG", "Dubai VARA custody"],
+      authority: "State regulators / SEC / CFTC / FinCEN / OCC",
+      xrplNote: "XRPL custody: SEC qualified custodian rules apply for securities-like XRPL tokens; CLARITY Act (2025) shifts 'digital commodity' custody under CFTC (applies to XRP per SEC v. Ripple secondary-sales holding). MPC/TSS (Fireblocks, Silence Labs) widely used for institutional XRPL custody. SignerList multisig provides native on-chain alternative."
     },
     uae: {
       regime: "VARA \u2014 VA Custody Services",
@@ -1294,14 +1294,14 @@ export const REGULATIONS: RegData = {
       authority: "NCA"
     },
     us: {
-      regime: "Howey Test analysis \u2014 must prove NOT a security",
+      regime: "Howey Test + CLARITY Act 'mature blockchain' test (2025)",
       risk: "med",
-      licenses: ["No licence if genuinely utility", "SEC registration if fails Howey Test"],
-      obligations: ["Howey Test legal opinion", "No investment marketing", "Consumer protection"],
-      time: "1\u20136 months",
-      cost: "$20K\u2013$100K (legal opinion)",
-      alts: ["EU MiCA (clearer utility framework)"],
-      authority: "SEC"
+      licenses: ["No licence if genuinely utility AND underlying network passes CLARITY mature-blockchain test (= digital commodity, CFTC path)", "SEC registration + exemption (Reg D/S/A+) if fails Howey"],
+      obligations: ["Dual legal opinion: Howey (SEC) + CLARITY mature-blockchain status (CFTC path)", "No investment marketing, no profit promises", "Consumer protection, transparent disclosures", "If CFTC-jurisdiction: spot-market rules + anti-fraud"],
+      time: "1\u20136 months (utility) / 6\u201312 months (edge cases)",
+      cost: "$20K\u2013$150K (dual legal opinion)",
+      alts: ["EU MiCA 'Other crypto-asset' (lighter, whitepaper-only)", "Liechtenstein TVTG"],
+      authority: "SEC + CFTC (CLARITY Act split)"
     },
     uae: {
       regime: "VARA \u2014 utility token advisory",
@@ -1420,14 +1420,14 @@ export const REGULATIONS: RegData = {
       authority: "NCA / ESMA"
     },
     us: {
-      regime: "SEC Securities Act \u2014 Reg D / Reg S / Reg A+",
+      regime: "SEC Securities Act (Reg D / Reg S / Reg A+) + CLARITY Act 'investment contract digital asset' framework (2025)",
       risk: "high",
-      licenses: ["SEC registration or exemption", "Broker-dealer registration", "ATS if secondary market"],
-      obligations: ["Reg D: accredited investors only, no general solicitation (506b) or with verification (506c)", "Reg S: offshore only", "Reg A+: up to $75M mini-IPO", "Transfer agent requirements", "Blue sky state compliance"],
+      licenses: ["SEC registration or exemption (Reg D 506(c), Reg S, Reg A+)", "Broker-dealer registration", "ATS if secondary market", "CLARITY Act: may transition to CFTC 'digital commodity' once mature-blockchain test met"],
+      obligations: ["Reg D: accredited investors only, no general solicitation (506b) or with verification (506c)", "Reg S: offshore only", "Reg A+: up to $75M mini-IPO", "Transfer agent requirements", "Blue sky state compliance", "CLARITY Act disclosures for investment contract digital assets (quarterly + annual reports, audit)"],
       time: "6\u201318 months",
       cost: "$200K\u2013$1M+",
-      alts: ["Reg S (non-US focus)", "EU DLT Pilot", "Liechtenstein TVTG"],
-      authority: "SEC / FINRA"
+      alts: ["Reg S (non-US focus)", "EU DLT Pilot Regime", "Liechtenstein TVTG"],
+      authority: "SEC / FINRA / CFTC (post mature-blockchain transition)"
     },
     uae: {
       regime: "ADGM/DIFC \u2014 Regulated digital securities",

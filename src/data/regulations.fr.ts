@@ -17,15 +17,15 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "XRPL dispose d'un DEX natif (carnet d'ordres intégré au protocole). Un DApp front-end y accédant pour des utilisateurs UE peut toujours nécessiter un agrément CASP s'il route des ordres ou contrôle des fonds."
     },
     us: {
-      regime: "FinCEN MSB + MTL d'État + BitLicense (NY)",
+      regime: "FinCEN MSB + MTL d'État + BitLicense (NY) + CLARITY Act (répartition SEC/CFTC)",
       risk: "high",
-      licenses: ["Enregistrement FinCEN MSB", "Money Transmitter Licence (par État, ~48 États)", "BitLicense (NY uniquement)"],
-      obligations: ["Conformité KYC/AML/BSA", "Déclarations SAR", "Filtrage sanctions OFAC", "Règle du voyage >$3K", "Exigences de caution État par État"],
+      licenses: ["Enregistrement FinCEN MSB", "Money Transmitter Licence (par État, ~48 États)", "BitLicense (NY uniquement)", "Enregistrement CFTC pour les plateformes d'échange de 'digital commodities' (CLARITY Act, 2025)"],
+      obligations: ["Conformité KYC/AML/BSA", "Déclarations SAR", "Filtrage sanctions OFAC", "Règle du voyage >$3K", "Exigences de caution État par État", "CLARITY Act : classification des plateformes de trading (SEC vs CFTC) actif par actif selon le test de 'mature blockchain'"],
       time: "18\u201336 mois",
       cost: "$200K\u2013$1M+",
       alts: ["Wyoming LLC (crypto-friendly)", "UE MiCA comme marché principal", "Liechtenstein TVTG"],
-      authority: "FinCEN / NYDFS / régulateurs d'État",
-      xrplNote: "DEX front-end XRPL : la SEC peut le considérer comme une plateforme d'échange non enregistrée. XRP est classé comme utilitaire sur le marché secondaire (SEC v. Ripple, juillet 2023) — mais d'autres tokens XRPL peuvent être des titres financiers."
+      authority: "FinCEN / SEC / CFTC / NYDFS / régulateurs d'État",
+      xrplNote: "DEX front-end XRPL : la SEC peut le considérer comme une plateforme d'échange non enregistrée pour des paires de titres tokenisés. Sous le CLARITY Act 2025, le XRP (ventes secondaires, SEC v. Ripple juillet 2023) qualifie probablement de 'digital commodity' — compétence CFTC. Les autres tokens XRPL nécessitent une analyse cas par cas du test mature-blockchain."
     },
     uae: {
       regime: "VARA \u2014 VASP Full Market Product",
@@ -146,14 +146,14 @@ export const REGULATIONS_FR: RegData = {
       custodyNote: "Un stablecoin sur XRPL utilise le modèle IOU/Trust Line. Le gateway détient les actifs de réserve \u2014 par définition custodial. Les flags freeze et globalFreeze fournissent des contrôles de conformité."
     },
     us: {
-      regime: "Régulation au niveau des États + projet de loi fédérale stablecoin",
+      regime: "GENIUS Act (cadre fédéral stablecoin, signé juillet 2025) + MTL d'État + BitLicense (NY)",
       risk: "high",
-      licenses: ["MTL d'État dans la plupart des États", "NY BitLicense ou charter trust", "Charter fédéral stablecoin (législation en attente)"],
-      obligations: ["Couverture en réserve 1:1", "Attestations mensuelles de réserve", "Conformité État par État", "Filtrage OFAC", "Programme BSA/AML"],
-      time: "18\u201336 mois",
+      licenses: ["Charter fédéral OCC 'Payment Stablecoin Issuer' (GENIUS Act)", "OU émetteur agréé au niveau d'un État (voie duale GENIUS)", "MTL d'État si applicable", "NY BitLicense ou Trust charter NY"],
+      obligations: ["Couverture 1:1 en cash + bons du Trésor US court terme (<93 jours) + repos", "Divulgations mensuelles signées par le CFO + attestation annuelle indépendante", "Rachat au pair sous T+1", "Programme AML/KYC de niveau bancaire + filtrage OFAC", "Interdiction de payer des intérêts/rendements aux détenteurs", "Ségrégation bankruptcy-remote des réserves", "Émetteurs étrangers peuvent passporter si régime comparable (réciprocité)"],
+      time: "12\u201324 mois (voie fédérale) / 6\u201312 mois (voie État)",
       cost: "$500K\u2013$2M+",
-      alts: ["UE MiCA (cadre plus clair)", "Suisse FINMA"],
-      authority: "Régulateurs d'État / OCC (proposé) / FinCEN"
+      alts: ["UE MiCA EMT (cadre 1:1 comparable)", "Suisse FINMA", "Dubaï VARA payment token"],
+      authority: "OCC (fédéral) / Régulateurs d'État / FinCEN"
     },
     uae: {
       regime: "VARA Payment Token + supervision CBUAE",
@@ -275,15 +275,15 @@ export const REGULATIONS_FR: RegData = {
       custodyNote: "Selon l'Art. 75 MiCA, les conservateurs sont responsables de la perte des crypto-actifs sauf à prouver que la perte résulte d'événements hors de leur contrôle raisonnable. S'applique à tout service détenant des clés privées pour le compte de clients."
     },
     us: {
-      regime: "Charter trust d'État ou qualified custodian (SEC)",
+      regime: "Charter trust d'État + règle SEC qualified custodian + dispositions custody du CLARITY Act (2025)",
       risk: "high",
-      licenses: ["Charter trust d'État (par ex. NY, Wyoming, South Dakota)", "Enregistrement FinCEN MSB", "Statut de SEC qualified custodian (si institutionnel)"],
-      obligations: ["Conformité BSA/AML", "Déclarations SAR", "Filtrage OFAC", "Audit SOC 2 Type II", "Exigences de stockage à froid", "Assurance"],
+      licenses: ["Charter trust d'État (NY, Wyoming SPDI, South Dakota, etc.)", "Enregistrement FinCEN MSB", "Statut SEC qualified custodian pour clients institutionnels", "CLARITY Act : 'digital commodity custodian' agréé par la CFTC pour les actifs sous compétence CFTC"],
+      obligations: ["Conformité BSA/AML", "Déclarations SAR", "Filtrage OFAC", "Audit SOC 2 Type II", "Exigences de stockage à froid (clients institutionnels)", "Assurance (police crime + cyber)", "CLARITY Act : ségrégation des digital commodities clients + interdiction de réhypothécation sans consentement", "GENIUS Act : règles spécifiques pour la garde de stablecoins qualifiants"],
       time: "12\u201324 mois",
       cost: "$300K\u2013$1M+",
-      alts: ["Charter Wyoming SPDI (plus rapide)", "UE MiCA CASP", "Liechtenstein TVTG"],
-      authority: "Régulateurs d'État / SEC / FinCEN",
-      xrplNote: "Custody XRPL : les règles SEC qualified custodian s'appliquent. Les solutions MPC/TSS (Fireblocks, Silence Labs) sont populaires pour le custody XRPL institutionnel. Le multisig SignerList fournit une alternative native on-chain."
+      alts: ["Charter Wyoming SPDI (voie plus rapide)", "UE MiCA CASP", "Liechtenstein TVTG", "Dubaï VARA custody"],
+      authority: "Régulateurs d'État / SEC / CFTC / FinCEN / OCC",
+      xrplNote: "Custody XRPL : les règles SEC qualified custodian s'appliquent aux tokens XRPL de type valeur mobilière ; le CLARITY Act (2025) transfère la custody des 'digital commodities' sous compétence CFTC (s'applique au XRP selon l'arrêt SEC v. Ripple). MPC/TSS (Fireblocks, Silence Labs) largement utilisés pour le custody XRPL institutionnel. Le multisig SignerList fournit une alternative native on-chain."
     },
     uae: {
       regime: "VARA \u2014 VA Custody Services",
@@ -1294,14 +1294,14 @@ export const REGULATIONS_FR: RegData = {
       authority: "ANC"
     },
     us: {
-      regime: "Analyse Howey Test \u2014 doit prouver que ce n'EST PAS un titre financier",
+      regime: "Howey Test + test 'mature blockchain' du CLARITY Act (2025)",
       risk: "med",
-      licenses: ["Pas de licence si véritablement utility", "Enregistrement SEC si échoue au Howey Test"],
-      obligations: ["Avis juridique Howey Test", "Pas de marketing d'investissement", "Protection des consommateurs"],
-      time: "1\u20136 mois",
-      cost: "$20K\u2013$100K (avis juridique)",
-      alts: ["UE MiCA (cadre utility plus clair)"],
-      authority: "SEC"
+      licenses: ["Pas de licence si véritablement utility ET le réseau sous-jacent passe le test mature-blockchain du CLARITY Act (= digital commodity, voie CFTC)", "Enregistrement SEC + exemption (Reg D/S/A+) si échoue au Howey"],
+      obligations: ["Avis juridique dual : Howey (SEC) + statut mature-blockchain CLARITY (voie CFTC)", "Pas de marketing d'investissement, pas de promesses de rendement", "Protection des consommateurs, divulgations transparentes", "Si compétence CFTC : règles du marché au comptant + anti-fraude"],
+      time: "1\u20136 mois (utility) / 6\u201312 mois (cas limites)",
+      cost: "$20K\u2013$150K (avis juridique dual)",
+      alts: ["UE MiCA 'Other crypto-asset' (plus léger, whitepaper seulement)", "Liechtenstein TVTG"],
+      authority: "SEC + CFTC (répartition CLARITY Act)"
     },
     uae: {
       regime: "VARA \u2014 avis utility token",
@@ -1420,14 +1420,14 @@ export const REGULATIONS_FR: RegData = {
       authority: "ANC / ESMA"
     },
     us: {
-      regime: "SEC Securities Act \u2014 Reg D / Reg S / Reg A+",
+      regime: "SEC Securities Act (Reg D / Reg S / Reg A+) + cadre 'investment contract digital asset' du CLARITY Act (2025)",
       risk: "high",
-      licenses: ["Enregistrement SEC ou exemption", "Enregistrement broker-dealer", "ATS si marché secondaire"],
-      obligations: ["Reg D : investisseurs accrédités uniquement, pas de démarchage public (506b) ou avec vérification (506c)", "Reg S : hors États-Unis uniquement", "Reg A+ : mini-IPO jusqu'à $75M", "Exigences de transfer agent", "Conformité Blue sky par État"],
+      licenses: ["Enregistrement SEC ou exemption (Reg D 506(c), Reg S, Reg A+)", "Enregistrement broker-dealer", "ATS si marché secondaire", "CLARITY Act : transition possible vers 'digital commodity' CFTC une fois le test mature-blockchain passé"],
+      obligations: ["Reg D : investisseurs accrédités uniquement, pas de démarchage public (506b) ou avec vérification (506c)", "Reg S : hors États-Unis uniquement", "Reg A+ : mini-IPO jusqu'à $75M", "Exigences de transfer agent", "Conformité Blue sky par État", "Divulgations CLARITY Act pour les 'investment contract digital assets' (rapports trimestriels + annuels, audit)"],
       time: "6\u201318 mois",
       cost: "$200K\u2013$1M+",
-      alts: ["Reg S (focus non-US)", "DLT Pilot UE", "Liechtenstein TVTG"],
-      authority: "SEC / FINRA"
+      alts: ["Reg S (focus non-US)", "DLT Pilot Regime UE", "Liechtenstein TVTG"],
+      authority: "SEC / FINRA / CFTC (après transition mature-blockchain)"
     },
     uae: {
       regime: "ADGM/DIFC \u2014 Titres financiers numériques régulés",
