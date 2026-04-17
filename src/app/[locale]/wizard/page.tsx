@@ -132,30 +132,21 @@ export default function WizardPage() {
         </div>
       </section>
 
-      {/* Summary + Submit */}
-      <div className="sticky bottom-0 bg-[var(--background)] border-t border-[var(--border)] -mx-4 px-4 py-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <div className="text-sm text-gray-500">
-            {selectedActivities.length > 0 && (
-              <span>{selectedActivities.length} activit{selectedActivities.length > 1 ? 'ies' : 'y'}</span>
-            )}
-            {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
-            {selectedJurisdictions.length > 0 && (
-              <span>{selectedJurisdictions.length} jurisdiction{selectedJurisdictions.length > 1 ? 's' : ''}</span>
-            )}
-            {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && (
-              <span className="ml-2 font-semibold text-blue-600">= {selectedActivities.length * selectedJurisdictions.length} results</span>
-            )}
-          </div>
-          <button
-            onClick={handleSubmit}
-            disabled={!canSubmit}
-            className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {t('generate')} &rarr;
-          </button>
+      {/* Summary (no submit — button is in the header) */}
+      {(selectedActivities.length > 0 || selectedJurisdictions.length > 0) && (
+        <div className="text-sm text-gray-500 text-center mt-4">
+          {selectedActivities.length > 0 && (
+            <span>{selectedActivities.length} activit{selectedActivities.length > 1 ? 'ies' : 'y'}</span>
+          )}
+          {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
+          {selectedJurisdictions.length > 0 && (
+            <span>{selectedJurisdictions.length} jurisdiction{selectedJurisdictions.length > 1 ? 's' : ''}</span>
+          )}
+          {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && (
+            <span className="ml-2 font-semibold text-blue-600">= {selectedActivities.length * selectedJurisdictions.length} results</span>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }
