@@ -12,6 +12,7 @@ import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
+import RegimeLegend from '@/components/report/RegimeLegend';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -166,7 +167,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
   handleAiAnalysisRef.current = handleAiAnalysis;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 print-container">
+    <div className="max-w-6xl mx-auto px-4 py-6 print-container">
       <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
         <div className="flex items-center gap-2">
@@ -208,6 +209,9 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
       <h1 className="hidden print-only text-2xl font-bold mb-6">
         Regul8 — {t('title')}
       </h1>
+
+      {/* Legend explaining Regime / Licence / Ruling / Authority */}
+      <RegimeLegend />
 
       {/* Results grid */}
       {activities.map((activity) => (
@@ -451,21 +455,28 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: (p) => <h3 className="text-lg font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
-                  h2: (p) => <h4 className="text-base font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
-                  h3: (p) => <h5 className="text-sm font-bold mt-3 mb-1.5 text-gray-900 dark:text-gray-100" {...p} />,
+                  h1: (p) => (
+                    <h3 className="text-lg font-bold mt-6 mb-3 text-blue-700 dark:text-blue-300 pl-3 border-l-4 border-blue-500" {...p} />
+                  ),
+                  h2: (p) => (
+                    <h4 className="text-base font-bold mt-5 mb-2 text-blue-700 dark:text-blue-300 pl-3 border-l-4 border-blue-400" {...p} />
+                  ),
+                  h3: (p) => (
+                    <h5 className="text-sm font-bold mt-4 mb-1.5 text-gray-900 dark:text-gray-100" {...p} />
+                  ),
                   p: (p) => <p className="mb-3" {...p} />,
-                  ul: (p) => <ul className="list-disc ml-5 mb-3 space-y-1" {...p} />,
-                  ol: (p) => <ol className="list-decimal ml-5 mb-3 space-y-1" {...p} />,
-                  li: (p) => <li className="leading-relaxed" {...p} />,
-                  strong: (p) => <strong className="font-semibold text-gray-900 dark:text-gray-100" {...p} />,
-                  em: (p) => <em className="italic" {...p} />,
-                  code: (p) => <code className="px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-xs" {...p} />,
-                  a: (p) => <a className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...p} />,
-                  hr: () => <hr className="my-4 border-gray-200 dark:border-gray-700" />,
+                  ul: (p) => <ul className="list-disc ml-5 mb-3 space-y-1.5 marker:text-blue-500" {...p} />,
+                  ol: (p) => <ol className="list-decimal ml-5 mb-3 space-y-1.5 marker:text-blue-500 marker:font-semibold" {...p} />,
+                  li: (p) => <li className="leading-relaxed pl-1" {...p} />,
+                  strong: (p) => <strong className="font-semibold text-blue-800 dark:text-blue-200" {...p} />,
+                  em: (p) => <em className="italic text-gray-800 dark:text-gray-200" {...p} />,
+                  code: (p) => <code className="px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 text-xs font-mono" {...p} />,
+                  a: (p) => <a className="text-blue-600 dark:text-blue-400 underline hover:text-blue-700" target="_blank" rel="noopener noreferrer" {...p} />,
+                  blockquote: (p) => <blockquote className="border-l-4 border-amber-400 bg-amber-50 dark:bg-amber-900/20 pl-4 py-2 my-3 text-sm" {...p} />,
+                  hr: () => <hr className="my-5 border-gray-200 dark:border-gray-700" />,
                   table: (p) => <table className="w-full text-sm my-3 border-collapse" {...p} />,
-                  thead: (p) => <thead className="bg-gray-100 dark:bg-gray-800" {...p} />,
-                  th: (p) => <th className="text-left p-2 border border-gray-200 dark:border-gray-700 font-semibold" {...p} />,
+                  thead: (p) => <thead className="bg-blue-50 dark:bg-blue-900/30" {...p} />,
+                  th: (p) => <th className="text-left p-2 border border-gray-200 dark:border-gray-700 font-semibold text-blue-800 dark:text-blue-200" {...p} />,
                   td: (p) => <td className="p-2 border border-gray-200 dark:border-gray-700 align-top" {...p} />,
                 }}
               >

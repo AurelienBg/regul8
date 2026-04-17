@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
+import RegimeDisplay from '@/components/report/RegimeDisplay';
 
 const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
   exchange: 'Exchange / Trading',
@@ -212,8 +213,8 @@ export default function CompareActivitiesPage() {
                 <tr className="border-b border-[var(--border)]">
                   <td className="p-3 font-medium text-gray-500 text-xs uppercase">{tr.regime}</td>
                   {rows.map((r) => (
-                    <td key={r.activity} className="p-3 font-semibold">
-                      {r.result?.regime}
+                    <td key={r.activity} className="p-3">
+                      {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : 'N/A'}
                     </td>
                   ))}
                 </tr>
