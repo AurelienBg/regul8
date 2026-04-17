@@ -11,6 +11,7 @@ import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
+import RegimeDisplay from '@/components/report/RegimeDisplay';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -235,7 +236,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 font-semibold text-sm">{r?.regime ? <LinkedText>{r.regime}</LinkedText> : 'N/A'}</td>;
+                      return <td key={j} className="p-3 text-sm">{r ? <RegimeDisplay result={r} variant="inline" /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -328,7 +329,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                         <span className="text-xl">{JURISDICTIONS[j]?.flag}</span>
                         <span className="font-semibold">{JURISDICTIONS[j]?.name}</span>
                       </div>
-                      <h3 className="text-lg font-bold"><LinkedText>{r.regime}</LinkedText></h3>
+                      <div className="mt-2"><RegimeDisplay result={r} variant="block" /></div>
                     </div>
                     <RiskBadge risk={r.risk} />
                   </div>

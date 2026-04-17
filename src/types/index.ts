@@ -17,8 +17,19 @@ export type ActivityKey =
   | 'token_security'
   | 'token_hybrid'
 
+export type RegimeItemType = 'law' | 'licence-framework' | 'ruling' | 'guidance' | 'other'
+
+export interface RegimeItem {
+  name: string
+  type: RegimeItemType
+  /** Optional short parenthetical (e.g., "EU 2023/1114") — kept out of the name for cleaner badge display. */
+  note?: string
+}
+
 export interface RegResult {
   regime: string
+  /** Optional structured breakdown of the regime string. If omitted, UI parses `regime` at runtime. */
+  regimeItems?: RegimeItem[]
   risk: Risk
   licenses: string[]
   obligations: string[]
