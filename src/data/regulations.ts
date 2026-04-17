@@ -17,15 +17,15 @@ export const REGULATIONS: RegData = {
       xrplNote: "XRPL has a native DEX (order book built into the protocol). A front-end DApp accessing it for EU users may still need CASP if it routes orders or controls funds."
     },
     us: {
-      regime: "FinCEN MSB + State MTL + BitLicense (NY)",
+      regime: "FinCEN MSB + State MTL + BitLicense (NY) + CLARITY Act (SEC/CFTC split)",
       risk: "high",
-      licenses: ["FinCEN MSB registration", "Money Transmitter Licence (per state, ~48 states)", "BitLicense (NY only)"],
-      obligations: ["KYC/AML/BSA compliance", "SAR filings", "OFAC sanctions screening", "Travel Rule >$3K", "State-by-state bonding requirements"],
+      licenses: ["FinCEN MSB registration", "Money Transmitter Licence (per state, ~48 states)", "BitLicense (NY only)", "CFTC registration for 'digital commodity' exchanges (CLARITY Act, 2025)"],
+      obligations: ["KYC/AML/BSA compliance", "SAR filings", "OFAC sanctions screening", "Travel Rule >$3K", "State-by-state bonding requirements", "CLARITY Act: trade-venue classification (SEC vs CFTC) per asset based on 'mature blockchain' test"],
       time: "18\u201336 months",
       cost: "$200K\u2013$1M+",
       alts: ["Wyoming LLC (crypto-friendly)", "EU MiCA as primary market", "Liechtenstein TVTG"],
-      authority: "FinCEN / NYDFS / state regulators",
-      xrplNote: "XRPL DEX front-end: SEC may treat as unregistered exchange. XRP itself classified as utility in secondary market sales (SEC v. Ripple, July 2023) \u2014 but other XRPL tokens may be securities."
+      authority: "FinCEN / SEC / CFTC / NYDFS / state regulators",
+      xrplNote: "XRPL DEX front-end: SEC may treat as unregistered exchange if trading securities-token pairs. Under CLARITY Act 2025, XRP (secondary sales, SEC v. Ripple July 2023) likely qualifies as 'digital commodity' \u2014 CFTC jurisdiction. Other XRPL tokens require case-by-case mature-blockchain analysis."
     },
     uae: {
       regime: "VARA \u2014 VASP Full Market Product",

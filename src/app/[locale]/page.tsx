@@ -18,7 +18,7 @@ export default function LandingPage() {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="py-16 sm:py-24 px-4">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-12 items-center">
           {/* Left — text + CTAs */}
           <div className="text-center lg:text-left">
             <Image src="/logo.svg" alt="Regul8" width={700} height={150} className="mb-8 mx-auto lg:mx-0 w-full max-w-[360px] h-auto block dark:hidden" priority />
@@ -40,7 +40,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right — report card preview */}
-          <div className="w-full max-w-md mx-auto lg:max-w-none">
+          <div className="w-full max-w-sm mx-auto lg:max-w-md lg:ml-auto">
             <ReportCardPreview />
           </div>
         </div>
