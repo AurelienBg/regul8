@@ -15,9 +15,9 @@ const MODES = [
     href: '/learn/paths',
     icon: '📚',
     title: 'Learning Paths',
-    description: 'Curated reads on MiCA, Howey Test, XRPL custody, Liechtenstein TVTG, and more — each one a 5–10 min deep dive.',
-    cta: 'Coming soon',
-    available: false,
+    description: 'Curated deep dives — MiCA Essentials, XRPL Custody, Howey Test. Each is a focused 6-10 min read.',
+    cta: 'Start reading',
+    available: true,
   },
   {
     id: 'case-studies',

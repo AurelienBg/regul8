@@ -93,6 +93,34 @@ export interface CaseStudy {
   relatedTrees?: string[]
 }
 
+export type PathBlock =
+  | { kind: 'p'; text: string }
+  | { kind: 'h3'; text: string }
+  | { kind: 'ul'; items: string[] }
+  | { kind: 'ol'; items: string[] }
+  | { kind: 'callout'; tone: 'info' | 'warn' | 'key'; title?: string; text: string }
+  | { kind: 'table'; headers: string[]; rows: string[][] }
+
+export interface PathSection {
+  id: string
+  heading: string
+  content: PathBlock[]
+}
+
+export interface LearningPath {
+  id: string
+  icon: string
+  title: string
+  subtitle: string
+  duration: string
+  level: 'beginner' | 'intermediate' | 'advanced'
+  jurisdictions?: Jurisdiction[]
+  sections: PathSection[]
+  relatedTerms: string[]
+  relatedTrees?: string[]
+  relatedCases?: string[]
+}
+
 export interface XRPLCustodyMethod {
   id: string
   name: string
