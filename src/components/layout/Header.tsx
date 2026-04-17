@@ -24,8 +24,12 @@ export default function Header() {
         p === '/check' ||
         p.startsWith('/check/') ||
         p.startsWith('/wizard') ||
-        p.startsWith('/report') ||
-        p.startsWith('/compare'),
+        p.startsWith('/report'),
+    },
+    {
+      href: '/compare',
+      label: t('compare'),
+      isActive: (p: string) => p.startsWith('/compare'),
     },
     {
       href: '/learn',

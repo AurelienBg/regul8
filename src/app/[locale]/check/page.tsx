@@ -35,7 +35,7 @@ export default function CheckHubPage() {
 
   const tr = isFr ? {
     title: 'Vérifier votre conformité',
-    subtitle: 'Trois outils selon ce dont vous avez besoin : vérification complète, question précise ou vue consolidée.',
+    subtitle: 'Deux modes : vérification complète ou question précise. Pour explorer plusieurs activités côte à côte, passez par Compare.',
     notSure: "Pas sûr par où commencer ?",
     fullTitle: 'Vérification complète',
     fullDesc: "Wizard multi-activités × multi-juridictions. Rapport détaillé avec régimes, licences, obligations, coûts, délais et analyse IA.",
@@ -43,12 +43,12 @@ export default function CheckHubPage() {
     fullCta: 'Lancer le wizard',
     quickTitle: 'Quick Checks',
     quickDesc: "Question précise → verdict en 2 min.",
-    compareTitle: "Comparateur d'activités",
-    compareDesc: 'Empilez plusieurs activités dans une juridiction unique. Voir les obligations consolidées côte à côte.',
-    compareCta: 'Ouvrir le comparateur',
+    compareCrossTitle: 'Besoin de comparer plusieurs activités ?',
+    compareCrossDesc: "Allez dans Compare pour empiler 2 à 5 activités dans une même juridiction.",
+    compareCrossCta: 'Ouvrir Compare',
   } : {
     title: 'Check your compliance',
-    subtitle: 'Three tools depending on what you need: full check, precise question, or consolidated view.',
+    subtitle: 'Two modes: full check or precise question. To explore multiple activities side-by-side, use Compare.',
     notSure: 'Not sure where to start?',
     fullTitle: 'Full Compliance Check',
     fullDesc: 'Multi-activity × multi-jurisdiction wizard. Detailed report with regimes, licences, obligations, costs, timelines and AI analysis.',
@@ -56,9 +56,9 @@ export default function CheckHubPage() {
     fullCta: 'Start the wizard',
     quickTitle: 'Quick Checks',
     quickDesc: 'Precise question → verdict in 2 min.',
-    compareTitle: 'Activity Comparator',
-    compareDesc: 'Stack multiple activities in a single jurisdiction. See consolidated obligations side-by-side.',
-    compareCta: 'Open comparator',
+    compareCrossTitle: 'Want to compare multiple activities?',
+    compareCrossDesc: 'Head to Compare to stack 2 to 5 activities in a single jurisdiction.',
+    compareCrossCta: 'Open Compare',
   };
 
   return (
@@ -140,23 +140,23 @@ export default function CheckHubPage() {
         </div>
       </div>
 
-      {/* Comparator */}
+      {/* Cross-sell to /compare */}
       <Link
         href="/compare"
-        className="card hover:border-blue-500 transition-colors group block p-5"
+        className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)] hover:border-blue-400 transition-colors group"
       >
-        <div className="flex items-start gap-3">
-          <div className="text-3xl">📊</div>
-          <div className="flex-1">
-            <h2 className="font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
-              {tr.compareTitle}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{tr.compareDesc}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {tr.compareCta} &rarr;
-            </span>
+        <div className="text-xl pt-0.5">📊</div>
+        <div className="flex-1">
+          <div className="text-sm font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            {tr.compareCrossTitle}
+          </div>
+          <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+            {tr.compareCrossDesc}
           </div>
         </div>
+        <span className="text-sm text-blue-600 dark:text-blue-400 font-medium pt-1">
+          {tr.compareCrossCta} &rarr;
+        </span>
       </Link>
     </div>
   );
