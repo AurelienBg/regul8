@@ -4,6 +4,7 @@
     "wizard": "Vérification",
     "search": "Recherche IA",
     "learn": "Apprendre",
+    "compare": "Comparer",
     "glossary": "Glossaire",
     "xrpl": "Hub XRPL"
   },
@@ -31,8 +32,8 @@
       "wizardDesc": "Répondez à 4 questions simples. Obtenez une feuille de route complète pour votre activité et juridiction.",
       "search": "Recherche IA",
       "searchDesc": "Posez n'importe quelle question de conformité en langage courant. Réponses instantanées et contextuelles par Claude.",
-      "compare": "Comparateur de Juridictions",
-      "compareDesc": "Comparez les réglementations entre juridictions côte à côte. Trouvez la meilleure configuration pour votre startup."
+      "compare": "Comparateur d'Activités",
+      "compareDesc": "Empilez plusieurs activités dans une juridiction. Visualisez vos obligations consolidées en un coup d'œil."
     },
     "xrplSection": "Couverture XRPL Complète",
     "xrplDesc": "Support natif pour XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow et 10 implémentations custody.",

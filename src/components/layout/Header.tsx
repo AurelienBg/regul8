@@ -16,6 +16,7 @@ export default function Header() {
     { href: '/wizard', label: t('wizard') },
     { href: '/search', label: t('search') },
     { href: '/learn', label: t('learn') },
+    { href: '/compare', label: t('compare') },
     { href: '/glossary', label: t('glossary') },
     { href: '/xrpl', label: t('xrpl') },
   ] as const;

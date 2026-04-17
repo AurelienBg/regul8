@@ -4,6 +4,7 @@
     "wizard": "Compliance Check",
     "search": "AI Search",
     "learn": "Learn",
+    "compare": "Compare",
     "glossary": "Glossary",
     "xrpl": "XRPL Hub"
   },
@@ -31,8 +32,8 @@
       "wizardDesc": "Answer 4 simple questions. Get a full compliance roadmap for your activity and jurisdiction.",
       "search": "AI-Powered Search",
       "searchDesc": "Ask any compliance question in plain language. Get instant, contextual answers powered by Claude.",
-      "compare": "Jurisdiction Comparator",
-      "compareDesc": "Compare regulations across jurisdictions side by side. Find the best setup for your startup."
+      "compare": "Activity Comparator",
+      "compareDesc": "Stack multiple activities in one jurisdiction. See your consolidated obligations at a glance."
     },
     "xrplSection": "Deep XRPL Coverage",
     "xrplDesc": "Native support for XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow, and 10 custody implementations.",
