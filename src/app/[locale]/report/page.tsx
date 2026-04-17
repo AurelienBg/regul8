@@ -91,6 +91,18 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         body: JSON.stringify({ query }),
       });
 
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try {
+          const body = await res.json();
+          if (body?.error) msg = body.error;
+        } catch {
+          // not JSON
+        }
+        setAiAnalysis(`Error: ${msg}`);
+        return;
+      }
+
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
       if (!reader) throw new Error('No reader');
@@ -104,15 +116,20 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
           const data = line.slice(6);
           if (data === '[DONE]') break;
           try {
-            const { text } = JSON.parse(data);
-            setAiAnalysis((prev) => prev + text);
+            const parsed = JSON.parse(data);
+            if (parsed.error) {
+              setAiAnalysis((prev) => prev + `\n\n⚠️ Error: ${parsed.error}`);
+            } else if (parsed.text) {
+              setAiAnalysis((prev) => prev + parsed.text);
+            }
           } catch {
             // skip
           }
         }
       }
-    } catch {
-      setAiAnalysis('Error generating analysis. Please check your API key.');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      setAiAnalysis(`Error generating analysis: ${msg}`);
     } finally {
       setAiLoading(false);
     }

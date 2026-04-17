@@ -1,0 +1,59 @@
+<svg width="100%" viewBox="0 0 680 390" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Regul8 hero</title>
+<desc>Regul8 hero light mode</desc>
+
+<rect width="680" height="380" fill="#FFFFFF"/>
+<rect x="340" y="0" width="340" height="380" fill="#F8FAFC"/>
+
+<!-- left — hero text -->
+<text x="40" y="100" font-family="system-ui,sans-serif" font-size="11" fill="#3B82F6" font-weight="600" letter-spacing="3">YOUR COMPLIANCE REPORT</text>
+
+<text x="40" y="148" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#0F172A" letter-spacing="-1">Know your compliance.</text>
+<text x="40" y="188" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#0F172A" letter-spacing="-1">Launch with confidence.</text>
+
+<text x="40" y="228" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">10 activity types · 8 jurisdictions · AI-powered</text>
+
+<!-- CTA -->
+<rect x="40" y="254" width="148" height="34" rx="17" fill="#3B82F6"/>
+<text x="114" y="276" font-family="system-ui,sans-serif" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">Start for free →</text>
+
+<!-- right — report card -->
+<rect x="364" y="24" width="292" height="332" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+
+<rect x="364" y="24" width="292" height="52" rx="12" fill="#F1F5F9"/>
+<rect x="364" y="62" width="292" height="14" fill="#F1F5F9"/>
+<text x="510" y="42" font-family="system-ui,sans-serif" font-size="11" fill="#64748B" text-anchor="middle">Compliance Report</text>
+<text x="510" y="60" font-family="system-ui,sans-serif" font-size="13" fill="#0F172A" text-anchor="middle" font-weight="600">Exchange · EU / France</text>
+
+<rect x="420" y="84" width="180" height="24" rx="12" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/>
+<circle cx="438" cy="96" r="4" fill="#3B82F6"/>
+<text x="515" y="100" font-family="system-ui,sans-serif" font-size="11" fill="#1E40AF" text-anchor="middle" font-weight="600">Navigate complexity</text>
+
+<text x="380" y="126" font-family="system-ui,sans-serif" font-size="10" fill="#64748B" font-weight="500">REGIME</text>
+<text x="380" y="142" font-family="system-ui,sans-serif" font-size="12" fill="#0F172A" font-weight="600">CASP (MiCA) + DASP (AMF)</text>
+
+<line x1="380" y1="154" x2="640" y2="154" stroke="#E2E8F0" stroke-width="0.5"/>
+
+<text x="380" y="170" font-family="system-ui,sans-serif" font-size="10" fill="#64748B" font-weight="500">LICENCES</text>
+<rect x="380" y="176" width="118" height="18" rx="9" fill="#DBEAFE"/>
+<text x="440" y="188" font-family="system-ui,sans-serif" font-size="10" fill="#1E40AF" text-anchor="middle">CASP authorization</text>
+<rect x="504" y="176" width="126" height="18" rx="9" fill="#DBEAFE"/>
+<text x="567" y="188" font-family="system-ui,sans-serif" font-size="10" fill="#1E40AF" text-anchor="middle">DASP AMF registration</text>
+
+<line x1="380" y1="202" x2="640" y2="202" stroke="#E2E8F0" stroke-width="0.5"/>
+
+<text x="380" y="218" font-family="system-ui,sans-serif" font-size="10" fill="#64748B" font-weight="500">TIMELINE</text>
+<text x="520" y="218" font-family="system-ui,sans-serif" font-size="10" fill="#64748B" font-weight="500">EST. COST</text>
+<text x="380" y="236" font-family="system-ui,sans-serif" font-size="16" fill="#0F172A" font-weight="700">12–18 months</text>
+<text x="520" y="236" font-family="system-ui,sans-serif" font-size="16" fill="#0F172A" font-weight="700">€50–200K</text>
+
+<line x1="380" y1="248" x2="640" y2="248" stroke="#E2E8F0" stroke-width="0.5"/>
+
+<text x="380" y="264" font-family="system-ui,sans-serif" font-size="10" fill="#64748B" font-weight="500">FASTER ALTERNATIVES</text>
+<text x="380" y="282" font-family="system-ui,sans-serif" font-size="11" fill="#7C3AED">→ Singapore MAS (~6 months)</text>
+<text x="380" y="298" font-family="system-ui,sans-serif" font-size="11" fill="#7C3AED">→ Dubai VARA (~9 months)</text>
+<text x="380" y="314" font-family="system-ui,sans-serif" font-size="11" fill="#7C3AED">→ Liechtenstein TVTG (~3–9 months)</text>
+
+<rect x="380" y="328" width="260" height="22" rx="6" fill="#3B82F6"/>
+<text x="510" y="343" font-family="system-ui,sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" font-weight="600">Talk to a legal expert →</text>
+</svg>

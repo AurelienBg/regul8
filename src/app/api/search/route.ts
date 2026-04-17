@@ -10,6 +10,14 @@ export async function POST(request: Request) {
       return new Response('Missing query', { status: 400 });
     }
 
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error('[api/search] ANTHROPIC_API_KEY is not set');
+      return new Response(
+        JSON.stringify({ error: 'Server misconfigured: ANTHROPIC_API_KEY missing' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } },
+      );
+    }
+
     const client = new Anthropic();
     const stream = client.messages.stream({
       model: 'claude-sonnet-4-6',
@@ -29,7 +37,13 @@ export async function POST(request: Request) {
           }
           controller.enqueue(encoder.encode('data: [DONE]\n\n'));
           controller.close();
-        } catch {
+        } catch (err) {
+          const message = err instanceof Error ? err.message : 'Stream error';
+          console.error('[api/search] stream error:', err);
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ error: message })}\n\n`),
+          );
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
           controller.close();
         }
       },
@@ -42,7 +56,12 @@ export async function POST(request: Request) {
         Connection: 'keep-alive',
       },
     });
-  } catch {
-    return new Response('Internal server error', { status: 500 });
+  } catch (err) {
+    console.error('[api/search] fatal:', err);
+    const message = err instanceof Error ? err.message : 'Internal server error';
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

@@ -18,8 +18,8 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="py-20 sm:py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <Image src="/logo.svg" alt="Regul8" width={680} height={160} className="mx-auto mb-10 w-full max-w-[720px] h-auto dark:hidden" priority />
-          <Image src="/logo-dark.svg" alt="Regul8" width={680} height={160} className="mx-auto mb-10 w-full max-w-[720px] h-auto hidden dark:block" priority />
+          <Image src="/logo.svg" alt="Regul8" width={700} height={150} className="mx-auto mb-10 w-full max-w-[560px] h-auto block dark:hidden" priority />
+          <Image src="/logo-dark.svg" alt="Regul8" width={700} height={150} className="mx-auto mb-10 w-full max-w-[560px] h-auto hidden dark:block" priority />
           <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-gray-600 dark:text-gray-300">
             {t('hero')}
           </h1>
@@ -33,6 +33,10 @@ export default function LandingPage() {
             <Link href="/search" className="btn-secondary text-lg px-8 py-4">
               {t('ctaSearch')} &rarr;
             </Link>
+          </div>
+          <div className="mt-16">
+            <Image src="/hero.svg" alt="Regul8 compliance report preview" width={680} height={390} className="mx-auto w-full max-w-3xl h-auto block dark:hidden rounded-xl shadow-lg" />
+            <Image src="/hero-dark.svg" alt="Regul8 compliance report preview" width={680} height={390} className="mx-auto w-full max-w-3xl h-auto hidden dark:block rounded-xl shadow-lg" />
           </div>
         </div>
       </section>
@@ -69,7 +73,7 @@ export default function LandingPage() {
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-8">{t('jurisdictions')}</h2>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center">
             {Object.entries(JURISDICTIONS).map(([code, j]) => (
               <div key={code} className="card px-4 py-3 flex items-center gap-2">
                 <span className="text-2xl">{j.flag}</span>
