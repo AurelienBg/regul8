@@ -52,7 +52,7 @@ export default function WizardPage() {
         {/* Activities — single compact column */}
         <div>
           <h2 className="text-lg font-semibold mb-1">{t('step1.title')}</h2>
-          <p className="text-xs text-gray-500 mb-4">Select all that apply</p>
+          <p className="text-xs text-gray-500 mb-4">{selectAll}</p>
           <div className="grid gap-2">
             {ACTIVITY_KEYS.map((key) => {
               const active = selectedActivities.includes(key);
@@ -88,7 +88,7 @@ export default function WizardPage() {
         {/* Jurisdictions — multi-col grid */}
         <div>
           <h2 className="text-lg font-semibold mb-1">{t('step3.title')}</h2>
-          <p className="text-xs text-gray-500 mb-4">Select all that apply</p>
+          <p className="text-xs text-gray-500 mb-4">{selectAll}</p>
           <div className="grid grid-cols-2 gap-2">
             {JURISDICTION_KEYS.map((code) => {
               const j = JURISDICTIONS[code];
