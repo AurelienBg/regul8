@@ -2,90 +2,73 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { LEARNING_PATHS } from '@/data/learning-paths';
+import { LEARNING_PATHS_FR } from '@/data/learning-paths.fr';
+import { JURISDICTIONS } from '@/types';
 
-type Mode = {
-  id: string;
-  href: '/learn/paths' | '/learn/maps' | '/xrpl';
-  icon: string;
-  title: string;
-  description: string;
-  cta: string;
+const MAPS_EN = [
+  { id: 'mica-taxonomy', icon: '🌳', title: 'MiCA Token Taxonomy', desc: 'In-scope (EMT/ART/Other) vs excluded (NFT, CBDC, full DeFi).' },
+  { id: 'xrpl-custody', icon: '🔐', title: 'XRPL Custody Matrix', desc: '10 custody methods in 3 columns with EU licence implications.' },
+  { id: 'jurisdiction-arbitrage', icon: '🌍', title: 'Jurisdiction Arbitrage', desc: 'Scatter plot: time vs cost, sized by market reach.' },
+];
+const MAPS_FR = [
+  { id: 'mica-taxonomy', icon: '🌳', title: 'Taxonomie tokens MiCA', desc: 'Dans le scope (EMT/ART/Autres) vs exclus (NFT, CBDC, DeFi pur).' },
+  { id: 'xrpl-custody', icon: '🔐', title: 'Matrice custody XRPL', desc: '10 méthodes en 3 colonnes avec implications UE.' },
+  { id: 'jurisdiction-arbitrage', icon: '🌍', title: 'Arbitrage de juridictions', desc: 'Scatter plot : délai vs coût, taille = marché accessible.' },
+];
+
+const levelStyles: Record<string, string> = {
+  beginner: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-200',
+  intermediate: 'bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200',
+  advanced: 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-200',
 };
 
-const MODES_EN: Mode[] = [
-  {
-    id: 'learning-paths',
-    href: '/learn/paths',
-    icon: '📚',
-    title: 'Learning Paths',
-    description: 'Curated deep dives — MiCA Essentials, XRPL Custody, Howey Test. Each is a focused 6-10 min read.',
-    cta: 'Start reading',
-  },
-  {
-    id: 'visual-maps',
-    href: '/learn/maps',
-    icon: '🗺️',
-    title: 'Visual Maps',
-    description: 'One-pager diagrams: MiCA token taxonomy, XRPL custody matrix, jurisdiction arbitrage scatter.',
-    cta: 'Browse maps',
-  },
-  {
-    id: 'xrpl-hub',
-    href: '/xrpl',
-    icon: '🟣',
-    title: 'XRPL Deep Dive',
-    description: 'XRP legal status by jurisdiction, EVM Sidechain, native features (AMM, NFT, MPT, RLUSD) and the 10 custody methods matrix.',
-    cta: 'Open XRPL hub',
-  },
-];
-
-const MODES_FR: Mode[] = [
-  {
-    id: 'learning-paths',
-    href: '/learn/paths',
-    icon: '📚',
-    title: "Parcours d'apprentissage",
-    description: "Plongées ciblées — Essentiel MiCA, Custody XRPL, Test de Howey. Chaque parcours est une lecture focalisée de 6 à 10 min.",
-    cta: 'Commencer la lecture',
-  },
-  {
-    id: 'visual-maps',
-    href: '/learn/maps',
-    icon: '🗺️',
-    title: 'Cartes visuelles',
-    description: 'Diagrammes en une page : taxonomie des tokens MiCA, matrice custody XRPL, nuage d\'arbitrage de juridictions.',
-    cta: 'Parcourir les cartes',
-  },
-  {
-    id: 'xrpl-hub',
-    href: '/xrpl',
-    icon: '🟣',
-    title: 'XRPL Deep Dive',
-    description: 'Statut légal du XRP par juridiction, EVM Sidechain, fonctionnalités natives (AMM, NFT, MPT, RLUSD) et matrice des 10 méthodes de custody.',
-    cta: 'Ouvrir le hub XRPL',
-  },
-];
+const levelLabels: Record<string, { en: string; fr: string }> = {
+  beginner: { en: 'beginner', fr: 'débutant' },
+  intermediate: { en: 'intermediate', fr: 'intermédiaire' },
+  advanced: { en: 'advanced', fr: 'avancé' },
+};
 
 export default function LearnHubPage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const modes = isFr ? MODES_FR : MODES_EN;
+  const paths = isFr ? LEARNING_PATHS_FR : LEARNING_PATHS;
+  const maps = isFr ? MAPS_FR : MAPS_EN;
+
   const tr = isFr ? {
     title: 'Apprendre',
     subtitle: 'Comprendre et référencer la régulation crypto. Paths narratifs, cartes visuelles, deep dive XRPL.',
-    glossaryTitle: "Besoin d'une définition ?",
-    glossaryDesc: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K sur n'importe quelle page.",
-    glossaryCta: 'Ouvrir la page glossaire',
+    pathsTitle: "Parcours d'apprentissage",
+    pathsDesc: 'Plongées ciblées, 6-10 min chacune.',
+    seeAllPaths: 'Voir tous les parcours',
+    mapsTitle: 'Cartes visuelles',
+    mapsDesc: 'Diagrammes en une page — comprendre en un coup d\'œil.',
+    seeAllMaps: 'Voir toutes les cartes',
+    xrplTitle: 'XRPL Deep Dive',
+    xrplDesc: "Statut légal du XRP par juridiction, EVM Sidechain, fonctionnalités natives (AMM, NFT, MPT, RLUSD) et matrice custody.",
+    openHub: 'Ouvrir le hub XRPL',
+    glossaryHint: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K depuis n'importe quelle page.",
+    read: 'Lire',
+    open: 'Ouvrir',
   } : {
     title: 'Learn',
     subtitle: 'Understand and reference crypto regulation. Narrative paths, visual maps, XRPL deep dive.',
-    glossaryTitle: 'Need a definition?',
-    glossaryDesc: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
-    glossaryCta: 'Open glossary page',
+    pathsTitle: 'Learning Paths',
+    pathsDesc: 'Focused deep dives, 6-10 min each.',
+    seeAllPaths: 'See all paths',
+    mapsTitle: 'Visual Maps',
+    mapsDesc: 'One-pager diagrams — understand at a glance.',
+    seeAllMaps: 'See all maps',
+    xrplTitle: 'XRPL Deep Dive',
+    xrplDesc: 'XRP legal status by jurisdiction, EVM Sidechain, native features (AMM, NFT, MPT, RLUSD) and the custody matrix.',
+    openHub: 'Open XRPL hub',
+    glossaryHint: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
+    read: 'Read',
+    open: 'Open',
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <header className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -93,29 +76,121 @@ export default function LearnHubPage() {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {modes.map((mode) => (
-          <Link key={mode.id} href={mode.href} className="card hover:border-blue-500 transition-colors group">
-            <div className="text-4xl mb-4">{mode.icon}</div>
-            <h2 className="text-xl font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-              {mode.title}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{mode.description}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {mode.cta} &rarr;
-            </span>
+      {/* Learning Paths */}
+      <section className="mb-14">
+        <div className="flex items-baseline justify-between mb-1 flex-wrap gap-2">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="text-2xl">📚</span>
+            <span>{tr.pathsTitle}</span>
+          </h2>
+          <Link
+            href="/learn/paths"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            {tr.seeAllPaths} &rarr;
           </Link>
-        ))}
-      </div>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tr.pathsDesc}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {paths.map((p) => (
+            <Link
+              key={p.id}
+              href={`/learn/paths/${p.id}`}
+              className="card hover:border-blue-500 transition-colors group"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="text-3xl">{p.icon}</div>
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wide ${levelStyles[p.level]}`}>
+                  {isFr ? levelLabels[p.level].fr : levelLabels[p.level].en}
+                </span>
+              </div>
+              <h3 className="font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {p.title}
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">{p.subtitle}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  {p.jurisdictions?.map((j) => (
+                    <span key={j} className="text-base" title={JURISDICTIONS[j].name}>
+                      {JURISDICTIONS[j].flag}
+                    </span>
+                  ))}
+                  <span className="text-xs text-gray-500 ml-1">· {p.duration}</span>
+                </div>
+                <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                  {tr.read} &rarr;
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
 
-      <div className="mt-12 p-6 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)]">
-        <h3 className="font-semibold mb-2">{tr.glossaryTitle}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-          {tr.glossaryDesc}
-        </p>
-        <Link href="/glossary" className="btn-secondary text-sm inline-block">
-          {tr.glossaryCta} &rarr;
+      {/* Visual Maps */}
+      <section className="mb-14">
+        <div className="flex items-baseline justify-between mb-1 flex-wrap gap-2">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="text-2xl">🗺️</span>
+            <span>{tr.mapsTitle}</span>
+          </h2>
+          <Link
+            href="/learn/maps"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            {tr.seeAllMaps} &rarr;
+          </Link>
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tr.mapsDesc}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {maps.map((m) => (
+            <Link
+              key={m.id}
+              href={`/learn/maps/${m.id}`}
+              className="card hover:border-blue-500 transition-colors group"
+            >
+              <div className="text-3xl mb-3">{m.icon}</div>
+              <h3 className="font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {m.title}
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">{m.desc}</p>
+              <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                {tr.open} &rarr;
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* XRPL Deep Dive */}
+      <section className="mb-10">
+        <Link
+          href="/xrpl"
+          className="card hover:border-violet-500 transition-colors group block p-6 border-2"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🟣</div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-xl font-bold group-hover:text-violet-600 dark:group-hover:text-violet-400">
+                  {tr.xrplTitle}
+                </h2>
+                <span className="badge-xrpl">XRPL</span>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.xrplDesc}</p>
+              <span className="text-sm font-medium text-violet-600 dark:text-violet-400">
+                {tr.openHub} &rarr;
+              </span>
+            </div>
+          </div>
         </Link>
+      </section>
+
+      {/* Glossary hint */}
+      <div className="mt-10 p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)] text-center">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-lg mr-1">📖</span>
+          {tr.glossaryHint}
+        </p>
       </div>
     </div>
   );
