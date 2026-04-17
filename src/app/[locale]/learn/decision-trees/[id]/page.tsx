@@ -7,11 +7,10 @@ export function generateStaticParams() {
   return DECISION_TREES.map((t) => ({ id: t.id }));
 }
 
-type Params = Promise<{ id: string; locale: string }>;
+type Params = { id: string; locale: string };
 
-export default async function DecisionTreePage({ params }: { params: Params }) {
-  const { id } = await params;
-  const tree = getDecisionTree(id);
+export default function DecisionTreePage({ params }: { params: Params }) {
+  const tree = getDecisionTree(params.id);
   if (!tree) notFound();
 
   return (

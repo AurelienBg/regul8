@@ -9,7 +9,7 @@ export function generateStaticParams() {
   return LEARNING_PATHS.map((p) => ({ id: p.id }));
 }
 
-type Params = Promise<{ id: string; locale: string }>;
+type Params = { id: string; locale: string };
 
 const levelStyles: Record<string, string> = {
   beginner: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-200',
@@ -17,9 +17,8 @@ const levelStyles: Record<string, string> = {
   advanced: 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-200',
 };
 
-export default async function LearningPathPage({ params }: { params: Params }) {
-  const { id } = await params;
-  const p = getLearningPath(id);
+export default function LearningPathPage({ params }: { params: Params }) {
+  const p = getLearningPath(params.id);
   if (!p) notFound();
 
   return (
