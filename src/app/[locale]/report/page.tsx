@@ -10,6 +10,7 @@ import RiskBadge from '@/components/ui/RiskBadge';
 import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
+import SourcesList from '@/components/report/SourcesList';
 
 export default function ReportPage() {
   const t = useTranslations('report');
@@ -399,6 +400,15 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
 
       {/* Custody implementations */}
       {hasCustody && <CustodyImplementations />}
+
+      {/* Sources — auto-detected from regime / licences / obligations */}
+      <SourcesList
+        results={activities.flatMap((a) =>
+          jurisdictions
+            .map((j) => lookupRegulation(a, j, locale))
+            .filter((r): r is NonNullable<typeof r> => r != null),
+        )}
+      />
 
       {/* AI Analysis Section */}
       <section className="mt-12 pt-8 border-t-2 border-[var(--border)]">
