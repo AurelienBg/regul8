@@ -31,6 +31,18 @@ export default function SearchPage() {
         signal: controller.signal,
       });
 
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try {
+          const body = await res.json();
+          if (body?.error) msg = body.error;
+        } catch {
+          // not JSON
+        }
+        setResponse(`Error: ${msg}`);
+        return;
+      }
+
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -45,8 +57,12 @@ export default function SearchPage() {
           const data = line.slice(6);
           if (data === '[DONE]') break;
           try {
-            const { text } = JSON.parse(data);
-            setResponse((prev) => prev + text);
+            const parsed = JSON.parse(data);
+            if (parsed.error) {
+              setResponse((prev) => prev + `\n\n⚠️ Error: ${parsed.error}`);
+            } else if (parsed.text) {
+              setResponse((prev) => prev + parsed.text);
+            }
           } catch {
             // skip malformed chunks
           }
@@ -54,7 +70,8 @@ export default function SearchPage() {
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') return;
-      setResponse(tc('error'));
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      setResponse(`Error: ${msg}`);
     } finally {
       setLoading(false);
     }
