@@ -121,7 +121,9 @@
       "4": "Qu'est-ce que le TVTG du Liechtenstein ?"
     },
     "thinking": "Réflexion en cours...",
-    "fromKnowledgeBase": "Base de connaissances · instantané"
+    "fromKnowledgeBase": "Base de connaissances · instantané",
+    "suggestedQuestions": "Questions suggérées",
+    "askAnother": "Poser une autre question"
   },
   "glossary": {
     "title": "Glossaire Réglementaire",

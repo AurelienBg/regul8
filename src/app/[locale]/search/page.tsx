@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
-import { matchFaq } from '@/data/faq';
+import { matchFaq, FAQ_ENTRIES } from '@/data/faq';
 
 export default function SearchPage() {
   const t = useTranslations('search');
@@ -14,7 +14,8 @@ export default function SearchPage() {
   const [fromFaq, setFromFaq] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
-  const examples = [t('examples.1'), t('examples.2'), t('examples.3'), t('examples.4')];
+  // Suggested prompts = the FAQ questions themselves (instant answers on click)
+  const suggestions = FAQ_ENTRIES.map((f) => (locale === 'fr' ? f.question.fr : f.question.en));
 
   const handleSearch = async (q: string) => {
     if (!q.trim()) return;
@@ -91,6 +92,14 @@ export default function SearchPage() {
     }
   };
 
+  const handleReset = () => {
+    abortRef.current?.abort();
+    setQuery('');
+    setResponse('');
+    setFromFaq(false);
+    setLoading(false);
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
@@ -114,18 +123,24 @@ export default function SearchPage() {
         </button>
       </div>
 
-      {/* Example prompts */}
+      {/* Suggested questions (from FAQ — instant answers) */}
       {!response && !loading && (
-        <div className="space-y-2 mb-8">
-          {examples.map((ex, i) => (
-            <button
-              key={i}
-              onClick={() => { setQuery(ex); handleSearch(ex); }}
-              className="block w-full text-left px-4 py-3 rounded-lg border border-[var(--border)] text-sm text-gray-600 dark:text-gray-400 hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              {ex}
-            </button>
-          ))}
+        <div className="mb-8">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span>📚</span>
+            <span>{t('suggestedQuestions')}</span>
+          </div>
+          <div className="space-y-2">
+            {suggestions.map((q, i) => (
+              <button
+                key={i}
+                onClick={() => { setQuery(q); handleSearch(q); }}
+                className="block w-full text-left px-4 py-3 rounded-lg border border-[var(--border)] text-sm text-gray-600 dark:text-gray-400 hover:border-blue-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
@@ -139,17 +154,26 @@ export default function SearchPage() {
 
       {/* Response */}
       {response && (
-        <div className="card">
-          {fromFaq && (
-            <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
-              <span>📚</span>
-              <span>{t('fromKnowledgeBase')}</span>
+        <>
+          <div className="card">
+            {fromFaq && (
+              <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                <span>📚</span>
+                <span>{t('fromKnowledgeBase')}</span>
+              </div>
+            )}
+            <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
+              {response}
             </div>
-          )}
-          <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-            {response}
           </div>
-        </div>
+
+          {/* Return controls */}
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button onClick={handleReset} className="btn-primary text-sm">
+              &larr; {t('askAnother')}
+            </button>
+          </div>
+        </>
       )}
 
       {/* Disclaimer */}

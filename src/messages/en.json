@@ -121,7 +121,9 @@
       "4": "What is the Liechtenstein TVTG framework?"
     },
     "thinking": "Thinking...",
-    "fromKnowledgeBase": "From knowledge base · instant"
+    "fromKnowledgeBase": "From knowledge base · instant",
+    "suggestedQuestions": "Suggested questions",
+    "askAnother": "Ask another question"
   },
   "glossary": {
     "title": "Regulatory Glossary",
