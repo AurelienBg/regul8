@@ -42,10 +42,21 @@ export default function WizardPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
-      <p className="text-sm text-gray-500 mb-10">
-        {t('step1.subtitle')}
-      </p>
+      <div className="flex items-start justify-between gap-4 mb-10 flex-wrap">
+        <div>
+          <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
+          <p className="text-sm text-gray-500">
+            {t('step1.subtitle')}
+          </p>
+        </div>
+        <button
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+        >
+          {t('generate')} &rarr;
+        </button>
+      </div>
 
       {/* 2-column: activities left (tight) + jurisdictions right */}
       <section className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-8 mb-10">

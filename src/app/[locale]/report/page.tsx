@@ -325,7 +325,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                         <span className="text-xl">{JURISDICTIONS[j]?.flag}</span>
                         <span className="font-semibold">{JURISDICTIONS[j]?.name}</span>
                       </div>
-                      <h3 className="text-lg font-bold">{r.regime}</h3>
+                      <h3 className="text-lg font-bold"><LinkedText>{r.regime}</LinkedText></h3>
                     </div>
                     <RiskBadge risk={r.risk} />
                   </div>
@@ -335,7 +335,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">{t('licenses')}</p>
                       <div className="space-y-1">
                         {r.licenses.map((l, i) => (
-                          <div key={i}><span className="badge-license">{l}</span></div>
+                          <div key={i}><span className="badge-license"><LinkedText>{l}</LinkedText></span></div>
                         ))}
                       </div>
                     </div>
@@ -343,7 +343,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">{t('obligations')}</p>
                       <ul className="space-y-1">
                         {r.obligations.map((o, i) => (
-                          <li key={i} className="text-sm text-gray-600 dark:text-gray-400">&bull; {o}</li>
+                          <li key={i} className="text-sm text-gray-600 dark:text-gray-400">&bull; <LinkedText>{o}</LinkedText></li>
                         ))}
                       </ul>
                     </div>
@@ -360,7 +360,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     </div>
                     <div className="col-span-2">
                       <p className="text-xs text-gray-500">{t("authority")}</p>
-                      <p className="text-sm">{r.authority}</p>
+                      <p className="text-sm"><LinkedText>{r.authority}</LinkedText></p>
                     </div>
                   </div>
 
@@ -368,7 +368,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <div className="mt-4 pt-4 border-t border-[var(--border)]">
                       <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">{t('alternatives')}</p>
                       {r.alts.map((a, i) => (
-                        <div key={i} className="text-sm text-blue-600 dark:text-blue-400">&rarr; {a}</div>
+                        <div key={i} className="text-sm text-blue-600 dark:text-blue-400">&rarr; <LinkedText>{a}</LinkedText></div>
                       ))}
                     </div>
                   )}
