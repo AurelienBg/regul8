@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { DecisionTree, DecisionNode, DecisionVerdict } from '@/types';
 import { Link } from '@/i18n/routing';
 
@@ -12,6 +12,22 @@ interface HistoryStep {
 
 interface Props {
   tree: DecisionTree;
+}
+
+/** DFS to find the longest possible question chain from root to any outcome. */
+function computeMaxDepth(tree: DecisionTree): number {
+  const visiting = new Set<string>();
+  function dfs(nodeId: string): number {
+    const node = tree.nodes[nodeId];
+    if (!node) return 0;
+    if (node.type === 'outcome') return 0;
+    if (visiting.has(nodeId)) return 0; // safety against cycles
+    visiting.add(nodeId);
+    const depths = node.choices.map((c) => dfs(c.next));
+    visiting.delete(nodeId);
+    return 1 + Math.max(0, ...depths);
+  }
+  return dfs(tree.rootId);
 }
 
 const verdictStyles: Record<DecisionVerdict, { pill: string; card: string; emoji: string; label: string }> = {
@@ -40,6 +56,10 @@ export default function DecisionTreeRunner({ tree }: Props) {
   const [history, setHistory] = useState<HistoryStep[]>([]);
 
   const currentNode: DecisionNode | undefined = tree.nodes[currentId];
+  const maxDepth = useMemo(() => computeMaxDepth(tree), [tree]);
+  const isOutcome = currentNode?.type === 'outcome';
+  const currentStep = isOutcome ? maxDepth : Math.min(history.length + 1, maxDepth);
+  const progressPct = Math.min(100, Math.round((currentStep / Math.max(1, maxDepth)) * 100));
 
   if (!currentNode) {
     return (
@@ -69,6 +89,26 @@ export default function DecisionTreeRunner({ tree }: Props) {
 
   return (
     <div>
+      {/* Progress bar */}
+      <div className="mb-6">
+        <div className="flex justify-between items-baseline mb-2">
+          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            {isOutcome ? 'Result' : 'Progress'}
+          </span>
+          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+            {isOutcome ? `${maxDepth} / ${maxDepth}` : `${currentStep} / ${maxDepth}`}
+          </span>
+        </div>
+        <div className="h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
+          <div
+            className={`h-full rounded-full transition-all duration-300 ${
+              isOutcome ? 'bg-emerald-500' : 'bg-blue-500'
+            }`}
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+      </div>
+
       {/* Trail */}
       {history.length > 0 && (
         <div className="mb-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)]">
@@ -92,7 +132,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
       {currentNode.type === 'question' && (
         <div className="card">
           <div className="mb-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
-            Question {history.length + 1}
+            Question {currentStep} / {maxDepth}
           </div>
           <h2 className="text-xl font-bold mb-3">{currentNode.question}</h2>
           {currentNode.hint && (
