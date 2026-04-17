@@ -167,7 +167,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
   handleAiAnalysisRef.current = handleAiAnalysis;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 print-container">
+    <div className="max-w-6xl mx-auto px-4 py-12 print-container">
       <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
         <div className="flex items-center gap-2">
@@ -240,14 +240,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('regime')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 text-sm">{r ? <RegimeDisplay result={r} variant="inline" /> : 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('risk')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -255,7 +255,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3">
+                        <td key={j} className="p-3 align-top">
                           {r ? (
                             <ul className="space-y-1">
                               {r.licenses.map((l, i) => (
@@ -272,7 +272,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3">
+                        <td key={j} className="p-3 align-top">
                           {r ? (
                             <ul className="space-y-1">
                               {r.obligations.map((o, i) => (
@@ -288,21 +288,21 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('timeline')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 font-bold text-sm">{r?.time ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top font-bold text-sm">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t('cost')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 font-bold text-sm">{r?.cost ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top font-bold text-sm">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="p-3 font-medium text-gray-500 text-xs uppercase">{t("authority")}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -310,7 +310,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3">
+                        <td key={j} className="p-3 align-top">
                           {r?.alts?.map((a, i) => (
                             <div key={i} className="text-xs text-blue-600 dark:text-blue-400">&rarr; {a}</div>
                           )) ?? 'N/A'}

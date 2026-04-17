@@ -64,7 +64,7 @@ export default function RegimeLegend() {
       {open && (
         <div className="px-4 pb-4 pt-1 border-t border-[var(--border)]">
           <p className="text-xs text-gray-600 dark:text-gray-400 mt-2 mb-3">{tr.intro}</p>
-          <ul className="space-y-3">
+          <ul className="grid md:grid-cols-2 gap-x-6 gap-y-3">
             {rows.map((r) => {
               const isAuthority = r.key === 'authority';
               const meta = isAuthority ? null : REGIME_TYPE_META[r.key as RegimeItemType];
@@ -73,12 +73,12 @@ export default function RegimeLegend() {
                 ? 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 border-rose-300 dark:border-rose-800'
                 : meta!.colorClass;
               return (
-                <li key={r.key} className="flex items-start gap-3">
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} mt-0.5 flex-shrink-0`}>
+                <li key={r.key}>
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} mb-1.5`}>
                     <span className="text-sm leading-none">{icon}</span>
                     <span>{r.label}</span>
                   </span>
-                  <span className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{r.desc}</span>
+                  <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{r.desc}</p>
                 </li>
               );
             })}
