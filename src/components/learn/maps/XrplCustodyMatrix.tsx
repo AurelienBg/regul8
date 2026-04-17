@@ -1,22 +1,61 @@
+'use client';
+
+import { useLocale } from 'next-intl';
+
 type Method = { name: string; detail: string };
 
-const CUSTODIAL: Method[] = [
-  { name: 'Single Key', detail: 'Master key held by service' },
-  { name: 'IOU / Trust Lines', detail: 'Gateway holds off-chain assets' },
-];
-const GREY: Method[] = [
-  { name: 'Regular Key', detail: 'Secondary key; master behavior matters' },
-  { name: 'SignerList (majority)', detail: 'Service reaches quorum alone' },
-  { name: 'MPC / TSS', detail: 'Threshold signatures, app-layer' },
-  { name: 'MPT (XLS-33)', detail: 'Programmable, issuer flags' },
-];
-const NON_CUSTODIAL: Method[] = [
-  { name: 'Escrow', detail: 'Time-locked / conditional' },
-  { name: 'Payment Channels', detail: 'Off-ledger settlement' },
-  { name: 'Checks', detail: 'On-ledger deferred payment' },
-  { name: 'NFT Broker mode', detail: 'Atomic XLS-20 swap' },
-  { name: 'SignerList (minority)', detail: 'Service cannot sign alone' },
-];
+const COPY = {
+  en: {
+    custodial: 'Custodial',
+    grey: 'Grey zone',
+    nonCustodial: 'Non-custodial',
+    euCustodial: 'CASP Art. 75 mandatory',
+    euGrey: 'Legal opinion required',
+    euNonCustodial: 'No CASP for the custody itself',
+    custodialItems: [
+      { name: 'Single Key', detail: 'Master key held by service' },
+      { name: 'IOU / Trust Lines', detail: 'Gateway holds off-chain assets' },
+    ],
+    greyItems: [
+      { name: 'Regular Key', detail: 'Secondary key; master behavior matters' },
+      { name: 'SignerList (majority)', detail: 'Service reaches quorum alone' },
+      { name: 'MPC / TSS', detail: 'Threshold signatures, app-layer' },
+      { name: 'MPT (XLS-33)', detail: 'Programmable, issuer flags' },
+    ],
+    nonCustodialItems: [
+      { name: 'Escrow', detail: 'Time-locked / conditional' },
+      { name: 'Payment Channels', detail: 'Off-ledger settlement' },
+      { name: 'Checks', detail: 'On-ledger deferred payment' },
+      { name: 'NFT Broker mode', detail: 'Atomic XLS-20 swap' },
+      { name: 'SignerList (minority)', detail: 'Service cannot sign alone' },
+    ],
+  },
+  fr: {
+    custodial: 'Custodial',
+    grey: 'Zone grise',
+    nonCustodial: 'Non-custodial',
+    euCustodial: 'CASP Art. 75 obligatoire',
+    euGrey: 'Avis juridique requis',
+    euNonCustodial: 'Pas de CASP pour la custody elle-même',
+    custodialItems: [
+      { name: 'Single Key', detail: 'Master key détenue par le service' },
+      { name: 'IOU / Trust Lines', detail: 'Gateway détient les actifs off-chain' },
+    ],
+    greyItems: [
+      { name: 'Regular Key', detail: "Clé secondaire ; dépend de l'usage de la master" },
+      { name: 'SignerList (majorité)', detail: 'Le service atteint le quorum seul' },
+      { name: 'MPC / TSS', detail: 'Signatures à seuil, couche applicative' },
+      { name: 'MPT (XLS-33)', detail: "Programmable, flags de l'émetteur" },
+    ],
+    nonCustodialItems: [
+      { name: 'Escrow', detail: 'Verrouillé dans le temps / conditionnel' },
+      { name: 'Payment Channels', detail: 'Règlement off-ledger' },
+      { name: 'Checks', detail: 'Paiement différé on-ledger' },
+      { name: 'NFT Broker mode', detail: 'Swap atomique XLS-20' },
+      { name: 'SignerList (minorité)', detail: 'Le service ne peut pas signer seul' },
+    ],
+  },
+};
 
 function Column({
   title,
@@ -64,17 +103,14 @@ function Column({
 }
 
 export default function XrplCustodyMatrix() {
+  const locale = useLocale();
+  const c = locale === 'fr' ? COPY.fr : COPY.en;
+
   return (
     <div className="grid md:grid-cols-3 gap-4">
-      <Column title="Custodial" emoji="🔴" tone="red" eu="CASP Art. 75 mandatory" items={CUSTODIAL} />
-      <Column title="Grey zone" emoji="🟡" tone="amber" eu="Legal opinion required" items={GREY} />
-      <Column
-        title="Non-custodial"
-        emoji="🟢"
-        tone="emerald"
-        eu="No CASP for the custody itself"
-        items={NON_CUSTODIAL}
-      />
+      <Column title={c.custodial} emoji="🔴" tone="red" eu={c.euCustodial} items={c.custodialItems} />
+      <Column title={c.grey} emoji="🟡" tone="amber" eu={c.euGrey} items={c.greyItems} />
+      <Column title={c.nonCustodial} emoji="🟢" tone="emerald" eu={c.euNonCustodial} items={c.nonCustodialItems} />
     </div>
   );
 }
