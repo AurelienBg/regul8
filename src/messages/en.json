@@ -6,7 +6,9 @@
     "learn": "Learn",
     "compare": "Compare",
     "glossary": "Glossary",
-    "xrpl": "XRPL Hub"
+    "xrpl": "XRPL Hub",
+    "check": "Check",
+    "ask": "Ask AI"
   },
   "jurisdictions": {
     "eu": "EU / France",
@@ -206,7 +208,8 @@
     "filterByGeography": "Filter by geography",
     "filterByTopic": "Filter by topic",
     "relatedTerms": "Related",
-    "xrplSpecific": "XRPL"
+    "xrplSpecific": "XRPL",
+    "noResults": "No terms match your filters."
   },
   "compare": {
     "title": "Jurisdiction Comparator",

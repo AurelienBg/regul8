@@ -12,13 +12,32 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  /**
+   * Primary nav = 4 tabs organized by user intent.
+   * "isActive" uses startsWith so /wizard + /report + /compare all highlight "Check".
+   */
   const links = [
-    { href: '/wizard', label: t('wizard') },
-    { href: '/search', label: t('search') },
-    { href: '/learn', label: t('learn') },
-    { href: '/compare', label: t('compare') },
-    { href: '/glossary', label: t('glossary') },
-    { href: '/xrpl', label: t('xrpl') },
+    {
+      href: '/check',
+      label: t('check'),
+      isActive: (p: string) =>
+        p === '/check' ||
+        p.startsWith('/check/') ||
+        p.startsWith('/wizard') ||
+        p.startsWith('/report') ||
+        p.startsWith('/compare'),
+    },
+    {
+      href: '/learn',
+      label: t('learn'),
+      isActive: (p: string) =>
+        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'),
+    },
+    {
+      href: '/search',
+      label: t('ask'),
+      isActive: (p: string) => p.startsWith('/search') || p.startsWith('/ask'),
+    },
   ] as const;
 
   return (
@@ -30,13 +49,13 @@ export default function Header() {
             <Image src="/logo-dark.svg" alt="Regul8" width={160} height={38} className="h-9 w-auto hidden dark:block" />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.href
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  link.isActive(pathname)
                     ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800'
                 }`}
@@ -51,7 +70,7 @@ export default function Header() {
             <LanguageSwitcher />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label="Menu"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,14 +86,14 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="lg:hidden border-t border-[var(--border)] bg-[var(--card)] px-4 py-2">
+        <nav className="md:hidden border-t border-[var(--border)] bg-[var(--card)] px-4 py-2">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className={`block px-3 py-2.5 rounded-lg text-sm font-medium ${
-                pathname === link.href
+                link.isActive(pathname)
                   ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
                   : 'text-gray-600 dark:text-gray-400'
               }`}

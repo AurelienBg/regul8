@@ -6,7 +6,9 @@
     "learn": "Apprendre",
     "compare": "Comparer",
     "glossary": "Glossaire",
-    "xrpl": "Hub XRPL"
+    "xrpl": "Hub XRPL",
+    "check": "Vérifier",
+    "ask": "IA"
   },
   "jurisdictions": {
     "eu": "UE / France",
@@ -206,7 +208,8 @@
     "filterByGeography": "Filtrer par géographie",
     "filterByTopic": "Filtrer par angle",
     "relatedTerms": "Associés",
-    "xrplSpecific": "XRPL"
+    "xrplSpecific": "XRPL",
+    "noResults": "Aucun terme ne correspond à vos filtres."
   },
   "compare": {
     "title": "Comparateur de Juridictions",

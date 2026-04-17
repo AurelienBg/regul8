@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import GlossaryFab from '@/components/glossary/GlossaryFab';
 import '../globals.css';
 
 export default async function LocaleLayout({
@@ -36,6 +37,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
+          <GlossaryFab />
         </NextIntlClientProvider>
       </body>
     </html>

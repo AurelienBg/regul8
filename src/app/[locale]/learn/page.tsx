@@ -5,7 +5,7 @@ import { Link } from '@/i18n/routing';
 
 type Mode = {
   id: string;
-  href: '/learn/decision-trees' | '/learn/paths' | '/learn/maps';
+  href: '/learn/paths' | '/learn/maps' | '/xrpl';
   icon: string;
   title: string;
   description: string;
@@ -13,14 +13,6 @@ type Mode = {
 };
 
 const MODES_EN: Mode[] = [
-  {
-    id: 'decision-trees',
-    href: '/learn/decision-trees',
-    icon: '🌳',
-    title: 'Decision Trees',
-    description: 'Walk through guided questions to get a clear answer on licence needs, custody classification, or jurisdiction choice.',
-    cta: 'Start a tree',
-  },
   {
     id: 'learning-paths',
     href: '/learn/paths',
@@ -37,17 +29,17 @@ const MODES_EN: Mode[] = [
     description: 'One-pager diagrams: MiCA token taxonomy, XRPL custody matrix, jurisdiction arbitrage scatter.',
     cta: 'Browse maps',
   },
+  {
+    id: 'xrpl-hub',
+    href: '/xrpl',
+    icon: '🟣',
+    title: 'XRPL Deep Dive',
+    description: 'XRP legal status by jurisdiction, EVM Sidechain, native features (AMM, NFT, MPT, RLUSD) and the 10 custody methods matrix.',
+    cta: 'Open XRPL hub',
+  },
 ];
 
 const MODES_FR: Mode[] = [
-  {
-    id: 'decision-trees',
-    href: '/learn/decision-trees',
-    icon: '🌳',
-    title: 'Arbres de décision',
-    description: "Répondez à des questions guidées et obtenez une réponse claire sur vos besoins de licence, la classification custody ou le choix de juridiction.",
-    cta: 'Démarrer un arbre',
-  },
   {
     id: 'learning-paths',
     href: '/learn/paths',
@@ -64,6 +56,14 @@ const MODES_FR: Mode[] = [
     description: 'Diagrammes en une page : taxonomie des tokens MiCA, matrice custody XRPL, nuage d\'arbitrage de juridictions.',
     cta: 'Parcourir les cartes',
   },
+  {
+    id: 'xrpl-hub',
+    href: '/xrpl',
+    icon: '🟣',
+    title: 'XRPL Deep Dive',
+    description: 'Statut légal du XRP par juridiction, EVM Sidechain, fonctionnalités natives (AMM, NFT, MPT, RLUSD) et matrice des 10 méthodes de custody.',
+    cta: 'Ouvrir le hub XRPL',
+  },
 ];
 
 export default function LearnHubPage() {
@@ -72,16 +72,16 @@ export default function LearnHubPage() {
   const modes = isFr ? MODES_FR : MODES_EN;
   const tr = isFr ? {
     title: 'Apprendre',
-    subtitle: 'Trois façons de comprendre la régulation crypto. Choisissez celle qui vous convient.',
-    glossaryTitle: "Besoin juste d'une définition ?",
-    glossaryDesc: "Le glossaire couvre ~50 termes réglementaires — référence rapide, sans engagement.",
-    glossaryCta: 'Parcourir le glossaire',
+    subtitle: 'Comprendre et référencer la régulation crypto. Paths narratifs, cartes visuelles, deep dive XRPL.',
+    glossaryTitle: "Besoin d'une définition ?",
+    glossaryDesc: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K sur n'importe quelle page.",
+    glossaryCta: 'Ouvrir la page glossaire',
   } : {
     title: 'Learn',
-    subtitle: 'Three ways to understand crypto regulation. Pick the one that fits how you want to learn.',
-    glossaryTitle: 'Just need a definition?',
-    glossaryDesc: 'The glossary covers ~50 regulatory terms — quick reference, no commitment.',
-    glossaryCta: 'Browse glossary',
+    subtitle: 'Understand and reference crypto regulation. Narrative paths, visual maps, XRPL deep dive.',
+    glossaryTitle: 'Need a definition?',
+    glossaryDesc: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
+    glossaryCta: 'Open glossary page',
   };
 
   return (
