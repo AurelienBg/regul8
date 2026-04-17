@@ -40,7 +40,7 @@ export default function LearnHubPage() {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         {MODES.map((mode) =>
           mode.available ? (
             <Link key={mode.id} href={mode.href} className="card hover:border-blue-500 transition-colors group">
