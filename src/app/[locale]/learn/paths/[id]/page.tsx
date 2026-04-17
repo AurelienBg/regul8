@@ -1,13 +1,9 @@
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
-import { LEARNING_PATHS, getLearningPath } from '@/data/learning-paths';
+import { getLearningPath } from '@/data/learning-paths';
 import { getDecisionTree } from '@/data/decision-trees';
 import { JURISDICTIONS } from '@/types';
 import PathBlockRenderer from '@/components/learn/PathBlockRenderer';
-
-export function generateStaticParams() {
-  return LEARNING_PATHS.map((p) => ({ id: p.id }));
-}
 
 type Params = { id: string; locale: string };
 

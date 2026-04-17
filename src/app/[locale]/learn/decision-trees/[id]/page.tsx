@@ -1,11 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
-import { DECISION_TREES, getDecisionTree } from '@/data/decision-trees';
+import { getDecisionTree } from '@/data/decision-trees';
 import DecisionTreeRunner from '@/components/learn/DecisionTreeRunner';
-
-export function generateStaticParams() {
-  return DECISION_TREES.map((t) => ({ id: t.id }));
-}
 
 type Params = { id: string; locale: string };
 
