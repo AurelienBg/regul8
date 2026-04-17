@@ -53,7 +53,7 @@ export default function Header() {
             <Image src="/logo-dark.svg" alt="Regul8" width={160} height={38} className="h-9 w-auto hidden dark:block" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-3">
             {links.map((link) => (
               <Link
                 key={link.href}
