@@ -11,6 +11,7 @@ import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
+import ReactMarkdown from 'react-markdown';
 
 export default function ReportPage() {
   const t = useTranslations('report');
@@ -444,8 +445,25 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
 
         {aiAnalysis && (
           <div className="card mt-4 bg-gradient-to-br from-blue-50/50 to-xrpl-50/30 dark:from-blue-900/10 dark:to-xrpl/5">
-            <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-              {aiAnalysis}
+            <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed ai-markdown">
+              <ReactMarkdown
+                components={{
+                  h1: (p) => <h3 className="text-lg font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
+                  h2: (p) => <h4 className="text-base font-bold mt-4 mb-2 text-gray-900 dark:text-gray-100" {...p} />,
+                  h3: (p) => <h5 className="text-sm font-bold mt-3 mb-1.5 text-gray-900 dark:text-gray-100" {...p} />,
+                  p: (p) => <p className="mb-3" {...p} />,
+                  ul: (p) => <ul className="list-disc ml-5 mb-3 space-y-1" {...p} />,
+                  ol: (p) => <ol className="list-decimal ml-5 mb-3 space-y-1" {...p} />,
+                  li: (p) => <li className="leading-relaxed" {...p} />,
+                  strong: (p) => <strong className="font-semibold text-gray-900 dark:text-gray-100" {...p} />,
+                  em: (p) => <em className="italic" {...p} />,
+                  code: (p) => <code className="px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-xs" {...p} />,
+                  a: (p) => <a className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer" {...p} />,
+                  hr: () => <hr className="my-4 border-gray-200 dark:border-gray-700" />,
+                }}
+              >
+                {aiAnalysis}
+              </ReactMarkdown>
             </div>
             {!aiLoading && (
               <button
