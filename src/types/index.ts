@@ -44,6 +44,7 @@ export interface WizardAnswers {
 export interface GlossaryTerm {
   term: string
   definition: string
+  definitionFr?: string
   relatedTerms?: string[]
   xrplSpecific?: boolean
   category?: 'eu' | 'us' | 'intl' | 'general' | 'xrpl'

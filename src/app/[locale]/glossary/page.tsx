@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import XRPLBadge from '@/components/ui/XRPLBadge';
 
@@ -13,19 +13,24 @@ const slugify = (term: string) =>
 export default function GlossaryPage() {
   const t = useTranslations('glossary');
   const tc = useTranslations('common');
+  const locale = useLocale();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string>('all');
   const [highlighted, setHighlighted] = useState<string | null>(null);
 
+  const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
+    locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
+
   const filtered = useMemo(() => {
     return GLOSSARY_TERMS.filter((term) => {
+      const def = locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
       const matchSearch = !search ||
         term.term.toLowerCase().includes(search.toLowerCase()) ||
-        term.definition.toLowerCase().includes(search.toLowerCase());
+        def.toLowerCase().includes(search.toLowerCase());
       const matchCategory = category === 'all' || term.category === category;
       return matchSearch && matchCategory;
     });
-  }, [search, category]);
+  }, [search, category, locale]);
 
   const termExists = (name: string) =>
     GLOSSARY_TERMS.some((g) => g.term.toLowerCase() === name.toLowerCase());
@@ -110,7 +115,7 @@ export default function GlossaryPage() {
                 <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
                 {term.xrplSpecific && <XRPLBadge />}
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{term.definition}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{getDefinition(term)}</p>
               {term.relatedTerms && term.relatedTerms.length > 0 && (
                 <div className="mt-3 flex flex-wrap items-center gap-1.5">
                   <span className="text-xs text-gray-500">{t('relatedTerms')}:</span>

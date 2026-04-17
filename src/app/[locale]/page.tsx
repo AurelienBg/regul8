@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
 import Image from 'next/image';
+import ReportCardPreview from '@/components/layout/ReportCardPreview';
 
 const ACTIVITY_LABELS_EN: Record<string, string> = {
   exchange: 'Exchange', dapp_fin: 'DeFi', dapp_util: 'Utility DApp', nft: 'NFT',
@@ -16,27 +17,31 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="py-20 sm:py-32 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <Image src="/logo.svg" alt="Regul8" width={700} height={150} className="mx-auto mb-10 w-full max-w-[560px] h-auto block dark:hidden" priority />
-          <Image src="/logo-dark.svg" alt="Regul8" width={700} height={150} className="mx-auto mb-10 w-full max-w-[560px] h-auto hidden dark:block" priority />
-          <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-gray-600 dark:text-gray-300">
-            {t('hero')}
-          </h1>
-          <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            {t('subtitle')}
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/wizard" className="btn-primary text-lg px-8 py-4">
-              {t('ctaWizard')} &rarr;
-            </Link>
-            <Link href="/search" className="btn-secondary text-lg px-8 py-4">
-              {t('ctaSearch')} &rarr;
-            </Link>
+      <section className="py-16 sm:py-24 px-4">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left — text + CTAs */}
+          <div className="text-center lg:text-left">
+            <Image src="/logo.svg" alt="Regul8" width={700} height={150} className="mb-8 mx-auto lg:mx-0 w-full max-w-[360px] h-auto block dark:hidden" priority />
+            <Image src="/logo-dark.svg" alt="Regul8" width={700} height={150} className="mb-8 mx-auto lg:mx-0 w-full max-w-[360px] h-auto hidden dark:block" priority />
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
+              {t('hero')}
+            </h1>
+            <p className="mt-5 text-lg text-gray-600 dark:text-gray-300">
+              {t('subtitle')}
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <Link href="/wizard" className="btn-primary text-base px-6 py-3">
+                {t('ctaWizard')} &rarr;
+              </Link>
+              <Link href="/search" className="btn-secondary text-base px-6 py-3">
+                {t('ctaSearch')} &rarr;
+              </Link>
+            </div>
           </div>
-          <div className="mt-16">
-            <Image src="/hero.svg" alt="Regul8 compliance report preview" width={680} height={390} className="mx-auto w-full max-w-3xl h-auto block dark:hidden rounded-xl shadow-lg" />
-            <Image src="/hero-dark.svg" alt="Regul8 compliance report preview" width={680} height={390} className="mx-auto w-full max-w-3xl h-auto hidden dark:block rounded-xl shadow-lg" />
+
+          {/* Right — report card preview */}
+          <div className="w-full max-w-md mx-auto lg:max-w-none">
+            <ReportCardPreview />
           </div>
         </div>
       </section>
