@@ -133,6 +133,18 @@
       "general": "Finance",
       "xrpl": "XRPL"
     },
+    "topics": {
+      "all": "Tous les angles",
+      "licence": "Licence",
+      "regime": "Régime",
+      "obligation": "Obligation",
+      "token": "Type de token",
+      "regulator": "Régulateur",
+      "concept": "Concept",
+      "infra": "Infrastructure"
+    },
+    "filterByGeography": "Filtrer par géographie",
+    "filterByTopic": "Filtrer par angle",
     "relatedTerms": "Associés",
     "xrplSpecific": "XRPL"
   },

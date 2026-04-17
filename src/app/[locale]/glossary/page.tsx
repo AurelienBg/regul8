@@ -7,6 +7,63 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 
+type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
+const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'concept', 'infra'] as const;
+
+const TOPIC_ICONS: Record<Topic, string> = {
+  licence: '🪪',
+  regime: '📜',
+  obligation: '✅',
+  token: '🪙',
+  regulator: '🏛️',
+  concept: '💡',
+  infra: '🔧',
+};
+
+const TOPIC_STYLES: Record<Topic, string> = {
+  licence: 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-200',
+  regime: 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200',
+  obligation: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+  token: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
+  regulator: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200',
+  concept: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
+  infra: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
+};
+
+// Each term's "angle"
+const TERM_TOPICS: Record<string, Topic> = {
+  // Licences
+  CASP: 'licence', DASP: 'licence', PSAN: 'licence', EMI: 'licence',
+  MSB: 'licence', MTL: 'licence', BitLicense: 'licence', VASP: 'licence',
+  // Regimes (laws/frameworks themselves)
+  MiCA: 'regime', 'DLT Pilot Regime': 'regime', JONUM: 'regime',
+  'Prospectus Regulation': 'regime', 'MiFID II': 'regime', PSD2: 'regime', PSD3: 'regime',
+  BSA: 'regime', TVTG: 'regime', AMLO: 'regime', CASS: 'regime', AMLA: 'regime',
+  // Obligations / duties
+  AML: 'obligation', CFT: 'obligation', KYC: 'obligation', KYB: 'obligation',
+  'Travel Rule': 'obligation', SAR: 'obligation',
+  // Token types
+  EMT: 'token', ART: 'token', 'S-EMT': 'token', 'S-ART': 'token',
+  STO: 'token', ICO: 'token', ITO: 'token', RWA: 'token', NFT: 'token',
+  DPT: 'token', RLUSD: 'token', MPT: 'token',
+  // Regulators / supervisors
+  AMF: 'regulator', ESMA: 'regulator', NCA: 'regulator',
+  FinCEN: 'regulator', OFAC: 'regulator',
+  FATF: 'regulator', FINMA: 'regulator', VQF: 'regulator', SRO: 'regulator',
+  MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
+  FCA: 'regulator', VARA: 'regulator',
+  // Concepts / theoretical tests
+  'Howey Test': 'concept',
+  // Infrastructure / technical primitives
+  TradFi: 'infra', CeFi: 'infra', DeFi: 'infra', DAO: 'infra',
+  'Smart Contract': 'infra', DLT: 'infra',
+  'Trust Line': 'infra', IOU: 'infra', Escrow: 'infra', 'Payment Channel': 'infra',
+  'XLS-20': 'infra', 'XLS-33': 'infra', AMM: 'infra', SignerList: 'infra',
+  'Regular Key': 'infra', MPC: 'infra', TSS: 'infra',
+  rippling: 'infra', freeze: 'infra', globalFreeze: 'infra',
+  RequireAuth: 'infra', lsfLocked: 'infra',
+};
+
 const slugify = (term: string) =>
   term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
@@ -42,6 +99,7 @@ export default function GlossaryPage() {
   const locale = useLocale();
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<string>('all');
+  const [topic, setTopic] = useState<string>('all');
   const [highlighted, setHighlighted] = useState<string | null>(null);
 
   const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
@@ -54,9 +112,10 @@ export default function GlossaryPage() {
         term.term.toLowerCase().includes(search.toLowerCase()) ||
         def.toLowerCase().includes(search.toLowerCase());
       const matchCategory = category === 'all' || term.category === category;
-      return matchSearch && matchCategory;
+      const matchTopic = topic === 'all' || TERM_TOPICS[term.term] === topic;
+      return matchSearch && matchCategory && matchTopic;
     });
-  }, [search, category, locale]);
+  }, [search, category, topic, locale]);
 
   const termExists = (name: string) =>
     GLOSSARY_TERMS.some((g) => g.term.toLowerCase() === name.toLowerCase());
@@ -98,15 +157,22 @@ export default function GlossaryPage() {
     <div className="max-w-4xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-6">{t('title')}</h1>
 
-      {/* Search + filters */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-8">
+      {/* Search */}
+      <div className="mb-4">
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t('searchPlaceholder')}
-          className="flex-1 px-4 py-2 rounded-lg border border-[var(--border)] bg-transparent text-sm focus:outline-none focus:border-blue-500"
+          className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-transparent text-sm focus:outline-none focus:border-blue-500"
         />
+      </div>
+
+      {/* Filters — categories (geography) */}
+      <div className="mb-2">
+        <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          {t('filterByGeography')}
+        </div>
         <div className="flex gap-1 flex-wrap">
           {CATEGORIES.map((cat) => (
             <button
@@ -124,11 +190,35 @@ export default function GlossaryPage() {
         </div>
       </div>
 
+      {/* Filters — topics (angles) */}
+      <div className="mb-8">
+        <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          {t('filterByTopic')}
+        </div>
+        <div className="flex gap-1 flex-wrap">
+          {TOPICS.map((tp) => (
+            <button
+              key={tp}
+              onClick={() => setTopic(tp)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                topic === tp
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              {tp !== 'all' && <span>{TOPIC_ICONS[tp as Topic]}</span>}
+              {t(`topics.${tp}`)}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Terms grid */}
       <div className="grid sm:grid-cols-2 gap-4">
         {filtered.map((term) => {
           const slug = slugify(term.term);
           const isHighlighted = highlighted === slug;
+          const termTopic = TERM_TOPICS[term.term];
           return (
             <div
               key={term.term}
@@ -137,11 +227,17 @@ export default function GlossaryPage() {
                 isHighlighted ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''
               }`}
             >
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {flagForTerm(term) && (
                   <span className="text-lg leading-none" aria-hidden="true">{flagForTerm(term)}</span>
                 )}
                 <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
+                {termTopic && (
+                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[termTopic]}`}>
+                    <span>{TOPIC_ICONS[termTopic]}</span>
+                    <span>{t(`topics.${termTopic}`)}</span>
+                  </span>
+                )}
                 {term.xrplSpecific && <XRPLBadge />}
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{getDefinition(term)}</p>
