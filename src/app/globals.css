@@ -74,10 +74,12 @@ body {
     display: block !important;
   }
 
-  /* Reset backgrounds and colors for clean print */
+  /* Reset backgrounds, colors and layout padding for clean print */
   html, body {
     background: white !important;
     color: black !important;
+    padding-top: 0 !important;
+    overflow: visible !important;
   }
 
   .print-container {
