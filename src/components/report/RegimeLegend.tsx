@@ -14,7 +14,7 @@ import type { RegimeItemType } from '@/types';
 export default function RegimeLegend() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const tr = isFr
     ? {
