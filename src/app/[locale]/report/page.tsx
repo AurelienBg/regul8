@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
@@ -23,6 +23,23 @@ export default function ReportPage() {
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const aiFiredRef = useRef(false);
+
+  // Auto-trigger AI analysis once when the report loads with valid inputs.
+  // Guarded by aiFiredRef so we only pay for 1 API call per report view.
+  // Placed BEFORE any early return to satisfy React hook rules.
+  useEffect(() => {
+    if (aiFiredRef.current) return;
+    if (activities.length === 0 || jurisdictions.length === 0) return;
+    aiFiredRef.current = true;
+    // handleAiAnalysis is defined later in the function — the effect
+    // runs on mount when activities/jurisdictions are present
+    handleAiAnalysisRef.current?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activities.length, jurisdictions.length]);
+
+  // Ref to call handleAiAnalysis from the useEffect above
+  const handleAiAnalysisRef = useRef<() => void>();
 
   const handleShare = async () => {
     if (typeof window === 'undefined') return;
@@ -136,11 +153,28 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
     }
   };
 
+  const handlePrintPdf = () => {
+    if (typeof window !== 'undefined') window.print();
+  };
+
+  // Wire the ref for the mount-time auto-trigger
+  handleAiAnalysisRef.current = handleAiAnalysis;
+
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-8 gap-2 flex-wrap">
+    <div className="max-w-6xl mx-auto px-4 py-12 print-container">
+      <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
         <div className="flex items-center gap-2">
+          <button
+            onClick={handlePrintPdf}
+            className="btn-secondary text-sm flex items-center gap-2"
+            title={t('savePdf')}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m-3-8a9 9 0 110 18 9 9 0 010-18z" />
+            </svg>
+            {t('savePdf')}
+          </button>
           <button
             onClick={handleShare}
             className="btn-secondary text-sm flex items-center gap-2"
@@ -164,6 +198,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
           <Link href="/wizard" className="btn-secondary text-sm">{t('newCheck')}</Link>
         </div>
       </div>
+
+      {/* Print-only title */}
+      <h1 className="hidden print-only text-2xl font-bold mb-6">
+        Regul8 — {t('title')}
+      </h1>
 
       {/* Results grid */}
       {activities.map((activity) => (
@@ -369,24 +408,26 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
             </svg>
           </div>
           <div>
-            <h2 className="text-xl font-bold">AI Compliance Audit</h2>
-            <p className="text-sm text-gray-500">Get a personalised roadmap, risk analysis, and recommendations</p>
+            <h2 className="text-xl font-bold">{t('aiTitle')}</h2>
+            <p className="text-sm text-gray-500">{t('aiSubtitle')}</p>
           </div>
         </div>
 
-        {!aiAnalysis && !aiLoading && (
-          <button
-            onClick={handleAiAnalysis}
-            className="btn-primary w-full sm:w-auto text-base px-8 py-4"
-          >
-            Generate AI Analysis &rarr;
-          </button>
-        )}
-
         {aiLoading && !aiAnalysis && (
-          <div className="flex items-center gap-3 text-gray-500">
-            <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-            <span>Analyzing your regulatory profile...</span>
+          <div className="card mt-4 bg-gradient-to-br from-blue-50/50 to-xrpl-50/30 dark:from-blue-900/10 dark:to-xrpl/5">
+            <div className="flex items-center gap-3 text-gray-500 mb-4">
+              <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <span>{t('aiAnalyzing')}</span>
+            </div>
+            {/* Skeleton lines */}
+            <div className="space-y-2 animate-pulse">
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-11/12" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-4/6" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full mt-4" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-5/6" />
+            </div>
           </div>
         )}
 
@@ -398,9 +439,9 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
             {!aiLoading && (
               <button
                 onClick={handleAiAnalysis}
-                className="mt-4 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                className="mt-4 text-sm text-blue-600 dark:text-blue-400 hover:underline no-print"
               >
-                Regenerate analysis
+                {t('aiRegenerate')}
               </button>
             )}
           </div>

@@ -48,6 +48,7 @@ export default function LearnHubPage() {
     xrplDesc: "Statut légal du XRP par juridiction, EVM Sidechain, fonctionnalités natives (AMM, NFT, MPT, RLUSD) et matrice custody.",
     openHub: 'Ouvrir le hub XRPL',
     glossaryHint: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K depuis n'importe quelle page.",
+    openGlossary: 'Ouvrir le glossaire',
     read: 'Lire',
     open: 'Ouvrir',
   } : {
@@ -63,6 +64,7 @@ export default function LearnHubPage() {
     xrplDesc: 'XRP legal status by jurisdiction, EVM Sidechain, native features (AMM, NFT, MPT, RLUSD) and the custody matrix.',
     openHub: 'Open XRPL hub',
     glossaryHint: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
+    openGlossary: 'Open glossary',
     read: 'Read',
     open: 'Open',
   };
@@ -185,13 +187,17 @@ export default function LearnHubPage() {
         </Link>
       </section>
 
-      {/* Glossary hint */}
-      <div className="mt-10 p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)] text-center">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+      {/* Glossary hint — clickable to /glossary */}
+      <Link
+        href="/glossary"
+        className="mt-10 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 text-center block hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+      >
+        <p className="text-sm text-blue-900 dark:text-blue-100">
           <span className="text-lg mr-1">📖</span>
           {tr.glossaryHint}
+          <span className="ml-2 font-semibold text-blue-700 dark:text-blue-300">{tr.openGlossary} &rarr;</span>
         </p>
-      </div>
+      </Link>
     </div>
   );
 }

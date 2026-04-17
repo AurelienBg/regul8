@@ -46,15 +46,45 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Stepper — narrative journey */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {(['wizard', 'search', 'compare'] as const).map((key) => (
-            <div key={key} className="card">
-              <h3 className="text-lg font-semibold mb-2">{t(`features.${key}`)}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{t(`features.${key}Desc`)}</p>
-            </div>
-          ))}
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">{t('stepperTitle')}</h2>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">{t('stepperSubtitle')}</p>
+
+          <div className="grid md:grid-cols-3 gap-6 relative">
+            {/* Connector line — desktop */}
+            <div aria-hidden="true" className="hidden md:block absolute top-6 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 dark:from-blue-900 dark:via-blue-800 dark:to-blue-900" />
+
+            {([
+              { key: 'check', href: '/check', icon: '🎯' },
+              { key: 'learn', href: '/learn', icon: '📚' },
+              { key: 'ask', href: '/search', icon: '🤖' },
+            ] as const).map((step, i) => (
+              <Link
+                key={step.key}
+                href={step.href}
+                className="relative card hover:border-blue-500 transition-colors group bg-[var(--background)]"
+              >
+                {/* Step number circle */}
+                <div className="relative z-10 w-12 h-12 mx-auto mb-4 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-lg shadow-md">
+                  {i + 1}
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">{step.icon}</div>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    {t(`steps.${step.key}.title`)}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                    {t(`steps.${step.key}.desc`)}
+                  </p>
+                  <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                    {t(`steps.${step.key}.cta`)} &rarr;
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

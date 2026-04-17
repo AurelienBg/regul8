@@ -37,6 +37,25 @@
       "compare": "Comparateur d'Activités",
       "compareDesc": "Empilez plusieurs activités dans une juridiction. Visualisez vos obligations consolidées en un coup d'œil."
     },
+    "stepperTitle": "Comment Regul8 fonctionne",
+    "stepperSubtitle": "Trois modes selon vos besoins. Combinez-les pour votre situation.",
+    "steps": {
+      "check": {
+        "title": "Vérifier",
+        "desc": "Dites-nous vos activités et juridictions. Obtenez un rapport réglementaire complet avec régimes, licences, obligations, délais et coûts.",
+        "cta": "Démarrer une vérification"
+      },
+      "learn": {
+        "title": "Apprendre",
+        "desc": "Plongez dans les parcours guidés, les cartes visuelles et le deep-dive XRPL. Comprenez MiCA, Howey, la classification custody et plus.",
+        "cta": "Explorer l'apprentissage"
+      },
+      "ask": {
+        "title": "Demander à l'IA",
+        "desc": "Une question précise ? Posez-la en français ou anglais. Réponse instantanée depuis la base de connaissances ou via Claude.",
+        "cta": "Ouvrir la recherche IA"
+      }
+    },
     "xrplSection": "Couverture XRPL Complète",
     "xrplDesc": "Support natif pour XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow et 10 implémentations custody.",
     "jurisdictions": "12 Juridictions Couvertes",
@@ -107,6 +126,11 @@
     "checklist": "Actions Immédiates",
     "newCheck": "Nouvelle Vérification",
     "share": "Partager le Rapport",
+    "savePdf": "Enregistrer en PDF",
+    "aiTitle": "Audit de conformité IA",
+    "aiSubtitle": "Roadmap personnalisée, analyse des risques et recommandations — généré automatiquement",
+    "aiAnalyzing": "Analyse de votre profil réglementaire...",
+    "aiRegenerate": "Régénérer l'analyse",
     "riskHigh": "Élevé",
     "riskMed": "Moyen",
     "riskLow": "Faible",
