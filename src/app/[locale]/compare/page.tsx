@@ -106,10 +106,10 @@ export default function CompareActivitiesPage() {
       selected
         .map((activity) => ({
           activity,
-          result: lookupRegulation(activity, jurisdiction),
+          result: lookupRegulation(activity, jurisdiction, locale),
         }))
         .filter((r) => r.result),
-    [selected, jurisdiction],
+    [selected, jurisdiction, locale],
   );
 
   const jurisdictionMeta = JURISDICTIONS[jurisdiction];
