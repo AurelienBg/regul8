@@ -1589,10 +1589,175 @@ export const REGULATIONS: RegData = {
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // CROSS-BORDER PAYMENT (international remittance in crypto)
-  // Filled in next commit — empty stub for now so TypeScript is happy.
+  // CROSS-BORDER PAYMENT (international remittance using crypto rails)
   // ═══════════════════════════════════════════════════════════════
-  cross_border_payment: {},
+  cross_border_payment: {
+    eu: {
+      regime: "CASP (MiCA) + PSD2/PSD3 + AMLD6 Travel Rule (EU Reg 2023/1113) + potentially SEPA Inst if Euro",
+      risk: "high",
+      licenses: ["CASP authorisation (crypto transfer service)", "PI or EMI licence (fiat leg)", "EU passport across member states"],
+      obligations: ["FATF Travel Rule (low threshold = €1K+ = always for crypto)", "KYC/AML per AMLD6", "SEPA / SCT compliance (if fiat)", "Consumer protection under MiCA", "Sanctions screening per EU Reg 833/2014"],
+      time: "12–24 months",
+      cost: "€150K–€500K",
+      alts: ["UAE VARA (faster MENA corridor)", "Singapore MAS (APAC corridor)", "Liechtenstein TVTG"],
+      authority: "NCA + ECB + ESMA",
+      xrplNote: "XRPL + RLUSD is a reference cross-border stack — sub-second settlement, ~$0.0002 per transaction. Ripple ODL (On-Demand Liquidity) uses XRP as a bridge asset. EU corridors now operational via licensed partners (Bitstamp Europe, Uphold)."
+    },
+    us: {
+      regime: "FinCEN MSB + State MTLs (including Remittance Transfer Rule) + OFAC sanctions + CFPB Remittance Rule",
+      risk: "high",
+      licenses: ["FinCEN MSB registration", "State MTLs in every state", "Remittance Transfer Provider (>100 cross-border/year, CFPB Reg E)", "NY BitLicense"],
+      obligations: ["BSA/AML (including CIP + EDD for high-risk corridors)", "Travel Rule ≥ $3K", "OFAC SDN + sectoral sanctions screening (every transaction)", "Dodd-Frank Reg E disclosures (exchange rate, fees, delivery time)", "Consumer complaint resolution (30 days)"],
+      time: "24–48 months",
+      cost: "$500K–$2M+",
+      alts: ["EU via Ireland/Germany", "UAE VARA for MENA corridor"],
+      authority: "FinCEN + state regulators + OFAC + CFPB",
+      xrplNote: "US → LatAm, US → Philippines corridors using XRP ODL are live via MoneyGram (historic), Tranglo, SBI Remit. XRPL settles in ~3 seconds vs SWIFT's 1-3 days."
+    },
+    uae: {
+      regime: "VARA VASP + CBUAE cross-border payments regulations + Aani instant payment rails",
+      risk: "med",
+      licenses: ["VARA Transfer & Settlement Services VASP Licence", "CBUAE Remittance Licence (if fiat leg)", "SWIFT/Aani connectivity"],
+      obligations: ["KYC/AML per CBUAE + VARA rulebooks", "Travel Rule", "AED/USD capital + liquidity requirements", "Sanctions screening"],
+      time: "9–18 months",
+      cost: "$250K–$750K",
+      alts: ["Singapore MAS", "Bahrain CBB"],
+      authority: "VARA + CBUAE",
+      xrplNote: "UAE is a top XRPL cross-border hub. Onafriq–Ripple (2023) partnership routes EU/UK → Africa via UAE-based ODL. Emirates NBD + CBUAE CBDC pilots evaluated XRPL."
+    },
+    sg: {
+      regime: "MAS PSA — Cross-Border Money Transfer class + potentially Domestic Money Transfer class + DPT",
+      risk: "med",
+      licenses: ["MPI licence with Cross-Border Money Transfer + DPT classes", "SPI if volume below SGD 3M/month"],
+      obligations: ["KYC/AML per MAS AML/CFT Notice", "Travel Rule", "Safeguarding (trust account)", "Tech Risk Management Notice", "Consumer protection"],
+      time: "9–15 months",
+      cost: "SGD 250K–800K",
+      alts: ["Hong Kong HKMA", "UAE VARA"],
+      authority: "MAS",
+      xrplNote: "Singapore is a top APAC hub for XRPL cross-border. Project Ubin (MAS) evaluated distributed-ledger settlement; Partior (DBS+JPM+SC) uses similar tech. Triple-A (MAS-licensed) uses XRPL for stablecoin rails."
+    },
+    uk: {
+      regime: "FCA Cryptoasset registration + EMI/PI + UK Remittance Obligations",
+      risk: "high",
+      licenses: ["FCA cryptoasset registration", "EMI or PI authorisation", "Approved Persons Regime for senior management"],
+      obligations: ["MLR 2017 AML/KYC", "Travel Rule per UK MLR amendment (Sep 2023)", "Consumer Duty + Outcomes", "PSR/PSD2-equivalent SCA", "CASS client money segregation"],
+      time: "15–24 months",
+      cost: "£200K–£600K",
+      alts: ["EU MiCA CASP", "Gibraltar"],
+      authority: "FCA",
+      xrplNote: "UK → India and UK → Philippines corridors via XRPL ODL partners. Post-Brexit, UK has diverged on stablecoin framework (2025) — may open a UK-specific XRPL IOU path."
+    },
+    hk: {
+      regime: "HKMA SVF + SFC Type 1/7/9 (if VA) + AMLO + Cross-Border Payment Guidelines (HKMA)",
+      risk: "med",
+      licenses: ["HKMA SVF or Money Service Operator licence", "SFC Types 1+7 if VA involved", "AMLO registration"],
+      obligations: ["AML per AMLO", "Travel Rule", "Consumer protection", "Capital + liquidity requirements"],
+      time: "12–24 months",
+      cost: "HKD 1.5M–6M ($190K–$770K)",
+      alts: ["Singapore MAS", "UAE VARA"],
+      authority: "HKMA + SFC + C&ED (Customs & Excise for MSO)",
+      xrplNote: "HK – Mainland China corridor (via Bond Connect / Wealth Connect) evaluates XRPL for RMB ↔ HKD settlement. Stablecoin ordinance (2025) creates a clearer path for HKD-pegged XRPL IOUs."
+    },
+    ch: {
+      regime: "FINMA FinTech licence or Banking + SRO/VQF + FX law + FMIA (financial market infrastructure)",
+      risk: "med",
+      licenses: ["FINMA FinTech or Banking licence", "SRO/VQF membership", "FMIA registration if operating a payment system"],
+      obligations: ["AMLA + FMIA", "KYC + ongoing monitoring", "Banking-secrecy compliance", "Semi-annual FINMA reporting"],
+      time: "6–18 months (FinTech) / 24+ months (banking)",
+      cost: "CHF 200K–800K",
+      alts: ["Liechtenstein TVTG + EEA passport", "EU via Germany"],
+      authority: "FINMA + SNB (Swiss National Bank for large volumes)",
+      xrplNote: "Taurus + Sygnum + Amina/SEBA offer institutional XRP/RLUSD cross-border settlement. SIX Digital Exchange (SDX) explores XRPL for multi-CBDC."
+    },
+    li: {
+      regime: "TVTG Token Exchange + Transfer SPs + EU EMI passport",
+      risk: "low",
+      licenses: ["TVTG Token Exchange + Token Transfer Service Provider (FMA)", "EMI licence (via LI or EEA passport)", "SRO AML membership"],
+      obligations: ["AML per SPG + TVTG", "Travel Rule", "Fit & proper", "FMA reporting", "Capital requirement per licence category"],
+      time: "4–12 months",
+      cost: "CHF 100K–300K",
+      alts: ["Switzerland FINMA", "EU via DE/IE/FR"],
+      authority: "FMA Liechtenstein",
+      xrplNote: "LI's TVTG was explicitly designed to accommodate the XRPL token-container model. Several cross-border XRPL pilots (Amazon Web Services + partner) use LI as the HQ juri."
+    },
+    jp: {
+      regime: "FSA Fund Transfer Service Provider + CAESP (if crypto leg) + JVCEA",
+      risk: "med",
+      licenses: ["FSA Type 2 FTSP (up to ¥1M/transaction) or Type 1 (unlimited)", "CAESP registration (crypto leg)", "JVCEA membership"],
+      obligations: ["KYC/AML per APPS", "FATF Travel Rule", "Monthly FSA reporting", "Cold-storage 95% rule (crypto leg)", "Consumer fund protection"],
+      time: "12–18 months",
+      cost: "¥30M–¥100M ($200K–$700K)",
+      alts: ["Singapore MAS", "Hong Kong HKMA"],
+      authority: "FSA Japan",
+      xrplNote: "SBI Remit (Japan) is one of the largest corridors using XRPL ODL — JPY → PHP, MYR, VND routes. Volumes in hundreds of millions USD annually."
+    },
+    kr: {
+      regime: "VASP + Foreign Exchange Transaction Act + Electronic Financial Transactions Act",
+      risk: "high",
+      licenses: ["VASP registration (KoFIU)", "Bank of Korea approval for FX corridor", "Real-name account bank partnership"],
+      obligations: ["KYC/AML", "Travel Rule (>₩1M = ~$750)", "Real-name banking link", "FX reporting to BoK (any transaction >$10K)"],
+      time: "12–24 months",
+      cost: "₩500M–₩2B ($375K–$1.5M)",
+      alts: ["Japan FSA", "Singapore MAS"],
+      authority: "FSC + KoFIU + BoK (FX)",
+      xrplNote: "Korea has high XRP retail adoption but limited institutional cross-border infrastructure due to FX controls. Remittance corridors mostly domestic with banks."
+    },
+    in: {
+      regime: "RBI FEMA + LRS (Liberalised Remittance Scheme) + FIU-IND + heavy forex restrictions — grey zone for crypto cross-border",
+      risk: "high",
+      licenses: ["FIU-IND VASP registration", "No explicit RBI authorisation pathway for crypto cross-border as of 2026", "LRS limit: $250K/person/year"],
+      obligations: ["FEMA compliance for all cross-border flows", "30% VDA tax + 1% TDS", "PMLA KYC/AML", "RBI TT rate reporting"],
+      time: "12–24 months (navigating grey zones)",
+      cost: "₹1Cr–₹5Cr ($120K–$600K)",
+      alts: ["Singapore MAS (most common for Indian fintechs)", "UAE VARA"],
+      authority: "RBI + FIU-IND + CBDT",
+      xrplNote: "India-UAE corridor via XRPL is one of the largest crypto remittance lanes globally (diaspora flows ~$25B/year total). Regulatory uncertainty — most flows go through licensed exchanges or P2P."
+    },
+    br: {
+      regime: "BCB Law 14.478/2022 VASP + CMN 303/2025 + PIX (instant payment) framework + BCB FX rules",
+      risk: "med",
+      licenses: ["BCB VASP authorization", "CMN approval for cross-border", "CVM if token is a security", "PIX participant if domestic settlement"],
+      obligations: ["Law 9.613 AML", "Travel Rule", "BCB quarterly reporting", "CMN FX compliance", "LGPD data protection"],
+      time: "12–18 months",
+      cost: "R$1M–R$4M ($200K–$800K)",
+      alts: ["UAE VARA", "Mexico CNBV (LATAM corridor)"],
+      authority: "BCB + CMN + CVM + COAF",
+      xrplNote: "Brazil's Drex CBDC + ILP (Interledger) pilots evaluate XRPL-style architecture for cross-border RMB/USD settlement. Ripple partnered with Travelex Bank for BRL–USD rails."
+    },
+    ng: {
+      regime: "CBN strict FX + SEC Nigeria DASP + NFIU + Foreign Exchange Act — very high risk due to Naira scarcity",
+      risk: "high",
+      licenses: ["SEC Nigeria DASP registration (crypto leg)", "CBN authorized dealer licence (FX leg — very restricted)", "NFIU registration"],
+      obligations: ["KYC/AML per MLPPA 2022", "Travel Rule", "CBN Naira scarcity controls (strict outflow limits)", "Mandatory NIBSS integration for NGN rail"],
+      time: "24–48 months (volatile)",
+      cost: "NGN 3B+ ($3M+ range)",
+      alts: ["Ghana BoG", "UAE VARA (offshore, common)"],
+      authority: "CBN + SEC Nigeria + NFIU",
+      xrplNote: "Nigeria diaspora remittance ($20B+/year) is a major XRPL target. Post-2024 restrictions, most flows go through offshore (UAE, UK) + P2P last mile. Onafriq-Ripple handles institutional flows."
+    },
+    ke: {
+      regime: "VASP Act 2025 + CBK Money Remittance + POCAMLA + Foreign Exchange Act",
+      risk: "med",
+      licenses: ["VASP licence (CMA) — transfer category", "CBK Money Remittance Provider", "KRA + iTax registration"],
+      obligations: ["KYC/AML per POCAMLA", "Travel Rule", "3% Digital Asset Tax", "KES rail via M-Pesa/banks", "CBK FX reporting (>$10K)"],
+      time: "9–18 months",
+      cost: "KES 15M–60M ($115K–$460K)",
+      alts: ["UAE VARA", "South Africa FSCA"],
+      authority: "CMA + CBK",
+      xrplNote: "Kenya ↔ Uganda, Kenya ↔ Tanzania corridors via XRPL ODL (Onafriq, Kotani Pay). M-Pesa interop with XRPL makes Kenya a gateway for East Africa crypto remittance."
+    },
+    za: {
+      regime: "FSCA CASP + SARB exchange control (very strict for ZAR outflows) + NPS Act + FICA AML",
+      risk: "high",
+      licenses: ["CASP Category II under FAIS Act", "SARB approval for cross-border flows", "Authorised Dealer with Limited Authority (ADLA) for FX retail"],
+      obligations: ["SARB Exchange Control Regulation (R1M/year individual outflow limit)", "Travel Rule since Apr 2023", "FICA AML + beneficial ownership", "Consumer protection"],
+      time: "12–18 months",
+      cost: "ZAR 5M–15M ($275K–$825K)",
+      alts: ["UAE VARA (diaspora to ME/Asia)", "Mauritius FSC"],
+      authority: "FSCA + SARB + FIC",
+      xrplNote: "SA ↔ SADC corridor (regional) + SA ↔ UK diaspora corridor via XRPL partners. SARB + IntelliBridge pilot tokenised ZAR on XRPL for cross-border settlement."
+    },
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // TOKEN ISSUANCE \u2014 UTILITY
