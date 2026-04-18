@@ -171,7 +171,7 @@ export default function ComparePage() {
     'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <header className="text-center mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{tr.subtitle}</p>
@@ -204,9 +204,9 @@ export default function ComparePage() {
         <>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
             {isFr ? (
-              <>Choisissez <strong>1 juridiction</strong> et sélectionnez 2 à 5 activités. Voyez toutes les obligations côte à côte.</>
+              <>Choisissez <strong className="text-gray-900 dark:text-white">1 juridiction</strong> et sélectionnez 2 à 5 activités. Voyez toutes les obligations côte à côte.</>
             ) : (
-              <>Pick <strong>1 jurisdiction</strong> and select 2–5 activities. See all obligations side-by-side.</>
+              <>Pick <strong className="text-gray-900 dark:text-white">1 jurisdiction</strong> and select 2–5 activities. See all obligations side-by-side.</>
             )}
           </p>
 
@@ -400,9 +400,9 @@ export default function ComparePage() {
         <>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
             {isFr ? (
-              <>Choisissez <strong>1 activité</strong> et 2 à 5 juridictions, puis comparez <strong>régimes, coûts et délais</strong>.</>
+              <>Choisissez <strong className="text-gray-900 dark:text-white">1 activité</strong> et 2 à 5 juridictions, puis comparez <strong className="text-gray-900 dark:text-white">régimes, coûts et délais</strong>.</>
             ) : (
-              <>Pick <strong>1 activity</strong> and 2–5 jurisdictions and compare <strong>regimes, costs and timelines</strong>.</>
+              <>Pick <strong className="text-gray-900 dark:text-white">1 activity</strong> and 2–5 jurisdictions and compare <strong className="text-gray-900 dark:text-white">regimes, costs and timelines</strong>.</>
             )}
           </p>
 
