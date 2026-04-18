@@ -53,15 +53,14 @@ export default function CompareActivitiesPage() {
     selectAtLeast2: 'Sélectionnez au moins 2 activités à comparer.',
     comparedIn: 'activités comparées en',
     field: 'Champ',
-    regime: 'Régime',
-    risk: 'Risque',
-    licences: 'Licences',
-    obligations: 'Obligations',
-    timeline: 'Délai',
-    cost: 'Coût',
+    regime: 'Régime Applicable',
+    risk: 'Niveau de Risque',
+    licences: 'Licences Requises',
+    obligations: 'Obligations Clés',
+    timeline: 'Délai Estimé',
+    cost: 'Coût Estimé',
     authority: 'Autorité',
-    xrplNote: 'Note XRPL',
-    more: 'de plus',
+    xrplNote: 'Note Spécifique XRPL',
     runningTitle: 'Plusieurs activités cumulées ?',
     runningBody1: 'Les régulateurs examinent le profil ',
     runningBody2: 'combiné',
@@ -76,15 +75,14 @@ export default function CompareActivitiesPage() {
     selectAtLeast2: 'Select at least 2 activities to compare.',
     comparedIn: 'activities compared in',
     field: 'Field',
-    regime: 'Regime',
-    risk: 'Risk',
-    licences: 'Licences',
-    obligations: 'Obligations',
-    timeline: 'Timeline',
-    cost: 'Cost',
+    regime: 'Applicable Regime',
+    risk: 'Risk Level',
+    licences: 'Licences Required',
+    obligations: 'Key Obligations',
+    timeline: 'Estimated Timeline',
+    cost: 'Estimated Cost',
     authority: 'Authority',
-    xrplNote: 'XRPL note',
-    more: 'more',
+    xrplNote: 'XRPL-Specific Note',
     runningTitle: 'Running multiple activities together?',
     runningBody1: 'Regulators look at the ',
     runningBody2: 'combined',
@@ -250,12 +248,9 @@ export default function CompareActivitiesPage() {
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top">
                       <ul className="list-disc ml-4 text-xs space-y-1">
-                        {r.result?.obligations.slice(0, 4).map((o, i) => (
+                        {r.result?.obligations.map((o, i) => (
                           <li key={i}>{o}</li>
                         ))}
-                        {r.result && r.result.obligations.length > 4 && (
-                          <li className="text-gray-500">+{r.result.obligations.length - 4} {tr.more}</li>
-                        )}
                       </ul>
                     </td>
                   ))}
