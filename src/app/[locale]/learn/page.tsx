@@ -50,6 +50,12 @@ export default function LearnHubPage() {
     useCasesTitle: "Cas d'usage",
     useCasesDesc: "Entreprises crypto qui ont réussi leur mise en conformité (Ripple, Circle, Coinbase, Sorare, Anchorage…) avec leurs licences et juridictions.",
     useCasesCta: 'Voir les cas',
+    categoriesTitle: 'Catégories réglementaires',
+    categoriesDesc: 'Les 7 grands angles de la conformité crypto : Loi, Régulateur, Licence, Régime, Obligation, Topologie, Standard. Avec exemples par juridiction.',
+    categoriesCta: 'Voir les catégories',
+    treesTitle: 'Arbres de décision',
+    treesDesc: 'Quelques questions, un verdict clair : security ou non ? CASP requis ? Custody custodial ? Quelle juridiction ?',
+    treesCta: 'Voir les arbres',
     glossaryHint: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K depuis n'importe quelle page.",
     openGlossary: 'Ouvrir le glossaire',
     read: 'Lire',
@@ -69,6 +75,12 @@ export default function LearnHubPage() {
     useCasesTitle: 'Use Cases',
     useCasesDesc: 'Crypto companies that nailed compliance (Ripple, Circle, Coinbase, Sorare, Anchorage…) with their licences and jurisdictions.',
     useCasesCta: 'See use cases',
+    categoriesTitle: 'Regulatory Categories',
+    categoriesDesc: 'The 7 big angles of crypto compliance: Law, Regulator, Licence, Regime, Obligation, Topology, Standard. With examples per jurisdiction.',
+    categoriesCta: 'Browse categories',
+    treesTitle: 'Decision Trees',
+    treesDesc: 'A few questions, a clear verdict: security or not? CASP required? Custody custodial? Which jurisdiction?',
+    treesCta: 'Open decision trees',
     glossaryHint: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
     openGlossary: 'Open glossary',
     read: 'Read',
@@ -194,7 +206,7 @@ export default function LearnHubPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="mb-10">
+      <section className="mb-6">
         <Link
           href="/learn/cases"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
@@ -214,17 +226,68 @@ export default function LearnHubPage() {
         </Link>
       </section>
 
-      {/* Glossary hint — clickable to /glossary */}
-      <Link
-        href="/glossary"
-        className="mt-10 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 text-center block hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
-      >
-        <p className="text-sm text-blue-900 dark:text-blue-100">
-          <span className="text-lg mr-1">📖</span>
-          {tr.glossaryHint}
-          <span className="ml-2 font-semibold text-blue-700 dark:text-blue-300">{tr.openGlossary} &rarr;</span>
-        </p>
-      </Link>
+      {/* Categories */}
+      <section className="mb-6">
+        <Link
+          href="/learn/categories"
+          className="card hover:border-blue-500 transition-colors group block p-6 border-2"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🎯</div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {tr.categoriesTitle}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.categoriesDesc}</p>
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                {tr.categoriesCta} &rarr;
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      {/* Decision Trees */}
+      <section className="mb-10">
+        <Link
+          href="/learn/decision-trees"
+          className="card hover:border-blue-500 transition-colors group block p-6 border-2"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🌳</div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {tr.treesTitle}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.treesDesc}</p>
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                {tr.treesCta} &rarr;
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      {/* Glossary hint — clickable to /glossary (same card style as XRPL / Use cases) */}
+      <section className="mt-10">
+        <Link
+          href="/glossary"
+          className="card hover:border-blue-500 transition-colors group block p-6 border-2"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">📖</div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {tr.openGlossary}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.glossaryHint}</p>
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                {tr.openGlossary} &rarr;
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
     </div>
   );
 }

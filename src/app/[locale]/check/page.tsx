@@ -143,20 +143,20 @@ export default function CheckHubPage() {
       {/* Cross-sell to /compare */}
       <Link
         href="/compare"
-        className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-900/50 border border-[var(--border)] hover:border-blue-400 transition-colors group"
+        className="card hover:border-blue-500 transition-colors group block p-6 border-2"
       >
-        <div className="text-xl pt-0.5">📊</div>
-        <div className="flex-1">
-          <div className="text-sm font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400">
-            {tr.compareCrossTitle}
-          </div>
-          <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-            {tr.compareCrossDesc}
+        <div className="flex items-start gap-4">
+          <div className="text-4xl">📊</div>
+          <div className="flex-1">
+            <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+              {tr.compareCrossTitle}
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.compareCrossDesc}</p>
+            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              {tr.compareCrossCta} &rarr;
+            </span>
           </div>
         </div>
-        <span className="text-sm text-blue-600 dark:text-blue-400 font-medium pt-1">
-          {tr.compareCrossCta} &rarr;
-        </span>
       </Link>
     </div>
   );
