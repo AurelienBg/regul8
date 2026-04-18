@@ -14,7 +14,10 @@ export const REGULATIONS: RegData = {
       cost: "\u20AC50K\u2013\u20AC200K",
       alts: ["Singapore MAS (~6 months)", "Dubai VARA (~9 months)", "Liechtenstein TVTG (3\u20139 months)", "Lithuania/Estonia as EU hub"],
       authority: "AMF (France) / ESMA (EU)",
-      xrplNote: "XRPL has a native DEX (order book built into the protocol). A front-end DApp accessing it for EU users may still need CASP if it routes orders or controls funds."
+      xrplNote: "XRPL has a native DEX (order book built into the protocol). A front-end DApp accessing it for EU users may still need CASP if it routes orders or controls funds.",
+      reportingFrequency: "Quarterly prudential + transaction reports to NCA · Annual audited accounts · Monthly AML filings · Immediate incident reports · MiCA Art. 80 conflicts-of-interest report annually",
+      marketingRules: "Mandatory risk warnings on all communications (MiCA Art. 66). No yield / return promises. Whitepaper and complaint channels must be clearly displayed. Non-misleading requirement strictly enforced. Influencer disclosures required.",
+      clientEligibility: "Can serve all EU-27 residents with a single passported CASP. Enhanced due diligence for PEPs and FATF grey/black-list countries. No retail restriction but suitability test required for complex products. Must geo-block jurisdictions without reverse-solicitation chain."
     },
     us: {
       regime: "FinCEN MSB + State MTL + BitLicense (NY) + CLARITY Act (SEC/CFTC split)",
@@ -25,7 +28,10 @@ export const REGULATIONS: RegData = {
       cost: "$200K\u2013$1M+",
       alts: ["Wyoming LLC (crypto-friendly)", "EU MiCA as primary market", "Liechtenstein TVTG"],
       authority: "FinCEN / SEC / CFTC / NYDFS / state regulators",
-      xrplNote: "XRPL DEX front-end: SEC may treat as unregistered exchange if trading securities-token pairs. Under CLARITY Act 2025, XRP (secondary sales, SEC v. Ripple July 2023) likely qualifies as 'digital commodity' \u2014 CFTC jurisdiction. Other XRPL tokens require case-by-case mature-blockchain analysis."
+      xrplNote: "XRPL DEX front-end: SEC may treat as unregistered exchange if trading securities-token pairs. Under CLARITY Act 2025, XRP (secondary sales, SEC v. Ripple July 2023) likely qualifies as 'digital commodity' \u2014 CFTC jurisdiction. Other XRPL tokens require case-by-case mature-blockchain analysis.",
+      reportingFrequency: "SAR filings on suspicious activity (immediate, <30 days) · CTR on cash >$10K · FinCEN Form 107 annually · NYDFS quarterly reports (BitLicense) · State-by-state transaction reports · CLARITY Act quarterly + annual disclosures for investment contract digital assets.",
+      marketingRules: "SEC-era: any marketing projecting returns risks reclassifying the token as a security (Howey). No unregistered investment promotions. NYDFS requires prior approval of consumer-facing advertising. FINRA rules apply to broker-dealer communications. State Blue Sky restrictions on targeted marketing per state.",
+      clientEligibility: "Must serve only states where MTL is held (geo-fence others). Full OFAC screening — block Cuba, Iran, North Korea, Syria, Crimea, Russia, Belarus. Accredited-investor gating for security tokens (Reg D 506(c)). KYC-verified US residency mandatory. No service to sanctioned or PEP list addresses."
     },
     uae: {
       regime: "VARA \u2014 VASP Full Market Product",
@@ -173,7 +179,10 @@ export const REGULATIONS: RegData = {
       alts: ["Liechtenstein TVTG (faster)", "Singapore MAS (PSA)", "Switzerland FINMA"],
       authority: "ECB + NCA (for S-EMT) / ESMA + NCA (for S-ART)",
       xrplNote: "RLUSD is Ripple\u2019s USD-backed stablecoin on XRPL + Ethereum. Reference EMT implementation. Uses IOU/trust line model on XRPL. Issuer must be EMI or credit institution under MiCA.",
-      custodyNote: "Stablecoin on XRPL uses IOU/Trust Line model. Gateway holds reserve assets \u2014 custodial by definition. freeze and globalFreeze flags provide compliance controls."
+      custodyNote: "Stablecoin on XRPL uses IOU/Trust Line model. Gateway holds reserve assets \u2014 custodial by definition. freeze and globalFreeze flags provide compliance controls.",
+      reportingFrequency: "Monthly reserve composition disclosure · Quarterly prudential + liquidity reports · Annual audited accounts · Immediate notification of reserve composition changes · S-EMT/S-ART: daily monitoring + ECB oversight if thresholds crossed.",
+      marketingRules: "Cannot pay interest or present the stablecoin as an investment (MiCA Art. 50). Mandatory whitepaper disclaimers. No misleading stability claims. S-EMT restrictions on volume/velocity may be imposed by ECB. Adverts must highlight redemption rights and risk.",
+      clientEligibility: "Passport across all EU-27 once EMT/ART authorization granted. Enhanced due diligence on PEPs, FATF high-risk countries. Retail eligible but individual caps may apply for S-ART. Geo-blocking required outside EEA."
     },
     us: {
       regime: "GENIUS Act (federal stablecoin framework, signed July 2025) + State MTL + BitLicense (NY)",
@@ -183,7 +192,10 @@ export const REGULATIONS: RegData = {
       time: "12\u201324 months (federal path) / 6\u201312 months (state path)",
       cost: "$500K\u2013$2M+",
       alts: ["EU MiCA EMT (comparable 1:1 framework)", "Switzerland FINMA", "Dubai VARA payment token"],
-      authority: "OCC (federal) / State regulators / FinCEN"
+      authority: "OCC (federal) / State regulators / FinCEN",
+      reportingFrequency: "GENIUS Act: monthly disclosures signed by CFO + annual independent reserve attestation · SAR immediate + CTR over $10K · Quarterly call reports to OCC · Annual risk-management review · Real-time redemption volume dashboard (large issuers).",
+      marketingRules: "GENIUS Act: no interest / yield offered to holders. No 'investment', 'risk-free' or 'guaranteed' language. Reserve composition must be prominently displayed. Redemption at par T+1 must be advertised. Bank-style consumer disclosures applicable.",
+      clientEligibility: "US persons only if issuer is GENIUS-authorized (federal or qualified state). OFAC screening blocks Cuba, Iran, DPRK, Syria, Crimea, Russia, Belarus. Foreign users need comparable-regime check. Accredited-investor gating not required (bank-like product). KYC mandatory."
     },
     uae: {
       regime: "VARA Payment Token + CBUAE oversight",
@@ -332,7 +344,10 @@ export const REGULATIONS: RegData = {
       alts: ["Liechtenstein TVTG Token Custodian (3\u20139 months)", "Switzerland FINMA", "Singapore MAS"],
       authority: "NCA / ESMA",
       xrplNote: "XRPL offers 10 custody implementation methods with different regulatory classifications. SingleKey (custodial), SignerList multisig (grey zone depending on quorum), MPC/TSS (grey zone), Escrow/PayChannels/Checks (non-custodial). See custody implementations for details.",
-      custodyNote: "Under MiCA Art. 75, custodians are liable for loss of crypto-assets unless they prove the loss arose from events beyond reasonable control. This applies to any service holding private keys on behalf of clients."
+      custodyNote: "Under MiCA Art. 75, custodians are liable for loss of crypto-assets unless they prove the loss arose from events beyond reasonable control. This applies to any service holding private keys on behalf of clients.",
+      reportingFrequency: "Quarterly prudential reports + customer-asset segregation statement · Annual audited financials · Monthly AML filings · Immediate incident reports (breach, key loss) · Annual ICT risk report per DORA.",
+      marketingRules: "Must state clearly that the service holds clients' keys and the liability framework. Cannot advertise 'risk-free' storage. Insurance coverage terms must be disclosed. No yield-bearing offering without separate CASP authorizations.",
+      clientEligibility: "EU-27 residents served under passported CASP. Enhanced due diligence for PEPs and FATF grey-list. Institutional clients may require additional MiFID suitability checks if advisory involved. Sanctioned persons blocked per EU restrictive measures."
     },
     us: {
       regime: "State trust charter + SEC qualified custodian rule + CLARITY Act custody provisions (2025)",
@@ -343,7 +358,10 @@ export const REGULATIONS: RegData = {
       cost: "$300K\u2013$1M+",
       alts: ["Wyoming SPDI charter (faster path)", "EU MiCA CASP", "Liechtenstein TVTG", "Dubai VARA custody"],
       authority: "State regulators / SEC / CFTC / FinCEN / OCC",
-      xrplNote: "XRPL custody: SEC qualified custodian rules apply for securities-like XRPL tokens; CLARITY Act (2025) shifts 'digital commodity' custody under CFTC (applies to XRP per SEC v. Ripple secondary-sales holding). MPC/TSS (Fireblocks, Silence Labs) widely used for institutional XRPL custody. SignerList multisig provides native on-chain alternative."
+      xrplNote: "XRPL custody: SEC qualified custodian rules apply for securities-like XRPL tokens; CLARITY Act (2025) shifts 'digital commodity' custody under CFTC (applies to XRP per SEC v. Ripple secondary-sales holding). MPC/TSS (Fireblocks, Silence Labs) widely used for institutional XRPL custody. SignerList multisig provides native on-chain alternative.",
+      reportingFrequency: "Annual SOC 2 Type II audit · Quarterly call reports (if trust charter) · SAR immediate / CTR over $10K · Monthly AML filings · CLARITY Act: quarterly customer-asset segregation statements · Insurance claim notifications real-time.",
+      marketingRules: "SEC / NYDFS: 'qualified custodian' claim only if you meet SEC definition. No rehypothecation implied. Insurance limits must be clearly disclosed. GENIUS Act custody of qualifying stablecoins requires separate advertising treatment. Institutional-only marketing for non-retail offerings.",
+      clientEligibility: "US persons in states where trust charter is recognized. Institutional clients only for SEC qualified-custodian offering (unless state-registered for retail). Full OFAC block — Cuba, Iran, DPRK, Syria, Russia, Belarus, sanctioned entities. Enhanced KYC on beneficial ownership >25%."
     },
     uae: {
       regime: "VARA \u2014 VA Custody Services",

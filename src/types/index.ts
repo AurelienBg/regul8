@@ -42,6 +42,12 @@ export interface RegResult {
   authority: string
   xrplNote?: string
   custodyNote?: string
+  /** How often you must report to regulators (monthly / quarterly / annually + specific filings). */
+  reportingFrequency?: string
+  /** Marketing / advertising restrictions. What you can / cannot communicate to users. */
+  marketingRules?: string
+  /** Customer eligibility — who you can serve (geo-fencing, residency, sanctions lists). */
+  clientEligibility?: string
 }
 
 export type RegData = Record<ActivityKey, Partial<Record<Jurisdiction, RegResult>>>

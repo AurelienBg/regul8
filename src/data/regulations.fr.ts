@@ -14,7 +14,10 @@ export const REGULATIONS_FR: RegData = {
       cost: "\u20AC50K\u2013\u20AC200K",
       alts: ["Singapour MAS (~6 mois)", "Dubaï VARA (~9 mois)", "Liechtenstein TVTG (3\u20139 mois)", "Lituanie/Estonie comme hub UE"],
       authority: "AMF (France) / ESMA (UE)",
-      xrplNote: "XRPL dispose d'un DEX natif (carnet d'ordres intégré au protocole). Un DApp front-end y accédant pour des utilisateurs UE peut toujours nécessiter un agrément CASP s'il route des ordres ou contrôle des fonds."
+      xrplNote: "XRPL dispose d'un DEX natif (carnet d'ordres intégré au protocole). Un DApp front-end y accédant pour des utilisateurs UE peut toujours nécessiter un agrément CASP s'il route des ordres ou contrôle des fonds.",
+      reportingFrequency: "Rapports prudentiels et de transactions trimestriels à l'ANC · Comptes audités annuels · Déclarations AML mensuelles · Rapports d'incidents immédiats · Rapport annuel sur les conflits d'intérêts (MiCA Art. 80).",
+      marketingRules: "Avertissements de risque obligatoires sur toutes les communications (MiCA Art. 66). Aucune promesse de rendement. Whitepaper et canaux de réclamation à afficher clairement. Exigence de non-trompeuse strictement appliquée. Divulgations influenceurs obligatoires.",
+      clientEligibility: "Peut servir tous les résidents de l'UE-27 avec un agrément CASP passporté. Vigilance renforcée pour les PPE et les pays de la liste grise/noire du GAFI. Pas de restriction retail mais test de suitability requis pour les produits complexes. Blocage géographique requis pour les juridictions hors chaîne de sollicitation inversée."
     },
     us: {
       regime: "FinCEN MSB + MTL d'État + BitLicense (NY) + CLARITY Act (répartition SEC/CFTC)",
@@ -25,7 +28,10 @@ export const REGULATIONS_FR: RegData = {
       cost: "$200K\u2013$1M+",
       alts: ["Wyoming LLC (crypto-friendly)", "UE MiCA comme marché principal", "Liechtenstein TVTG"],
       authority: "FinCEN / SEC / CFTC / NYDFS / régulateurs d'État",
-      xrplNote: "DEX front-end XRPL : la SEC peut le considérer comme une plateforme d'échange non enregistrée pour des paires de titres tokenisés. Sous le CLARITY Act 2025, le XRP (ventes secondaires, SEC v. Ripple juillet 2023) qualifie probablement de 'digital commodity' — compétence CFTC. Les autres tokens XRPL nécessitent une analyse cas par cas du test mature-blockchain."
+      xrplNote: "DEX front-end XRPL : la SEC peut le considérer comme une plateforme d'échange non enregistrée pour des paires de titres tokenisés. Sous le CLARITY Act 2025, le XRP (ventes secondaires, SEC v. Ripple juillet 2023) qualifie probablement de 'digital commodity' — compétence CFTC. Les autres tokens XRPL nécessitent une analyse cas par cas du test mature-blockchain.",
+      reportingFrequency: "Déclarations SAR en cas d'activité suspecte (immédiat, <30 jours) · CTR pour tout cash >$10K · FinCEN Form 107 annuel · Rapports trimestriels NYDFS (BitLicense) · Reporting État par État · CLARITY Act : divulgations trimestrielles + annuelles pour les 'investment contract digital assets'.",
+      marketingRules: "Ère SEC : tout marketing projetant des rendements risque de requalifier le token en titre financier (Howey). Pas de promotions d'investissement non enregistrées. NYDFS exige une approbation préalable de la publicité consommateur. Règles FINRA pour les communications broker-dealer. Restrictions Blue Sky par État sur le marketing ciblé.",
+      clientEligibility: "Ne peut servir que les États où la MTL est détenue (geo-fencing ailleurs). Filtrage OFAC complet — bloquer Cuba, Iran, Corée du Nord, Syrie, Crimée, Russie, Biélorussie. Gating investisseur accrédité pour les security tokens (Reg D 506(c)). Résidence US vérifiée KYC obligatoire. Pas de service aux adresses sanctionnées ou PPE listées."
     },
     uae: {
       regime: "VARA \u2014 VASP Full Market Product",
@@ -173,7 +179,10 @@ export const REGULATIONS_FR: RegData = {
       alts: ["Liechtenstein TVTG (plus rapide)", "Singapour MAS (PSA)", "Suisse FINMA"],
       authority: "BCE + ANC (pour S-EMT) / ESMA + ANC (pour S-ART)",
       xrplNote: "RLUSD est le stablecoin adossé à l'USD de Ripple sur XRPL + Ethereum. Implémentation EMT de référence. Utilise le modèle IOU/trust line sur XRPL. L'émetteur doit être EMI ou établissement de crédit selon MiCA.",
-      custodyNote: "Un stablecoin sur XRPL utilise le modèle IOU/Trust Line. Le gateway détient les actifs de réserve \u2014 par définition custodial. Les flags freeze et globalFreeze fournissent des contrôles de conformité."
+      custodyNote: "Un stablecoin sur XRPL utilise le modèle IOU/Trust Line. Le gateway détient les actifs de réserve \u2014 par définition custodial. Les flags freeze et globalFreeze fournissent des contrôles de conformité.",
+      reportingFrequency: "Divulgation mensuelle de la composition des réserves · Rapports prudentiels + liquidité trimestriels · Comptes audités annuels · Notification immédiate des changements de composition · S-EMT/S-ART : monitoring quotidien + supervision BCE si seuils franchis.",
+      marketingRules: "Interdiction de verser des intérêts ou de présenter le stablecoin comme un investissement (MiCA Art. 50). Avertissements obligatoires dans le whitepaper. Pas de revendications trompeuses de stabilité. Restrictions de volume/vélocité possibles pour S-EMT. Les pubs doivent souligner les droits de rachat et les risques.",
+      clientEligibility: "Passeportable dans les 27 États de l'UE une fois l'EMT/ART autorisé. Vigilance renforcée pour les PPE et les pays à haut risque GAFI. Clientèle retail éligible mais plafonds individuels possibles pour S-ART. Blocage géographique requis hors EEE."
     },
     us: {
       regime: "GENIUS Act (cadre fédéral stablecoin, signé juillet 2025) + MTL d'État + BitLicense (NY)",
@@ -183,7 +192,10 @@ export const REGULATIONS_FR: RegData = {
       time: "12\u201324 mois (voie fédérale) / 6\u201312 mois (voie État)",
       cost: "$500K\u2013$2M+",
       alts: ["UE MiCA EMT (cadre 1:1 comparable)", "Suisse FINMA", "Dubaï VARA payment token"],
-      authority: "OCC (fédéral) / Régulateurs d'État / FinCEN"
+      authority: "OCC (fédéral) / Régulateurs d'État / FinCEN",
+      reportingFrequency: "GENIUS Act : divulgations mensuelles signées par le CFO + attestation annuelle indépendante des réserves · SAR immédiat + CTR >$10K · Call reports trimestriels à l'OCC · Revue annuelle de risk management · Dashboard temps réel des volumes de rachat (gros émetteurs).",
+      marketingRules: "GENIUS Act : pas d'intérêts / rendements versés aux détenteurs. Pas de vocabulaire 'investissement', 'sans risque' ou 'garanti'. La composition des réserves doit être affichée de manière visible. Le rachat au pair T+1 doit être mis en avant. Divulgations consommateur de type bancaire applicables.",
+      clientEligibility: "US persons uniquement si l'émetteur est agréé GENIUS (fédéral ou État qualifié). Filtrage OFAC bloque Cuba, Iran, Corée du Nord, Syrie, Crimée, Russie, Biélorussie. Les users étrangers nécessitent une vérification de régime comparable. Pas de gating investisseur accrédité (produit bancaire). KYC obligatoire."
     },
     uae: {
       regime: "VARA Payment Token + supervision CBUAE",
@@ -332,7 +344,10 @@ export const REGULATIONS_FR: RegData = {
       alts: ["Liechtenstein TVTG Token Custodian (3\u20139 mois)", "Suisse FINMA", "Singapour MAS"],
       authority: "ANC / ESMA",
       xrplNote: "XRPL propose 10 méthodes d'implémentation custody avec différentes classifications réglementaires. SingleKey (custodial), SignerList multisig (zone grise selon le quorum), MPC/TSS (zone grise), Escrow/PayChannels/Checks (non-custodial). Voir les implémentations custody pour plus de détails.",
-      custodyNote: "Selon l'Art. 75 MiCA, les conservateurs sont responsables de la perte des crypto-actifs sauf à prouver que la perte résulte d'événements hors de leur contrôle raisonnable. S'applique à tout service détenant des clés privées pour le compte de clients."
+      custodyNote: "Selon l'Art. 75 MiCA, les conservateurs sont responsables de la perte des crypto-actifs sauf à prouver que la perte résulte d'événements hors de leur contrôle raisonnable. S'applique à tout service détenant des clés privées pour le compte de clients.",
+      reportingFrequency: "Rapports prudentiels + déclaration de ségrégation des actifs clients trimestriels · États financiers audités annuels · Déclarations AML mensuelles · Rapports d'incidents immédiats (brèche, perte de clé) · Rapport ICT annuel selon DORA.",
+      marketingRules: "Doit indiquer clairement que le service détient les clés des clients et le cadre de responsabilité. Ne peut pas faire la publicité d'un stockage 'sans risque'. Les conditions de couverture d'assurance doivent être divulguées. Pas d'offre de rendement sans agrément CASP supplémentaire.",
+      clientEligibility: "Résidents UE-27 servis sous agrément CASP passporté. Vigilance renforcée pour les PPE et liste grise GAFI. Les clients institutionnels peuvent nécessiter des contrôles de suitability MiFID supplémentaires si conseil impliqué. Personnes sanctionnées bloquées selon les mesures restrictives UE."
     },
     us: {
       regime: "Charter trust d'État + règle SEC qualified custodian + dispositions custody du CLARITY Act (2025)",
@@ -343,7 +358,10 @@ export const REGULATIONS_FR: RegData = {
       cost: "$300K\u2013$1M+",
       alts: ["Charter Wyoming SPDI (voie plus rapide)", "UE MiCA CASP", "Liechtenstein TVTG", "Dubaï VARA custody"],
       authority: "Régulateurs d'État / SEC / CFTC / FinCEN / OCC",
-      xrplNote: "Custody XRPL : les règles SEC qualified custodian s'appliquent aux tokens XRPL de type valeur mobilière ; le CLARITY Act (2025) transfère la custody des 'digital commodities' sous compétence CFTC (s'applique au XRP selon l'arrêt SEC v. Ripple). MPC/TSS (Fireblocks, Silence Labs) largement utilisés pour le custody XRPL institutionnel. Le multisig SignerList fournit une alternative native on-chain."
+      xrplNote: "Custody XRPL : les règles SEC qualified custodian s'appliquent aux tokens XRPL de type valeur mobilière ; le CLARITY Act (2025) transfère la custody des 'digital commodities' sous compétence CFTC (s'applique au XRP selon l'arrêt SEC v. Ripple). MPC/TSS (Fireblocks, Silence Labs) largement utilisés pour le custody XRPL institutionnel. Le multisig SignerList fournit une alternative native on-chain.",
+      reportingFrequency: "Audit SOC 2 Type II annuel · Call reports trimestriels (si charter trust) · SAR immédiat / CTR au-dessus de $10K · Déclarations AML mensuelles · CLARITY Act : déclarations trimestrielles de ségrégation des actifs clients · Notifications de sinistre d'assurance en temps réel.",
+      marketingRules: "SEC / NYDFS : la revendication 'qualified custodian' n'est permise que si vous remplissez la définition SEC. Pas de réhypothécation implicite. Les limites d'assurance doivent être clairement divulguées. La garde des stablecoins qualifiants GENIUS Act impose un traitement publicitaire séparé. Marketing institutionnel uniquement pour les offres non-retail.",
+      clientEligibility: "US persons dans les États où la charter trust est reconnue. Clients institutionnels uniquement pour l'offre SEC qualified-custodian (sauf si enregistré État pour le retail). Blocage OFAC complet — Cuba, Iran, Corée du Nord, Syrie, Russie, Biélorussie, entités sanctionnées. KYC renforcé sur les bénéficiaires effectifs >25%."
     },
     uae: {
       regime: "VARA \u2014 VA Custody Services",

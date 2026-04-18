@@ -14,6 +14,7 @@ import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
+import ExtendedInfo from '@/components/report/ExtendedInfo';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -322,6 +323,31 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       );
                     })}
                   </tr>
+                  {/* Extended operational info (reporting / marketing / eligibility) — only render if any jurisdiction has it */}
+                  {jurisdictions.some((j) => {
+                    const r = lookupRegulation(activity, j, locale);
+                    return r?.reportingFrequency || r?.marketingRules || r?.clientEligibility;
+                  }) && (
+                    <tr>
+                      <td colSpan={jurisdictions.length + 1} className="p-3 align-top">
+                        <div className="grid md:grid-cols-2 gap-3">
+                          {jurisdictions.map((j) => {
+                            const r = lookupRegulation(activity, j, locale);
+                            if (!r || (!r.reportingFrequency && !r.marketingRules && !r.clientEligibility)) return null;
+                            return (
+                              <div key={j} className="p-3 rounded-lg border border-[var(--border)]">
+                                <div className="flex items-center gap-1.5 mb-2 text-sm font-semibold">
+                                  <span>{JURISDICTIONS[j]?.flag}</span>
+                                  <span>{JURISDICTIONS[j]?.name}</span>
+                                </div>
+                                <ExtendedInfo result={r} variant="inline" />
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -386,6 +412,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     </div>
                   )}
 
+                  <ExtendedInfo result={r} variant="block" />
                   {r.xrplNote && <XRPLNote note={r.xrplNote} />}
                 </div>
               );
