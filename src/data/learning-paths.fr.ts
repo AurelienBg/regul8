@@ -622,7 +622,373 @@ const STABLECOIN_FRAMEWORKS: LearningPath = {
   relatedTrees: ['jurisdiction'],
 }
 
-export const LEARNING_PATHS_FR: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN]
+// -----------------------------------------------------------------------------
+// Parcours 7 \u2014 La R\u00e8gle du Voyage GAFI expliqu\u00e9e
+// -----------------------------------------------------------------------------
+const TRAVEL_RULE: LearningPath = {
+  id: 'fatf-travel-rule',
+  icon: '\ud83d\udd78\ufe0f',
+  title: 'La R\u00e8gle du Voyage GAFI expliqu\u00e9e',
+  subtitle: "La r\u00e8gle LCB-FT mondiale qui oblige les VASP \u00e0 partager les donn\u00e9es d'\u00e9metteur et de b\u00e9n\u00e9ficiaire sur chaque transfert. Ce qu'elle est, les seuils par juridiction, et comment XRPL la g\u00e8re.",
+  duration: 'Lecture de 8 min',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'sg', 'uk', 'ch'],
+  sections: [
+    {
+      id: 'what-is-the-rule',
+      heading: "Ce qu'est la R\u00e8gle du Voyage",
+      content: [
+        { kind: 'p', text: "Le Groupe d'action financi\u00e8re (GAFI / FATF en anglais) est l'organisme intergouvernemental qui d\u00e9finit les standards mondiaux de lutte contre le blanchiment et le financement du terrorisme. La \u00ab R\u00e8gle du Voyage \u00bb est la Recommandation 16 : tout \u00e9tablissement financier transf\u00e9rant de la valeur au-del\u00e0 d'un seuil d\u00e9pendant de la juridiction doit transmettre les donn\u00e9es d'identit\u00e9 de l'\u00e9metteur et du b\u00e9n\u00e9ficiaire avec le transfert." },
+        { kind: 'p', text: "La r\u00e8gle est ant\u00e9rieure \u00e0 la crypto \u2014 elle a \u00e9t\u00e9 \u00e9crite pour les virements bancaires en 1996. En juin 2019, le GAFI l'a \u00e9tendue aux Virtual Asset Service Providers (VASP). Les 200+ juridictions align\u00e9es sur le GAFI \u00e9taient attendues pour la transposer dans leurs lois LCB-FT nationales. D'ici 2026, environ 80 % du march\u00e9 crypto mondial op\u00e8re sous obligation de R\u00e8gle du Voyage." },
+        { kind: 'callout', tone: 'key', title: 'Pourquoi c\'est important pour votre startup', text: "Si vous \u00eates un VASP \u2014 exchange, prestataire de custody, on/off-ramp, paiement transfrontalier \u2014 la R\u00e8gle du Voyage n'est pas optionnelle. La non-conformit\u00e9 est l'une des actions d'application les plus faciles \u00e0 engager pour un r\u00e9gulateur car elle est binaire : soit le transfert a port\u00e9 les donn\u00e9es, soit il ne les a pas port\u00e9es." },
+      ],
+    },
+    {
+      id: 'who-is-a-vasp',
+      heading: "Qui est un VASP au sens de la R\u00e8gle du Voyage",
+      content: [
+        { kind: 'p', text: "Le GAFI d\u00e9finit un VASP comme toute personne/entit\u00e9 qui effectue une ou plusieurs de ces activit\u00e9s pour ou au nom d'un client :" },
+        { kind: 'ul', items: [
+          "\u00c9change entre actifs virtuels et monnaies fiat",
+          "\u00c9change entre une ou plusieurs formes d'actifs virtuels",
+          "Transfert d'actifs virtuels (d\u00e9placement de valeur d'une adresse \u00e0 une autre)",
+          "Conservation / administration d'actifs virtuels (custody)",
+          "Participation et fourniture de services financiers li\u00e9s \u00e0 l'offre et/ou \u00e0 la vente d'un actif virtuel par un \u00e9metteur",
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Cas non-VASP', text: "Les purs op\u00e9rateurs de protocole (mineurs, validateurs), les fournisseurs de logiciels de wallets non-custodiaux o\u00f9 l'utilisateur contr\u00f4le ses propres cl\u00e9s, et la plupart des protocoles DeFi sans op\u00e9rateur identifiable NE SONT PAS des VASP au sens des lignes directrices GAFI. La zone grise est large et sp\u00e9cifique \u00e0 chaque juridiction \u2014 v\u00e9rifiez toujours la transposition locale." },
+      ],
+    },
+    {
+      id: 'thresholds-by-juri',
+      heading: "Seuils \u2014 la partie qui pi\u00e8ge tout le monde",
+      content: [
+        { kind: 'p', text: "Le GAFI recommande un seuil de USD/EUR 1 000 au-dessus duquel la R\u00e8gle du Voyage s'applique. Chaque juridiction choisit son propre seuil, et ils diff\u00e8rent sensiblement." },
+        {
+          kind: 'table',
+          headers: ['Juridiction', 'Seuil', 'R\u00e9glementation / source'],
+          rows: [
+            ['UE', '1 000 \u20ac (tout montant au-dessus \u2192 donn\u00e9es compl\u00e8tes)', 'R\u00e8glement (UE) 2023/1113 (TFR)'],
+            ['\u00c9tats-Unis (FinCEN)', '3 000 USD', 'Bank Secrecy Act / 31 CFR 103.33'],
+            ['Royaume-Uni', '1 000 \u20ac (post-Brexit align\u00e9 sur l\'UE)', 'UK MLR 2017 amendement sept. 2023'],
+            ['Suisse', '1 000 CHF (Circulaire FINMA 08/3)', 'FINMA AMLO'],
+            ['Singapour', '1 500 SGD', 'MAS PS-N02'],
+            ['\u00c9mirats arabes unis (Dubai)', '3 500 AED (~950 USD)', 'Rulebook LCB-FT VARA'],
+            ['Hong Kong', '8 000 HKD (~1 020 USD)', 'AMLO Chapitre 615'],
+            ['Japon', '100 000 \u00a5 (~670 USD)', 'FIEA / APPS'],
+            ['Cor\u00e9e du Sud', '1 M\u20a9 (~750 USD)', 'Specific Financial Information Act'],
+          ],
+        },
+        { kind: 'callout', tone: 'warn', title: 'Le sunrise issue', text: "Lorsque deux juridictions ont des seuils diff\u00e9rents, la conformit\u00e9 devient asym\u00e9trique. Si je suis un VASP UE (seuil 1 000 \u20ac) envoyant 2 000 USD \u00e0 un VASP am\u00e9ricain (seuil 3 000 USD), je dois transmettre les donn\u00e9es R\u00e8gle du Voyage, mais le VASP am\u00e9ricain n'a aucune obligation de les recevoir. \u00c0 l'inverse, s'il m'en renvoie 4 000, il doit transmettre ; mais s'il m'en renvoie 2 000, les donn\u00e9es n'arriveront pas par un canal formel \u2014 alors m\u00eame que mon obligation UE de 1 000 \u20ac s'appliquerait c\u00f4t\u00e9 europ\u00e9en. Ce d\u00e9calage est le \u00ab sunrise issue \u00bb (probl\u00e8me de mise en \u0153uvre progressive) et il n'est pas r\u00e9solu." },
+      ],
+    },
+    {
+      id: 'what-data',
+      heading: 'Quelles donn\u00e9es doivent voyager',
+      content: [
+        { kind: 'p', text: "L'ensemble de donn\u00e9es est d\u00e9fini par le GAFI et standardis\u00e9 sous IVMS 101 (InterVASP Messaging Standard). Chaque message R\u00e8gle du Voyage contient :" },
+        { kind: 'h3', text: 'Originateur (\u00e9metteur)' },
+        { kind: 'ul', items: [
+          'Nom l\u00e9gal complet',
+          "Identifiant de compte / wallet (l'adresse impliqu\u00e9e)",
+          "Adresse physique OU num\u00e9ro d'identit\u00e9 national OU ID client OU date et lieu de naissance",
+        ] },
+        { kind: 'h3', text: 'B\u00e9n\u00e9ficiaire (r\u00e9cepteur)' },
+        { kind: 'ul', items: [
+          'Nom l\u00e9gal complet',
+          'Identifiant de compte / wallet',
+        ] },
+        { kind: 'p', text: "Pour les \u00e9metteurs institutionnels, des champs additionnels s'appliquent \u2014 si\u00e8ge social, code LEI. Certaines juridictions exigent des champs suppl\u00e9mentaires (ex. : la MAS Singapour exige la date de naissance pour tous les originateurs non-institutionnels au-dessus de 1 500 SGD)." },
+        { kind: 'callout', tone: 'info', title: 'IVMS 101 = le standard', text: "IVMS 101 est le sch\u00e9ma JSON que pratiquement tous les fournisseurs R\u00e8gle du Voyage supportent. Si vous construisez ou achetez une stack de conformit\u00e9, exigez une sortie IVMS 101 \u2014 c'est la lingua franca entre VASP \u00e0 l'\u00e9chelle mondiale." },
+      ],
+    },
+    {
+      id: 'tools-and-vendors',
+      heading: "Outils pratiques \u2014 le march\u00e9 des fournisseurs R\u00e8gle du Voyage",
+      content: [
+        { kind: 'p', text: "Vous ne d\u00e9velopperez presque jamais \u00e7a vous-m\u00eame. Le d\u00e9fi d'interconnexion est trop grand. Le march\u00e9 est domin\u00e9 par quelques fournisseurs sp\u00e9cialis\u00e9s :" },
+        { kind: 'ul', items: [
+          "Notabene \u2014 messagerie IVMS 101, annuaire VASP, scoring du risque contrepartie. Dominant sur le segment institutionnel UE et US.",
+          "Sumsub Travel Rule \u2014 int\u00e9gr\u00e9 \u00e0 la stack KYC/LCB-FT plus large de Sumsub. Populaire chez les exchanges retail UE.",
+          "Chainalysis KYT + Travel Rule \u2014 combine screening sanctions et messagerie R\u00e8gle du Voyage.",
+          "TRP (Travel Rule Protocol) \u2014 standard ouvert port\u00e9 par Sygna, Ciphertrace/Mastercard.",
+          "OpenVASP \u2014 alternative open-source con\u00e7ue pour \u00e9viter le verrouillage fournisseur.",
+        ] },
+        { kind: 'p', text: "Co\u00fbt d'int\u00e9gration : 30K-150K USD/an en frais fournisseur + temps d'ing\u00e9nierie pour l'int\u00e9gration API (typiquement 4-8 semaines pour un premier lancement)." },
+      ],
+    },
+    {
+      id: 'xrpl-specific',
+      heading: "Comment XRPL g\u00e8re la R\u00e8gle du Voyage",
+      content: [
+        { kind: 'p', text: "XRPL pose des questions op\u00e9rationnelles sp\u00e9cifiques pour la conformit\u00e9 R\u00e8gle du Voyage qui valent la peine d'\u00eatre comprises :" },
+        { kind: 'h3', text: "Destination Tag \u2014 l'identifiant de compte" },
+        { kind: 'p', text: "Un point de douleur classique : les wallets XRPL centralis\u00e9s (exchanges, custodians) regroupent les clients sur un seul compte XRPL et utilisent le Destination Tag (entier 32 bits) pour d\u00e9sambigu\u00efser les clients internes. L'adresse XRPL seule n'identifie PAS le b\u00e9n\u00e9ficiaire. Les VASP doivent r\u00e9soudre la combinaison adresse + tag vers un client sp\u00e9cifique lorsqu'ils fournissent les donn\u00e9es b\u00e9n\u00e9ficiaire." },
+        { kind: 'h3', text: "Champs Memo \u2014 o\u00f9 les donn\u00e9es pourraient voyager" },
+        { kind: 'p', text: "Les transactions XRPL supportent les objets Memo (jusqu'\u00e0 1 Ko chacun, jusqu'\u00e0 3 memos par transaction). Techniquement, les donn\u00e9es R\u00e8gle du Voyage pourraient \u00eatre port\u00e9es on-chain. En pratique, personne ne le fait pour des raisons de confidentialit\u00e9 \u2014 les donn\u00e9es sont off-chain, transmises via les canaux IVMS 101 des fournisseurs. Le memo on-chain sert uniquement pour les r\u00e9f\u00e9rences de transaction, pas les donn\u00e9es personnelles." },
+        { kind: 'h3', text: 'Transferts Trust Line / IOU' },
+        { kind: 'p', text: "Les transferts de tokens \u00e9mis (IOU) via Trust Lines d\u00e9clenchent la R\u00e8gle du Voyage lorsque le transfert atteint le seuil. L'\u00e9metteur (la gateway) est toujours un VASP. Le b\u00e9n\u00e9ficiaire pertinent peut \u00eatre identifi\u00e9 par le compte d\u00e9tenant la Trust Line. RLUSD, par exemple, applique la messagerie R\u00e8gle du Voyage via les entit\u00e9s licenci\u00e9es de Ripple." },
+        { kind: 'h3', text: 'Payment Channels' },
+        { kind: 'p', text: "Les Payment Channels (micropaiements off-ledger) agr\u00e8gent de la valeur entre deux contreparties. La R\u00e8gle du Voyage s'applique \u00e0 l'ouverture du canal (funding) et \u00e0 la cl\u00f4ture (r\u00e8glement) \u2014 pas \u00e0 chaque claim off-chain. Cela rend les XRPL Payment Channels tr\u00e8s pratiques pour les paiements en streaming : un seul \u00e9v\u00e9nement R\u00e8gle du Voyage par session, pas par micro-transaction." },
+        { kind: 'callout', tone: 'key', title: 'Prochaine \u00e9tape', text: "Si vous op\u00e9rez un exchange ou un service de custody XRPL-natif, budg\u00e9tez un fournisseur R\u00e8gle du Voyage d\u00e8s le premier jour. Notabene et Sumsub ont tous deux des modules IVMS 101 qui g\u00e8rent la r\u00e9solution Destination Tag." },
+      ],
+    },
+  ],
+  relatedTerms: ['Travel Rule', 'FATF', 'VASP', 'CASP', 'FinCEN', 'KYC', 'AML'],
+  relatedTrees: ['casp'],
+}
+
+// -----------------------------------------------------------------------------
+// Parcours 8 \u2014 Tokenised RWA 101
+// -----------------------------------------------------------------------------
+const TOKENISED_RWA: LearningPath = {
+  id: 'tokenised-rwa',
+  icon: '\ud83c\udfdb\ufe0f',
+  title: 'RWA tokenis\u00e9s 101',
+  subtitle: "Les Real-World Assets on-chain : ce qui compte, qui les \u00e9met, quel r\u00e9gime s'applique \u2014 de BlackRock BUIDL au DLT Pilot Regime de l'UE et \u00e0 la stack RWA XRPL.",
+  duration: 'Lecture de 10 min',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'uk', 'ch', 'li'],
+  sections: [
+    {
+      id: 'what-is-rwa',
+      heading: 'Ce qui compte comme Real-World Asset',
+      content: [
+        { kind: 'p', text: "Un Real-World Asset (RWA) est tout actif qui existe off-chain mais qui est repr\u00e9sent\u00e9 par un token on-chain. Le token est une cr\u00e9ance num\u00e9rique, l'actif est r\u00e9el. Cela diff\u00e8re des actifs crypto natifs (Bitcoin, XRP, ETH) qui n'existent que on-chain, et des repr\u00e9sentations purement num\u00e9riques (NFT comme art) qui peuvent n'avoir aucune contrepartie off-chain." },
+        { kind: 'p', text: "La cat\u00e9gorie RWA couvre une gamme \u00e9norme. En 2026, par taille de march\u00e9 :" },
+        {
+          kind: 'table',
+          headers: ["Classe d'actif", 'Exemples de tokens', 'March\u00e9 on-chain approx. (2026)'],
+          rows: [
+            ['Bons du Tr\u00e9sor US', 'BUIDL (BlackRock), OUSG (Ondo), FOBXX (Franklin)', '10-15 G$'],
+            ['Cr\u00e9dit priv\u00e9', 'Maple, Centrifuge, Goldfinch', '5-8 G$'],
+            ['Obligations d\'entreprise', 'Archax, Sologenic', '2 G$'],
+            ['Immobilier', 'RealT, Landshare, Propy', '500 M$-1 G$'],
+            ['Mati\u00e8res premi\u00e8res', 'Paxos Gold (PAXG), Tether Gold (XAUT)', '1-2 G$'],
+            ['Actions', 'Backed Finance (actions tokenis\u00e9es)', '300-500 M$'],
+            ['Trade finance / factures', 'Centrifuge, Credix', '500 M$'],
+          ],
+        },
+        { kind: 'callout', tone: 'info', title: 'Le jalon BUIDL', text: "Le fonds BUIDL de BlackRock (lanc\u00e9 en mars 2024 sur Ethereum via Securitize) est devenu en quelques mois le plus grand fonds du Tr\u00e9sor tokenis\u00e9. Mi-2026 il est la r\u00e9f\u00e9rence : Wall Street accepte les T-bills tokenis\u00e9s comme produit institutionnel l\u00e9gitime. Ce seul lancement a fait passer le r\u00e9cit de \u00ab exp\u00e9rimental \u00bb \u00e0 \u00ab mainstream \u00bb." },
+      ],
+    },
+    {
+      id: 'legal-classification',
+      heading: 'La matrice de classification juridique',
+      content: [
+        { kind: 'p', text: "Le r\u00e9gime d'un token RWA est d\u00e9termin\u00e9 par ce qu'il repr\u00e9sente, non par le fait qu'il est sur une blockchain. Trois classifications courantes :" },
+        { kind: 'h3', text: 'Security token (titre financier)' },
+        { kind: 'p', text: "Repr\u00e9sente un instrument financier : capital, dette, part de fonds, d\u00e9riv\u00e9. Le droit des titres s'applique int\u00e9gralement. Dans l'UE : Prospectus Regulation + exemption MiCA pour les titres. Aux \u00c9tats-Unis : Securities Act complet + enregistrement SEC ou exemption (Reg D, S, A+). La plupart des RWA institutionnels (BUIDL, pools Centrifuge) sont des security tokens." },
+        { kind: 'h3', text: "E-Money Token MiCA (EMT) / jeton de paiement" },
+        { kind: 'p', text: "Repr\u00e9sente une valeur adoss\u00e9e au fiat. R\u00e9gul\u00e9 sous MiCA (EMT) ou GENIUS Act (stablecoin de paiement). USDC en est un exemple. Certains bons du Tr\u00e9sor tokenis\u00e9s sont dans une zone grise entre EMT et titre financier selon la structure." },
+        { kind: 'h3', text: 'Commodity token (jeton de mati\u00e8re premi\u00e8re)' },
+        { kind: 'p', text: "Repr\u00e9sente une mati\u00e8re premi\u00e8re physique (or, p\u00e9trole, immobilier). Aux \u00c9tats-Unis : juridiction CFTC pour les commodities. Dans l'UE : MiCA Asset-Referenced Token (ART) si multi-r\u00e9f\u00e9rence, ou hors scope MiCA s'il se qualifie comme instrument financier sous MiFID II." },
+        { kind: 'callout', tone: 'warn', title: 'La classification commande tout', text: "La classification d'un token RWA d\u00e9termine : quel r\u00e9gulateur supervise, quelle licence l'\u00e9metteur doit obtenir, qui peut d\u00e9tenir le token (retail vs professionnel), quelle divulgation est requise, o\u00f9 il peut \u00eatre n\u00e9goci\u00e9. Se tromper co\u00fbte cher. Les doubles opinions l\u00e9gales (conseil UE + conseil US) sont la norme pour les lancements RWA." },
+      ],
+    },
+    {
+      id: 'eu-dlt-pilot',
+      heading: "EU DLT Pilot Regime \u2014 le sandbox",
+      content: [
+        { kind: 'p', text: "Le DLT Pilot Regime de l'UE (R\u00e8glement (UE) 2022/858) est entr\u00e9 en vigueur en mars 2023 et fonctionne comme un sandbox de 3 ans (prolongeable) permettant aux infrastructures de march\u00e9 de n\u00e9gocier et r\u00e9gler des instruments financiers tokenis\u00e9s sur une DLT. C'est le premier cadre s\u00e9rieux titres-sur-blockchain de l'UE." },
+        { kind: 'p', text: "Trois types de DLT Market Infrastructure existent sous le Pilot :" },
+        { kind: 'ul', items: [
+          "DLT MTF \u2014 Multilateral Trading Facility sur DLT. N\u00e9gociation uniquement.",
+          "DLT SS \u2014 Settlement System. R\u00e8glement uniquement.",
+          "DLT TSS \u2014 Trading AND Settlement System. Les deux en un.",
+        ] },
+        { kind: 'p', text: "Des seuils limitent l'\u00e9chelle des instruments n\u00e9goci\u00e9s sous le Pilot (ex. : actions d'\u00e9metteurs avec capitalisation < 500 M\u20ac, obligations < 1 G\u20ac par \u00e9mission). Cela garde l'exp\u00e9rience born\u00e9e. Mi-2026, 9 autorisations DLT MI sont actives (notamment 21X en Allemagne, D-GCS, CEEI en Espagne). Securitize et Archax op\u00e8rent \u00e9galement dans le p\u00e9rim\u00e8tre du Pilot." },
+        { kind: 'callout', tone: 'info', title: 'Transition vers MiCA', text: "Le DLT Pilot est temporaire (2023-2026 + extensions). Les enseignements du Pilot nourriront un cadre permanent \u2014 probablement une directive de style MiCA pour les instruments financiers tokenis\u00e9s, attendue vers 2027-2028." },
+      ],
+    },
+    {
+      id: 'us-regime',
+      heading: "RWA aux \u00c9tats-Unis \u2014 Reg D, Reg S et le mod\u00e8le Securitize",
+      content: [
+        { kind: 'p', text: "Aux \u00c9tats-Unis, les tokens RWA class\u00e9s comme titres suivent les voies d'exemption classiques :" },
+        { kind: 'ul', items: [
+          "Reg D 506(c) \u2014 r\u00e9serv\u00e9 aux investisseurs qualifi\u00e9s (accredited investors), taille illimit\u00e9e, pas de d\u00e9lai de carence. Standard pour BUIDL et la plupart des RWA institutionnels.",
+          "Reg S \u2014 offres offshore \u00e0 des personnes non-am\u00e9ricaines.",
+          "Reg A+ \u2014 mini-IPO, retail autoris\u00e9 jusqu'\u00e0 75 M$/an. Plus lourd, rarement utilis\u00e9 pour les RWA.",
+          "Reg CF \u2014 crowdfunding retail < 5 M$/an. Trop petit pour la plupart des RWA.",
+        ] },
+        { kind: 'p', text: "La plomberie est assur\u00e9e par les Transfer Agents et Broker-Dealers enregistr\u00e9s SEC. Securitize est la r\u00e9f\u00e9rence : il op\u00e8re comme Transfer Agent (enregistr\u00e9 SEC en 2019) + Broker-Dealer (Securitize Markets) + op\u00e9rateur d'ATS. C'est la contrepartie unique qui connecte le droit des titres US traditionnel avec l'\u00e9mission on-chain." },
+        { kind: 'h3', text: "\u00c9volutions r\u00e9glementaires 2025" },
+        { kind: 'p', text: "Post-CLARITY Act (2025), les \u00c9tats-Unis ont des voies plus claires pour les tokens qui se qualifient comme commodities num\u00e9riques (juridiction CFTC). Pour les RWA purs repr\u00e9sentant des titres traditionnels, la juridiction SEC reste \u2014 mais l'\u00e9laboration des r\u00e8gles s'est orient\u00e9e vers l'accommodement de l'\u00e9mission tokenis\u00e9e sous les exemptions existantes plut\u00f4t que de tout for\u00e7er dans de nouveaux cadres." },
+      ],
+    },
+    {
+      id: 'the-rwa-stack',
+      heading: "La stack RWA \u2014 de l'actif au token",
+      content: [
+        { kind: 'p', text: "Un syst\u00e8me RWA complet a quatre couches distinctes. Les comprendre clarifie pourquoi la plupart des projets RWA ont besoin de 3 \u00e0 5 partenaires, pas juste d'un smart contract :" },
+        { kind: 'ol', items: [
+          "Actif off-chain + trustee \u2014 le T-bill r\u00e9el, le titre de propri\u00e9t\u00e9 immobilier, le pr\u00eat de cr\u00e9dit priv\u00e9. D\u00e9tenu par un custodian qualifi\u00e9 ou un trustee (NYDFS Trust pour actifs USD, trustee agr\u00e9\u00e9 FCA pour le Royaume-Uni).",
+          "Entit\u00e9 \u00e9mettrice \u2014 le v\u00e9hicule l\u00e9gal qui d\u00e9tient l'actif off-chain ET \u00e9met le token on-chain. Typiquement un SPV (special-purpose vehicle) ou un fonds r\u00e9gul\u00e9.",
+          "Token et smart contract / primitive de ledger \u2014 la repr\u00e9sentation on-chain. Ethereum ERC-20/1400 est le plus courant ; XRPL IOU + Trust Line est une alternative native ; MPT (XLS-33) ajoute des flags de conformit\u00e9 programmables.",
+          "Distribution \u2014 la plateforme qui commercialise, g\u00e8re le KYC, traite les souscriptions et les rachats. Souvent un broker-dealer r\u00e9gul\u00e9 ou un exchange crypto avec licences titres.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'Physical Validator', text: "Le TVTG du Liechtenstein formalise un r\u00f4le unique appel\u00e9 \u00ab Physical Validator \u00bb (Physischer Validator) \u2014 une partie licenci\u00e9e qui v\u00e9rifie en continu que l'actif off-chain existe r\u00e9ellement et correspond au token on-chain. C'est la r\u00e9ponse r\u00e9glementaire au trust gap : quelqu'un l\u00e9galement responsable de dire \u00ab oui, le titre de propri\u00e9t\u00e9 est r\u00e9el \u00bb. Aucune autre juridiction n'a ce r\u00f4le formel pour le moment, mais de nombreuses plateformes RWA utilisent des attestations tierces \u00e9quivalentes." },
+      ],
+    },
+    {
+      id: 'xrpl-rwa-stack',
+      heading: 'Pourquoi XRPL est un substrat RWA naturel',
+      content: [
+        { kind: 'p', text: "Les primitives natives de XRPL s'adaptent aux besoins RWA avec moins de bricolage que les cha\u00eenes EVM. Trois raisons :" },
+        { kind: 'h3', text: '1. IOU + Trust Line = repr\u00e9sentation RWA native' },
+        { kind: 'p', text: "\u00c9mettre un token sur XRPL, c'est litt\u00e9ralement cr\u00e9er un IOU : le compte \u00e9metteur promet d'honorer la cr\u00e9ance. Les d\u00e9tenteurs ouvrent des Trust Lines pour accepter le token. Le mod\u00e8le correspond directement au RWA : l'\u00e9metteur d\u00e9tient l'actif r\u00e9el, le d\u00e9tenteur a une cr\u00e9ance on-chain. Aucun smart contract n'est requis. Le stablecoin RLUSD de Standard Custody utilise exactement ce pattern pour les cr\u00e9ances adoss\u00e9es au fiat." },
+        { kind: 'h3', text: '2. MPT (XLS-33) = primitives de conformit\u00e9 programmables' },
+        { kind: 'p', text: "Le standard Multi-Purpose Token ajoute des flags programmables au niveau protocole : frais de transfert, limites de d\u00e9tention, exigences d'autorisation, verrouillages temporels. Les \u00e9metteurs RWA en ont besoin pour satisfaire les r\u00e9gulateurs (retail uniquement vs qualifi\u00e9 uniquement, geofencing, rachat forc\u00e9 pour sanctions). MPT les fournit sans \u00e9crire une seule ligne de code de smart contract." },
+        { kind: 'h3', text: '3. Escrow + Checks = r\u00e8glement-livraison (DvP)' },
+        { kind: 'p', text: "L'un des probl\u00e8mes les plus difficiles en RWA est le r\u00e8glement atomique : s'assurer que le paiement de l'acheteur et le token du vendeur changent de main simultan\u00e9ment. XRPL Escrow (avec conditions cryptographiques) le permet nativement \u2014 les deux jambes de la transaction sont lib\u00e9r\u00e9es ensemble par le ledger, sans aucun interm\u00e9diaire d\u00e9tenant les deux actifs. C'est critique pour les march\u00e9s secondaires de bons du Tr\u00e9sor tokenis\u00e9s." },
+        { kind: 'callout', tone: 'key', title: 'Le push 2026', text: "Ripple et Archax ont annonc\u00e9 un objectif public : 1 G$+ d'actifs tokenis\u00e9s sur XRPL d'ici mi-2026, Ripple assurant la custody (Metaco + Palisade) et Archax comme exchange agr\u00e9\u00e9 FCA (Royaume-Uni). C'est le play RWA-sur-XRPL le plus concret et probablement le template que d'autres suivront." },
+      ],
+    },
+  ],
+  relatedTerms: ['RWA', 'EMT', 'ART', 'MiCA', 'DLT Pilot Regime', 'TVTG', 'Howey Test', 'RLUSD', 'MPT'],
+  relatedTrees: ['howey'],
+}
+
+// -----------------------------------------------------------------------------
+// Parcours 9 \u2014 Dubai VARA : de z\u00e9ro \u00e0 licenci\u00e9
+// -----------------------------------------------------------------------------
+const DUBAI_VARA: LearningPath = {
+  id: 'dubai-vara',
+  icon: '\ud83c\udde6\ud83c\uddea',
+  title: 'Dubai VARA \u2014 de z\u00e9ro \u00e0 licenci\u00e9',
+  subtitle: "Pourquoi Dubai est devenu le hub crypto du Golfe : les rulebooks VARA, les 6 cat\u00e9gories VASP, les exigences de substance, et comment VARA se compare \u00e0 ADGM et DIFC.",
+  duration: 'Lecture de 9 min',
+  level: 'intermediate',
+  jurisdictions: ['uae'],
+  sections: [
+    {
+      id: 'why-dubai',
+      heading: 'Pourquoi Dubai est devenu LE hub crypto du Golfe',
+      content: [
+        { kind: 'p', text: "En 2022, Dubai a cr\u00e9\u00e9 la Virtual Assets Regulatory Authority (VARA) \u2014 le premier r\u00e9gulateur d'actifs virtuels d\u00e9di\u00e9 au monde. Le mandat de VARA couvre tout VASP op\u00e9rant dans ou depuis l'\u00c9mirat de Dubai, \u00e0 l'exception du Dubai International Financial Centre (DIFC) qui reste sous la Dubai Financial Services Authority (DFSA)." },
+        { kind: 'p', text: "Le mouvement a attir\u00e9 Binance, Bybit, OKX, Crypto.com, Kraken, Ripple Custody, Circle, et des dizaines d'autres. D'ici 2026, Dubai h\u00e9berge 700+ VASP licenci\u00e9s \u2014 plus que toute autre juridiction sauf les \u00c9tats-Unis. Trois facteurs ont port\u00e9 ce mouvement :" },
+        { kind: 'ul', items: [
+          "Clart\u00e9 \u2014 VARA a publi\u00e9 des rulebooks complets en 2023 couvrant chaque activit\u00e9 majeure. Pas de devinettes r\u00e9glementaires.",
+          "Rapidit\u00e9 \u2014 6-12 mois pour \u00eatre licenci\u00e9 vs 18-24 pour MiCA UE, souvent plus rapide que le MPI de la MAS Singapour.",
+          "Environnement fiscal \u2014 0 % d'imp\u00f4t sur le revenu des personnes, 9 % d'IS sur profits > 375 K AED. Pour les firmes de trading crypto qui remplissent les crit\u00e8res de free zone, le taux effectif peut \u00eatre de 0 %.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'Le pitch court', text: "Si vous \u00eates une firme crypto s\u00e9rieuse cherchant en dehors de l'UE/US, Dubai est souvent la premi\u00e8re alternative consid\u00e9r\u00e9e. Le processus de licensing est pr\u00e9visible, la structure fiscale est attractive, et le r\u00e9gulateur cherche activement le dialogue avec l'industrie." },
+      ],
+    },
+    {
+      id: 'dubai-landscape',
+      heading: "Le paysage r\u00e9glementaire de Dubai \u2014 pas seulement VARA",
+      content: [
+        { kind: 'p', text: "Dubai a trois r\u00e9gimes r\u00e9glementaires crypto tournant en parall\u00e8le. Choisir le bon est la premi\u00e8re d\u00e9cision :" },
+        {
+          kind: 'table',
+          headers: ['R\u00e9gime', 'R\u00e9gulateur', 'Juridiction', 'Id\u00e9al pour'],
+          rows: [
+            ['VARA', 'Virtual Assets Regulatory Authority', "\u00c9mirat de Dubai (hors DIFC)", 'Firmes crypto-natives, retail'],
+            ['DFSA (DIFC)', 'Dubai Financial Services Authority', 'Free zone DIFC', 'Institutionnel, banques, gestionnaires d\'actifs'],
+            ['FSRA (ADGM)', 'Financial Services Regulatory Authority', "Abu Dhabi Global Market (pas Dubai)", 'Hedge funds, family offices, institutionnel'],
+          ],
+        },
+        { kind: 'p', text: "Pour la crypto retail et la plupart des startups, VARA est la r\u00e9ponse. Pour une activit\u00e9 crypto uniquement institutionnelle (ex. : custody pour gestionnaires d'actifs, fonds tokenis\u00e9s pour HNW), DFSA ou ADGM FSRA offrent des cadres plus familiers bas\u00e9s sur la common law et sont favoris\u00e9s par les banques. Les trois r\u00e9gulateurs ne se chevauchent pas \u2014 choisissez-en un, incorporez dans cette zone." },
+      ],
+    },
+    {
+      id: 'vara-rulebooks',
+      heading: 'Les rulebooks VARA',
+      content: [
+        { kind: 'p', text: "VARA a publi\u00e9 ses rulebooks principaux d\u00e9but 2023, avec des mises \u00e0 jour continues depuis. La structure est modulaire \u2014 un rulebook central plus des rulebooks sp\u00e9cifiques \u00e0 l'activit\u00e9." },
+        { kind: 'h3', text: 'Rulebooks centraux' },
+        { kind: 'ul', items: [
+          'Compliance and Risk Management Rulebook \u2014 LCB-FT, sanctions, surveillance des transactions.',
+          'Company Rulebook \u2014 gouvernance, fit-and-proper (test d\'honorabilit\u00e9 et de comp\u00e9tence), composition du board.',
+          'Technology and Information Rulebook \u2014 cybers\u00e9curit\u00e9, continuit\u00e9 d\'activit\u00e9, externalisation cloud.',
+          'Market Conduct Rulebook \u2014 loyaut\u00e9 des transactions, restrictions marketing, divulgations.',
+        ] },
+        { kind: 'h3', text: "Rulebooks sp\u00e9cifiques \u00e0 l'activit\u00e9" },
+        { kind: 'p', text: "Un rulebook par cat\u00e9gorie VASP. Les 6 cat\u00e9gories :" },
+        { kind: 'ol', items: [
+          'Advisory Services \u2014 conseil en investissement sur actifs virtuels.',
+          'Broker-Dealer Services \u2014 ex\u00e9cution pour le compte de clients.',
+          'Custody Services \u2014 conservation d\'actifs virtuels.',
+          'Exchange Services \u2014 exploitation d\'une plateforme de trading.',
+          'Lending & Borrowing Services \u2014 margin, collat\u00e9ral, produits de rendement.',
+          'VA Management & Investment Services \u2014 gestion d\'actifs, op\u00e9rations de fonds.',
+        ] },
+        { kind: 'p', text: "Plus un rulebook transversal pour l'\u00e9mission d'actifs virtuels (Virtual Asset Issuance) pour les tokens natifs \u00e9mis depuis l'\u00c9mirat." },
+      ],
+    },
+    {
+      id: 'licensing-journey',
+      heading: "Le parcours de licensing \u2014 calendrier r\u00e9aliste",
+      content: [
+        { kind: 'p', text: "VARA utilise un processus en 4 \u00e9tapes. Chaque \u00e9tape doit \u00eatre termin\u00e9e avant de passer \u00e0 la suivante :" },
+        {
+          kind: 'table',
+          headers: ['\u00c9tape', 'Jalon', 'Dur\u00e9e typique'],
+          rows: [
+            ['1 \u2014 Pr\u00e9-application', 'Engagement initial + pr\u00e9-check fit-and-proper', '4-8 semaines'],
+            ['2 \u2014 Initial approval (IA)', 'Revue des documents cl\u00e9s + montage de l\'entit\u00e9 \u00e0 Dubai', '2-4 mois'],
+            ['3 \u2014 Operating licence (L1/L2)', 'Revue op\u00e9rationnelle + tech + compliance', '3-6 mois'],
+            ['4 \u2014 Commencement approval', 'Check final avant go-live', '2-4 semaines'],
+            ['Total', 'Pr\u00e9-app jusqu\'au go-live', '6-12 mois'],
+          ],
+        },
+        { kind: 'h3', text: 'Exigences de capital' },
+        { kind: 'ul', items: [
+          'Advisory : 100 K AED (~27 K USD)',
+          'Broker-dealer : 1 M AED (~272 K USD)',
+          'Custody : 1,5 M AED (~408 K USD)',
+          'Exchange : 1,5 M AED (~408 K USD)',
+          'Lending : 1,5 M AED (~408 K USD)',
+          'VA Management : 500 K-1 M AED (~136-272 K USD)',
+          'Issuance : 1,5 M AED (~408 K USD)',
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Estimation du co\u00fbt total', text: "Frais de licensing + conseil externe + montage local montent typiquement \u00e0 300-800 K USD pour une licence exchange/custody, et 150-300 K USD pour advisory/broker. Les co\u00fbts de fonctionnement annuels (bureau, personnel local, audit) ajoutent 500 K-1,5 M USD selon l'effectif." },
+      ],
+    },
+    {
+      id: 'substance-requirements',
+      heading: "Substance \u2014 il faut une vraie pr\u00e9sence \u00e0 Dubai",
+      content: [
+        { kind: 'p', text: "VARA est strict sur la substance. Contrairement \u00e0 certains r\u00e9gimes offshore, vous ne pouvez pas op\u00e9rer depuis l'\u00e9tranger avec une bo\u00eete aux lettres \u00e0 Dubai. Exigences :" },
+        { kind: 'ul', items: [
+          "Bureau physique \u00e0 Dubai (free zone ou mainland selon la licence).",
+          "Senior Executive Officer (SEO) r\u00e9sident UAE avec contr\u00f4le quotidien.",
+          "Money Laundering Reporting Officer (MLRO) r\u00e9sident UAE.",
+          "Compliance Officer r\u00e9sident UAE (souvent la m\u00eame personne que le MLRO pour les petites firmes).",
+          "Compte bancaire local dans une banque UAE (pas toujours facile pour les firmes crypto \u2014 compter 3-6 mois d'onboarding bancaire).",
+          "Inspections sur site annuelles VARA.",
+        ] },
+        { kind: 'callout', tone: 'warn', title: 'La friction bancaire', text: "Malgr\u00e9 la r\u00e9glementation crypto-friendly de Dubai, les banques retail UAE restent conservatrices sur l'onboarding des firmes crypto. Budg\u00e9tez du temps pour la banque : avoir la licence VARA en main NE GARANTIT PAS un compte bancaire. Quelques banques crypto-friendly (comme RAK Bank, Mashreq dans certains cas) dominent le segment ; d'autres refusent." },
+      ],
+    },
+    {
+      id: 'vara-vs-others',
+      heading: 'VARA vs MiCA vs MAS Singapour',
+      content: [
+        { kind: 'p', text: "Comparaison des trois meilleures options mondiales de licensing crypto :" },
+        {
+          kind: 'table',
+          headers: ['Axe', 'VARA (Dubai)', 'UE MiCA CASP', 'MAS Singapour'],
+          rows: [
+            ['D\u00e9lai', '6-12 mois', '12-18 mois', '9-15 mois'],
+            ['Co\u00fbt (tout compris)', '300-800 K$', '200-500 K\u20ac', '250-600 K SGD'],
+            ['Capital', '100 K-1,5 M AED', '50-150 K\u20ac', '100-250 K SGD'],
+            ['Passeportage', 'UAE uniquement', '27 \u00c9tats membres UE', 'Singapour uniquement'],
+            ['Retail autoris\u00e9', 'Oui (r\u00e9gul\u00e9)', 'Oui (avec avertissements)', 'Limit\u00e9 (orient\u00e9 qualifi\u00e9s)'],
+            ['Fiscalit\u00e9', '0 % personnel, 9 % IS (0 % effectif en free zone)', "Jusqu'\u00e0 45 % personnel, 19-31 % IS", '17 % IS, personnel progressif'],
+            ['Substance locale', 'Haute (r\u00e9sidents UAE requis)', '\u00ab Moyenne (1+ senior exec dans l\'\u00c9tat \u00e9metteur) \u00bb', 'Haute (MAS exige une pr\u00e9sence locale)'],
+          ],
+        },
+        { kind: 'callout', tone: 'key', title: 'Quand choisir Dubai', text: "Dubai est attractif quand : (1) vous servez un mix global retail/institutionnel sans focus UE exclusif, (2) votre \u00e9quipe est \u00e0 l'aise avec le fuseau horaire du Golfe et peut relocaliser 2-3 personnes cl\u00e9s, (3) la structure fiscale compte (fondateurs prenant equity + salaires), (4) vous voulez un processus rapide et pr\u00e9visible. Dubai est moins attractif si votre march\u00e9 principal est UE uniquement (le passeport MiCA gagne) ou si vous avez besoin d'un vivier de talents plus m\u00fbr (Singapour est plus profond pour les seniors)." },
+      ],
+    },
+  ],
+  relatedTerms: ['VARA', 'VASP', 'MiCA', 'CASP', 'MAS', 'DPT'],
+  relatedTrees: ['jurisdiction'],
+}
+
+export const LEARNING_PATHS_FR: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN, TRAVEL_RULE, TOKENISED_RWA, DUBAI_VARA]
 
 export function getLearningPathFr(id: string): LearningPath | undefined {
   return LEARNING_PATHS_FR.find((p) => p.id === id)

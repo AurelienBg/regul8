@@ -622,7 +622,373 @@ const STABLECOIN_FRAMEWORKS: LearningPath = {
   relatedTrees: ['jurisdiction'],
 }
 
-export const LEARNING_PATHS: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN]
+// -----------------------------------------------------------------------------
+// Path 7 — FATF Travel Rule Explained
+// -----------------------------------------------------------------------------
+const TRAVEL_RULE: LearningPath = {
+  id: 'fatf-travel-rule',
+  icon: '🕸️',
+  title: 'FATF Travel Rule Explained',
+  subtitle: 'The global AML/CFT rule that forces VASPs to share sender + receiver data on every transfer. What it is, thresholds per jurisdiction, and how XRPL handles it.',
+  duration: '8 min read',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'sg', 'uk', 'ch'],
+  sections: [
+    {
+      id: 'what-is-the-rule',
+      heading: 'What the Travel Rule is',
+      content: [
+        { kind: 'p', text: "The Financial Action Task Force (FATF) is the inter-governmental body that sets global anti-money-laundering and counter-terrorist-financing standards. The 'Travel Rule' is Recommendation 16: every financial institution transferring value above a jurisdiction-specific threshold must transmit sender and receiver identity data along with the transfer." },
+        { kind: 'p', text: "The rule predates crypto — it was written for bank wires in 1996. In June 2019, FATF extended it to Virtual Asset Service Providers (VASPs). All 200+ FATF-aligned jurisdictions were expected to transpose it into their national AML laws. By 2026, roughly 80% of the global crypto market operates under a Travel-Rule obligation." },
+        { kind: 'callout', tone: 'key', title: 'Why it matters for your startup', text: "If you're a VASP — exchange, custody provider, on/off-ramp, cross-border payment — the Travel Rule is not optional. Non-compliance is one of the easiest enforcement actions for regulators to pursue because it is binary: either the transfer carried the data, or it didn't." },
+      ],
+    },
+    {
+      id: 'who-is-a-vasp',
+      heading: 'Who is a VASP under the Travel Rule',
+      content: [
+        { kind: 'p', text: "FATF defines a VASP as any person/entity that performs one or more of these activities for or on behalf of a customer:" },
+        { kind: 'ul', items: [
+          "Exchange between virtual assets and fiat currencies",
+          "Exchange between one or more forms of virtual assets",
+          "Transfer of virtual assets (moving value from one address to another)",
+          "Safekeeping / administration of virtual assets (custody)",
+          "Participation in and provision of financial services related to an issuer's offer and/or sale of a virtual asset",
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Non-VASP cases', text: "Pure protocol operators (miners, validators), non-custodial wallet software providers where the user controls their own keys, and most DeFi protocols without an identifiable operator are NOT VASPs under FATF guidance. The grey zone is large and juri-specific — always check local transposition." },
+      ],
+    },
+    {
+      id: 'thresholds-by-juri',
+      heading: 'Thresholds — the part that trips everyone up',
+      content: [
+        { kind: 'p', text: "FATF recommends a threshold of USD/EUR 1,000 above which the Travel Rule kicks in. Each jurisdiction picks its own threshold, and they differ significantly." },
+        {
+          kind: 'table',
+          headers: ['Jurisdiction', 'Threshold', 'Regulation / source'],
+          rows: [
+            ['EU', '€1,000 (any amount above → full data)', 'Regulation (EU) 2023/1113 (TFR)'],
+            ['US (FinCEN)', 'USD 3,000', 'Bank Secrecy Act / 31 CFR 103.33'],
+            ['UK', '€1,000 (post-Brexit aligned with EU)', 'UK MLR 2017 amendment Sep 2023'],
+            ['Switzerland', 'CHF 1,000 (FINMA Circular 08/3)', 'FINMA AMLO'],
+            ['Singapore', 'SGD 1,500', 'MAS PS-N02'],
+            ['UAE (Dubai)', 'AED 3,500 (~USD 950)', 'VARA AML rulebook'],
+            ['Hong Kong', 'HKD 8,000 (~USD 1,020)', 'AMLO Chapter 615'],
+            ['Japan', '¥100,000 (~USD 670)', 'FIEA / APPS'],
+            ['South Korea', '₩1M (~USD 750)', 'Specific Financial Information Act'],
+          ],
+        },
+        { kind: 'callout', tone: 'warn', title: 'The sunrise issue', text: "When two jurisdictions have different thresholds, compliance becomes asymmetric. If I'm an EU VASP (€1K threshold) sending $2K to a US VASP (USD 3K threshold), I need to send Travel Rule data, but the US VASP has no obligation to receive it. Meanwhile if they send $4K back to me, they must transmit, but if they send $2K back, the data will not arrive on a formal channel — even though my €1K obligation would apply to the EU side. This mismatch is the 'sunrise issue' and it is unsolved." },
+      ],
+    },
+    {
+      id: 'what-data',
+      heading: 'What data must travel',
+      content: [
+        { kind: 'p', text: "The data set is defined by FATF and standardised as IVMS 101 (InterVASP Messaging Standard). Every Travel Rule message contains:" },
+        { kind: 'h3', text: 'Originator (sender)' },
+        { kind: 'ul', items: [
+          'Full legal name',
+          'Account / wallet identifier (the address involved)',
+          'Physical address OR national identity number OR customer ID OR date and place of birth',
+        ] },
+        { kind: 'h3', text: 'Beneficiary (receiver)' },
+        { kind: 'ul', items: [
+          'Full legal name',
+          'Account / wallet identifier',
+        ] },
+        { kind: 'p', text: "For institutional senders, additional fields apply — registered office, LEI code. Some jurisdictions require extra fields (e.g., Singapore MAS requires date-of-birth for all non-institutional originators above SGD 1,500)." },
+        { kind: 'callout', tone: 'info', title: 'IVMS 101 = the standard', text: "IVMS 101 is the JSON schema that virtually every Travel Rule vendor supports. If you build or buy a compliance stack, insist on IVMS 101 output — it is the lingua franca between VASPs globally." },
+      ],
+    },
+    {
+      id: 'tools-and-vendors',
+      heading: 'Practical tools — the Travel Rule vendor market',
+      content: [
+        { kind: 'p', text: "You will almost never build this yourself. The interconnection challenge is too big. The market is dominated by a few specialised vendors:" },
+        { kind: 'ul', items: [
+          "Notabene — IVMS 101 messaging, VASP directory, counterparty risk scoring. Dominant in the EU and US institutional segment.",
+          "Sumsub Travel Rule — integrated with Sumsub's broader KYC/AML stack. Popular in EU retail-facing exchanges.",
+          "Chainalysis KYT + Travel Rule — combines sanctions screening with Travel Rule messaging.",
+          "TRP (Travel Rule Protocol) — open standard championed by Sygna, Ciphertrace/Mastercard.",
+          "OpenVASP — open-source alternative designed to avoid vendor lock-in.",
+        ] },
+        { kind: 'p', text: "Integration cost: USD 30K-150K/year in vendor fees + engineering time for the API integration (typically 4-8 weeks for a first launch)." },
+      ],
+    },
+    {
+      id: 'xrpl-specific',
+      heading: 'How XRPL handles the Travel Rule',
+      content: [
+        { kind: 'p', text: "XRPL poses specific operational questions for Travel Rule compliance that are worth understanding:" },
+        { kind: 'h3', text: 'Destination Tag — the account identifier' },
+        { kind: 'p', text: "A classical pain-point: centralized XRPL wallets (exchanges, custodians) pool customers into a single XRPL account and use the Destination Tag (32-bit integer) to disambiguate internal customers. The XRPL address alone does NOT identify the beneficiary. VASPs must resolve the address + tag combination to a specific customer when providing beneficiary data." },
+        { kind: 'h3', text: 'Memo fields — where the data could ride' },
+        { kind: 'p', text: "XRPL transactions support Memo objects (up to 1 KB each, up to 3 memos per transaction). Technically, Travel Rule data could be carried on-chain. In practice, nobody does this for privacy reasons — the data is off-chain, transmitted via IVMS 101 vendor channels. On-chain memo is used only for transaction references, not PII." },
+        { kind: 'h3', text: 'Trust Line / IOU transfers' },
+        { kind: 'p', text: "Transfers of issued tokens (IOUs) via Trust Lines trigger the Travel Rule when the transfer meets the threshold. The issuer (the gateway) is always a VASP. The relevant beneficiary can be identified by the account holding the Trust Line. RLUSD, for example, applies Travel Rule messaging through Ripple's licensed entities." },
+        { kind: 'h3', text: 'Payment Channels' },
+        { kind: 'p', text: "Payment Channels (off-ledger micropayments) aggregate value between two counterparties. The Travel Rule applies at channel open (funding) and close (settlement) — not at each off-chain claim. This makes XRPL Payment Channels very practical for streaming payments: one Travel Rule event per session, not per micro-transaction." },
+        { kind: 'callout', tone: 'key', title: 'Next step', text: "If you operate an XRPL-native exchange or custody service, budget for a Travel Rule vendor from day one. Notabene and Sumsub both have IVMS 101 modules that handle Destination Tag resolution." },
+      ],
+    },
+  ],
+  relatedTerms: ['Travel Rule', 'FATF', 'VASP', 'CASP', 'FinCEN', 'KYC', 'AML'],
+  relatedTrees: ['casp'],
+}
+
+// -----------------------------------------------------------------------------
+// Path 8 — Tokenised RWA 101
+// -----------------------------------------------------------------------------
+const TOKENISED_RWA: LearningPath = {
+  id: 'tokenised-rwa',
+  icon: '🏛️',
+  title: 'Tokenised RWA 101',
+  subtitle: 'Real-World Assets on-chain: what counts, who issues them, what regime applies — from BlackRock BUIDL to the EU DLT Pilot and the XRPL RWA stack.',
+  duration: '10 min read',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'uk', 'ch', 'li'],
+  sections: [
+    {
+      id: 'what-is-rwa',
+      heading: 'What counts as a Real-World Asset',
+      content: [
+        { kind: 'p', text: "A Real-World Asset (RWA) is any asset that exists off-chain but is represented by a token on-chain. The token is a digital claim, the asset is real. This differs from native crypto assets (Bitcoin, XRP, ETH) that exist only on-chain, and from pure digital representations (NFTs as art) that may have no off-chain counterpart." },
+        { kind: 'p', text: "The RWA category spans an enormous range. In 2026, by market size:" },
+        {
+          kind: 'table',
+          headers: ['Asset class', 'Example tokens', 'Approx on-chain market (2026)'],
+          rows: [
+            ['US Treasury bills', 'BUIDL (BlackRock), OUSG (Ondo), FOBXX (Franklin)', '$10-15B'],
+            ['Private credit', 'Maple, Centrifuge, Goldfinch', '$5-8B'],
+            ['Corporate bonds', 'Archax, Sologenic', '$2B'],
+            ['Real estate', 'RealT, Landshare, Propy', '$500M-1B'],
+            ['Commodities', 'Paxos Gold (PAXG), Tether Gold (XAUT)', '$1-2B'],
+            ['Equities', 'Backed Finance (tokenized stocks)', '$300-500M'],
+            ['Trade finance / invoices', 'Centrifuge, Credix', '$500M'],
+          ],
+        },
+        { kind: 'callout', tone: 'info', title: 'The BUIDL milestone', text: "BlackRock's BUIDL fund (launched March 2024 on Ethereum via Securitize) became the largest tokenised treasury fund in months. By mid-2026 it is the reference: Wall Street accepts tokenised T-bills as legitimate institutional product. This single launch shifted the narrative from 'experimental' to 'mainstream'." },
+      ],
+    },
+    {
+      id: 'legal-classification',
+      heading: 'The legal classification matrix',
+      content: [
+        { kind: 'p', text: "An RWA token's regime is determined by what it represents, not by the fact that it's on a blockchain. Three common classifications:" },
+        { kind: 'h3', text: 'Security token' },
+        { kind: 'p', text: "Represents a financial instrument: equity, debt, fund share, derivative. Full securities law applies. In the EU: Prospectus Regulation + MiCA exemption for securities. In the US: full Securities Act + SEC registration or exemption (Reg D, S, A+). Most institutional RWA (BUIDL, Centrifuge pools) are security tokens." },
+        { kind: 'h3', text: 'E-Money Token (MiCA EMT) / Payment token' },
+        { kind: 'p', text: "Represents a fiat-pegged value. Regulated under MiCA (EMT) or GENIUS Act (payment stablecoin). USDC is an example. Some tokenised treasury bills sit in a grey zone between EMT and security depending on structure." },
+        { kind: 'h3', text: 'Commodity token' },
+        { kind: 'p', text: "Represents a physical commodity (gold, oil, real estate). In the US: CFTC jurisdiction for commodities. In EU: MiCA Asset-Referenced Token (ART) if multi-reference, or outside MiCA scope if it qualifies as a financial instrument under MiFID II." },
+        { kind: 'callout', tone: 'warn', title: 'Classification drives everything', text: "An RWA token's classification dictates: which regulator supervises, what licence the issuer needs, who can hold the token (retail vs professional), what disclosure is required, where it can be traded. Getting this wrong is expensive. Dual legal opinions (EU counsel + US counsel) are standard for RWA launches." },
+      ],
+    },
+    {
+      id: 'eu-dlt-pilot',
+      heading: 'EU DLT Pilot Regime — the sandbox',
+      content: [
+        { kind: 'p', text: "The EU DLT Pilot Regime (Regulation (EU) 2022/858) took effect March 2023 and runs as a 3-year sandbox (extendable) allowing Market Infrastructures to trade and settle tokenised financial instruments on a DLT. It's the EU's first serious securities-on-blockchain framework." },
+        { kind: 'p', text: "Three types of DLT Market Infrastructure exist under the Pilot:" },
+        { kind: 'ul', items: [
+          "DLT MTF — Multilateral Trading Facility on DLT. Trading only.",
+          "DLT SS — Settlement System. Settlement only.",
+          "DLT TSS — Trading AND Settlement System. Both in one.",
+        ] },
+        { kind: 'p', text: "Thresholds limit the scale of instruments traded under the Pilot (e.g., shares of issuers with market cap < €500M, bonds < €1B per issue). This keeps the experiment bounded. By mid-2026, 9 DLT MI authorisations are live (notably 21X in Germany, D-GCS, CEEI in Spain). Securitize and Archax also operate in the Pilot scope." },
+        { kind: 'callout', tone: 'info', title: 'Transition to MiCA', text: "The DLT Pilot is temporary (2023-2026 + extensions). Learnings from the Pilot will feed into a permanent framework — likely a MiCA-style directive for tokenised financial instruments, expected by 2027-2028." },
+      ],
+    },
+    {
+      id: 'us-regime',
+      heading: 'US RWA — Reg D, Reg S, and the Securitize model',
+      content: [
+        { kind: 'p', text: "In the US, RWA tokens classified as securities follow classical exemption pathways:" },
+        { kind: 'ul', items: [
+          "Reg D 506(c) — accredited-investor-only, unlimited size, no cooling-off. Standard for BUIDL and most institutional RWA.",
+          "Reg S — offshore offerings to non-US persons.",
+          "Reg A+ — mini-IPO, retail allowed up to $75M/year. More burdensome, rarely used for RWA.",
+          "Reg CF — retail crowdfunding < $5M/year. Too small for most RWA.",
+        ] },
+        { kind: 'p', text: "The plumbing is provided by SEC-registered Transfer Agents + Broker-Dealers. Securitize is the reference: it operates as a Transfer Agent (SEC-registered 2019) + Broker-Dealer (Securitize Markets) + ATS operator. It's the single counterparty that connects traditional US securities law with on-chain issuance." },
+        { kind: 'h3', text: '2025 regulatory shifts' },
+        { kind: 'p', text: "Post-CLARITY Act (2025), the US has clearer paths for tokens that qualify as digital commodities (CFTC jurisdiction). For pure RWA representing traditional securities, SEC jurisdiction remains — but rule-making has shifted toward accommodating tokenised issuance under existing exemptions rather than forcing everything into new frameworks." },
+      ],
+    },
+    {
+      id: 'the-rwa-stack',
+      heading: 'The RWA stack — from asset to token',
+      content: [
+        { kind: 'p', text: "A full RWA system has four distinct layers. Understanding them clarifies why most RWA projects need 3-5 partners, not just a smart contract:" },
+        { kind: 'ol', items: [
+          "Off-chain asset + trustee — the actual T-bill, the real estate deed, the private credit loan. Held by a qualified custodian or trustee (NYDFS Trust for USD assets, FCA-authorised trustee for UK).",
+          "Issuer entity — the legal vehicle that owns the off-chain asset AND issues the on-chain token. Typically a SPV (special-purpose vehicle) or a regulated fund.",
+          "Token & smart contract / ledger primitive — the on-chain representation. Ethereum ERC-20/1400 is most common; XRPL IOU + Trust Line is a native alternative; MPT (XLS-33) adds programmable compliance flags.",
+          "Distribution — the platform that markets, onboards KYC, handles subscriptions and redemptions. Often a regulated broker-dealer or a crypto exchange with securities licences.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'Physical Validator', text: "Liechtenstein TVTG formalises a unique role called 'Physical Validator' (Physischer Validator) — a licensed party that continuously verifies the off-chain asset actually exists and matches the on-chain token. This is the regulatory answer to the trust gap: someone legally responsible for saying 'yes, the deed is real'. No other juri has this formal role yet, but many RWA platforms use equivalent third-party attestations." },
+      ],
+    },
+    {
+      id: 'xrpl-rwa-stack',
+      heading: 'Why XRPL is a natural RWA substrate',
+      content: [
+        { kind: 'p', text: "XRPL's native primitives map onto RWA needs with less retrofitting than EVM chains. Three reasons:" },
+        { kind: 'h3', text: '1. IOU + Trust Line = native RWA representation' },
+        { kind: 'p', text: "Issuing a token on XRPL is literally creating an IOU: the issuer account promises to honour the claim. Holders open Trust Lines to accept the token. The model is a direct match for RWA: issuer holds the real asset, holder has an on-chain claim. No smart contract is required. Standard Custody's RLUSD stablecoin uses this exact pattern for fiat-pegged claims." },
+        { kind: 'h3', text: '2. MPT (XLS-33) = programmable compliance primitives' },
+        { kind: 'p', text: "The Multi-Purpose Token standard adds programmable flags at the protocol level: transfer fees, holding limits, authorization requirements, time-locks. RWA issuers need these to satisfy regulators (retail-only vs qualified-only, geofencing, forced redemption for sanctions). MPT provides them without writing a single line of smart-contract code." },
+        { kind: 'h3', text: '3. Escrow + Checks = delivery vs payment (DvP)' },
+        { kind: 'p', text: "One of the hardest problems in RWA is atomic settlement: ensuring the buyer's payment and the seller's token change hands simultaneously. XRPL Escrow (with cryptographic conditions) enables this natively — both legs of the trade are released together by the ledger, without any intermediary holding both assets. This is critical for tokenised treasury secondary markets." },
+        { kind: 'callout', tone: 'key', title: 'The 2026 push', text: "Ripple and Archax announced a public target: $1B+ tokenised assets on XRPL by mid-2026, with Ripple acting as custody (Metaco + Palisade) and Archax as the UK FCA-authorised exchange. This is the most concrete RWA-on-XRPL play and likely the template others will follow." },
+      ],
+    },
+  ],
+  relatedTerms: ['RWA', 'EMT', 'ART', 'MiCA', 'DLT Pilot Regime', 'TVTG', 'Howey Test', 'RLUSD', 'MPT'],
+  relatedTrees: ['howey'],
+}
+
+// -----------------------------------------------------------------------------
+// Path 9 — Dubai VARA: Zero to Licensed
+// -----------------------------------------------------------------------------
+const DUBAI_VARA: LearningPath = {
+  id: 'dubai-vara',
+  icon: '🇦🇪',
+  title: 'Dubai VARA — Zero to Licensed',
+  subtitle: 'Why Dubai became the crypto hub of the Gulf: the VARA rulebooks, the 6 VASP categories, substance requirements, and how VARA compares to ADGM and DIFC.',
+  duration: '9 min read',
+  level: 'intermediate',
+  jurisdictions: ['uae'],
+  sections: [
+    {
+      id: 'why-dubai',
+      heading: 'Why Dubai became THE Gulf crypto hub',
+      content: [
+        { kind: 'p', text: "In 2022, Dubai created the Virtual Assets Regulatory Authority (VARA) — the first standalone virtual-asset regulator anywhere in the world. VARA's mandate covers every VASP operating in or from the Emirate of Dubai, excluding the Dubai International Financial Centre (DIFC) which remains under the Dubai Financial Services Authority (DFSA)." },
+        { kind: 'p', text: "The move attracted Binance, Bybit, OKX, Crypto.com, Kraken, Ripple Custody, Circle, and dozens of others. By 2026, Dubai hosts 700+ licensed VASPs — more than any other jurisdiction except the US. Three factors drove this:" },
+        { kind: 'ul', items: [
+          "Clarity — VARA published comprehensive rulebooks in 2023 covering every major activity. No regulatory guesswork.",
+          "Speed — 6-12 months to licence vs 18-24 for EU MiCA, often faster than Singapore MAS MPI.",
+          "Tax environment — 0% personal income tax, 9% corporate tax on profits > AED 375K. For crypto trading firms that meet free-zone criteria, effective rate can be 0%.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'The short pitch', text: "If you're a serious crypto firm looking outside the EU/US, Dubai is often the first alternative considered. The licensing process is predictable, the tax structure is compelling, and the regulator is actively seeking dialogue with industry." },
+      ],
+    },
+    {
+      id: 'dubai-landscape',
+      heading: 'The Dubai regulatory landscape — not just VARA',
+      content: [
+        { kind: 'p', text: "Dubai has three crypto regulatory regimes running in parallel. Choosing the right one is the first decision:" },
+        {
+          kind: 'table',
+          headers: ['Regime', 'Regulator', 'Jurisdiction', 'Best for'],
+          rows: [
+            ['VARA', 'Virtual Assets Regulatory Authority', 'Emirate of Dubai (ex-DIFC)', 'Crypto-native firms, retail-facing'],
+            ['DFSA (DIFC)', 'Dubai Financial Services Authority', 'DIFC free zone', 'Institutional, banks, asset managers'],
+            ['FSRA (ADGM)', 'Financial Services Regulatory Authority', 'Abu Dhabi Global Market (not Dubai)', 'Hedge funds, family offices, institutional'],
+          ],
+        },
+        { kind: 'p', text: "For retail-facing crypto and most startups, VARA is the answer. For institutional-only crypto business (e.g., custody for asset managers, tokenised funds for HNW), DFSA or ADGM FSRA offer more familiar common-law-based frameworks and are favoured by banks. The three regulators do not overlap — pick one, incorporate in that zone." },
+      ],
+    },
+    {
+      id: 'vara-rulebooks',
+      heading: 'The VARA rulebooks',
+      content: [
+        { kind: 'p', text: "VARA issued its main rulebooks in early 2023, with continuous updates since. The structure is modular — one core rulebook plus activity-specific rulebooks." },
+        { kind: 'h3', text: 'Core rulebooks' },
+        { kind: 'ul', items: [
+          'Compliance and Risk Management Rulebook — AML/CFT, sanctions, transaction monitoring.',
+          'Company Rulebook — governance, fit-and-proper, board composition.',
+          'Technology and Information Rulebook — cybersecurity, business continuity, cloud outsourcing.',
+          'Market Conduct Rulebook — fair dealing, marketing restrictions, disclosures.',
+        ] },
+        { kind: 'h3', text: 'Activity-specific rulebooks' },
+        { kind: 'p', text: "One rulebook per VASP category. The 6 categories:" },
+        { kind: 'ol', items: [
+          'Advisory Services — investment advice on virtual assets.',
+          'Broker-Dealer Services — execution on behalf of clients.',
+          'Custody Services — safekeeping of virtual assets.',
+          'Exchange Services — operating a trading platform.',
+          'Lending & Borrowing Services — margin, collateral, yield products.',
+          'VA Management & Investment Services — asset management, fund operations.',
+        ] },
+        { kind: 'p', text: "Plus one cross-cutting rulebook for Virtual Asset Issuance (for native tokens issued from the Emirate)." },
+      ],
+    },
+    {
+      id: 'licensing-journey',
+      heading: 'The licensing journey — realistic timeline',
+      content: [
+        { kind: 'p', text: "VARA uses a 4-stage process. Each stage must be completed before moving to the next:" },
+        {
+          kind: 'table',
+          headers: ['Stage', 'Milestone', 'Typical duration'],
+          rows: [
+            ['1 — Pre-application', 'Initial engagement + fit-and-proper pre-check', '4-8 weeks'],
+            ['2 — Initial approval (IA)', 'Core documents review + entity setup in Dubai', '2-4 months'],
+            ['3 — Operating licence (L1/L2)', 'Full ops + tech + compliance readiness review', '3-6 months'],
+            ['4 — Commencement approval', 'Final check before go-live', '2-4 weeks'],
+            ['Total', 'Pre-app to go-live', '6-12 months'],
+          ],
+        },
+        { kind: 'h3', text: 'Capital requirements' },
+        { kind: 'ul', items: [
+          'Advisory: AED 100K (~USD 27K)',
+          'Broker-dealer: AED 1M (~USD 272K)',
+          'Custody: AED 1.5M (~USD 408K)',
+          'Exchange: AED 1.5M (~USD 408K)',
+          'Lending: AED 1.5M (~USD 408K)',
+          'VA Management: AED 500K-1M (~USD 136-272K)',
+          'Issuance: AED 1.5M (~USD 408K)',
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Total cost estimate', text: "Licensing fees + external counsel + local setup typically come to USD 300-800K for an exchange/custody licence, and USD 150-300K for advisory/broker. Annual running costs (office, local staff, audit) add USD 500K-1.5M depending on headcount." },
+      ],
+    },
+    {
+      id: 'substance-requirements',
+      heading: 'Substance — you need a real Dubai presence',
+      content: [
+        { kind: 'p', text: "VARA is strict on substance. Unlike some offshore regimes, you cannot operate from abroad with a letterbox in Dubai. Requirements:" },
+        { kind: 'ul', items: [
+          "Physical office in Dubai (free zone or mainland depending on licence).",
+          "UAE-resident Senior Executive Officer (SEO) with day-to-day control.",
+          "UAE-resident Money Laundering Reporting Officer (MLRO).",
+          "UAE-resident Compliance Officer (often same person as MLRO for smaller firms).",
+          "Local bank account with a UAE bank (not always easy for crypto firms — expect a 3-6 month bank onboarding process).",
+          "Annual on-site VARA inspections.",
+        ] },
+        { kind: 'callout', tone: 'warn', title: 'The banking friction', text: "Despite Dubai's crypto-friendly regulation, UAE retail banks remain conservative about onboarding crypto firms. Budget time for banking: VARA licence in hand does NOT guarantee a bank account. A few crypto-friendly banks (like RAK Bank, Mashreq for certain cases) dominate the space; others decline." },
+      ],
+    },
+    {
+      id: 'vara-vs-others',
+      heading: 'VARA vs MiCA vs Singapore MAS',
+      content: [
+        { kind: 'p', text: "Comparing the three top global crypto licensing options:" },
+        {
+          kind: 'table',
+          headers: ['Axis', 'VARA (Dubai)', 'EU MiCA CASP', 'Singapore MAS'],
+          rows: [
+            ['Timeline', '6-12 months', '12-18 months', '9-15 months'],
+            ['Cost (all-in)', '$300K-800K', '€200K-500K', 'SGD 250K-600K'],
+            ['Capital', 'AED 100K-1.5M', '€50K-150K', 'SGD 100K-250K'],
+            ['Passporting', 'UAE only', '27 EU member states', 'Singapore only'],
+            ['Retail allowed', 'Yes (regulated)', 'Yes (with warnings)', 'Limited (accredited-friendly)'],
+            ['Tax', '0% personal, 9% corporate (0% effective in free zone)', 'Up to 45% personal, 19-31% corporate', '17% corporate, progressive personal'],
+            ['Local substance', 'High (UAE residents required)', 'Medium (1+ senior exec in issuing state)', 'High (MAS demands local presence)'],
+          ],
+        },
+        { kind: 'callout', tone: 'key', title: 'When to pick Dubai', text: "Dubai is compelling when: (1) you serve a global retail/institutional mix without EU-only focus, (2) your team is comfortable with Gulf time zone and can relocate 2-3 key people, (3) tax structure matters (founders taking equity + salaries), (4) you want a fast, predictable process. Dubai is less compelling if your primary market is EU only (MiCA passport wins) or if you need a more mature talent pool (Singapore deeper for senior hires)." },
+      ],
+    },
+  ],
+  relatedTerms: ['VARA', 'VASP', 'MiCA', 'CASP', 'MAS', 'DPT'],
+  relatedTrees: ['jurisdiction'],
+}
+
+export const LEARNING_PATHS: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN, TRAVEL_RULE, TOKENISED_RWA, DUBAI_VARA]
 
 export function getLearningPath(id: string): LearningPath | undefined {
   return LEARNING_PATHS.find((p) => p.id === id)
