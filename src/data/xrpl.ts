@@ -10,6 +10,13 @@ export const XRPL_KNOWLEDGE = {
       hk: "SFC: XRP treated as virtual asset under VATP regime.",
       ch: "FINMA: XRP classified as payment token.",
       li: "FMA: XRP falls under TVTG framework as a token.",
+      jp: "FSA/JVCEA: XRP is one of the earliest whitelisted crypto assets in Japan (since 2018). Trading via FSA-registered CAESP exchanges (bitFlyer, Coincheck, SBI VC Trade). 95% cold-storage rule applies.",
+      kr: "FSC/KoFIU: XRP is one of the top 3 traded crypto assets in Korea. Trading via VASP-registered exchanges (Upbit, Bithumb, Korbit) with mandatory real-name bank account. 20% capital-gains tax applies from 2027.",
+      in: "FIU-IND: XRP is legal to trade via registered exchanges (WazirX, CoinDCX, ZebPay). 30% flat VDA tax + 1% TDS per transaction. No SEC-style classification dispute.",
+      br: "BCB: XRP is a crypto-asset under Law 14.478/2022. Trading via BCB-authorised VASPs (Mercado Bitcoin, Foxbit, Binance BR). Drex CBDC pilots explore XRPL-style interoperability.",
+      ng: "SEC Nigeria / CBN: XRP is a digital asset under SEC Nigeria DASP framework (2022). Nigeria had one of the highest retail XRP adoption globally pre-2024. Post-Naira-crisis, cross-border flows now dominated by P2P + offshore (UAE, UK).",
+      ke: "CMA: XRP is covered by the VASP Act 2025. Trading via licensed VASPs. Ripple-Onafriq partnerships route KES ↔ USD corridors using XRPL ODL. 3% Digital Asset Tax applies.",
+      za: "FSCA: XRP is a crypto-asset requiring CASP licence under FAIS Act (Oct 2022 — first African jurisdiction to regulate crypto). Trading via Luno, VALR, AltCoinTrader. SARB evaluates XRPL for cross-border CBDC bridging.",
     }
   },
   xrpl_evm_sidechain: {

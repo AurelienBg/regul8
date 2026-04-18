@@ -12,6 +12,13 @@ export const XRPL_KNOWLEDGE_FR = {
       hk: "SFC : le XRP est traité comme un actif virtuel dans le cadre du régime VATP.",
       ch: "FINMA : le XRP est classé comme jeton de paiement.",
       li: "FMA : le XRP relève du cadre TVTG en tant que jeton.",
+      jp: "FSA/JVCEA : le XRP fait partie des premiers crypto-actifs whitelistés au Japon (depuis 2018). Négociation via les exchanges CAESP enregistrés auprès de la FSA (bitFlyer, Coincheck, SBI VC Trade). Règle des 95 % en cold storage applicable.",
+      kr: "FSC/KoFIU : le XRP est parmi les 3 crypto-actifs les plus tradés en Corée. Négociation via les exchanges enregistrés VASP (Upbit, Bithumb, Korbit) avec compte bancaire nominatif obligatoire. Taxe de 20 % sur les plus-values à partir de 2027.",
+      in: "FIU-IND : le XRP est légalement négociable via les exchanges enregistrés (WazirX, CoinDCX, ZebPay). Taxe VDA forfaitaire de 30 % + 1 % de TDS par transaction. Pas de contentieux de classification à la SEC.",
+      br: "BCB : le XRP est un crypto-actif au sens de la loi 14.478/2022. Négociation via les VASP autorisés par la BCB (Mercado Bitcoin, Foxbit, Binance BR). Les pilotes CBDC Drex explorent une interopérabilité de type XRPL.",
+      ng: "SEC Nigeria / CBN : le XRP est un actif numérique dans le cadre DASP de la SEC Nigeria (2022). Le Nigéria avait l'une des plus fortes adoptions retail du XRP au monde avant 2024. Depuis la crise du Naira, les flux transfrontaliers passent majoritairement par P2P + offshore (UAE, UK).",
+      ke: "CMA : le XRP est couvert par le VASP Act 2025. Négociation via les VASP licenciés. Les partenariats Ripple–Onafriq utilisent les corridors KES ↔ USD via l'ODL XRPL. Taxe sur les actifs numériques de 3 % applicable.",
+      za: "FSCA : le XRP est un crypto-actif nécessitant un agrément CASP dans le cadre du FAIS Act (oct. 2022 — première juridiction africaine à réguler la crypto). Négociation via Luno, VALR, AltCoinTrader. La SARB étudie XRPL pour le bridging CBDC transfrontalier.",
     }
   },
   xrpl_evm_sidechain: {
