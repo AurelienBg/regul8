@@ -172,7 +172,7 @@ export default function LearnHubPage() {
       {/* XRPL Deep Dive */}
       <section className="mb-6">
         <Link
-          href="/xrpl"
+          href="/learn/xrpl"
           className="card hover:border-violet-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">

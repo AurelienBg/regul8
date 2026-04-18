@@ -21,7 +21,7 @@ export default function Header() {
       href: '/learn',
       label: t('learn'),
       isActive: (p: string) =>
-        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'),
+        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'), // /xrpl kept for legacy redirect
     },
     {
       href: '/compare',
