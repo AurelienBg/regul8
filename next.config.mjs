@@ -47,6 +47,12 @@ const nextConfig = {
         destination: '/:locale/understand/glossary',
         permanent: true,
       },
+      // /wizard → /assess (merged April 2026 — pickers live on /assess directly)
+      {
+        source: '/:locale(en|fr)/wizard',
+        destination: '/:locale/assess',
+        permanent: true,
+      },
     ];
   },
 };

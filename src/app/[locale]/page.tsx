@@ -30,7 +30,7 @@ export default function LandingPage() {
               {t('subtitle')}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Link href="/wizard" className="btn-primary text-base px-6 py-3">
+              <Link href="/assess" className="btn-primary text-base px-6 py-3">
                 {t('ctaWizard')} &rarr;
               </Link>
               <Link href="/search" className="btn-secondary text-base px-6 py-3">

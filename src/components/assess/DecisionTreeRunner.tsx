@@ -248,7 +248,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
             <button onClick={handleRestart} className="btn-primary text-sm">
               &larr; {tr.tryAnother}
             </button>
-            <Link href="/wizard" className="btn-secondary text-sm">
+            <Link href="/assess" className="btn-secondary text-sm">
               {tr.fullCheck}
             </Link>
             <Link href="/check/diagnostics" className="btn-secondary text-sm">

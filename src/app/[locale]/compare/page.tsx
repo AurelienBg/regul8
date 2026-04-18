@@ -177,9 +177,9 @@ export default function ComparePage() {
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{tr.subtitle}</p>
       </header>
 
-      {/* Mode tabs */}
+      {/* Mode tabs — split 50/50 full width */}
       <div className="mb-6 border-b border-[var(--border)]">
-        <div className="flex gap-1 flex-wrap">
+        <div className="grid grid-cols-2">
           {(['activities', 'jurisdictions'] as CompareMode[]).map((m) => {
             const active = mode === m;
             const label = m === 'activities' ? tr.modeActivities : tr.modeJurisdictions;
@@ -187,7 +187,7 @@ export default function ComparePage() {
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-sm transition-colors border-b-4 -mb-px whitespace-nowrap ${
+                className={`text-center px-4 py-3 text-base transition-colors border-b-4 -mb-px ${
                   active
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400 font-bold'
                     : 'border-transparent text-gray-600 dark:text-gray-400 font-medium hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600'
@@ -386,7 +386,7 @@ export default function ComparePage() {
                 <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
                   {tr.runningBody1}<strong>{tr.runningBody2}</strong>{tr.runningBody3}
                 </p>
-                <Link href="/wizard" className="btn-primary text-sm inline-block">
+                <Link href="/assess" className="btn-primary text-sm inline-block">
                   {tr.fullWizard} &rarr;
                 </Link>
               </section>

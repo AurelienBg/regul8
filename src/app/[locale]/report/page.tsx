@@ -64,7 +64,7 @@ export default function ReportPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500 mb-4">{t('noSelection')}</p>
-        <Link href="/wizard" className="btn-primary">{t('newCheck')}</Link>
+        <Link href="/assess" className="btn-primary">{t('newCheck')}</Link>
       </div>
     );
   }
@@ -203,7 +203,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               </>
             )}
           </button>
-          <Link href="/wizard" className="btn-secondary text-sm">{t('newCheck')}</Link>
+          <Link href="/assess" className="btn-secondary text-sm">{t('newCheck')}</Link>
         </div>
       </div>
 

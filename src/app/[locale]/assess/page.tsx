@@ -1,57 +1,72 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { Link } from '@/i18n/routing';
+import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
+import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
+import XRPLBadge from '@/components/ui/XRPLBadge';
 
-export default function AssessHubPage() {
+const ACTIVITY_KEYS = Object.keys(ACTIVITIES) as ActivityKey[];
+const JURISDICTION_KEYS = Object.keys(JURISDICTIONS) as Jurisdiction[];
+
+export default function AssessPage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
+  const tw = useTranslations('wizard');
+  const router = useRouter();
+
+  const [selectedActivities, setSelectedActivities] = useState<ActivityKey[]>([]);
+  const [selectedJurisdictions, setSelectedJurisdictions] = useState<Jurisdiction[]>([]);
+
+  const toggleActivity = (a: ActivityKey) => {
+    setSelectedActivities((prev) =>
+      prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]
+    );
+  };
+  const toggleJurisdiction = (j: Jurisdiction) => {
+    setSelectedJurisdictions((prev) =>
+      prev.includes(j) ? prev.filter((x) => x !== j) : [...prev, j]
+    );
+  };
+
+  const canSubmit = selectedActivities.length > 0 && selectedJurisdictions.length > 0;
+
+  const handleSubmit = () => {
+    const params = new URLSearchParams();
+    params.set('activities', selectedActivities.join(','));
+    params.set('jurisdictions', selectedJurisdictions.join(','));
+    router.push(`/report?${params.toString()}`);
+  };
 
   const tr = isFr
     ? {
         title: 'Évaluer votre conformité',
-        subtitle: "Évaluation complète multi-activités × multi-juridictions. Rapport détaillé avec régimes, licences, obligations, coûts, délais et analyse IA contextuelle.",
-        fullTitle: 'Évaluation complète',
-        fullDesc:
-          "Sélectionnez 1 à 5 activités et 1 à 5 juridictions. Obtenez en 5 minutes un rapport détaillé qui couvre, pour chaque combinaison : régime applicable, licences requises, obligations clés, coût et délai, autorité, et note XRPL spécifique. Complété automatiquement par une analyse IA avec priorités et roadmap.",
-        fullDuration: '5 min · multi-activités × multi-juridictions',
-        fullCta: 'Lancer le wizard',
-        quickCheckTitle: 'Question plus ciblée ?',
-        quickCheckDesc:
-          "Pour un verdict rapide sur une question précise (token = security ? CASP requis ? Custody custodial ?), passez par Vérifier.",
-        quickCheckCta: 'Ouvrir Vérifier',
-        compareTitle: 'Comparer plusieurs options ?',
-        compareDesc:
-          "Pour empiler plusieurs activités ou juridictions côte à côte avant de décider, passez par Comparer.",
-        compareCta: 'Ouvrir Comparer',
-        included: 'Ce que contient le rapport',
+        subtitle:
+          "Évaluation complète multi-activités × multi-juridictions. Rapport détaillé avec régimes, licences, obligations, coûts, délais et analyse IA contextuelle.",
+        includedTitle: 'Ce que contient le rapport',
         includedItems: [
           'Régime réglementaire par activité × juridiction (loi, règlement applicable)',
-          'Licences requises avec coûts et délais d\'obtention',
+          "Licences requises avec coûts et délais d'obtention",
           'Obligations clés (KYC/AML, Travel Rule, reporting, capital minimum…)',
-          'Règles de marketing et éligibilité des clients',
-          'Notes XRPL spécifiques quand l\'activité utilise XRPL',
+          "Règles de marketing et éligibilité des clients",
+          "Notes XRPL spécifiques quand l'activité utilise XRPL",
           'Analyse IA contextuelle avec ordre de priorité et roadmap 12 mois',
         ],
+        activitiesTitle: 'Activités',
+        jurisdictionsTitle: 'Juridictions',
+        selectAll: "Sélectionnez tout ce qui s'applique",
+        generate: 'Générer le rapport',
+        summary: {
+          activity: (n: number) => (n > 1 ? `${n} activités` : `${n} activité`),
+          jurisdiction: (n: number) => (n > 1 ? `${n} juridictions` : `${n} juridiction`),
+          resultsLabel: (n: number) => `= ${n} résultats`,
+        },
       }
     : {
         title: 'Assess your compliance',
         subtitle:
           'Comprehensive multi-activity × multi-jurisdiction assessment. Detailed report with regimes, licences, obligations, costs, timelines and contextual AI analysis.',
-        fullTitle: 'Full Compliance Assessment',
-        fullDesc:
-          'Pick 1 to 5 activities and 1 to 5 jurisdictions. In 5 minutes, get a detailed report covering, for each combination: applicable regime, required licences, key obligations, cost and timeline, authority, and XRPL-specific note. Auto-completed with an AI analysis including priorities and roadmap.',
-        fullDuration: '5 min · multi-activity × multi-jurisdiction',
-        fullCta: 'Start the wizard',
-        quickCheckTitle: 'Narrower question?',
-        quickCheckDesc:
-          'For a quick verdict on a precise question (is my token a security? CASP required? custody custodial?), head to Check.',
-        quickCheckCta: 'Open Check',
-        compareTitle: 'Compare a few options?',
-        compareDesc:
-          'To stack several activities or jurisdictions side-by-side before deciding, head to Compare.',
-        compareCta: 'Open Compare',
-        included: "What's in the report",
+        includedTitle: "What's in the report",
         includedItems: [
           'Regulatory regime per activity × jurisdiction (applicable law / regulation)',
           'Required licences with costs and timelines',
@@ -60,43 +75,31 @@ export default function AssessHubPage() {
           'XRPL-specific notes when the activity uses XRPL',
           'Contextual AI analysis with priority order and 12-month roadmap',
         ],
+        activitiesTitle: 'Activities',
+        jurisdictionsTitle: 'Jurisdictions',
+        selectAll: 'Select all that apply',
+        generate: 'Generate report',
+        summary: {
+          activity: (n: number) => (n > 1 ? `${n} activities` : `${n} activity`),
+          jurisdiction: (n: number) => (n > 1 ? `${n} jurisdictions` : `${n} jurisdiction`),
+          resultsLabel: (n: number) => `= ${n} results`,
+        },
       };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
+      {/* Header — aligned with Understand / Compare / Check */}
       <header className="text-center mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{tr.subtitle}</p>
       </header>
 
-      {/* Hero — Full Compliance Assessment */}
-      <Link
-        href="/wizard"
-        className="card hover:border-blue-500 transition-colors group block mb-8 p-6 border-2 bg-gradient-to-br from-blue-50/40 to-violet-50/40 dark:from-blue-900/20 dark:to-violet-900/20"
-      >
-        <div className="flex items-start gap-4">
-          <div className="text-5xl">🧙</div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              <h2 className="text-2xl font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                {tr.fullTitle}
-              </h2>
-              <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 text-xs font-semibold">
-                {tr.fullDuration}
-              </span>
-            </div>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4">{tr.fullDesc}</p>
-            <span className="inline-flex items-center gap-1 text-base font-semibold text-blue-600 dark:text-blue-400">
-              {tr.fullCta} &rarr;
-            </span>
-          </div>
-        </div>
-      </Link>
-
       {/* What's in the report */}
       <section className="mb-10 p-5 rounded-xl border border-[var(--border)] bg-[var(--card)]">
-        <h3 className="text-sm font-bold mb-3 uppercase tracking-wide text-gray-500">{tr.included}</h3>
-        <ul className="space-y-2">
+        <h3 className="text-sm font-bold mb-3 uppercase tracking-wide text-gray-500">
+          {tr.includedTitle}
+        </h3>
+        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
           {tr.includedItems.map((item, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
               <span className="text-blue-500 mt-0.5">✓</span>
@@ -106,43 +109,106 @@ export default function AssessHubPage() {
         </ul>
       </section>
 
-      {/* Cross-sell to /check */}
-      <Link
-        href="/check"
-        className="card hover:border-blue-500 transition-colors group block p-6 border-2 mb-4"
-      >
-        <div className="flex items-start gap-4">
-          <div className="text-4xl">🩺</div>
-          <div className="flex-1">
-            <h2 className="text-lg font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-              {tr.quickCheckTitle}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.quickCheckDesc}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {tr.quickCheckCta} &rarr;
-            </span>
+      {/* Pickers — 4 cols on desktop: 2 cols for activities + 2 cols for jurisdictions */}
+      <section className="grid lg:grid-cols-2 gap-8 mb-8">
+        {/* Activities — 2-col internal grid */}
+        <div>
+          <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
+          <p className="text-xs text-gray-500 mb-4">{tr.selectAll}</p>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {ACTIVITY_KEYS.map((key) => {
+              const active = selectedActivities.includes(key);
+              return (
+                <button
+                  key={key}
+                  onClick={() => toggleActivity(key)}
+                  className={`flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-left transition-all ${
+                    active
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                      : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
+                  }`}
+                >
+                  <span className="flex items-center gap-2 min-w-0">
+                    <span
+                      className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                        active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                      }`}
+                    >
+                      {active && (
+                        <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </span>
+                    <span className="text-sm font-medium truncate">{tw(`activities.${key}`)}</span>
+                  </span>
+                  {ACTIVITIES[key].xrpl && <XRPLBadge />}
+                </button>
+              );
+            })}
           </div>
         </div>
-      </Link>
 
-      {/* Cross-sell to /compare */}
-      <Link
-        href="/compare"
-        className="card hover:border-blue-500 transition-colors group block p-6 border-2"
-      >
-        <div className="flex items-start gap-4">
-          <div className="text-4xl">📊</div>
-          <div className="flex-1">
-            <h2 className="text-lg font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-              {tr.compareTitle}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.compareDesc}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {tr.compareCta} &rarr;
-            </span>
+        {/* Jurisdictions — 2-col internal grid */}
+        <div>
+          <h2 className="text-lg font-semibold mb-1">{tr.jurisdictionsTitle}</h2>
+          <p className="text-xs text-gray-500 mb-4">{tr.selectAll}</p>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {JURISDICTION_KEYS.map((code) => {
+              const j = JURISDICTIONS[code];
+              const active = selectedJurisdictions.includes(code);
+              return (
+                <button
+                  key={code}
+                  onClick={() => toggleJurisdiction(code)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-left transition-all ${
+                    active
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                      : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
+                  }`}
+                >
+                  <span
+                    className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                      active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                  >
+                    {active && (
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </span>
+                  <span className="text-lg">{j.flag}</span>
+                  <span className="text-sm font-medium truncate">{j.name}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
-      </Link>
+      </section>
+
+      {/* Summary + Submit */}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="text-sm text-gray-500">
+          {selectedActivities.length > 0 && <span>{tr.summary.activity(selectedActivities.length)}</span>}
+          {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
+          {selectedJurisdictions.length > 0 && (
+            <span>{tr.summary.jurisdiction(selectedJurisdictions.length)}</span>
+          )}
+          {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && (
+            <span className="ml-2 font-semibold text-blue-600">
+              {tr.summary.resultsLabel(selectedActivities.length * selectedJurisdictions.length)}
+            </span>
+          )}
+        </div>
+        <button
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+        >
+          {tr.generate} &rarr;
+        </button>
+      </div>
     </div>
   );
 }

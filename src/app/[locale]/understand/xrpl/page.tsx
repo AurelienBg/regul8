@@ -228,7 +228,7 @@ export default function XRPLPage() {
 
       {/* CTA */}
       <div className="text-center mt-12">
-        <Link href="/wizard" className="btn-xrpl text-lg px-8 py-4">
+        <Link href="/assess" className="btn-xrpl text-lg px-8 py-4">
           {t('startWizard')} &rarr;
         </Link>
       </div>
