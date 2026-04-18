@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import GlossaryContent from './GlossaryContent';
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
 
 export default function GlossaryDrawer({ open, onClose }: Props) {
   const t = useTranslations('glossary');
+  const locale = useLocale();
+  const closeLabel = locale === 'fr' ? 'Fermer' : 'Close';
 
   // Close on Escape
   useEffect(() => {
@@ -27,7 +29,9 @@ export default function GlossaryDrawer({ open, onClose }: Props) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [open]);
 
   return (
@@ -51,26 +55,39 @@ export default function GlossaryDrawer({ open, onClose }: Props) {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border)] bg-[var(--card)]">
+        <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--border)] bg-[var(--card)]">
           <div className="flex items-center gap-2">
             <span className="text-xl">📖</span>
             <h2 className="font-bold">{t('title')}</h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800"
-            aria-label="Close"
+            aria-label={closeLabel}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-900/30 hover:border-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
+            <span className="hidden sm:inline">{closeLabel}</span>
           </button>
         </div>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="flex-1 overflow-y-auto px-5 py-5 relative">
           <GlossaryContent compact />
         </div>
+
+        {/* Floating close pill — bottom-right, always visible during scroll */}
+        <button
+          onClick={onClose}
+          aria-label={closeLabel}
+          className="absolute bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-2.5 rounded-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 shadow-lg hover:bg-red-600 dark:hover:bg-red-500 dark:hover:text-white transition-colors text-sm font-medium"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span>{closeLabel}</span>
+        </button>
       </aside>
     </>
   );
