@@ -295,6 +295,52 @@ export const USE_CASES: UseCase[] = [
     },
     since: '2022',
   },
+  {
+    id: 'xaman',
+    company: 'Xaman (XRPL Labs)',
+    logo: '✨',
+    website: 'https://xaman.app',
+    tag: 'custody',
+    licences: [
+      { jur: 'eu', name: 'Netherlands (XRPL Labs B.V.) — non-custodial wallet software, no VASP registration required (FATF R.15 / AMLD6 carve-out for pure software)' },
+    ],
+    useCase: {
+      en: "Reference XRPL mobile wallet (formerly XUMM, renamed Xaman in 2024). Strictly non-custodial — users hold their own keys and XRPL Labs has no access to funds. xApps ecosystem for embedded dApps, Tangem hardware-wallet integration, biometric signing. Operates under the FATF carve-out for non-custodial wallet software providers — no VASP / CASP licence required.",
+      fr: "Wallet XRPL mobile de référence (anciennement XUMM, renommé Xaman en 2024). Strictement non-custodial — les utilisateurs gardent leurs clés, XRPL Labs n'a aucun accès aux fonds. Écosystème xApps pour les dApps embarquées, intégration hardware Tangem, signature biométrique. Opère sous la carve-out FATF pour les éditeurs de wallet logiciel non-custodial — pas d'agrément VASP / CASP requis.",
+    },
+    since: '2016',
+  },
+  {
+    id: 'sologenic-tx',
+    company: 'Sologenic / TX Network',
+    logo: '🪙',
+    website: 'https://tx.network',
+    tag: 'rwa',
+    licences: [
+      { jur: 'uae', name: 'DMCC Free Zone (TX Network foundation) + VARA application pathway for VA services' },
+      { jur: 'ch', name: 'Sologenic AG — Swiss subsidiary positioning for FINMA DLT framework and tokenised securities pilots' },
+    ],
+    useCase: {
+      en: "XRPL-native tokenisation platform for equities, ETFs and RWAs. Launched as Sologenic in 2020, rebranded and expanded to TX Network in 2025 as unified RWA + cross-chain bridge infrastructure. One of the largest XRPL-native projects by on-chain TVL; pioneered the on-chain stock / ETF model on XRPL.",
+      fr: "Plateforme de tokenisation XRPL-native pour actions, ETF et RWA. Lancée sous le nom de Sologenic en 2020, rebaptisée et étendue en TX Network en 2025 comme infrastructure unifiée RWA + pont cross-chain. Un des plus gros projets XRPL-natifs par TVL on-chain ; pionnier du modèle actions / ETF tokenisés sur XRPL.",
+    },
+    since: '2020',
+  },
+  {
+    id: 'evernode',
+    company: 'Evernode (Xahau)',
+    logo: '🧩',
+    website: 'https://evernode.org',
+    tag: 'dapp',
+    licences: [
+      { jur: 'uae', name: 'Evernode Foundation — open-source L1 protocol (Xahau). No regulated operator entity. FATF VASP obligations apply only to service providers interacting with end-users, not the protocol itself.' },
+    ],
+    useCase: {
+      en: "Decentralised dApp hosting on Xahau — an XRPL fork with native smart-contract Hooks. Each dApp runs as its own mini-blockchain on Xahau Mainnet, paid in EVR tokens. Open-source protocol with no central operator; registration and AML obligations sit at the dApp-operator layer, not at the protocol.",
+      fr: "Hébergement dApp décentralisé sur Xahau — un fork XRPL avec des Hooks smart-contracts natifs. Chaque dApp tourne comme sa propre mini-blockchain sur Xahau Mainnet, réglée en tokens EVR. Protocole open-source sans opérateur central ; les obligations d'enregistrement et AML sont au niveau des opérateurs de dApp, pas du protocole.",
+    },
+    since: '2021',
+  },
 ];
 
 export function getUseCasesByTag(tag: UseCaseTag | 'all'): UseCase[] {
