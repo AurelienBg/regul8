@@ -177,8 +177,8 @@ export default function CompareActivitiesPage() {
         </div>
       </section>
 
-      {/* Legend — same as /report, collapsed by default */}
-      {rows.length >= 2 && <RegimeLegend defaultOpen={false} />}
+      {/* Legend — same as /report, open by default */}
+      {rows.length >= 2 && <RegimeLegend defaultOpen={true} />}
 
       {/* Comparison table */}
       {rows.length < 2 ? (
