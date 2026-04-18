@@ -272,7 +272,357 @@ const HOWEY: LearningPath = {
   relatedTrees: ['howey'],
 }
 
-export const LEARNING_PATHS: LearningPath[] = [MICA, XRPL_CUSTODY, HOWEY]
+// -----------------------------------------------------------------------------
+// Path 4 — Liechtenstein Fast Track
+// -----------------------------------------------------------------------------
+const LIECHTENSTEIN: LearningPath = {
+  id: 'liechtenstein-fast-track',
+  icon: '🇱🇮',
+  title: 'Liechtenstein Fast Track',
+  subtitle: 'TVTG, FMA and the token container model — why the smallest EEA jurisdiction keeps being the fastest route to a regulated launch in Europe.',
+  duration: '7 min read',
+  level: 'intermediate',
+  jurisdictions: ['li', 'eu'],
+  sections: [
+    {
+      id: 'why-liechtenstein',
+      heading: 'Why Liechtenstein, and why now',
+      content: [
+        { kind: 'p', text: "Liechtenstein is a 40,000-inhabitant principality sandwiched between Switzerland and Austria. It punches far above its weight in crypto regulation for three reasons: it passed the first holistic blockchain law in Europe (the TVTG, January 2020), it sits in the European Economic Area (EEA) so licences passport into the EU, and the regulator (FMA) has a documented fast-track for blockchain firms — 4 to 12 months, compared to 18+ months for most EU MiCA CASP applications." },
+        { kind: 'callout', tone: 'key', title: 'The short pitch', text: "If you need an EU-passportable licence and you need it this year, Liechtenstein is the default option for a well-prepared team. MiCA-era comparable costs are 2-4× lower than Germany or France, and the regulator actually answers emails." },
+        { kind: 'p', text: "The trade-offs are real: the Liechtenstein ecosystem is small (fewer service providers, fewer hires), and post-MiCA the fast-track story is less dramatic than it was pre-2024. But the core speed advantage survived MiCA, and several XRPL-native projects (including some of the RLUSD integrations) still choose LI as their EU launch juri." },
+      ],
+    },
+    {
+      id: 'tvtg-token-container',
+      heading: 'TVTG and the token container model',
+      content: [
+        { kind: 'p', text: "The TVTG (Token and Trusted Technology Service Provider Act) is structurally different from MiCA. MiCA classifies tokens into three boxes (EMT, ART, Other) and derives obligations from the box. TVTG instead treats a token as a 'container' that can represent any right — a security, an e-money unit, a physical commodity, a utility, a governance share, anything. The legal effect of the token is whatever the underlying right is." },
+        { kind: 'p', text: "Concretely: if your token container holds a share in a company, civil-law property rules apply to that share, through the token, as if the token were a paper certificate. This is called the 'token as a linguistic interface to rights' doctrine. It lets TVTG coexist with every other area of law without rewriting them." },
+        { kind: 'callout', tone: 'info', title: 'Why this matters for XRPL', text: "The XRPL IOU / Trust Line model maps almost 1:1 onto the TVTG container model. Several XRPL-native tokenization projects use LI precisely because the technical primitive and the legal primitive are aligned." },
+        { kind: 'p', text: "For service providers (the other half of TVTG), the law enumerates 10 Token Service Provider categories. The most important for crypto startups:" },
+        { kind: 'ul', items: [
+          "Token Issuer — issues tokens on a blockchain (registration with FMA, fit-and-proper review).",
+          "Token Generator — technical creation of tokens for others.",
+          "Token Depositary / Custody — holds tokens for clients (closest to MiCA Art. 75 custody).",
+          "Token Exchange — swaps tokens against tokens or fiat.",
+          "Token Transfer — moves tokens between accounts for clients.",
+          "Physical Validator — verifies that an off-chain asset represented by a token actually exists.",
+          "Identity Service Provider — KYC/AML for token transactions.",
+        ] },
+      ],
+    },
+    {
+      id: 'fast-track-mechanics',
+      heading: 'How the fast track actually works',
+      content: [
+        { kind: 'p', text: "'Fast track' is not an official FMA programme — it is the observed timeline for well-prepared applicants. Three things make LI faster than Paris, Frankfurt, or Dublin:" },
+        { kind: 'h3', text: '1. One regulator, one door' },
+        { kind: 'p', text: "FMA is a single, compact authority with ~120 staff. Your application lands on one desk, not three. Contrast with Germany, where BaFin + Bundesbank + local Landesbank interact, or France where AMF and ACPR split roles." },
+        { kind: 'h3', text: '2. Documented pre-checks' },
+        { kind: 'p', text: "FMA offers a pre-check letter process. For a fee (~CHF 3K–10K depending on complexity), the regulator reviews your intended business model and issues a non-binding opinion on which TVTG category or MiCA licence applies. This removes 90% of the classification uncertainty before you file the real application." },
+        { kind: 'h3', text: '3. No local substance minimum for the application' },
+        { kind: 'p', text: "You can file the TVTG application from abroad and establish the LI presence (office, local director, AML officer) during review. Some juris (notably Singapore MAS) require substance before filing." },
+        { kind: 'callout', tone: 'warn', title: 'But you DO need substance before authorization', text: "By the time FMA grants the licence, you must have a real office, at least one locally resident senior manager, and a fit-and-proper AML officer. Budget ~CHF 150-250K/year for the on-ground team. LI is not a letterbox." },
+      ],
+    },
+    {
+      id: 'cost-timeline',
+      heading: 'Cost and timeline in practice',
+      content: [
+        { kind: 'p', text: "For a Token Exchange Service Provider (the closest TVTG equivalent to a MiCA CASP exchange authorization):" },
+        {
+          kind: 'table',
+          headers: ['Milestone', 'Duration', 'Cost'],
+          rows: [
+            ['Pre-check letter', '4–8 weeks', 'CHF 3K–10K'],
+            ['Application drafting + external counsel', '6–12 weeks', 'CHF 40K–100K'],
+            ['FMA formal review', '3–6 months', 'CHF 20K filing fee'],
+            ['Licence grant + operational start', '—', '—'],
+            ['Total', '4–9 months', 'CHF 70K–200K'],
+          ],
+        },
+        { kind: 'p', text: "Compare with MiCA CASP authorization in France (AMF): 12–18 months typical timeline, €150–€400K all-in. In Germany (BaFin): 15–24 months, €200–€500K. Liechtenstein retains a ~2-3× speed and cost advantage on the licence itself." },
+        { kind: 'callout', tone: 'info', title: 'Post-MiCA, passport choice is key', text: "A TVTG Token Exchange SP does NOT automatically passport as a MiCA CASP. You need an explicit MiCA CASP authorization from FMA in parallel. Some firms run TVTG + MiCA CASP dual licensing from LI. The CASP application is faster in LI (6–10 months) than in larger EU juris and passports across all 27 member states." },
+      ],
+    },
+    {
+      id: 'when-not-to-choose-li',
+      heading: "When Liechtenstein is NOT the right pick",
+      content: [
+        { kind: 'p', text: "LI is the fastest route for licence speed. It is not always the right long-term home. Consider Switzerland (FINMA) instead if:" },
+        { kind: 'ul', items: [
+          'You need full banking services (FINMA banking licence is stronger than the LI FinTech equivalent — though LI now has its own FinTech framework).',
+          'You are selling to the global private-banking market — CH brand carries more weight.',
+          'You want deeper talent pool — Zurich and Zug ecosystems are significantly larger.',
+        ] },
+        { kind: 'p', text: "Consider Ireland or Germany instead if:" },
+        { kind: 'ul', items: [
+          'You plan heavy EU marketing and need a brand-recognizable regulator (BaFin / CBI).',
+          'Your largest market is Germany or France — having your licence in the home juri simplifies regulatory interaction.',
+          'You need a large local team / hire 50+ people — LI is capped at ~40K population.',
+        ] },
+        { kind: 'callout', tone: 'key', title: 'A common pattern', text: "Launch the regulated entity in LI for speed, then passport and establish a marketing / support office in Dublin or Paris for scale. This combines the regulatory speed of LI with the market reach of the big EU hubs." },
+      ],
+    },
+  ],
+  relatedTerms: ['TVTG', 'MiCA', 'CASP', 'FMA', 'EMI'],
+  relatedTrees: ['jurisdiction'],
+}
+
+// -----------------------------------------------------------------------------
+// Path 5 — US Crypto 101
+// -----------------------------------------------------------------------------
+const US_CRYPTO_101: LearningPath = {
+  id: 'us-crypto-101',
+  icon: '🇺🇸',
+  title: 'US Crypto 101',
+  subtitle: 'The federal vs state patchwork, SEC vs CFTC turf war, BSA/FinCEN baseline, and the 2025 CLARITY Act shift.',
+  duration: '10 min read',
+  level: 'beginner',
+  jurisdictions: ['us'],
+  sections: [
+    {
+      id: 'no-single-regulator',
+      heading: 'The US has no single crypto regulator',
+      content: [
+        { kind: 'p', text: "If you come from the EU and expect a 'US MiCA', stop looking — there isn't one. US crypto oversight is split across at least five federal bodies and 50+ state regulators. Each has a piece of the puzzle, and none has full authority. Understanding which agency cares about what is the first step to operating legally." },
+        {
+          kind: 'table',
+          headers: ['Agency', 'Jurisdiction', 'What they regulate'],
+          rows: [
+            ['SEC', 'Federal', 'Securities — token offerings, exchanges trading securities'],
+            ['CFTC', 'Federal', 'Commodities — Bitcoin, Ether post-2023, derivatives'],
+            ['FinCEN', 'Federal (Treasury)', 'AML / BSA — money-services businesses'],
+            ['OCC', 'Federal (Treasury)', 'National bank charters — trust companies (e.g., Anchorage)'],
+            ['State regulators', 'State', 'Money transmission (MTL), securities (blue-sky laws), consumer protection'],
+            ['NYDFS', 'State (NY)', 'BitLicense, NY Trust charters — de facto sets the bar'],
+          ],
+        },
+        { kind: 'callout', tone: 'key', title: 'Why this matters', text: "A single crypto activity can trigger SEC, FinCEN, and 48 state MTLs at once. Most US crypto lawsuits are not about 'is crypto legal?' but 'which agency has jurisdiction?'. Knowing the split saves months of wasted work." },
+      ],
+    },
+    {
+      id: 'sec-vs-cftc',
+      heading: 'SEC vs CFTC — the security question',
+      content: [
+        { kind: 'p', text: "Federal crypto law starts with one question: is this token a security, a commodity, or something else? The Howey Test (1946 Supreme Court) answers the security question, and it's the most important four-prong test in crypto:" },
+        { kind: 'ol', items: [
+          'Investment of money — does the buyer give up cash or other value?',
+          'In a common enterprise — is the buyer joining a pool of investors?',
+          'With an expectation of profit — does the buyer reasonably expect returns?',
+          'Solely from the efforts of others — does someone else run the show and generate the value?',
+        ] },
+        { kind: 'p', text: "All four must be met. Fail any one and it is not a security. This is why SEC v. Ripple (July 2023) ruled that XRP secondary-market sales are not securities — the prong 'solely from the efforts of others' fails in secondary trading." },
+        { kind: 'h3', text: 'If SEC: it is a security' },
+        { kind: 'p', text: "You must register the offering (public filing) or qualify for an exemption — Reg D (private placement), Reg S (offshore), Reg A+ (mini-IPO). Trading platforms that list securities need SEC broker-dealer + ATS (Alternative Trading System) licences. Penalties for unregistered issuance: disgorgement, fines, cease-and-desist." },
+        { kind: 'h3', text: 'If CFTC: it is a commodity' },
+        { kind: 'p', text: "Bitcoin is a commodity under Commodity Exchange Act. Ether has been confirmed as a commodity for derivatives purposes. Commodities face lighter rules for spot trading — mostly anti-fraud and anti-manipulation. Derivatives (futures, swaps, options) need CFTC-registered exchanges." },
+        { kind: 'callout', tone: 'warn', title: 'The turf war was real', text: "Gensler-era SEC asserted jurisdiction over most tokens. Post-2024, administration priorities shifted. The CLARITY Act (passed 2025) formally splits the market between SEC (securities) and CFTC (digital commodities) — but many tokens still land in grey zones." },
+      ],
+    },
+    {
+      id: 'clarity-act',
+      heading: 'The 2025 CLARITY Act',
+      content: [
+        { kind: 'p', text: "The Digital Asset Market Clarity Act of 2025 is the closest thing the US has to a comprehensive crypto law. It doesn't replace SEC/CFTC — it routes tokens to one or the other based on a new test: the 'mature blockchain' test." },
+        { kind: 'h3', text: 'Mature blockchain' },
+        { kind: 'p', text: "A blockchain is 'mature' if the underlying network is sufficiently decentralized, no single person or controlled group can materially alter the operation, and all token holders have equal access. Mature-blockchain tokens are digital commodities under CFTC. Non-mature tokens remain securities under SEC." },
+        { kind: 'p', text: "Practical consequences:" },
+        { kind: 'ul', items: [
+          'Bitcoin, Ether — mature → CFTC commodities',
+          'XRP — courts already treated secondary-market sales as non-securities in 2023. CLARITY reinforces this by routing XRP to CFTC for spot.',
+          "Newly launched tokens — typically not mature yet → SEC securities until the network decentralizes.",
+          'Sunset clause — a token can transition from SEC to CFTC oversight as the network matures.',
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Interactions with MiCA', text: "CLARITY Act is similar to MiCA's 'other crypto-asset' category for mature tokens. For EU issuers looking at the US market, the CLARITY Act creates a more predictable path than the previous enforcement-only regime." },
+      ],
+    },
+    {
+      id: 'fincen-bsa',
+      heading: 'FinCEN and the BSA — the AML baseline',
+      content: [
+        { kind: 'p', text: "Under the Bank Secrecy Act (BSA), any Money Services Business (MSB) must register with FinCEN, implement an AML programme, screen against OFAC sanctions, and file Suspicious Activity Reports (SARs). For crypto, MSB status is triggered by:" },
+        { kind: 'ul', items: [
+          'Accepting and transmitting currency, including crypto — most exchanges, custody providers, most payment apps',
+          'Converting between crypto and fiat, or crypto to crypto, for customers',
+          'Hosting wallet services where you hold the keys',
+        ] },
+        { kind: 'p', text: "Non-custodial wallet providers, miners, and most smart-contract-based DeFi protocols are not MSBs (FinCEN guidance 2013, 2019)." },
+        { kind: 'h3', text: 'What MSB status requires' },
+        { kind: 'ul', items: [
+          'FinCEN registration (free) within 180 days of starting business',
+          'Written AML programme with designated compliance officer',
+          'Customer Identification Programme (CIP) — KYC',
+          'OFAC sanctions screening (SDN list, sectoral sanctions)',
+          'Travel Rule — share sender + receiver info for transfers ≥ $3K',
+          'SAR filing within 30 days of detecting suspicious activity',
+        ] },
+        { kind: 'callout', tone: 'key', title: 'FinCEN is federal — MTLs are state', text: "MSB registration is a federal filing. But to actually operate in each state, you need that state's MTL. The two are separate — and the MTL patchwork is the heavier burden by far." },
+      ],
+    },
+    {
+      id: 'state-patchwork',
+      heading: 'The state MTL patchwork',
+      content: [
+        { kind: 'p', text: "48 out of 50 states require a Money Transmitter Licence for anyone transmitting money (including crypto) on behalf of users. Each state has its own application, fees, surety bond, and compliance requirements. Getting MTLs in all 48 states typically costs $500K to $2M and takes 2 to 4 years." },
+        { kind: 'h3', text: 'The highest bar: New York BitLicense' },
+        { kind: 'p', text: "NY DFS introduced the BitLicense in 2015. It is the strictest US state regime and — because NY is the largest financial market — sets the de facto standard. Getting a BitLicense costs $100K+ in application fees and 12+ months. Once granted, you're held to capital, cybersecurity, custody, and reporting standards stricter than most EU regimes. Alternatively, you can apply for a NYDFS Trust Charter (Anchorage model) — heavier upfront but gives you full bank-like powers." },
+        { kind: 'h3', text: 'Strategies for the MTL patchwork' },
+        { kind: 'ul', items: [
+          "Hire a licensed partner — route transactions through a company that already holds MTLs. Gives up some margin but avoids the 2-year licensing grind.",
+          'Phased rollout — launch in a few states with the biggest markets (CA, NY, TX, FL) first, roll out geographically.',
+          'Skip the US initially — many serious crypto startups address the US market only after establishing EU/APAC presence. MTL burden is the reason.',
+          "Federal charter (OCC Trust) — Anchorage's model. Replaces state MTLs with a single OCC national trust bank charter. Takes 18-24 months and $5M+ but is the cleanest path.",
+        ] },
+        { kind: 'callout', tone: 'warn', title: 'Operating without MTLs is criminal', text: "Unlike failing to register with SEC (civil), unlicensed money transmission can be a federal crime under 18 USC §1960. Enforcement is real: Binance, BitMEX, and others faced criminal charges partly on this." },
+      ],
+    },
+    {
+      id: 'practical-playbook',
+      heading: 'A practical 2026 playbook',
+      content: [
+        { kind: 'p', text: "For a crypto startup targeting US users in 2026:" },
+        { kind: 'ol', items: [
+          "Step 1 — Token classification. Run the Howey Test yourself + get a lawyer's opinion. Decide: security, commodity, or non-financial utility. This decision shapes everything downstream.",
+          "Step 2 — Map activities to agencies. For each activity (issuance, trading, custody, payment), identify which federal regulator cares + what state MTL requirements apply.",
+          "Step 3 — Pick federal charter OR state MTL. If you plan full US coverage and can afford 18-24 months: OCC Trust (clean). If you can phase: MTLs in top 10 states + FinCEN MSB first.",
+          "Step 4 — Handle NY separately. BitLicense or Trust charter — plan 12-18 months. Do this early; a late NY launch means rebuilding your compliance stack.",
+          "Step 5 — Build the compliance team. FinCEN requires a designated compliance officer; NYDFS requires a qualified Chief Compliance Officer. Expect $300K+/year for a senior hire with prior crypto MSB experience.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'Next step', text: "Run the 'Is my token a security?' decision tree to get a concrete Howey verdict on your project." },
+      ],
+    },
+  ],
+  relatedTerms: ['SEC', 'CFTC', 'FinCEN', 'MSB', 'MTL', 'BitLicense', 'Howey Test', 'BSA', 'SAR'],
+  relatedTrees: ['howey', 'jurisdiction'],
+}
+
+// -----------------------------------------------------------------------------
+// Path 6 — Stablecoin Frameworks
+// -----------------------------------------------------------------------------
+const STABLECOIN_FRAMEWORKS: LearningPath = {
+  id: 'stablecoin-frameworks',
+  icon: '💵',
+  title: 'Stablecoin Frameworks',
+  subtitle: 'MiCA EMT/ART in the EU, the 2025 GENIUS Act in the US, and how MAS, HKMA, FMA and others compare — the first truly global regulatory stack.',
+  duration: '9 min read',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'sg', 'hk', 'li'],
+  sections: [
+    {
+      id: 'why-stablecoins-first',
+      heading: 'Why stablecoins got regulated first',
+      content: [
+        { kind: 'p', text: "Of all crypto categories, stablecoins are the most heavily regulated — and across the most jurisdictions. There are three reasons: they look like money (they claim stable value pegged to fiat), they scale like money (USDT and USDC process more daily volume than Visa in some corridors), and they fail like money — the Terra / UST collapse in May 2022 destroyed $40B in 48 hours." },
+        { kind: 'p', text: "Regulators got the message. The EU passed MiCA with an EMT/ART framework that took effect June 2024. The US passed the GENIUS Act in 2025 — its first comprehensive federal crypto law, focused on payment stablecoins. Singapore, Hong Kong, Japan, and UK all have stablecoin frameworks live or in passage by 2026." },
+        { kind: 'callout', tone: 'key', title: 'What this path covers', text: "The five regimes you're most likely to encounter — EU (MiCA), US (GENIUS Act), Singapore (MAS), Hong Kong (HKMA), Liechtenstein (TVTG / MiCA). For each: the licence, the reserves, the disclosure rules, and the 'can a foreign stablecoin circulate?' question." },
+      ],
+    },
+    {
+      id: 'mica-emt-art',
+      heading: 'MiCA — EMT and ART',
+      content: [
+        { kind: 'p', text: "MiCA splits stablecoins in two based on what they reference:" },
+        { kind: 'h3', text: 'E-Money Token (EMT)' },
+        { kind: 'p', text: "Pegged to a single official currency (EUR, USD, GBP…). USDC and RLUSD are EMTs. The issuer must be an authorized Electronic Money Institution (EMI) or a credit institution. Rules:" },
+        { kind: 'ul', items: [
+          'Reserves 1:1 in highly liquid low-risk assets, segregated',
+          'Whitepaper notification (not approval) to the NCA',
+          "Daily reserves reporting; quarterly audit",
+          'Right of redemption at par, any time, for any holder',
+          "No interest paid to holders (they're deposits, not investments)",
+        ] },
+        { kind: 'h3', text: 'Asset-Referenced Token (ART)' },
+        { kind: 'p', text: "Pegged to a basket or non-fiat reference — multi-currency, commodity-backed, or mixed. The issuer needs NCA authorization (higher bar than EMT notification). Rules:" },
+        { kind: 'ul', items: [
+          'Reserves proportional to the reference basket',
+          'Whitepaper approval (pre-launch NCA review)',
+          'Robust governance + conflicts-of-interest policy',
+          'Liquidity management plan — what happens if 10% of holders redeem in a day?',
+        ] },
+        { kind: 'h3', text: 'Significant token — tier 2 rules' },
+        { kind: 'p', text: "If an EMT or ART passes thresholds (market cap > €5B, users > 10M, transactions > 2.5M/day), ECB supervision kicks in with stricter requirements: capital buffers, stress testing, and potentially non-EU reserve geographic diversification limits." },
+      ],
+    },
+    {
+      id: 'genius-act',
+      heading: 'US — the 2025 GENIUS Act',
+      content: [
+        { kind: 'p', text: "The GENIUS Act (Guiding and Establishing National Innovation for US Stablecoins) was signed into federal law July 2025 — the first comprehensive US stablecoin regime. Key points:" },
+        { kind: 'ul', items: [
+          'Creates a federal payment stablecoin charter with the OCC as regulator',
+          'Dual-track: large issuers ($10B+) must use federal charter; smaller can use state regulators',
+          '1:1 reserves in cash, Treasury bills ≤93 days, or repo on Treasuries — no commercial paper, no corporate bonds',
+          'Monthly public disclosure of reserves composition (CPA-audited)',
+          'No yield-bearing payment stablecoins allowed — this kills one of the biggest pre-GENIUS US stablecoin business models',
+          'Foreign issuers (Circle EU-issued USDC, etc.) need equivalent framework recognition to circulate in the US',
+        ] },
+        { kind: 'callout', tone: 'warn', title: 'Interaction with BitLicense and MTLs', text: "GENIUS does NOT replace the state MTL or NY BitLicense regime. A Circle or Paxos still needs both its GENIUS charter and the state-level licences. In practice the GENIUS charter becomes the 'mother licence' with state registration simplified where states recognize the federal framework." },
+        { kind: 'p', text: "Market impact visible by mid-2026: USDC has the cleanest structural fit (dual MiCA EMT + GENIUS charter). Paxos and Circle USDC Mint Europe operate cleanly on both sides. USDT remained outside GENIUS throughout 2025-2026 due to reserve composition issues." },
+      ],
+    },
+    {
+      id: 'asia-frameworks',
+      heading: 'Singapore, Hong Kong, Japan',
+      content: [
+        { kind: 'h3', text: 'Singapore — MAS SCS framework' },
+        { kind: 'p', text: "The MAS Stablecoin (SCS) framework took effect 2024. It applies to SGD-pegged and 'Group of 10' currency-pegged stablecoins. Requirements:" },
+        { kind: 'ul', items: [
+          "Minimum reserves: cash + very short-term safe assets. Similar to MiCA EMT.",
+          "Issuer must hold an MPI (Major Payment Institution) licence with Stored Value Facility permission.",
+          "3-day settlement window: any user must be able to redeem within 3 business days at par.",
+          "Monthly reserves disclosure, annual audit.",
+          "The 'Stablecoin' label is regulatory — only MAS-issued stablecoins meeting the framework can use it. Unregulated USD-pegged tokens must use a different name.",
+        ] },
+        { kind: 'h3', text: 'Hong Kong — Stablecoin Ordinance 2025' },
+        { kind: 'p', text: "HKMA's stablecoin ordinance (effective Aug 2025) requires any issuer of fiat-referenced stablecoins doing business in HK to hold a specific HKMA stablecoin licence. Reserves rules mirror MiCA EMT. Non-HK issuers need equivalent licence recognition. The ordinance triggered the rollout of HKD-pegged stablecoins for institutional settlement (notably via ASPIRe / ZA Bank pilots)." },
+        { kind: 'h3', text: 'Japan — FSA Payment Services Act' },
+        { kind: 'p', text: "Japan's FSA requires stablecoin issuers to be a licensed bank, trust company, or funds transfer service provider. Reserves: 50%+ cash, rest in highly liquid short-term assets. Issuers must use a Japanese FSA-regulated entity. Foreign stablecoins cannot circulate in Japan without a domestic issuer partner." },
+      ],
+    },
+    {
+      id: 'comparison',
+      heading: 'Side-by-side comparison',
+      content: [
+        {
+          kind: 'table',
+          headers: ['Axis', 'EU (MiCA EMT)', 'US (GENIUS)', 'Singapore (SCS)', 'Hong Kong', 'Japan'],
+          rows: [
+            ['Licence', 'EMI or credit inst.', 'OCC charter + state MTL', 'MPI + SVF', 'HKMA stablecoin licence', 'Bank / trust / FTSP'],
+            ['Reserves', '1:1 cash + HQLA', '1:1 cash + T-bills ≤ 93d', 'Cash + safe liquid', 'Cash + HQLA (MiCA-like)', '≥50% cash'],
+            ['Yield to holders', 'Prohibited', 'Prohibited', 'Allowed if licensed', 'Prohibited', 'Prohibited'],
+            ['Redemption window', 'At par, any time', 'At par, any time', '3 business days', 'At par, any time', 'Prompt'],
+            ['Foreign issuers', 'Need MiCA authorization', 'Need equivalence recognition', 'Can circulate if pegged to supported currencies', 'Need HK licence', 'Need domestic issuer partner'],
+            ['Significant-tier rules', 'Yes (ECB supervised)', 'Yes (>$10B = federal)', 'Yes (threshold-based)', 'Yes (systemic)', '—'],
+          ],
+        },
+        { kind: 'callout', tone: 'info', title: 'Convergence is real', text: "The five frameworks differ on details but converge on fundamentals: 1:1 reserves, cash + short-term safe assets, segregation, redemption at par, monthly disclosure, prohibition on interest. A stablecoin that meets MiCA EMT standards is ~90% of the way to GENIUS / MAS SCS / HK compliance." },
+      ],
+    },
+    {
+      id: 'xrpl-stablecoins',
+      heading: 'How this plays out on XRPL',
+      content: [
+        { kind: 'p', text: "XRPL's native IOU / Trust Line model is a near-ideal substrate for regulated stablecoins. An issuer account is a natural 'reserves-backed issuance point'. Trust lines give users on-chain balances that are direct claims against the issuer. The freeze, globalFreeze, and RequireAuth flags give on-chain compliance controls that ERC-20 stablecoins replicate via admin functions." },
+        { kind: 'p', text: "Reference implementation: RLUSD (Ripple's USD stablecoin) issued by Standard Custody & Trust Company, NYDFS-chartered. Launched December 2024 on XRPL Mainnet + Ethereum. MiCA EMT path: Ripple's EU entity (Ripple Labs Europe AG) positioning for EMT authorization." },
+        { kind: 'h3', text: 'Design patterns for multi-regime compliance' },
+        { kind: 'ul', items: [
+          "RequireAuth flag on the issuer account — only KYC'd addresses can hold the token. Maps cleanly to the MiCA Art. 5 suitability requirement.",
+          "Per-account freeze — selective AML holds without disrupting other holders. Maps to GENIUS freeze-on-OFAC-hit requirements.",
+          "globalFreeze — emergency brake for systemic incident. Maps to MiCA ART liquidity-management plans.",
+          "1:1 reserves held off-chain, audited monthly — same as every regime requires.",
+          "IOU balances as on-chain proof of liability — enables on-chain reserves proof with a single get_account_lines call per account.",
+        ] },
+        { kind: 'callout', tone: 'key', title: 'Why XRPL design aligns with regulation', text: "Most blockchains (Ethereum, Solana) run stablecoins as smart contracts with admin keys — freeze, mint, burn implemented in code. XRPL runs them as protocol primitives with flags built into the ledger. The regulatory controls regulators want, XRPL already has." },
+      ],
+    },
+  ],
+  relatedTerms: ['EMT', 'ART', 'MiCA', 'GENIUS Act', 'RLUSD', 'EMI', 'MAS', 'HKMA', 'Trust Line'],
+  relatedTrees: ['jurisdiction'],
+}
+
+export const LEARNING_PATHS: LearningPath[] = [MICA, XRPL_CUSTODY, HOWEY, LIECHTENSTEIN, US_CRYPTO_101, STABLECOIN_FRAMEWORKS]
 
 export function getLearningPath(id: string): LearningPath | undefined {
   return LEARNING_PATHS.find((p) => p.id === id)
