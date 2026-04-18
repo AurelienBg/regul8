@@ -19,7 +19,9 @@ export default function GlossaryPage() {
         <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200 leading-relaxed">
           {isFr ? (
             <>
-              <span className="inline-flex items-center gap-1 font-semibold">🏢 Une startup</span> détient des{' '}
+              <span className="inline-flex items-center gap-1 font-semibold">🏢 Une startup</span> émet ou manipule un{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>,{' '}
+              détient des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
               exigées par des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Régimes</span>,{' '}
@@ -31,7 +33,9 @@ export default function GlossaryPage() {
             </>
           ) : (
             <>
-              <span className="inline-flex items-center gap-1 font-semibold">🏢 A startup</span> holds{' '}
+              <span className="inline-flex items-center gap-1 font-semibold">🏢 A startup</span> issues or handles a{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>,{' '}
+              holds{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
               required by{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Regimes</span>,{' '}
@@ -45,21 +49,17 @@ export default function GlossaryPage() {
         <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
           {isFr ? (
             <>
-              Trois concepts transverses complètent le tableau : la classification du{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>{' '}
-              détermine <em>quel</em> régime s&apos;applique, l&apos;{' '}
+              L&apos;{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
-              technique (DeFi, custody, XRPL primitives…) façonne <em>comment</em> il s&apos;applique, et la{' '}
+              technique (DeFi, custody, primitives XRPL…) façonne <em>comment</em> la régulation s&apos;applique, et la{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
               juridique (Howey Test, jurisprudence) tranche les zones grises.
             </>
           ) : (
             <>
-              Three cross-cutting concepts complete the picture: the{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>{' '}
-              classification determines <em>which</em> regime applies, the technical{' '}
+              The technical{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
-              (DeFi, custody, XRPL primitives…) shapes <em>how</em> it applies, and the legal{' '}
+              (DeFi, custody, XRPL primitives…) shapes <em>how</em> regulation applies, and the legal{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
               (Howey Test, case law) settles the grey zones.
             </>

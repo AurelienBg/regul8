@@ -53,6 +53,17 @@ const nextConfig = {
         destination: '/:locale/assess',
         permanent: true,
       },
+      // /understand/paths/* → /understand/guides/* (label + URL renamed April 2026)
+      {
+        source: '/:locale(en|fr)/understand/paths',
+        destination: '/:locale/understand/guides',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/understand/paths/:path*',
+        destination: '/:locale/understand/guides/:path*',
+        permanent: true,
+      },
     ];
   },
 };

@@ -98,7 +98,7 @@ export default function LearnHubPage() {
             <span>{tr.pathsTitle}</span>
           </h2>
           <Link
-            href="/understand/paths"
+            href="/understand/guides"
             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
             {tr.seeAllPaths} &rarr;
@@ -109,7 +109,7 @@ export default function LearnHubPage() {
           {paths.map((p) => (
             <Link
               key={p.id}
-              href={`/learn/paths/${p.id}`}
+              href={`/understand/guides/${p.id}`}
               className="card hover:border-blue-500 transition-colors group"
             >
               <div className="flex items-start justify-between mb-3">

@@ -27,13 +27,13 @@ export default function LearningPathsListPage() {
     title: 'Guides',
     subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque guide est une plongée ciblée de 6 à 10 min.',
     read: 'Lire',
-    more: "Prochainement : Singapore MAS Deep-Dive, FATF Recommendations primer, KYC/AML pour startups crypto.",
+    more: "Prochainement : Singapore MAS Deep-Dive, FATF Recommendations primer, Hong Kong SFC VATP.",
   } : {
     back: 'Understand',
     title: 'Guides',
     subtitle: 'Curated reads on the core regulatory frameworks. Each guide is a focused 6-10 min read.',
     read: 'Read',
-    more: 'Coming soon: Singapore MAS Deep-Dive, FATF Recommendations primer, KYC/AML for crypto startups.',
+    more: 'Coming soon: Singapore MAS Deep-Dive, FATF Recommendations primer, Hong Kong SFC VATP.',
   };
 
   return (
@@ -51,23 +51,23 @@ export default function LearningPathsListPage() {
         </p>
       </header>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {paths.map((p) => (
           <Link
             key={p.id}
-            href={`/learn/paths/${p.id}`}
+            href={`/understand/guides/${p.id}`}
             className="card hover:border-blue-500 transition-colors group"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="text-4xl">{p.icon}</div>
-              <span className={`px-2 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wide ${levelStyles[p.level]}`}>
+            <div className="flex items-start justify-between mb-3">
+              <div className="text-3xl">{p.icon}</div>
+              <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wide ${levelStyles[p.level]}`}>
                 {isFr ? levelLabels[p.level].fr : levelLabels[p.level].en}
               </span>
             </div>
-            <h2 className="text-lg font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <h2 className="font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400">
               {p.title}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{p.subtitle}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">{p.subtitle}</p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 {p.jurisdictions?.map((j) => (
