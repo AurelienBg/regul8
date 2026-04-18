@@ -10,6 +10,7 @@ const TABS = [
   { key: 'xrpl', href: '/understand/xrpl' as const, match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL', labelFr: 'XRPL' },
   { key: 'maps', href: '/understand/maps' as const, match: (p: string) => p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
   { key: 'paths', href: '/understand/paths' as const, match: (p: string) => p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
+  { key: 'glossary', href: '/understand/glossary' as const, match: (p: string) => p.startsWith('/understand/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '📖', labelEn: 'Glossary', labelFr: 'Glossaire' },
 ];
 
 export default function UnderstandTabs() {

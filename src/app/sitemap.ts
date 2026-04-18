@@ -21,7 +21,7 @@ const ROUTES = [
   '/assess/diagnostics/xrpl-custody',
   '/assess/diagnostics/jurisdiction',
   '/search',
-  '/glossary',
+  '/understand/glossary',
   '/xrpl',
   '/wizard',
 ];

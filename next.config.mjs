@@ -41,6 +41,12 @@ const nextConfig = {
         destination: '/:locale/assess/:path*',
         permanent: true,
       },
+      // /glossary → /understand/glossary (moved into Understand hub)
+      {
+        source: '/:locale(en|fr)/glossary',
+        destination: '/:locale/understand/glossary',
+        permanent: true,
+      },
     ];
   },
 };

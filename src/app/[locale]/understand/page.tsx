@@ -244,7 +244,7 @@ export default function LearnHubPage() {
       {/* Glossary hint — clickable to /glossary (same card style as XRPL / Use cases) */}
       <section className="mt-10">
         <Link
-          href="/glossary"
+          href="/understand/glossary"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
