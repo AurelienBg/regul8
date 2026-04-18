@@ -57,7 +57,7 @@ export default function LandingPage() {
             <div aria-hidden="true" className="hidden md:block absolute top-6 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 dark:from-blue-900 dark:via-blue-800 dark:to-blue-900" />
 
             {([
-              { key: 'check', href: '/check', icon: '🎯' },
+              { key: 'check', href: '/assess', icon: '🎯' },
               { key: 'learn', href: '/understand', icon: '📚' },
               { key: 'ask', href: '/search', icon: '🤖' },
             ] as const).map((step, i) => (

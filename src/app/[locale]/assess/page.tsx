@@ -6,14 +6,14 @@ import { DECISION_TREES } from '@/data/decision-trees';
 import { DECISION_TREES_FR } from '@/data/decision-trees.fr';
 
 const USE_CASE_CHIPS_EN = [
-  { icon: '🚀', label: "I'm launching a token", href: '/understand/decision-trees/howey' },
-  { icon: '🔐', label: "I'm running custody", href: '/understand/decision-trees/xrpl-custody' },
-  { icon: '🌍', label: "I'm picking a jurisdiction", href: '/understand/decision-trees/jurisdiction' },
+  { icon: '🚀', label: "I'm launching a token", href: '/assess/diagnostics/howey' },
+  { icon: '🔐', label: "I'm running custody", href: '/assess/diagnostics/xrpl-custody' },
+  { icon: '🌍', label: "I'm picking a jurisdiction", href: '/assess/diagnostics/jurisdiction' },
 ];
 const USE_CASE_CHIPS_FR = [
-  { icon: '🚀', label: 'Je lance un token', href: '/understand/decision-trees/howey' },
-  { icon: '🔐', label: 'Je gère de la custody', href: '/understand/decision-trees/xrpl-custody' },
-  { icon: '🌍', label: 'Je choisis une juridiction', href: '/understand/decision-trees/jurisdiction' },
+  { icon: '🚀', label: 'Je lance un token', href: '/assess/diagnostics/howey' },
+  { icon: '🔐', label: 'Je gère de la custody', href: '/assess/diagnostics/xrpl-custody' },
+  { icon: '🌍', label: 'Je choisis une juridiction', href: '/assess/diagnostics/jurisdiction' },
 ];
 
 export default function CheckHubPage() {
@@ -119,7 +119,7 @@ export default function CheckHubPage() {
           {diagnostics.map((d) => (
             <Link
               key={d.id}
-              href={`/understand/decision-trees/${d.id}`}
+              href={`/assess/diagnostics/${d.id}`}
               className="card hover:border-blue-500 transition-colors group"
             >
               <div className="text-3xl mb-3">{d.icon}</div>

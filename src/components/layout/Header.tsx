@@ -31,11 +31,12 @@ export default function Header() {
       isActive: (p: string) => p.startsWith('/compare'),
     },
     {
-      href: '/check',
+      href: '/assess',
       label: t('check'),
       isActive: (p: string) =>
-        p === '/check' ||
-        p.startsWith('/check/') ||
+        p === '/assess' ||
+        p.startsWith('/assess/') ||
+        p === '/check' || p.startsWith('/check/') || // legacy during redirect window
         p.startsWith('/wizard') ||
         p.startsWith('/report'),
     },

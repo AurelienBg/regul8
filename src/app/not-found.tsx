@@ -19,7 +19,7 @@ export default function NotFound() {
             &larr; Home / Accueil
           </Link>
           <Link
-            href="/check"
+            href="/assess"
             className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-[var(--border)] text-[var(--foreground)] font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Start a check &rarr;
