@@ -25,35 +25,23 @@ export default function CheckHubPage() {
   const tr = isFr
     ? {
         title: 'Vérifier',
-        subtitle: "Diagnostics rapides — répondez à quelques questions, obtenez un verdict en 2 minutes. Pour un rapport complet multi-activités, passez par Évaluer.",
-        notSure: "Pas sûr par où commencer ?",
+        subtitle: "Diagnostics rapides — répondez à quelques questions, obtenez un verdict en 2 minutes.",
+        notSure: 'Pas sûr par où commencer ?',
         quickTitle: 'Diagnostics',
         quickDesc: 'Question précise → verdict en 2 min.',
         start: 'Démarrer',
         duration: '2 min',
         diagDisclaimer: 'Chaque diagnostic fournit des indications réglementaires générales. Pour un conseil spécifique, consultez un avocat qualifié.',
-        assessCrossTitle: "Besoin d'un rapport complet ?",
-        assessCrossDesc: "Évaluation complète multi-activités × multi-juridictions avec analyse IA. 5 minutes, un rapport détaillé.",
-        assessCrossCta: 'Lancer une évaluation complète',
-        compareCrossTitle: 'Comparer plusieurs activités ou juridictions ?',
-        compareCrossDesc: 'Allez dans Comparer pour empiler 2 à 5 activités dans une même juridiction, ou inversement.',
-        compareCrossCta: 'Ouvrir Comparer',
       }
     : {
         title: 'Check',
-        subtitle: 'Quick diagnostics — answer a handful of questions, get a verdict in 2 minutes. For a full multi-activity report, head to Assess.',
+        subtitle: 'Quick diagnostics — answer a handful of questions, get a verdict in 2 minutes.',
         notSure: 'Not sure where to start?',
         quickTitle: 'Diagnostics',
         quickDesc: 'Precise question → verdict in 2 min.',
         start: 'Start',
         duration: '2 min',
         diagDisclaimer: 'Each diagnostic gives general regulatory guidance. For specific advice, consult a qualified lawyer.',
-        assessCrossTitle: 'Need a full report?',
-        assessCrossDesc: 'Comprehensive multi-activity × multi-jurisdiction assessment with AI analysis. 5 minutes, a detailed report.',
-        assessCrossCta: 'Start a full assessment',
-        compareCrossTitle: 'Compare activities or jurisdictions?',
-        compareCrossDesc: 'Head to Compare to stack 2 to 5 activities in one jurisdiction, or vice versa.',
-        compareCrossCta: 'Open Compare',
       };
 
   return (
@@ -110,44 +98,6 @@ export default function CheckHubPage() {
         </div>
         <p className="text-center text-xs text-gray-500 mt-4 italic">{tr.diagDisclaimer}</p>
       </div>
-
-      {/* Cross-sell to /assess */}
-      <Link
-        href="/assess"
-        className="card hover:border-blue-500 transition-colors group block p-6 border-2 mb-4"
-      >
-        <div className="flex items-start gap-4">
-          <div className="text-4xl">🧙</div>
-          <div className="flex-1">
-            <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-              {tr.assessCrossTitle}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.assessCrossDesc}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {tr.assessCrossCta} &rarr;
-            </span>
-          </div>
-        </div>
-      </Link>
-
-      {/* Cross-sell to /compare */}
-      <Link
-        href="/compare"
-        className="card hover:border-blue-500 transition-colors group block p-6 border-2"
-      >
-        <div className="flex items-start gap-4">
-          <div className="text-4xl">📊</div>
-          <div className="flex-1">
-            <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-              {tr.compareCrossTitle}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.compareCrossDesc}</p>
-            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              {tr.compareCrossCta} &rarr;
-            </span>
-          </div>
-        </div>
-      </Link>
     </div>
   );
 }
