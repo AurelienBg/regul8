@@ -23,23 +23,23 @@ export default function LearningPathsListPage() {
   const isFr = locale === 'fr';
   const paths = isFr ? LEARNING_PATHS_FR : LEARNING_PATHS;
   const tr = isFr ? {
-    back: 'Apprendre',
-    title: "Parcours d'apprentissage",
-    subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque parcours est une plongée ciblée de 6 à 10 min.',
+    back: 'Comprendre',
+    title: 'Dossiers',
+    subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque dossier est une plongée ciblée de 6 à 10 min.',
     read: 'Lire',
-    more: "Prochainement : parcours Liechtenstein Fast Track, US Crypto 101, Frameworks Stablecoin.",
+    more: "Prochainement : FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.",
   } : {
-    back: 'Learn',
-    title: 'Learning Paths',
-    subtitle: 'Curated reads on the core regulatory frameworks. Each path is a focused 6-10 min dive.',
+    back: 'Understand',
+    title: 'Deep Dives',
+    subtitle: 'Curated reads on the core regulatory frameworks. Each deep dive is a focused 6-10 min read.',
     read: 'Read',
-    more: 'More paths coming soon: Liechtenstein Fast Track, US Crypto 101, Stablecoin Frameworks.',
+    more: 'Coming soon: FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.',
   };
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-2">
-        <Link href="/learn" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+        <Link href="/understand" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
           &larr; {tr.back}
         </Link>
       </div>

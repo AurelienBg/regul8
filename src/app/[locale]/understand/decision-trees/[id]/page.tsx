@@ -15,7 +15,7 @@ export default function DecisionTreePage({ params }: { params: Params }) {
     <div className="max-w-3xl mx-auto px-4 py-12">
       <div className="mb-4">
         <Link
-          href="/learn/decision-trees"
+          href="/understand/decision-trees"
           className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
         >
           &larr; {isFr ? 'Tous les arbres' : 'All trees'}

@@ -18,10 +18,12 @@ export default function Header() {
    */
   const links = [
     {
-      href: '/learn',
+      href: '/understand',
       label: t('learn'),
       isActive: (p: string) =>
-        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'), // /xrpl kept for legacy redirect
+        p === '/understand' || p.startsWith('/understand/') ||
+        p === '/learn' || p.startsWith('/learn/') || // legacy /learn paths during redirect window
+        p.startsWith('/xrpl'),
     },
     {
       href: '/compare',

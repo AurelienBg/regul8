@@ -4,13 +4,13 @@ import { useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 
 const TABS = [
-  { key: 'all', href: '/learn' as const, match: (p: string) => p === '/learn', icon: null, labelEn: 'Overview', labelFr: 'Vue d\'ensemble' },
-  { key: 'categories', href: '/learn/categories' as const, match: (p: string) => p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Categories', labelFr: 'Catégories' },
-  { key: 'usecases', href: '/learn/usecases' as const, match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
-  { key: 'xrpl', href: '/learn/xrpl' as const, match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL Hub', labelFr: 'Hub XRPL' },
-  { key: 'maps', href: '/learn/maps' as const, match: (p: string) => p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Maps', labelFr: 'Cartes' },
-  { key: 'paths', href: '/learn/paths' as const, match: (p: string) => p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Paths', labelFr: 'Parcours' },
-  { key: 'decision-trees', href: '/learn/decision-trees' as const, match: (p: string) => p.startsWith('/learn/decision-trees'), icon: '🌳', labelEn: 'Decision trees', labelFr: 'Arbres' },
+  { key: 'all', href: '/understand' as const, match: (p: string) => p === '/understand' || p === '/learn', icon: null, labelEn: 'Overview', labelFr: 'Vue d\'ensemble' },
+  { key: 'categories', href: '/understand/categories' as const, match: (p: string) => p.startsWith('/understand/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Categories', labelFr: 'Catégories' },
+  { key: 'usecases', href: '/understand/usecases' as const, match: (p: string) => p.startsWith('/understand/usecases') || p.startsWith('/understand/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
+  { key: 'xrpl', href: '/understand/xrpl' as const, match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL Hub', labelFr: 'Hub XRPL' },
+  { key: 'maps', href: '/understand/maps' as const, match: (p: string) => p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Maps', labelFr: 'Cartes' },
+  { key: 'paths', href: '/understand/paths' as const, match: (p: string) => p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Deep dives', labelFr: 'Dossiers' },
+  { key: 'decision-trees', href: '/understand/decision-trees' as const, match: (p: string) => p.startsWith('/understand/decision-trees') || p.startsWith('/learn/decision-trees'), icon: '🌳', labelEn: 'Decision trees', labelFr: 'Arbres' },
 ];
 
 export default function UnderstandTabs() {
@@ -27,7 +27,7 @@ export default function UnderstandTabs() {
             <Link
               key={t.key}
               href={t.href}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm transition-colors border-b-2 -mb-px whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm transition-colors border-b-4 -mb-px whitespace-nowrap ${
                 active
                   ? 'border-blue-500 text-blue-600 dark:text-blue-400 font-bold'
                   : 'border-transparent text-gray-600 dark:text-gray-400 font-medium hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600'

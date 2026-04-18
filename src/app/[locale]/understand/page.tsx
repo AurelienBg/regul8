@@ -104,7 +104,7 @@ export default function LearnHubPage() {
             <span>{tr.pathsTitle}</span>
           </h2>
           <Link
-            href="/learn/paths"
+            href="/understand/paths"
             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
             {tr.seeAllPaths} &rarr;
@@ -154,7 +154,7 @@ export default function LearnHubPage() {
             <span>{tr.mapsTitle}</span>
           </h2>
           <Link
-            href="/learn/maps"
+            href="/understand/maps"
             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
             {tr.seeAllMaps} &rarr;
@@ -184,7 +184,7 @@ export default function LearnHubPage() {
       {/* XRPL Deep Dive */}
       <section className="mb-6">
         <Link
-          href="/learn/xrpl"
+          href="/understand/xrpl"
           className="card hover:border-violet-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -208,7 +208,7 @@ export default function LearnHubPage() {
       {/* Use Cases */}
       <section className="mb-6">
         <Link
-          href="/learn/usecases"
+          href="/understand/usecases"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -229,7 +229,7 @@ export default function LearnHubPage() {
       {/* Categories */}
       <section className="mb-6">
         <Link
-          href="/learn/categories"
+          href="/understand/categories"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -250,7 +250,7 @@ export default function LearnHubPage() {
       {/* Decision Trees */}
       <section className="mb-10">
         <Link
-          href="/learn/decision-trees"
+          href="/understand/decision-trees"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">

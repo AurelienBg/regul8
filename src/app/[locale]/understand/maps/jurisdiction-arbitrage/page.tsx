@@ -38,7 +38,7 @@ export default function JurisdictionArbitrageMapPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-4">
-        <Link href="/learn/maps" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+        <Link href="/understand/maps" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
           &larr; {tr.back}
         </Link>
       </div>
@@ -73,7 +73,7 @@ export default function JurisdictionArbitrageMapPage() {
       <section className="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
         <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">{tr.ctaTitle}</div>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{tr.ctaBody}</p>
-        <Link href="/learn/decision-trees/jurisdiction" className="btn-primary text-sm inline-block">
+        <Link href="/understand/decision-trees/jurisdiction" className="btn-primary text-sm inline-block">
           {tr.ctaLink} &rarr;
         </Link>
       </section>

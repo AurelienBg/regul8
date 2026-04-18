@@ -4,27 +4,27 @@ import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
 const QUICK_CHECKS_EN = [
-  { id: 'howey', href: '/learn/decision-trees/howey', icon: '⚖️', title: 'Is my token a security?', duration: '2 min' },
-  { id: 'casp', href: '/learn/decision-trees/casp', icon: '🇪🇺', title: 'Do I need a CASP licence?', duration: '2 min' },
-  { id: 'xrpl-custody', href: '/learn/decision-trees/xrpl-custody', icon: '🔐', title: 'Is my XRPL custody custodial?', duration: '2 min' },
-  { id: 'jurisdiction', href: '/learn/decision-trees/jurisdiction', icon: '🌍', title: 'Which jurisdiction should I choose?', duration: '2 min' },
+  { id: 'howey', href: '/understand/decision-trees/howey', icon: '⚖️', title: 'Is my token a security?', duration: '2 min' },
+  { id: 'casp', href: '/understand/decision-trees/casp', icon: '🇪🇺', title: 'Do I need a CASP licence?', duration: '2 min' },
+  { id: 'xrpl-custody', href: '/understand/decision-trees/xrpl-custody', icon: '🔐', title: 'Is my XRPL custody custodial?', duration: '2 min' },
+  { id: 'jurisdiction', href: '/understand/decision-trees/jurisdiction', icon: '🌍', title: 'Which jurisdiction should I choose?', duration: '2 min' },
 ];
 const QUICK_CHECKS_FR = [
-  { id: 'howey', href: '/learn/decision-trees/howey', icon: '⚖️', title: 'Mon token est-il un titre financier ?', duration: '2 min' },
-  { id: 'casp', href: '/learn/decision-trees/casp', icon: '🇪🇺', title: 'Ai-je besoin d\'un agrément CASP ?', duration: '2 min' },
-  { id: 'xrpl-custody', href: '/learn/decision-trees/xrpl-custody', icon: '🔐', title: 'Ma custody XRPL est-elle custodial ?', duration: '2 min' },
-  { id: 'jurisdiction', href: '/learn/decision-trees/jurisdiction', icon: '🌍', title: 'Quelle juridiction choisir ?', duration: '2 min' },
+  { id: 'howey', href: '/understand/decision-trees/howey', icon: '⚖️', title: 'Mon token est-il un titre financier ?', duration: '2 min' },
+  { id: 'casp', href: '/understand/decision-trees/casp', icon: '🇪🇺', title: 'Ai-je besoin d\'un agrément CASP ?', duration: '2 min' },
+  { id: 'xrpl-custody', href: '/understand/decision-trees/xrpl-custody', icon: '🔐', title: 'Ma custody XRPL est-elle custodial ?', duration: '2 min' },
+  { id: 'jurisdiction', href: '/understand/decision-trees/jurisdiction', icon: '🌍', title: 'Quelle juridiction choisir ?', duration: '2 min' },
 ];
 
 const USE_CASE_CHIPS_EN = [
-  { icon: '🚀', label: "I'm launching a token", href: '/learn/decision-trees/howey' },
-  { icon: '🔐', label: "I'm running custody", href: '/learn/decision-trees/xrpl-custody' },
-  { icon: '🌍', label: "I'm picking a jurisdiction", href: '/learn/decision-trees/jurisdiction' },
+  { icon: '🚀', label: "I'm launching a token", href: '/understand/decision-trees/howey' },
+  { icon: '🔐', label: "I'm running custody", href: '/understand/decision-trees/xrpl-custody' },
+  { icon: '🌍', label: "I'm picking a jurisdiction", href: '/understand/decision-trees/jurisdiction' },
 ];
 const USE_CASE_CHIPS_FR = [
-  { icon: '🚀', label: 'Je lance un token', href: '/learn/decision-trees/howey' },
-  { icon: '🔐', label: 'Je gère de la custody', href: '/learn/decision-trees/xrpl-custody' },
-  { icon: '🌍', label: 'Je choisis une juridiction', href: '/learn/decision-trees/jurisdiction' },
+  { icon: '🚀', label: 'Je lance un token', href: '/understand/decision-trees/howey' },
+  { icon: '🔐', label: 'Je gère de la custody', href: '/understand/decision-trees/xrpl-custody' },
+  { icon: '🌍', label: 'Je choisis une juridiction', href: '/understand/decision-trees/jurisdiction' },
 ];
 
 export default function CheckHubPage() {

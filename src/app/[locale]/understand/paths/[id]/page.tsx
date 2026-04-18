@@ -44,7 +44,7 @@ export default function LearningPathPage({ params }: { params: Params }) {
   return (
     <article className="max-w-3xl mx-auto px-4 py-12">
       <div className="mb-4">
-        <Link href="/learn/paths" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+        <Link href="/understand/paths" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
           &larr; {tr.backAll}
         </Link>
       </div>

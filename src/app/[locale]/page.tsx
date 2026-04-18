@@ -58,7 +58,7 @@ export default function LandingPage() {
 
             {([
               { key: 'check', href: '/check', icon: '🎯' },
-              { key: 'learn', href: '/learn', icon: '📚' },
+              { key: 'learn', href: '/understand', icon: '📚' },
               { key: 'ask', href: '/search', icon: '🤖' },
             ] as const).map((step, i) => (
               <Link
