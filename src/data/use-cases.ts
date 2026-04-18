@@ -199,6 +199,102 @@ export const USE_CASES: UseCase[] = [
     },
     since: '2014',
   },
+  // ---- XRPL ecosystem ----
+  {
+    id: 'uphold',
+    company: 'Uphold',
+    logo: '🔼',
+    website: 'https://uphold.com',
+    tag: 'exchange',
+    licences: [
+      { jur: 'us', name: 'FinCEN MSB + State MTLs' },
+      { jur: 'uk', name: 'FCA Cryptoasset registration' },
+      { jur: 'eu', name: 'Lithuania VASP (VASPI) — EU expansion pre-MiCA' },
+    ],
+    useCase: {
+      en: 'Multi-asset trading platform. XRPL-native since launch (2015) and a long-standing ODL corridor partner of Ripple. Regulated across US, UK, and EU, with mid-2020s transition to full MiCA CASP authorisation.',
+      fr: "Plateforme de trading multi-actifs. Native XRPL depuis son lancement (2015) et partenaire historique d'ODL avec Ripple. Régulée aux US, UK et UE, avec une transition en cours vers l'agrément MiCA CASP complet.",
+    },
+    since: '2015',
+  },
+  {
+    id: 'bitstamp',
+    company: 'Bitstamp',
+    logo: '🟢',
+    website: 'https://www.bitstamp.net',
+    tag: 'exchange',
+    licences: [
+      { jur: 'eu', name: 'Luxembourg CSSF PFS + MiCA CASP (Bitstamp Europe)' },
+      { jur: 'uk', name: 'FCA Cryptoasset registration' },
+      { jur: 'us', name: 'FinCEN MSB + NY BitLicense' },
+    ],
+    useCase: {
+      en: 'One of the oldest crypto exchanges (since 2011). XRPL-native BTC/XRP trading pair and a historic Ripple ODL settlement partner. Acquired by Robinhood in 2024 (€200M deal) to anchor its EU MiCA presence.',
+      fr: "Une des plus anciennes plateformes crypto (depuis 2011). Paire BTC/XRP native XRPL et partenaire historique de règlement ODL avec Ripple. Rachetée par Robinhood en 2024 (200M€) pour ancrer sa présence MiCA UE.",
+    },
+    since: '2011',
+  },
+  {
+    id: 'gatehub',
+    company: 'GateHub',
+    logo: '🚪',
+    website: 'https://gatehub.net',
+    tag: 'custody',
+    licences: [
+      { jur: 'eu', name: 'Slovenia VASP (Office for Money Laundering Prevention)' },
+    ],
+    useCase: {
+      en: 'XRPL-native wallet and exchange since 2014. One of the earliest implementers of the XRPL IOU / Trust Line model for issuing stablecoins and fiat-backed tokens. Slovenia-based; rebuilt KYC/AML stack after the 2019 breach.',
+      fr: "Wallet et plateforme XRPL-native depuis 2014. Un des premiers à implémenter le modèle IOU / Trust Line XRPL pour émettre stablecoins et tokens adossés fiat. Basé en Slovénie ; stack KYC/AML reconstruite après la brèche de 2019.",
+    },
+    since: '2014',
+  },
+  {
+    id: 'archax',
+    company: 'Archax',
+    logo: '📈',
+    website: 'https://archax.com',
+    tag: 'rwa',
+    licences: [
+      { jur: 'uk', name: 'FCA Authorised MTF + Custodian + Brokerage (first UK regulated digital securities exchange, 2020)' },
+    ],
+    useCase: {
+      en: 'First UK FCA-authorised digital securities exchange (2020) — fully regulated under the MiFID-style regime, not just the crypto register. Tokenises traditional funds and uses XRPL for RWA settlement. Major Ripple partner targeting $1B+ in tokenised assets on XRPL by mid-2026.',
+      fr: "Première bourse de titres numériques agréée FCA au UK (2020) — pleinement régulée sous le régime MiFID-like, pas seulement l'enregistrement crypto. Tokenise fonds traditionnels et utilise XRPL pour le règlement RWA. Partenaire majeur de Ripple visant plus d'1Md$ d'actifs tokenisés sur XRPL d'ici mi-2026.",
+    },
+    since: '2018',
+  },
+  {
+    id: 'ripple-custody',
+    company: 'Ripple Custody (Metaco + Palisade)',
+    logo: '🔐',
+    website: 'https://ripple.com/solutions/custody/',
+    tag: 'custody',
+    licences: [
+      { jur: 'ch', name: 'FINMA DLT framework (via Metaco, acquired May 2023, $250M)' },
+      { jur: 'eu', name: 'France PSAN / MiCA CASP path (via Palisade, acquired Nov 2025)' },
+    ],
+    useCase: {
+      en: "Ripple's institutional custody stack, built from two acquisitions. Metaco (Swiss-based, acquired 2023) provides bank-grade custody technology used by Citi, BNP Paribas and Société Générale Forge. Palisade (acquired Nov 2025) adds a France-licensed MPC wallet-as-a-service with native XRPL, Ethereum and Solana support — targeted at fintechs and crypto-native firms.",
+      fr: "Stack custody institutionnelle de Ripple, bâtie sur deux acquisitions. Metaco (Suisse, acquis 2023) fournit la techno custody de niveau bancaire utilisée par Citi, BNP Paribas et Société Générale Forge. Palisade (acquis nov 2025) ajoute un service MPC wallet-as-a-service licencié en France avec support natif XRPL, Ethereum et Solana — ciblé sur les fintechs et acteurs crypto-natifs.",
+    },
+    since: '2023',
+  },
+  {
+    id: 'futureverse',
+    company: 'Futureverse (Root Network)',
+    logo: '🎮',
+    website: 'https://www.futureverse.com',
+    tag: 'dapp',
+    licences: [
+      { jur: 'us', name: 'Operating entity — Delaware C-corp, consumer-facing gaming (no regulated financial activity)' },
+    ],
+    useCase: {
+      en: "AI + metaverse infrastructure company behind The Root Network, an XRPL-EVM-sidechain-style chain optimised for gaming and metaverse experiences. $54M Series A in 2023 led by 10T Holdings with Ripple participation. Not a regulated financial entity — pure tech/gaming play.",
+      fr: "Infrastructure IA + metaverse derrière The Root Network, une chaîne type sidechain-EVM XRPL optimisée pour le gaming et les expériences metaverse. 54M$ Série A en 2023 menée par 10T Holdings avec participation de Ripple. Pas d'entité financière régulée — pur tech/gaming.",
+    },
+    since: '2022',
+  },
 ];
 
 export function getUseCasesByTag(tag: UseCaseTag | 'all'): UseCase[] {
