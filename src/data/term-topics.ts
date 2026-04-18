@@ -1,0 +1,117 @@
+/**
+ * Central term → topic classification.
+ * Used both by the glossary page (for filtering + pills) and by LinkedText
+ * (to color-code underlines based on topic).
+ */
+
+export type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
+
+export const TERM_TOPICS: Record<string, Topic> = {
+  // 🪪 Licences
+  CASP: 'licence', DASP: 'licence', PSAN: 'licence', EMI: 'licence',
+  MSB: 'licence', MTL: 'licence', BitLicense: 'licence', VASP: 'licence',
+
+  // 📜 Regimes / laws / frameworks
+  MiCA: 'regime', 'DLT Pilot Regime': 'regime', JONUM: 'regime',
+  'Prospectus Regulation': 'regime', 'MiFID II': 'regime', PSD2: 'regime', PSD3: 'regime',
+  BSA: 'regime', TVTG: 'regime', AMLO: 'regime', CASS: 'regime', AMLA: 'regime',
+  SREN: 'regime',
+
+  // ✅ Obligations / compliance duties
+  AML: 'obligation', CFT: 'obligation', KYC: 'obligation', KYB: 'obligation',
+  'Travel Rule': 'obligation', SAR: 'obligation',
+
+  // 🪙 Token types
+  EMT: 'token', ART: 'token', 'S-EMT': 'token', 'S-ART': 'token',
+  STO: 'token', ICO: 'token', ITO: 'token', RWA: 'token', NFT: 'token',
+  DPT: 'token', RLUSD: 'token', MPT: 'token',
+
+  // 🏛️ Regulators / supervisory bodies
+  AMF: 'regulator', ESMA: 'regulator', NCA: 'regulator', ANJ: 'regulator',
+  FinCEN: 'regulator', OFAC: 'regulator',
+  FATF: 'regulator', FINMA: 'regulator', VQF: 'regulator', SRO: 'regulator',
+  MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
+  FCA: 'regulator', VARA: 'regulator',
+
+  // 💡 Concepts / rulings
+  'Howey Test': 'concept',
+
+  // 🔧 Infrastructure / tech
+  TradFi: 'infra', CeFi: 'infra', DeFi: 'infra', DAO: 'infra',
+  'Smart Contract': 'infra', DLT: 'infra',
+  'Trust Line': 'infra', IOU: 'infra', Escrow: 'infra', 'Payment Channel': 'infra',
+  'XLS-20': 'infra', 'XLS-33': 'infra', AMM: 'infra', SignerList: 'infra',
+  'Regular Key': 'infra', MPC: 'infra', TSS: 'infra',
+  rippling: 'infra', freeze: 'infra', globalFreeze: 'infra',
+  RequireAuth: 'infra', lsfLocked: 'infra',
+};
+
+/** CSS classes for each topic. Used in glossary pills + LinkedText underlines. */
+export const TOPIC_META: Record<Topic, {
+  icon: string;
+  labelEn: string;
+  labelFr: string;
+  /** Pill bg + text used in glossary cards / legend. */
+  pillClass: string;
+  /** Dotted underline color for LinkedText. */
+  underline: string;
+  /** Hover text color for LinkedText. */
+  hoverText: string;
+}> = {
+  licence: {
+    icon: '🪪',
+    labelEn: 'Licence',
+    labelFr: 'Licence',
+    pillClass: 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-200',
+    underline: 'decoration-violet-500',
+    hoverText: 'hover:text-violet-700 dark:hover:text-violet-300',
+  },
+  regime: {
+    icon: '📜',
+    labelEn: 'Regime',
+    labelFr: 'Régime',
+    pillClass: 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200',
+    underline: 'decoration-sky-500',
+    hoverText: 'hover:text-sky-700 dark:hover:text-sky-300',
+  },
+  obligation: {
+    icon: '✅',
+    labelEn: 'Obligation',
+    labelFr: 'Obligation',
+    pillClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+    underline: 'decoration-emerald-500',
+    hoverText: 'hover:text-emerald-700 dark:hover:text-emerald-300',
+  },
+  token: {
+    icon: '🪙',
+    labelEn: 'Token type',
+    labelFr: 'Type de token',
+    pillClass: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
+    underline: 'decoration-amber-500',
+    hoverText: 'hover:text-amber-700 dark:hover:text-amber-300',
+  },
+  regulator: {
+    icon: '🏛️',
+    labelEn: 'Regulator',
+    labelFr: 'Régulateur',
+    pillClass: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200',
+    underline: 'decoration-rose-500',
+    hoverText: 'hover:text-rose-700 dark:hover:text-rose-300',
+  },
+  concept: {
+    icon: '💡',
+    labelEn: 'Concept',
+    labelFr: 'Concept',
+    pillClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
+    underline: 'decoration-indigo-500',
+    hoverText: 'hover:text-indigo-700 dark:hover:text-indigo-300',
+  },
+  infra: {
+    icon: '🔧',
+    labelEn: 'Infrastructure',
+    labelFr: 'Infrastructure',
+    pillClass: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
+    underline: 'decoration-gray-500',
+    hoverText: 'hover:text-gray-800 dark:hover:text-gray-200',
+  },
+};
