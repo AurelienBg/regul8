@@ -58,8 +58,6 @@ export default function ComparePage() {
     subtitle: 'Deux modes : plusieurs activités dans une juridiction, ou plusieurs juridictions pour une activité.',
     modeActivities: "Comparer activités",
     modeJurisdictions: "Comparer juridictions",
-    modeActivitiesDesc: "Choisissez une juridiction et 2 à 5 activités. Voyez toutes les obligations côte à côte.",
-    modeJurisdictionsDesc: "Choisissez une activité et 2 à 5 juridictions. Comparez les régimes, coûts et délais.",
     jurisdiction: 'Juridiction',
     activity: 'Activité',
     activities: 'Activités',
@@ -89,8 +87,6 @@ export default function ComparePage() {
     subtitle: 'Two modes: multiple activities in one jurisdiction, or multiple jurisdictions for one activity.',
     modeActivities: 'Compare activities',
     modeJurisdictions: 'Compare jurisdictions',
-    modeActivitiesDesc: 'Pick one jurisdiction and 2–5 activities. See all obligations side-by-side.',
-    modeJurisdictionsDesc: 'Pick one activity and 2–5 jurisdictions. Compare regimes, costs and timelines.',
     jurisdiction: 'Jurisdiction',
     activity: 'Activity',
     activities: 'Activities',
@@ -206,7 +202,13 @@ export default function ComparePage() {
 
       {mode === 'activities' ? (
         <>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{tr.modeActivitiesDesc}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            {isFr ? (
+              <>Choisissez <strong>1 juridiction</strong> et sélectionnez 2 à 5 activités. Voyez toutes les obligations côte à côte.</>
+            ) : (
+              <>Pick <strong>1 jurisdiction</strong> and select 2–5 activities. See all obligations side-by-side.</>
+            )}
+          </p>
 
           {/* Jurisdiction picker */}
           <section className="mb-6">
@@ -396,7 +398,13 @@ export default function ComparePage() {
         // MODE 2: Jurisdictions × 1 activity
         // ============================================================
         <>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{tr.modeJurisdictionsDesc}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+            {isFr ? (
+              <>Choisissez <strong>1 activité</strong> et sélectionnez 2 à 5 juridictions. Voyez toutes les obligations côte à côte.</>
+            ) : (
+              <>Pick <strong>1 activity</strong> and select 2–5 jurisdictions. See all obligations side-by-side.</>
+            )}
+          </p>
 
           {/* Activity picker (single select) */}
           <section className="mb-6">

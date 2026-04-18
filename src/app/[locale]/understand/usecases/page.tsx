@@ -103,17 +103,17 @@ export default function UseCasesPage() {
                   </div>
                   {c.since && <div className="text-xs text-gray-500 mt-0.5">{tr.since} {c.since}</div>}
                 </td>
-                <td className="p-3 align-top text-xs text-gray-700 dark:text-gray-300 max-w-md">
+                <td className="p-3 align-top text-sm text-gray-700 dark:text-gray-300 max-w-md leading-relaxed">
                   <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
                 </td>
                 <td className="p-3 align-top">
                   <ul className="space-y-1.5">
                     {c.licences.map((l, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs">
+                      <li key={i} className="flex items-start gap-2 text-sm">
                         <span className="text-base leading-none flex-shrink-0" title={JURISDICTIONS[l.jur]?.name}>
                           {JURISDICTIONS[l.jur]?.flag}
                         </span>
-                        <span className="inline-block px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
+                        <span className="inline-block px-2 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
                           <LinkedText>{l.name}</LinkedText>
                         </span>
                       </li>

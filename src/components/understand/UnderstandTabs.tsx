@@ -11,6 +11,7 @@ const TABS = [
   { key: 'maps', href: '/understand/maps' as const, match: (p: string) => p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
   { key: 'paths', href: '/understand/paths' as const, match: (p: string) => p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
   { key: 'glossary', href: '/understand/glossary' as const, match: (p: string) => p.startsWith('/understand/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '📖', labelEn: 'Glossary', labelFr: 'Glossaire' },
+  { key: 'faq', href: '/understand/faq' as const, match: (p: string) => p.startsWith('/understand/faq'), icon: '❓', labelEn: 'FAQ', labelFr: 'FAQ' },
 ];
 
 export default function UnderstandTabs() {

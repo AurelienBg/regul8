@@ -2,12 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLocale } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { matchFaq } from '@/data/faq';
+import { matchGlossaryQuery } from '@/data/glossary';
+import type { GlossaryTerm } from '@/types';
+import { TERM_TOPICS, TOPIC_META } from '@/data/term-topics';
 
 interface Props {
   open: boolean;
   onClose: () => void;
+}
+
+type AnswerSource = 'faq' | 'glossary' | 'ai' | null;
+
+function slugify(term: string) {
+  return term.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
 /**
@@ -19,6 +30,8 @@ export default function AskDrawer({ open, onClose }: Props) {
   const isFr = locale === 'fr';
   const [query, setQuery] = useState('');
   const [response, setResponse] = useState('');
+  const [source, setSource] = useState<AnswerSource>(null);
+  const [glossaryMatch, setGlossaryMatch] = useState<GlossaryTerm | null>(null);
   const [loading, setLoading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -31,6 +44,10 @@ export default function AskDrawer({ open, onClose }: Props) {
         thinking: 'Analyse en cours…',
         askAnother: 'Nouvelle question',
         close: 'Fermer',
+        fromFaq: 'Réponse du socle de connaissances',
+        fromGlossary: 'Réponse du glossaire (instantanée)',
+        viewInGlossary: 'Voir la fiche complète dans le glossaire',
+        related: 'Termes liés',
         disclaimer: 'Information générale uniquement. Pour votre situation spécifique, consultez un avocat qualifié.',
       }
     : {
@@ -40,6 +57,10 @@ export default function AskDrawer({ open, onClose }: Props) {
         thinking: 'Thinking…',
         askAnother: 'Ask another',
         close: 'Close',
+        fromFaq: 'Answer from knowledge base',
+        fromGlossary: 'Answer from glossary (instant)',
+        viewInGlossary: 'View full entry in glossary',
+        related: 'Related',
         disclaimer: 'General information only. For your specific situation, consult a qualified lawyer.',
       };
 
@@ -80,14 +101,38 @@ export default function AskDrawer({ open, onClose }: Props) {
     abortRef.current?.abort();
     setQuery('');
     setResponse('');
+    setSource(null);
+    setGlossaryMatch(null);
     setLoading(false);
     setTimeout(() => inputRef.current?.focus(), 50);
   };
 
   const handleSearch = async (q: string) => {
     if (!q.trim()) return;
+    setQuery(q);
     setResponse('');
+    setGlossaryMatch(null);
+    setSource(null);
+
+    // 1) Try FAQ first — instant, no API call
+    const faq = matchFaq(q);
+    if (faq) {
+      setResponse(isFr ? faq.answer.fr : faq.answer.en);
+      setSource('faq');
+      return;
+    }
+
+    // 2) Try glossary — instant, no API call
+    const term = matchGlossaryQuery(q);
+    if (term) {
+      setGlossaryMatch(term);
+      setSource('glossary');
+      return;
+    }
+
+    // 3) Fallback to AI streaming
     setLoading(true);
+    setSource('ai');
 
     abortRef.current?.abort();
     const controller = new AbortController();
@@ -214,9 +259,61 @@ export default function AskDrawer({ open, onClose }: Props) {
             </div>
           )}
 
-          {/* Response */}
+          {/* Glossary match card — instant, no AI */}
+          {glossaryMatch && (() => {
+            const topic = TERM_TOPICS[glossaryMatch.term];
+            const topicMeta = topic ? TOPIC_META[topic] : null;
+            const def = isFr && glossaryMatch.definitionFr ? glossaryMatch.definitionFr : glossaryMatch.definition;
+            const slug = slugify(glossaryMatch.term);
+            return (
+              <div className="card mb-4">
+                <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                  <span>📖</span>
+                  <span>{tr.fromGlossary}</span>
+                </div>
+                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                  <h3 className="font-bold text-lg text-blue-600 dark:text-blue-400">{glossaryMatch.term}</h3>
+                  {topicMeta && (
+                    <span className={`px-2 py-0.5 rounded text-xs font-semibold ${topicMeta.pillClass}`}>
+                      {topicMeta.icon} {isFr ? topicMeta.labelFr : topicMeta.labelEn}
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">{def}</p>
+                {glossaryMatch.relatedTerms && glossaryMatch.relatedTerms.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                    <span className="text-xs text-gray-500">{tr.related}:</span>
+                    {glossaryMatch.relatedTerms.map((rt) => (
+                      <button
+                        key={rt}
+                        onClick={() => handleSearch(isFr ? `c'est quoi ${rt}` : `what is ${rt}`)}
+                        className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors cursor-pointer"
+                      >
+                        {rt}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <Link
+                  href={`/understand/glossary#term-${slug}`}
+                  onClick={onClose}
+                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {tr.viewInGlossary} &rarr;
+                </Link>
+              </div>
+            );
+          })()}
+
+          {/* Response — from FAQ or AI */}
           {response && (
             <div className="card mb-4">
+              {source === 'faq' && (
+                <div className="mb-3 inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                  <span>📚</span>
+                  <span>{tr.fromFaq}</span>
+                </div>
+              )}
               <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
@@ -245,7 +342,7 @@ export default function AskDrawer({ open, onClose }: Props) {
             </div>
           )}
 
-          {response && !loading && (
+          {(response || glossaryMatch) && !loading && (
             <button
               onClick={handleReset}
               className="text-sm text-blue-600 dark:text-blue-400 hover:underline"

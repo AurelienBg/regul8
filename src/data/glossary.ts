@@ -1,5 +1,55 @@
 import type { GlossaryTerm } from '@/types';
 
+/**
+ * Match a free-form user query against the glossary for instant definition
+ * lookups. Strips common "what is X / define X / c'est quoi X" wrappers,
+ * then looks for an exact case-insensitive term match. Returns null when
+ * no term matches — AskDrawer falls back to the AI in that case.
+ */
+export function matchGlossaryQuery(query: string): GlossaryTerm | null {
+  // Normalise: lowercase, strip punctuation, collapse whitespace
+  let q = query.toLowerCase().replace(/[?.!,;:"'`]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!q) return null;
+
+  // Strip common question-wrapping phrases (EN + FR)
+  const prefixRegexes = [
+    /^what\s+(is|are|does|s)\s+(a|an|the)\s+/i,
+    /^what\s+(is|are|does|s)\s+/i,
+    /^define\s+(a|an|the)\s+/i,
+    /^define\s+/i,
+    /^definition\s+of\s+(a|an|the)\s+/i,
+    /^definition\s+of\s+/i,
+    /^meaning\s+of\s+(a|an|the)\s+/i,
+    /^meaning\s+of\s+/i,
+    /^explain\s+(a|an|the)\s+/i,
+    /^explain\s+/i,
+    /^c\s?est\s+quoi\s+(un|une|le|la|les|l)\s+/i,
+    /^c\s?est\s+quoi\s+/i,
+    /^qu\s?est[- ]ce\s+que\s+(un|une|le|la|les|l)\s+/i,
+    /^qu\s?est[- ]ce\s+que\s+/i,
+    /^qu\s?est[- ]ce\s+qu\s+/i,
+    /^definis\s+/i,
+    /^définis\s+/i,
+  ];
+  for (const re of prefixRegexes) {
+    const next = q.replace(re, '').trim();
+    if (next !== q) {
+      q = next;
+      break;
+    }
+  }
+
+  // Strip common trailing phrases
+  q = q
+    .replace(/\s+(mean|means|meaning|signifie|signification|définition|definition)$/i, '')
+    .trim();
+
+  if (!q) return null;
+
+  // Case-insensitive exact match on term name
+  return GLOSSARY_TERMS.find((t) => t.term.toLowerCase() === q) ?? null;
+}
+
 export const GLOSSARY_TERMS: GlossaryTerm[] = [
   // ── EU Regulation ──
   { term: "MiCA",
