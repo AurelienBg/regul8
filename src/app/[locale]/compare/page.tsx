@@ -8,6 +8,7 @@ import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
 import EmergingBadge from '@/components/ui/EmergingBadge';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
+import RegimeLegend from '@/components/report/RegimeLegend';
 
 const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
   exchange: 'Exchange / Trading',
@@ -175,6 +176,9 @@ export default function CompareActivitiesPage() {
           })}
         </div>
       </section>
+
+      {/* Legend — same as /report, collapsed by default */}
+      {rows.length >= 2 && <RegimeLegend defaultOpen={false} />}
 
       {/* Comparison table */}
       {rows.length < 2 ? (

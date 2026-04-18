@@ -5,16 +5,20 @@ import { useLocale } from 'next-intl';
 import { REGIME_TYPE_META } from '@/lib/regime-parser';
 import type { RegimeItemType } from '@/types';
 
+interface RegimeLegendProps {
+  /** Whether the legend starts open. Defaults to true on /report, false on /compare. */
+  defaultOpen?: boolean;
+}
+
 /**
  * Collapsible legend that explains the difference between Law / Licence
- * framework / Ruling / Authority on the /report page. Helps users who
- * are confused by seeing laws and licence frameworks mixed in the Regime
- * field.
+ * framework / Ruling / Authority. Helps users who are confused by seeing
+ * laws and licence frameworks mixed in the Regime field.
  */
-export default function RegimeLegend() {
+export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(defaultOpen);
 
   const tr = isFr
     ? {
