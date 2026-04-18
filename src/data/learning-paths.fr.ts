@@ -988,7 +988,132 @@ const DUBAI_VARA: LearningPath = {
   relatedTrees: ['jurisdiction'],
 }
 
-export const LEARNING_PATHS_FR: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN, TRAVEL_RULE, TOKENISED_RWA, DUBAI_VARA]
+const KYC_AML_STARTUP: LearningPath = {
+  id: 'kyc-aml-for-startups',
+  icon: '🛂',
+  title: 'KYC / AML pour les startups crypto',
+  subtitle: "La stack de conformité AML que toute startup crypto régulée doit construire — CIP, KYC par paliers, screening des sanctions, workflow SAR, et le paysage des vendors.",
+  duration: '10 min de lecture',
+  level: 'intermediate',
+  jurisdictions: ['eu', 'us', 'sg', 'uk'],
+  sections: [
+    {
+      id: 'why-kyc-aml',
+      heading: 'Pourquoi le KYC / AML est non négociable',
+      content: [
+        { kind: 'p', text: "De toutes les obligations qui pèsent sur une startup crypto régulée, le KYC/AML est la plus appliquée au monde. Les retraits de licence, les renvois au pénal et les plus grosses amendes de l'histoire crypto (Binance 4,3 Md$, BitMEX 100 M$) ont été déclenchés par des défaillances AML — pas par des erreurs de classification de jetons, pas par des trous de custody. En général, le régulateur ne s'intéresse pas à savoir si votre jeton est parfaitement classifié ; il regarde si votre stack AML attrape les mauvais acteurs." },
+        { kind: 'p', text: "La bonne nouvelle pour les fondateurs : contrairement aux zones grises de classification de jetons, le KYC/AML est un problème résolu. Le playbook de conformité est mature, les vendors sont éprouvés, et les attentes réglementaires sont documentées. Ce que les startups sous-estiment, c'est le coût opérationnel — faire tourner un programme AML ressemble davantage à gérer une équipe d'ingénierie qu'à un processus juridique." },
+        { kind: 'callout', tone: 'key', title: "Pourquoi c'est important pour votre startup", text: "Dès le jour 1 d'exploitation, votre programme AML doit être opérationnel. Aucune exception. Les régulateurs le testeront en audit. Un seul SAR manqué ou un match OFAC raté peut déclencher un retrait de licence. Budget : 150–400 K$/an pour une vraie stack de conformité + un Chief Compliance Officer qualifié." },
+      ],
+    },
+    {
+      id: 'what-is-in-stack',
+      heading: 'Les 5 composants d\'une stack AML',
+      content: [
+        { kind: 'p', text: "Un programme AML conforme comporte 5 couches opérationnelles. Chacune correspond à une attente du régulateur, et chacune se traduit généralement par une relation vendor." },
+        { kind: 'h3', text: '1. Customer Identification Programme (CIP)' },
+        { kind: 'p', text: "Aussi appelé KYC. À l'onboarding, vous identifiez qui est le client. Pour les personnes physiques : nom légal complet, date de naissance, adresse de résidence, pièce d'identité nationale, selfie / liveness check. Pour les personnes morales (KYB) : entité légale, adresse du siège, bénéficiaires effectifs ultimes, documents d'incorporation." },
+        { kind: 'h3', text: '2. Customer Due Diligence (CDD) + Enhanced Due Diligence (EDD)' },
+        { kind: 'p', text: "Après l'identification, vous évaluez le risque. Due diligence standard : listes de sanctions + listes PEP + adverse media. Enhanced due diligence pour les cas à haut risque (PEP, montant élevé, origine dans une juridiction à haut risque) : preuve de l'origine des fonds approfondie, traçage des bénéficiaires effectifs." },
+        { kind: 'h3', text: '3. Monitoring des transactions' },
+        { kind: 'p', text: "Chaque transaction est analysée pour détecter des schémas : structuring (multiples petites transactions sous les seuils de déclaration), layering (transferts rapides entre wallets/chaînes), vélocité inhabituelle, exposition à des mixers/tumblers, sanctions sur la contrepartie. Des systèmes basés sur du machine learning signalent l'activité suspecte en temps réel." },
+        { kind: 'h3', text: '4. Screening des sanctions' },
+        { kind: 'p', text: "À l'onboarding ET à chaque transaction, les clients et contreparties sont filtrés contre la liste OFAC SDN (US), la EU Consolidated List, la UK OFSI, les sanctions ONU. Spécificité crypto : screening des adresses de wallet contre les adresses liées à la liste SDN de l'OFAC. Les faux positifs (similarités de noms) sont la principale douleur opérationnelle." },
+        { kind: 'h3', text: '5. Suspicious Activity Reporting (SAR)' },
+        { kind: 'p', text: "Quand quelque chose est signalé, un SAR / STR (Déclaration de Soupçon) doit être déposé auprès de la cellule de renseignement financier (FinCEN aux US, Tracfin en France, NCA au UK, MAS STRO à Singapour). Les délais sont stricts (typiquement dans les 30 jours suivant la détection). Les SAR manqués ou erronés sont critiques en audit." },
+        { kind: 'callout', tone: 'info', title: 'La Travel Rule est une 6ᵉ couche', text: "Si vous envoyez de la crypto au-dessus du seuil de la juridiction, vous devez aussi transmettre les données émetteur + bénéficiaire (GAFI R.16). Voir le guide FATF Travel Rule pour le détail complet — le format IVMS 101 + les vendors (Notabene, Sumsub) chevauchent la stack de screening sanctions que vous bâtissez pour les 5 autres couches." },
+      ],
+    },
+    {
+      id: 'tiered-kyc',
+      heading: 'KYC par paliers — le pattern pragmatique',
+      content: [
+        { kind: 'p', text: "Un KYC complet sur chaque utilisateur est coûteux (temps, drop-off, coût vendor). Le KYC par paliers applique une vérification minimale à l'inscription et se durcit à mesure que l'utilisateur transacte davantage. C'est la norme dans l'onboarding crypto régulé." },
+        {
+          kind: 'table',
+          headers: ['Niveau', 'Seuil', 'Vérification', 'Drop-off typique'],
+          rows: [
+            ['Niveau 0 (non vérifié)', '€0 transigé', 'Email + téléphone uniquement', '5-10%'],
+            ['Niveau 1 (KYC léger)', '< €1 000 / mois', "Pièce d'identité + selfie / liveness", '15-25%'],
+            ['Niveau 2 (KYC complet)', '€1 000–10 000 / mois', 'CIP complet + justificatif de domicile', '10-20%'],
+            ['Niveau 3 (EDD)', '> €10 000 / mois, juri à haut risque, PEP', 'Origine des fonds, bénéficiaires effectifs, entretien', '30-50%'],
+          ],
+        },
+        { kind: 'p', text: "Les seuils ci-dessus s'alignent grossièrement sur l'art. 73 de MiCA + les orientations d'AMLD6. Les seuils MSB / BitLicense américains sont plus stricts — beaucoup de plateformes US exigent un KYC complet dès le premier dollar. Le seuil FATF Travel Rule (€1K en UE, $3K aux US) sert généralement de déclencheur d'« escalade de palier »." },
+        { kind: 'callout', tone: 'warn', title: 'La Simplified Due Diligence (SDD) se rétrécit', text: "AMLD6 (effective en juillet 2027 dans l'UE) restreint les cas où un KYC simplifié est autorisé. En crypto, la SDD est en voie de disparition — partez du principe qu'un CIP complet sera requis pour tout le monde d'ici 2028." },
+      ],
+    },
+    {
+      id: 'vendor-landscape',
+      heading: 'Le paysage des vendors — qui fait quoi',
+      content: [
+        { kind: 'p', text: "Personne ne construit une stack KYC/AML moderne à partir de zéro. L'écosystème est spécialisé et les vendors sont matures." },
+        { kind: 'h3', text: 'KYC / identité (onboarding)' },
+        { kind: 'ul', items: [
+          "Sumsub — tout-en-un (ID, liveness, sanctions, Travel Rule). Dominant dans la crypto en UE. ~€1-2 par KYC complet.",
+          "Onfido — fondé au UK, forte couverture documentaire (>1 200 types d'ID). Utilisé par Revolut, Coinbase UK.",
+          "Veriff — estonien, fort dans les pays baltes / EE / UE. Bon pricing pour les startups early-stage.",
+          "Persona — basé aux US, API developer-friendly, flows flexibles. Populaire chez les startups Web3.",
+        ] },
+        { kind: 'h3', text: 'Sanctions + PEP + adverse media' },
+        { kind: 'ul', items: [
+          "Refinitiv World-Check — le gold standard, utilisé par les banques. Coûteux (50-200 K$/an minimum).",
+          "Dow Jones Risk & Compliance — concurrent de Refinitiv.",
+          "ComplyAdvantage — alternative moderne API-first, plus abordable, fort en adverse media. Populaire chez les fintechs.",
+          "Sumsub sanctions — intégré dans leur stack KYC.",
+        ] },
+        { kind: 'h3', text: 'Analytics on-chain (monitoring des transactions + screening de wallets)' },
+        { kind: 'ul', items: [
+          "Chainalysis KYT + Reactor — la plateforme dominante d'analytics on-chain + investigations. Utilisée par les exchanges, FinCEN, Europol.",
+          "Elliptic Navigator + Lens — solide concurrent, surtout en UE.",
+          "TRM Labs — en forte croissance, meilleure couverture des chaînes récentes. Supporte XRPL.",
+          "Merkle Science — focalisé APAC, bon pour les exchanges asiatiques.",
+        ] },
+        { kind: 'h3', text: 'Logiciels de dépôt SAR / STR' },
+        { kind: 'ul', items: [
+          "La plupart des régulateurs offrent un portail de dépôt direct (FinCEN E-File, Tracfin ERMES, UK NCA SAR Online).",
+          "Les OS de conformité (Sumsub, Unit21, Hawk:AI) agrègent la génération + le dépôt SAR dans un workflow unique.",
+        ] },
+        { kind: 'callout', tone: 'info', title: 'Check budgétaire réaliste de la stack', text: "Une stack vendor AML année 1 réaliste pour une startup CASP UE régulée : Sumsub (KYC + Travel Rule) €30-60K + ComplyAdvantage (sanctions) €20-40K + Chainalysis KYT €40-100K + logiciel d'ops conformité (Unit21 / Hawk:AI) €30-60K. Total : €120-260K/an en fees vendors. Plus le salaire du CCO à €150-250K." },
+      ],
+    },
+    {
+      id: 'cco-role',
+      heading: 'Le rôle du Chief Compliance Officer (CCO)',
+      content: [
+        { kind: 'p', text: "Dans toute juridiction sous licence, vous devez nommer un individu sénior responsable du programme AML. Les régulateurs utilisent des titres différents (MLRO au UK, Compliance Officer + MLRO en UE, BSA Officer + CCO aux US), mais le rôle est le même : il/elle valide les politiques, revoit les SAR, dialogue avec les régulateurs, et porte une responsabilité personnelle si les choses dérapent." },
+        { kind: 'h3', text: 'Exigences' },
+        { kind: 'ul', items: [
+          "Test fit-and-proper du régulateur (casier judiciaire vierge, expérience pertinente, généralement une certification AML comme CAMS ou ICA).",
+          "Résidence locale dans la juridiction de la licence (strict chez VARA aux EAU, MAS à Singapour, FINMA en Suisse).",
+          "Séniorité suffisante — ne peut pas être junior ni délégué. Report direct au conseil en général.",
+          "Responsabilité personnelle — dans certaines juridictions (FCA au UK, VARA aux EAU), le CCO peut être personnellement sanctionné financièrement ou interdit d'exercer si le programme AML échoue.",
+        ] },
+        { kind: 'callout', tone: 'warn', title: 'La réalité du recrutement', text: "Un CCO crypto qualifié avec approbation fit-and-proper est l'un des recrutements les plus difficiles en crypto. Comptez 3-6 mois, 150-300 K$ all-in, et souvent relocaliser la personne dans votre juri de licence. Depuis la vague d'enforcement post-2023, la demande est très forte." },
+      ],
+    },
+    {
+      id: 'xrpl-specifics',
+      heading: 'Considérations spécifiques à XRPL',
+      content: [
+        { kind: 'p', text: "Si votre startup utilise XRPL, la stack AML centrale est la même mais plusieurs angles XRPL méritent attention :" },
+        { kind: 'h3', text: 'Résolution du Destination Tag' },
+        { kind: 'p', text: "Les wallets XRPL centralisés regroupent de multiples utilisateurs sous une même adresse avec des Destination Tags distincts. Votre monitoring des transactions doit résoudre adresse + tag en identité client — ce n'est pas quelque chose que Chainalysis / TRM font automatiquement pour votre pool. Logique custom requise." },
+        { kind: 'h3', text: 'Screening de contrepartie IOU / Trust Line' },
+        { kind: 'p', text: "Quand un utilisateur ouvre une Trust Line vers une gateway (issuer), c'est une relation de contrepartie. Vous devriez screener la gateway contre les sanctions avant d'autoriser la trust line. La plupart des vendors d'analytics on-chain ne couvrent pas cette primitive XRPL — vous devrez probablement ajouter du code custom par-dessus rippled." },
+        { kind: 'h3', text: 'freeze / globalFreeze pour les gels AML' },
+        { kind: 'p', text: "Le protocole XRPL supporte le gel des trust lines individuelles (flag freeze) ou de toutes (globalFreeze). Utilisez-le pour les gels OFAC sans déplacer les fonds. Les régulateurs acceptent généralement ceci comme primitive de conformité valide — c'est supérieur à l'approche admin-function des ERC-20." },
+        { kind: 'h3', text: 'Comportement de rippling' },
+        { kind: 'p', text: "Quand le rippling est activé sur les trust lines d'un compte, les paiements peuvent router à travers sans consentement explicite — ce qui peut obscurcir le monitoring des transactions. La plupart des gateways conformes désactivent le rippling (flag NoRipple) sur les comptes issuer." },
+        { kind: 'callout', tone: 'key', title: 'Prochaine étape', text: "Si vous construisez sur XRPL, lancez d'abord le diagnostic « Ma custody XRPL est-elle custodiale ? » — la classification de custody détermine quelles obligations AML se déclenchent." },
+      ],
+    },
+  ],
+  relatedTerms: ['KYC', 'KYB', 'AML', 'CFT', 'SAR', 'OFAC', 'Travel Rule', 'FATF', 'CASP', 'MSB'],
+  relatedTrees: ['casp', 'xrpl-custody'],
+}
+
+export const LEARNING_PATHS_FR: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN, TRAVEL_RULE, TOKENISED_RWA, DUBAI_VARA, KYC_AML_STARTUP]
 
 export function getLearningPathFr(id: string): LearningPath | undefined {
   return LEARNING_PATHS_FR.find((p) => p.id === id)

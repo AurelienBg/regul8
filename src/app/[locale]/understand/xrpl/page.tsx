@@ -37,7 +37,7 @@ export default function XRPLPage() {
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-4">{t('xrpStatus')}</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{knowledge.xrp_legal_status.summary}</p>
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {statusEntries.map(([code, note]) => (
             <div key={code} className="card p-4">
               <div className="flex items-center gap-2 mb-2">
@@ -104,7 +104,7 @@ export default function XRPLPage() {
             ? "Les principaux fournisseurs qui supportent XRPL en custody institutionnelle. Cette liste n'est pas exhaustive — vérifiez la conformité et les licences à jour avant toute intégration."
             : 'Leading providers with XRPL support in institutional custody. List is not exhaustive — verify compliance and current licences before any integration.'}
         </p>
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {[
             {
               name: 'Ripple Custody',
