@@ -26,7 +26,7 @@ export default function XRPLPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <span className="badge-xrpl text-sm px-3 py-1">XRPL</span>
         <h1 className="mt-4 text-3xl font-bold">{t('title')}</h1>
