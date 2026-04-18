@@ -2,19 +2,8 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-
-const QUICK_CHECKS_EN = [
-  { id: 'howey', href: '/understand/decision-trees/howey', icon: '⚖️', title: 'Is my token a security?', duration: '2 min' },
-  { id: 'casp', href: '/understand/decision-trees/casp', icon: '🇪🇺', title: 'Do I need a CASP licence?', duration: '2 min' },
-  { id: 'xrpl-custody', href: '/understand/decision-trees/xrpl-custody', icon: '🔐', title: 'Is my XRPL custody custodial?', duration: '2 min' },
-  { id: 'jurisdiction', href: '/understand/decision-trees/jurisdiction', icon: '🌍', title: 'Which jurisdiction should I choose?', duration: '2 min' },
-];
-const QUICK_CHECKS_FR = [
-  { id: 'howey', href: '/understand/decision-trees/howey', icon: '⚖️', title: 'Mon token est-il un titre financier ?', duration: '2 min' },
-  { id: 'casp', href: '/understand/decision-trees/casp', icon: '🇪🇺', title: 'Ai-je besoin d\'un agrément CASP ?', duration: '2 min' },
-  { id: 'xrpl-custody', href: '/understand/decision-trees/xrpl-custody', icon: '🔐', title: 'Ma custody XRPL est-elle custodial ?', duration: '2 min' },
-  { id: 'jurisdiction', href: '/understand/decision-trees/jurisdiction', icon: '🌍', title: 'Quelle juridiction choisir ?', duration: '2 min' },
-];
+import { DECISION_TREES } from '@/data/decision-trees';
+import { DECISION_TREES_FR } from '@/data/decision-trees.fr';
 
 const USE_CASE_CHIPS_EN = [
   { icon: '🚀', label: "I'm launching a token", href: '/understand/decision-trees/howey' },
@@ -30,7 +19,7 @@ const USE_CASE_CHIPS_FR = [
 export default function CheckHubPage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const quickChecks = isFr ? QUICK_CHECKS_FR : QUICK_CHECKS_EN;
+  const diagnostics = isFr ? DECISION_TREES_FR : DECISION_TREES;
   const useCaseChips = isFr ? USE_CASE_CHIPS_FR : USE_CASE_CHIPS_EN;
 
   const tr = isFr ? {
@@ -41,8 +30,11 @@ export default function CheckHubPage() {
     fullDesc: "Wizard multi-activités × multi-juridictions. Rapport détaillé avec régimes, licences, obligations, coûts, délais et analyse IA.",
     fullDuration: '5 min',
     fullCta: 'Lancer le wizard',
-    quickTitle: 'Quick Checks',
+    quickTitle: 'Diagnostics',
     quickDesc: "Question précise → verdict en 2 min.",
+    start: 'Démarrer',
+    duration: '2 min',
+    diagDisclaimer: "Chaque diagnostic fournit des indications réglementaires générales. Pour un conseil spécifique, consultez un avocat qualifié.",
     compareCrossTitle: 'Besoin de comparer plusieurs activités ?',
     compareCrossDesc: "Allez dans Compare pour empiler 2 à 5 activités dans une même juridiction.",
     compareCrossCta: 'Ouvrir Compare',
@@ -54,8 +46,11 @@ export default function CheckHubPage() {
     fullDesc: 'Multi-activity × multi-jurisdiction wizard. Detailed report with regimes, licences, obligations, costs, timelines and AI analysis.',
     fullDuration: '5 min',
     fullCta: 'Start the wizard',
-    quickTitle: 'Quick Checks',
+    quickTitle: 'Diagnostics',
     quickDesc: 'Precise question → verdict in 2 min.',
+    start: 'Start',
+    duration: '2 min',
+    diagDisclaimer: 'Each diagnostic gives general regulatory guidance. For specific advice, consult a qualified lawyer.',
     compareCrossTitle: 'Want to compare multiple activities?',
     compareCrossDesc: 'Head to Compare to stack 2 to 5 activities in a single jurisdiction.',
     compareCrossCta: 'Open Compare',
@@ -114,30 +109,34 @@ export default function CheckHubPage() {
         </div>
       </Link>
 
-      {/* Quick checks */}
+      {/* Diagnostics — the 4 decision trees */}
       <div className="mb-10">
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="text-lg font-bold">⚡ {tr.quickTitle}</h2>
+        <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+          <h2 className="text-lg font-bold">🩺 {tr.quickTitle}</h2>
           <span className="text-xs text-gray-500">{tr.quickDesc}</span>
         </div>
-        <div className="grid sm:grid-cols-2 gap-3">
-          {quickChecks.map((q) => (
+        <div className="grid md:grid-cols-2 gap-4">
+          {diagnostics.map((d) => (
             <Link
-              key={q.id}
-              href={q.href}
-              className="card hover:border-blue-500 transition-colors group flex items-start gap-3 py-4"
+              key={d.id}
+              href={`/understand/decision-trees/${d.id}`}
+              className="card hover:border-blue-500 transition-colors group"
             >
-              <span className="text-2xl">{q.icon}</span>
-              <div className="flex-1 min-w-0">
-                <div className="font-semibold text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                  {q.title}
-                </div>
-                <div className="text-xs text-gray-500 mt-0.5">{q.duration}</div>
+              <div className="text-3xl mb-3">{d.icon}</div>
+              <h3 className="font-bold mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {d.title}
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">{d.description}</p>
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-gray-500">{tr.duration}</span>
+                <span className="font-medium text-blue-600 dark:text-blue-400">
+                  {tr.start} &rarr;
+                </span>
               </div>
-              <span className="text-gray-400">&rarr;</span>
             </Link>
           ))}
         </div>
+        <p className="text-center text-xs text-gray-500 mt-4 italic">{tr.diagDisclaimer}</p>
       </div>
 
       {/* Cross-sell to /compare */}

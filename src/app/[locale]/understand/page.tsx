@@ -53,9 +53,6 @@ export default function LearnHubPage() {
     categoriesTitle: 'Concepts réglementaires',
     categoriesDesc: "Les 7 concepts fondamentaux de la conformité crypto : Loi, Licence, Régulateur, Obligation, Type de token, Infrastructure, Doctrine. Avec exemples par juridiction.",
     categoriesCta: 'Voir les concepts',
-    treesTitle: 'Diagnostics',
-    treesDesc: 'Quelques questions, un verdict clair : security ou non ? CASP requis ? Custody custodial ? Quelle juridiction ?',
-    treesCta: 'Lancer un diagnostic',
     glossaryHint: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K depuis n'importe quelle page.",
     openGlossary: 'Ouvrir le glossaire',
     read: 'Lire',
@@ -78,9 +75,6 @@ export default function LearnHubPage() {
     categoriesTitle: 'Regulatory Concepts',
     categoriesDesc: 'The 7 core concepts of crypto compliance: Law, Licence, Regulator, Obligation, Token type, Infrastructure, Doctrine. With examples per jurisdiction.',
     categoriesCta: 'Browse concepts',
-    treesTitle: 'Diagnostics',
-    treesDesc: 'A few questions, a clear verdict: security or not? CASP required? Custody custodial? Which jurisdiction?',
-    treesCta: 'Run a diagnostic',
     glossaryHint: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
     openGlossary: 'Open glossary',
     read: 'Read',
@@ -241,27 +235,6 @@ export default function LearnHubPage() {
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.categoriesDesc}</p>
               <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
                 {tr.categoriesCta} &rarr;
-              </span>
-            </div>
-          </div>
-        </Link>
-      </section>
-
-      {/* Decision Trees */}
-      <section className="mb-10">
-        <Link
-          href="/understand/decision-trees"
-          className="card hover:border-blue-500 transition-colors group block p-6 border-2"
-        >
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">🌳</div>
-            <div className="flex-1">
-              <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                {tr.treesTitle}
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.treesDesc}</p>
-              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                {tr.treesCta} &rarr;
               </span>
             </div>
           </div>
