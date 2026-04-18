@@ -1418,10 +1418,175 @@ export const REGULATIONS_FR: RegData = {
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // ONRAMP / OFFRAMP (conversion fiat ↔ crypto)
-  // Rempli au prochain commit — stub vide pour que TS soit content.
+  // ONRAMP / OFFRAMP (passerelle de conversion fiat ↔ crypto)
   // ═══════════════════════════════════════════════════════════════
-  onramp_offramp: {},
+  onramp_offramp: {
+    eu: {
+      regime: "CASP (MiCA) + licence EMI ou EP (PSD2/PSD3) pour la jambe fiat",
+      risk: "high",
+      licenses: ["Agrément CASP (service d'échange crypto contre fiat, art. 3 MiCA)", "Licence EMI (si détention de soldes fiat clients)", "Licence EP (si simple routage, PSD2)", "Passeport européen vers l'État membre d'accueil (si activités transfrontalières)"],
+      obligations: ["KYC/AML (AMLD + MiCA)", "Règle du voyage FATF (règlement UE 2023/1113)", "SCA PSD2 sur la jambe fiat", "Cantonnement des fonds clients (règles EMI/EP)", "Protection des consommateurs (droit de rétractation, délai de réflexion)", "Transparence tarifaire selon le titre III MiCA"],
+      time: "12\u201324 mois (deux licences en parallèle)",
+      cost: "\u20AC150K\u2013\u20AC500K",
+      alts: ["Liechtenstein TVTG (plus rapide)", "Suisse FINMA", "Lituanie / Estonie (hub pré-MiCA)"],
+      authority: "ANC + BCE (passeporting EMI) + ESMA",
+      xrplNote: "Les IOU et Trust Lines XRPL permettent une tokenisation native du fiat on-chain (RLUSD, EURCV). Le prestataire onramp peut régler la jambe fiat client via un partenaire EMI licencié et mint/burn les tokens XRPL. Les Payment Channels permettent un règlement off-ramp en moins d'une seconde."
+    },
+    us: {
+      regime: "FinCEN MSB + MTL d'État (48+ États) + BitLicense (NY)",
+      risk: "high",
+      licenses: ["Enregistrement FinCEN MSB", "Licence money transmitter d'État dans chaque État d'exploitation (~48)", "BitLicense NY + approbation NYDFS", "Cautions par État ($50K\u2013$7M chacune)"],
+      obligations: ["BSA/AML", "Filtrage des sanctions OFAC", "Dépôt SAR / CTR", "Règle du voyage \u2265 $3K", "Comptes clients ségrégués", "Audits annuels d'État"],
+      time: "24\u201348 mois (patchwork des MTL)",
+      cost: "$500K\u2013$2M+ (juridique + cautions)",
+      alts: ["Partenariat avec MSB/banque licenciée", "UE MiCA via Irlande ou Allemagne"],
+      authority: "FinCEN + régulateurs d'État (NYDFS, CDFPI, etc.)",
+      xrplNote: "L'onramp US pour XRP est opérationnel depuis le règlement SEC 2023 (XRP n'est pas un titre financier sur les ventes secondaires). Uphold, Bitstamp, Kraken fournissent le rail licencié. Les IOU XRPL restent ambigus en droit fédéral."
+    },
+    uae: {
+      regime: "Licence VARA VASP (crypto) + Stored Value Facility CBUAE (rails fiat)",
+      risk: "med",
+      licenses: ["Licence VARA Exchange Services VASP (Catégorie II)", "Licence CBUAE Stored Value Facility (si float AED détenu)", "Partenariat bancaire AED"],
+      obligations: ["KYC/AML selon les rulebooks CBUAE + VARA", "Règle du voyage", "Exigences de capital (AED 1,5M+ pour VARA)", "Reporting trimestriel des transactions"],
+      time: "9\u201318 mois",
+      cost: "$200K\u2013$600K",
+      alts: ["DIFC DFSA (alternative common law)", "ADGM FSRA"],
+      authority: "VARA + CBUAE",
+      xrplNote: "Onramp XRPL faisable sous licence VARA \u2014 XRP est un VA approuvé à Dubaï. Les pilotes de stablecoins AED (par M2, Rain) utilisent XRPL pour le règlement."
+    },
+    sg: {
+      regime: "MAS Payment Services Act \u2014 Licence Major Payment Institution (classes DPT + Cross-border Money Transfer)",
+      risk: "med",
+      licenses: ["Licence MPI (volume > SGD 3M/mois ou SGD 6M toutes classes confondues)", "Licence SPI (volume plus faible)", "Sous-classe Cross-Border Money Transfer si la jambe fiat traverse une frontière"],
+      obligations: ["KYC/AML selon la MAS AML/CFT Notice", "Sauvegarde des fonds clients (compte de trust)", "Tech Risk Management Notice (TRM)", "Exigence de capital (SGD 250K pour MPI)"],
+      time: "9\u201315 mois",
+      cost: "SGD 200K\u2013600K",
+      alts: ["Hong Kong SFC", "UAE VARA"],
+      authority: "MAS",
+      xrplNote: "Singapour traite XRP comme un Digital Payment Token sous le PSA. Les passerelles licenciées MAS (Independent Reserve, Coinhako) proposent l'onramp XRP. Les IOU XRPL peuvent nécessiter une classification supplémentaire."
+    },
+    uk: {
+      regime: "Enregistrement FCA Cryptoasset (MLR 2017) + licence EMI/PI (PSR 2017)",
+      risk: "high",
+      licenses: ["Enregistrement FCA cryptoasset firm (5MLD/MLR)", "Autorisation EMI ou PI (FCA)", "Gateway FCA Financial Promotions pour le marketing"],
+      obligations: ["AML/KYC selon MLR 2017", "UK Consumer Duty", "SCA équivalent PSD2", "Ségrégation des fonds clients (CASS)", "Restrictions sur les promotions financières (délai de réflexion, avertissement de risque)"],
+      time: "15\u201324 mois",
+      cost: "\u00A3150K\u2013\u00A3500K",
+      alts: ["UE MiCA CASP", "Gibraltar DLT"],
+      authority: "FCA",
+      xrplNote: "Onramp XRP largement disponible via les firmes enregistrées FCA (Uphold UK, Kraken, Bitstamp). Les orientations britanniques spécifiques sur les stablecoins (2025) pourraient ouvrir un cadre pour les IOU XRPL."
+    },
+    hk: {
+      regime: "HKMA Stored Value Facility (SVF) + SFC Type 1/7/9 (si trading VA)",
+      risk: "med",
+      licenses: ["Licence HKMA SVF (portefeuille fiat)", "SFC Type 1 dealing + Type 7 ATS + Type 9 asset management (si trading VA)", "Enregistrement AMLO"],
+      obligations: ["AML selon AMLO", "Exigences de capital (HKD 25M min pour SVF, bien plus pour SFC)", "Protection des consommateurs", "Actifs clients ségrégués"],
+      time: "12\u201324 mois (double track SVF + SFC)",
+      cost: "HKD 1M\u20135M ($125K\u2013$640K)",
+      alts: ["Singapour MAS", "UAE VARA"],
+      authority: "HKMA + SFC",
+      xrplNote: "La feuille de route Hong Kong ASPIRe (2025) inclut les stablecoins XRPL sous la nouvelle ordonnance stablecoin. Le retail crypto est désormais autorisé uniquement via des exchanges licenciés."
+    },
+    ch: {
+      regime: "Licence FINMA FinTech (art. 1b LB) ou licence bancaire + affiliation SRO/VQF",
+      risk: "med",
+      licenses: ["Licence FINMA FinTech (dépôts jusqu'à CHF 100M, pas de prêt)", "Licence bancaire complète si plus grande échelle", "Affiliation SRO/VQF (conformité AML)"],
+      obligations: ["Conformité LBA", "KYC selon Circulaire FINMA 2023/1", "Ségrégation des fonds clients", "Reporting FINMA semestriel"],
+      time: "6\u201312 mois (FinTech) / 24+ mois (bancaire)",
+      cost: "CHF 150K\u2013500K",
+      alts: ["Liechtenstein TVTG (passeport EEE)", "UE MiCA via DE/FR"],
+      authority: "FINMA",
+      xrplNote: "La Suisse reconnaît XRP comme un token de paiement. Les onramps licenciés FINMA (Bitcoin Suisse, Sygnum, SEBA/Amina) offrent l'accès XRPL."
+    },
+    li: {
+      regime: "Enregistrement TVTG Token Exchange SP + passeport EMI UE (typiquement via un EMI liechtensteinois ou un hôte UE)",
+      risk: "low",
+      licenses: ["Enregistrement TVTG Token Exchange Service Provider (FMA)", "Licence EMI (liechtensteinoise ou passeportée EEE)", "Affiliation SRO pour l'AML"],
+      obligations: ["AML selon SPG + art. 25 TVTG", "Test d'honorabilité", "Exigence de capital (CHF 100K\u2013250K)", "Reporting FMA trimestriel"],
+      time: "4\u20139 mois (route EEE la plus rapide)",
+      cost: "CHF 70K\u2013200K",
+      alts: ["Suisse FINMA", "Estonie (en fermeture)"],
+      authority: "FMA",
+      xrplNote: "Le TVTG du Liechtenstein accueille explicitement les conteneurs de tokens de type XRPL. Plusieurs pilotes de stablecoins XRPL utilisent LI comme juridiction de lancement avant passeport UE."
+    },
+    jp: {
+      regime: "FSA Crypto Asset Exchange Service Provider (CAESP) + auto-régulation JVCEA",
+      risk: "med",
+      licenses: ["Enregistrement FSA CAESP (art. 63 FIEA)", "Statut de membre JVCEA", "Partenariat bancaire JPY"],
+      obligations: ["KYC/AML selon la loi APPS", "Règle du voyage FATF (depuis 2023)", "Règle des 95% de cold storage", "Actifs clients ségrégués", "Reporting FSA mensuel"],
+      time: "12\u201324 mois",
+      cost: "\u00A550M\u2013\u00A5150M ($330K\u2013$1M)",
+      alts: ["Singapour MAS", "Hong Kong HKMA"],
+      authority: "FSA Japon",
+      xrplNote: "XRP est l'un des tout premiers crypto-actifs approuvés au Japon (whitelist JVCEA depuis 2018). Onramp disponible via bitFlyer, Coincheck, SBI VC Trade."
+    },
+    kr: {
+      regime: "VASP sous Specific Financial Information Act + exigence de compte bancaire nominatif",
+      risk: "high",
+      licenses: ["Enregistrement VASP auprès de la KoFIU", "Certification ISMS-P", "Partenariat bancaire nominatif (5 banques approuvées)"],
+      obligations: ["KYC/AML", "Banque nominative (chaque client lié à un compte bancaire)", "Audit cybersécurité ISMS-P", "Impôt de 30% sur les gains crypto à partir de 2027"],
+      time: "12\u201318 mois",
+      cost: "\u20A9500M\u2013\u20A92B ($375K\u2013$1,5M)",
+      alts: ["Japon FSA", "Singapour MAS"],
+      authority: "FSC / FIU Corée",
+      xrplNote: "XRP a un fort intérêt retail en Corée du Sud (l'un des 3 premiers marchés). Onramp via Upbit, Bithumb, Korbit \u2014 tous liés à une banque nominative."
+    },
+    in: {
+      regime: "Enregistrement FIU-IND + taxe VDA de 30% + TDS de 1% par transaction",
+      risk: "high",
+      licenses: ["Enregistrement FIU-IND VASP (obligatoire depuis mars 2023)", "Enregistrement GST + impôt sur le revenu", "Relations bancaires (périodiquement restreintes)"],
+      obligations: ["Taxe VDA forfaitaire de 30% sur les plus-values", "TDS de 1% par transfert (retenu à la source)", "KYC/AML selon PMLA", "Reporting au niveau de la transaction"],
+      time: "6\u201312 mois",
+      cost: "\u20B950L\u2013\u20B92Cr ($60K\u2013$240K)",
+      alts: ["Singapour MAS (courant pour les fondateurs indiens)", "UAE VARA"],
+      authority: "FIU-IND + CBDT (fiscal) + RBI",
+      xrplNote: "Les exchanges indiens (WazirX, CoinDCX) listent XRP. La pression fiscale (30% + 1% TDS) freine le volume retail."
+    },
+    br: {
+      regime: "Régime VASP de la loi BCB 14.478/2022 + CMN Résolution 303/2025 (mise en œuvre)",
+      risk: "med",
+      licenses: ["Autorisation BCB VASP (à partir de 2025)", "Approbation CMN pour les flux fiat transfrontaliers", "CVM si le token est classé comme titre financier"],
+      obligations: ["KYC/AML selon la loi 9.613", "Reporting BCB trimestriel", "Protection des consommateurs", "Résilience cyber/opérationnelle"],
+      time: "12\u201318 mois",
+      cost: "R$500K\u2013R$2M ($100K\u2013$400K)",
+      alts: ["UAE VARA", "Singapour MAS"],
+      authority: "BCB + CMN + CVM",
+      xrplNote: "Le pilote CBDC Drex du Brésil explore l'ILP (Interledger) de type XRPL pour l'interopérabilité du règlement. Onramp XRP via Mercado Bitcoin, Foxbit."
+    },
+    ng: {
+      regime: "SEC Nigeria DASP (crypto) + CBN Virtual Asset Guidelines 2023 + contrôles des changes CBN stricts",
+      risk: "high",
+      licenses: ["Enregistrement DASP SEC Nigeria", "CBN Payment Solution Service Provider (PSSP) ou Switching Licence", "Enregistrement NFIU", "Partenariat bancaire Naira via NIBSS"],
+      obligations: ["KYC/AML selon MLPPA 2022", "Règle du voyage", "Restrictions forex CBN (rareté du Naira, contrôle des capitaux)", "Impôt de 10% sur les plus-values crypto"],
+      time: "18\u201336 mois (position réglementaire volatile)",
+      cost: "NGN 2B+ (fourchette $2M+, très volatile)",
+      alts: ["BoG Ghana (licence PSP)", "UAE VARA (offshore)"],
+      authority: "CBN + SEC Nigeria + NFIU",
+      xrplNote: "Le Nigéria avait l'une des plus fortes adoptions retail XRP au monde avant la crise du Naira. Depuis les restrictions CBN 2024, l'onramp passe majoritairement par le P2P + offshore. Binance P2P = canal dominant."
+    },
+    ke: {
+      regime: "VASP Act 2025 + règlement CBK Money Remittance Provider + Digital Asset Tax",
+      risk: "med",
+      licenses: ["Licence VASP (CMA) \u2014 sous-catégorie conversion", "CBK Money Remittance Provider (payout KES)", "Enregistrement KRA + iTax"],
+      obligations: ["KYC/AML selon POCAMLA", "Règle du voyage", "Digital Asset Tax 3% retenue à la source", "Intégration M-Pesa / banque SME pour le rail KES"],
+      time: "9\u201318 mois",
+      cost: "KES 15M\u201350M ($115K\u2013$385K)",
+      alts: ["UAE VARA", "Afrique du Sud FSCA"],
+      authority: "CMA + CBK",
+      xrplNote: "L'adoption XRPL au Kenya se fait via les corridors Ripple ODL (KES/USD). Les ponts M-Pesa + crypto (Cellulant, Kotani Pay) intègrent XRPL pour le transfrontalier."
+    },
+    za: {
+      regime: "FSCA CASP (FAIS Act) + cadre de contrôle des changes SARB + AML FICA + NPS Act pour les rails",
+      risk: "med",
+      licenses: ["CASP Catégorie I + II sous FAIS (conseil + intermédiation)", "Approbation SARB pour les flux fiat transfrontaliers (sorties ZAR strictes)", "Désignation Payments System Operator (PSO) si exploitation de rails"],
+      obligations: ["Contrôle des changes SARB (limites strictes de sortie ZAR)", "Règle du voyage depuis avril 2023", "AML FICA + registre des bénéficiaires effectifs", "Protection des consommateurs sous FAIS"],
+      time: "12\u201318 mois",
+      cost: "ZAR 3M\u201310M ($165K\u2013$550K)",
+      alts: ["UAE VARA", "UK FCA (corridor diaspora)"],
+      authority: "FSCA + SARB + FIC",
+      xrplNote: "L'Afrique du Sud a été la première juridiction africaine à réguler la crypto (oct. 2022). Luno, VALR, AltCoinTrader proposent l'onramp XRP. La SARB étudie XRPL pour le bridging CBDC transfrontalier."
+    },
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // PAIEMENT TRANSFRONTALIER (remittance internationale en crypto)
