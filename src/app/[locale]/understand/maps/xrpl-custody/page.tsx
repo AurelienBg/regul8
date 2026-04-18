@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import XrplCustodyMatrix from '@/components/learn/maps/XrplCustodyMatrix';
+import XrplCustodyMatrix from '@/components/understand/maps/XrplCustodyMatrix';
 
 export default function XrplCustodyMapPage() {
   const locale = useLocale();

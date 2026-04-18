@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import MicaTaxonomy from '@/components/learn/maps/MicaTaxonomy';
+import MicaTaxonomy from '@/components/understand/maps/MicaTaxonomy';
 
 export default function MicaTaxonomyPage() {
   const locale = useLocale();

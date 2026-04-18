@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { getDecisionTree } from '@/data/decision-trees';
 import { getDecisionTreeFr } from '@/data/decision-trees.fr';
-import DecisionTreeRunner from '@/components/learn/DecisionTreeRunner';
+import DecisionTreeRunner from '@/components/assess/DecisionTreeRunner';
 
 type Params = { id: string; locale: string };
 

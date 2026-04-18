@@ -5,7 +5,7 @@ import { getLearningPathFr } from '@/data/learning-paths.fr';
 import { getDecisionTree } from '@/data/decision-trees';
 import { getDecisionTreeFr } from '@/data/decision-trees.fr';
 import { JURISDICTIONS } from '@/types';
-import PathBlockRenderer from '@/components/learn/PathBlockRenderer';
+import PathBlockRenderer from '@/components/understand/PathBlockRenderer';
 
 type Params = { id: string; locale: string };
 

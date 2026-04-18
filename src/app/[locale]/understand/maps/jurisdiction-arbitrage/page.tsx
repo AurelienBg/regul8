@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import JurisdictionArbitrage from '@/components/learn/maps/JurisdictionArbitrage';
+import JurisdictionArbitrage from '@/components/understand/maps/JurisdictionArbitrage';
 
 export default function JurisdictionArbitrageMapPage() {
   const locale = useLocale();
