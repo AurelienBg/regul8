@@ -5,7 +5,7 @@ import { Link } from '@/i18n/routing';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
 
-const TOPIC_ORDER: Topic[] = ['regime', 'licence', 'regulator', 'obligation', 'token', 'concept', 'infra'];
+const TOPIC_ORDER: Topic[] = ['regime', 'licence', 'regulator', 'obligation', 'token', 'infra', 'concept'];
 
 const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; when: string; examples: string }; fr: { title: string; what: string; when: string; examples: string } }> = {
   regime: {

@@ -8,7 +8,7 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 
 type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
-const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'concept', 'infra'] as const;
+const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'infra', 'concept'] as const;
 
 const TOPIC_ICONS: Record<Topic, string> = {
   licence: '🪪', regime: '📜', obligation: '✅', token: '🪙',
@@ -200,7 +200,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                 <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.topicsBody')}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-                {(['licence','regime','obligation','token','regulator','concept','infra'] as Topic[]).map((tp) => (
+                {(['licence','regime','obligation','token','regulator','infra','concept'] as Topic[]).map((tp) => (
                   <div
                     key={tp}
                     className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
