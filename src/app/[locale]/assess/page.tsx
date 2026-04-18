@@ -149,10 +149,21 @@ export default function AssessPage() {
           </div>
         </div>
 
-        {/* Jurisdictions — 2-col internal grid */}
+        {/* Jurisdictions — 2-col internal grid, Generate button at top-right */}
         <div>
-          <h2 className="text-lg font-semibold mb-1">{tr.jurisdictionsTitle}</h2>
-          <p className="text-xs text-gray-500 mb-4">{tr.selectAll}</p>
+          <div className="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <h2 className="text-lg font-semibold mb-1">{tr.jurisdictionsTitle}</h2>
+              <p className="text-xs text-gray-500">{tr.selectAll}</p>
+            </div>
+            <button
+              onClick={handleSubmit}
+              disabled={!canSubmit}
+              className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap shrink-0"
+            >
+              {tr.generate} &rarr;
+            </button>
+          </div>
           <div className="grid sm:grid-cols-2 gap-2">
             {JURISDICTION_KEYS.map((code) => {
               const j = JURISDICTIONS[code];
@@ -187,9 +198,9 @@ export default function AssessPage() {
         </div>
       </section>
 
-      {/* Summary + Submit */}
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        <div className="text-sm text-gray-500">
+      {/* Selection summary (button is above, at top-right of Jurisdictions column) */}
+      {(selectedActivities.length > 0 || selectedJurisdictions.length > 0) && (
+        <div className="text-sm text-gray-500 text-right">
           {selectedActivities.length > 0 && <span>{tr.summary.activity(selectedActivities.length)}</span>}
           {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
           {selectedJurisdictions.length > 0 && (
@@ -201,14 +212,7 @@ export default function AssessPage() {
             </span>
           )}
         </div>
-        <button
-          onClick={handleSubmit}
-          disabled={!canSubmit}
-          className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
-        >
-          {tr.generate} &rarr;
-        </button>
-      </div>
+      )}
     </div>
   );
 }
