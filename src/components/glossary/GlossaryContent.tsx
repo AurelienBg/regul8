@@ -22,7 +22,7 @@ const TOPIC_STYLES: Record<Topic, string> = {
   token: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
   regulator: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200',
   concept: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
-  infra: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
+  infra: 'bg-slate-200 text-slate-800 dark:bg-slate-600/60 dark:text-slate-100',
 };
 
 type Scope = 'local' | 'extra' | 'global';
@@ -115,7 +115,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
   const [category, setCategory] = useState<string>('all');
   const [topic, setTopic] = useState<string>('all');
   const [highlighted, setHighlighted] = useState<string | null>(null);
-  const [legendOpen, setLegendOpen] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(true);
 
   const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
     locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
@@ -171,44 +171,87 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
 
   return (
     <div>
-      {/* Legend (collapsible) */}
-      <div className="mb-4 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50">
+      {/* Legend (collapsible, open by default) */}
+      <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50">
         <button
           onClick={() => setLegendOpen(!legendOpen)}
-          className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
+          className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
         >
-          <span className="flex items-center gap-2"><span>💡</span><span>{t('legend.title')}</span></span>
-          <span className={`transition-transform ${legendOpen ? 'rotate-180' : ''}`}>▾</span>
+          <span className="flex items-center gap-2">
+            <span>💡</span>
+            <span>{t('legend.title')}</span>
+          </span>
+          <span
+            aria-hidden="true"
+            className={`flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white transition-transform ${legendOpen ? 'rotate-180' : ''}`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
         </button>
         {legendOpen && (
-          <div className="px-4 pb-4 pt-1 text-xs text-gray-700 dark:text-gray-300 space-y-3 border-t border-[var(--border)]">
+          <div className="px-4 pb-4 pt-3 border-t border-[var(--border)] space-y-5">
+            {/* 🎯 Topics — 7-card grid */}
             <div>
-              <div className="font-semibold mb-1 mt-2">🏳️ {t('legend.flagsTitle')}</div>
-              <p className="text-gray-600 dark:text-gray-400">{t('legend.flagsBody')}</p>
-            </div>
-            <div>
-              <div className="font-semibold mb-1">🎯 {t('legend.topicsTitle')}</div>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">{t('legend.topicsBody')}</p>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">🎯 {t('legend.topicsTitle')}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.topicsBody')}</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                 {(['licence','regime','obligation','token','regulator','concept','infra'] as Topic[]).map((tp) => (
-                  <span key={tp} className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[tp]}`}>
-                    <span>{TOPIC_ICONS[tp]}</span><span>{t(`topics.${tp}`)}</span>
-                  </span>
+                  <div
+                    key={tp}
+                    className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
+                  >
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold mb-1.5 w-fit ${TOPIC_STYLES[tp]}`}>
+                      <span>{TOPIC_ICONS[tp]}</span>
+                      <span>{t(`topics.${tp}`)}</span>
+                    </span>
+                    <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug mb-1">
+                      {t(`topicTooltips.${tp}.question`)}
+                    </p>
+                    <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-snug">
+                      {t(`topicTooltips.${tp}.examples`)}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
+
+            {/* 📏 Scopes — 3-card grid */}
             <div>
-              <div className="font-semibold mb-1">📏 {t('legend.scopesTitle')}</div>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">{t('legend.scopesBody')}</p>
-              <div className="space-y-1.5">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">📏 {t('legend.scopesTitle')}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.scopesBody')}</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {(['local', 'extra', 'global'] as Scope[]).map((sc) => (
-                  <div key={sc} className="flex items-start gap-2">
-                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 mt-0.5 ${SCOPE_STYLES[sc]}`}>
-                      <span>{SCOPE_ICONS[sc]}</span><span>{t(`scopes.${sc}.label`)}</span>
+                  <div
+                    key={sc}
+                    className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
+                  >
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold mb-1.5 w-fit ${SCOPE_STYLES[sc]}`}>
+                      <span>{SCOPE_ICONS[sc]}</span>
+                      <span>{t(`scopes.${sc}.label`)}</span>
                     </span>
-                    <span className="flex-1 text-gray-600 dark:text-gray-400">{t(`scopes.${sc}.explanation`)}</span>
+                    <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug">
+                      {t(`scopes.${sc}.explanation`)}
+                    </p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* 🏳️ Flags — single compact row */}
+            <div>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">🏳️ {t('legend.flagsTitle')}</span>
+              </div>
+              <div className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)]">
+                <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug">
+                  {t('legend.flagsBody')}
+                </p>
               </div>
             </div>
           </div>

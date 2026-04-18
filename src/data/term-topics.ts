@@ -110,8 +110,8 @@ export const TOPIC_META: Record<Topic, {
     icon: '🔧',
     labelEn: 'Infrastructure',
     labelFr: 'Infrastructure',
-    pillClass: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
-    underline: 'decoration-gray-500',
-    hoverText: 'hover:text-gray-800 dark:hover:text-gray-200',
+    pillClass: 'bg-slate-200 text-slate-800 dark:bg-slate-600/60 dark:text-slate-100',
+    underline: 'decoration-slate-500',
+    hoverText: 'hover:text-slate-800 dark:hover:text-slate-100',
   },
 };
