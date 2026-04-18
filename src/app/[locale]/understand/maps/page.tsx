@@ -50,13 +50,13 @@ export default function VisualMapsListPage() {
   const isFr = locale === 'fr';
   const maps = isFr ? MAPS_FR : MAPS_EN;
   const tr = isFr ? {
-    back: 'Apprendre',
-    title: 'Cartes visuelles',
+    back: 'Comprendre',
+    title: 'Diagrammes',
     subtitle: 'Des visualisations en une page qui rendent la régulation tangible.',
     open: 'Ouvrir',
   } : {
-    back: 'Learn',
-    title: 'Visual Maps',
+    back: 'Understand',
+    title: 'Diagrams',
     subtitle: 'One-pager visualizations that make regulation tangible.',
     open: 'Open',
   };
@@ -80,7 +80,7 @@ export default function VisualMapsListPage() {
         {maps.map((m) => (
           <Link
             key={m.id}
-            href={`/learn/maps/${m.id}`}
+            href={`/understand/maps/${m.id}`}
             className="card hover:border-blue-500 transition-colors group"
           >
             <div className="text-4xl mb-4">{m.icon}</div>
