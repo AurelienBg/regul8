@@ -13,8 +13,8 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   /**
-   * Primary nav = 4 tabs organized by user intent.
-   * "isActive" uses startsWith so /wizard + /report + /compare all highlight "Check".
+   * Primary nav = 3 tabs organized by user intent.
+   * Ask AI is now surfaced via the floating FAB (⌘K) — no navbar tab.
    */
   const links = [
     {
@@ -23,6 +23,7 @@ export default function Header() {
       isActive: (p: string) =>
         p === '/understand' || p.startsWith('/understand/') ||
         p === '/learn' || p.startsWith('/learn/') || // legacy /learn paths during redirect window
+        p === '/glossary' || p.startsWith('/glossary/') || // legacy glossary path
         p.startsWith('/xrpl'),
     },
     {
@@ -39,11 +40,6 @@ export default function Header() {
         p === '/check' || p.startsWith('/check/') || // legacy during redirect window
         p.startsWith('/wizard') ||
         p.startsWith('/report'),
-    },
-    {
-      href: '/search',
-      label: t('ask'),
-      isActive: (p: string) => p.startsWith('/search') || p.startsWith('/ask'),
     },
   ] as const;
 

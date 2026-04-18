@@ -205,14 +205,14 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                     key={tp}
                     className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
                   >
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold mb-1.5 w-fit ${TOPIC_STYLES[tp]}`}>
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm font-semibold mb-1.5 w-fit ${TOPIC_STYLES[tp]}`}>
                       <span>{TOPIC_ICONS[tp]}</span>
                       <span>{t(`topics.${tp}`)}</span>
                     </span>
-                    <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug mb-1">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug mb-1">
                       {t(`topicTooltips.${tp}.question`)}
                     </p>
-                    <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-snug">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 leading-snug">
                       {t(`topicTooltips.${tp}.examples`)}
                     </p>
                   </div>
@@ -232,11 +232,11 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                     key={sc}
                     className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
                   >
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold mb-1.5 w-fit ${SCOPE_STYLES[sc]}`}>
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm font-semibold mb-1.5 w-fit ${SCOPE_STYLES[sc]}`}>
                       <span>{SCOPE_ICONS[sc]}</span>
                       <span>{t(`scopes.${sc}.label`)}</span>
                     </span>
-                    <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug">
                       {t(`scopes.${sc}.explanation`)}
                     </p>
                   </div>
@@ -250,7 +250,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                 <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">🏳️ {t('legend.flagsTitle')}</span>
               </div>
               <div className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)]">
-                <p className="text-[11px] text-gray-700 dark:text-gray-300 leading-snug">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug">
                   {t('legend.flagsBody')}
                 </p>
               </div>

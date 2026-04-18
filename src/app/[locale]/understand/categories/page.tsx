@@ -5,7 +5,7 @@ import { Link } from '@/i18n/routing';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
 
-const TOPIC_ORDER: Topic[] = ['regime', 'licence', 'regulator', 'obligation', 'token', 'infra', 'doctrine'];
+const TOPIC_ORDER: Topic[] = ['licence', 'regime', 'regulator', 'obligation', 'token', 'infra', 'doctrine'];
 
 const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; when: string; examples: string }; fr: { title: string; what: string; when: string; examples: string } }> = {
   regime: {
@@ -157,8 +157,8 @@ export default function ConceptsPage() {
       </header>
 
       {/* Narrative flow — startup-centric */}
-      <section className="mb-10 p-5 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900">
-        <h2 className="font-bold mb-3 flex items-center gap-2">
+      <section className="mb-10 p-5 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900 space-y-3">
+        <h2 className="font-bold flex items-center gap-2">
           <span>🔗</span>
           <span>{tr.relations}</span>
         </h2>
@@ -185,6 +185,29 @@ export default function ConceptsPage() {
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Regulators</span>{' '}
               who impose ongoing{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>.
+            </>
+          )}
+        </p>
+        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          {isFr ? (
+            <>
+              Trois concepts transverses complètent le tableau : la classification du{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>{' '}
+              détermine <em>quel</em> régime s&apos;applique, l&apos;{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
+              technique (DeFi, custody, XRPL primitives…) façonne <em>comment</em> il s&apos;applique, et la{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
+              juridique (Howey Test, jurisprudence) tranche les zones grises.
+            </>
+          ) : (
+            <>
+              Three cross-cutting concepts complete the picture: the{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>{' '}
+              classification determines <em>which</em> regime applies, the technical{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
+              (DeFi, custody, XRPL primitives…) shapes <em>how</em> it applies, and the legal{' '}
+              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
+              (Howey Test, case law) settles the grey zones.
             </>
           )}
         </p>
