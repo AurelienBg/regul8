@@ -208,7 +208,7 @@ export default function LearnHubPage() {
       {/* Use Cases */}
       <section className="mb-6">
         <Link
-          href="/learn/cases"
+          href="/learn/usecases"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">

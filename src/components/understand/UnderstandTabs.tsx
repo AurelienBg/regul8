@@ -8,7 +8,7 @@ const TABS = [
   { key: 'paths', href: '/learn/paths' as const, match: (p: string) => p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Paths', labelFr: 'Parcours' },
   { key: 'maps', href: '/learn/maps' as const, match: (p: string) => p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Maps', labelFr: 'Cartes' },
   { key: 'xrpl', href: '/learn/xrpl' as const, match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL', labelFr: 'XRPL' },
-  { key: 'cases', href: '/learn/cases' as const, match: (p: string) => p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
+  { key: 'usecases', href: '/learn/usecases' as const, match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
   { key: 'categories', href: '/learn/categories' as const, match: (p: string) => p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Categories', labelFr: 'Catégories' },
   { key: 'decision-trees', href: '/learn/decision-trees' as const, match: (p: string) => p.startsWith('/learn/decision-trees'), icon: '🌳', labelEn: 'Decision trees', labelFr: 'Arbres' },
 ];
