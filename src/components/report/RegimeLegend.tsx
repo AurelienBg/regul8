@@ -57,13 +57,20 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
     <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50 no-print">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
       >
         <span className="flex items-center gap-2">
           <span>💡</span>
           <span>{tr.trigger}</span>
         </span>
-        <span className={`transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+        <span
+          aria-hidden="true"
+          className={`flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white transition-transform ${open ? 'rotate-180' : ''}`}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
       </button>
       {open && (
         <div className="px-4 pb-4 pt-1 border-t border-[var(--border)]">
