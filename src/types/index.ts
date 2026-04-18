@@ -16,6 +16,8 @@ export type ActivityKey =
   | 'gaming'
   | 'custody'
   | 'payment'
+  | 'onramp_offramp'
+  | 'cross_border_payment'
   | 'token_utility'
   | 'token_security'
   | 'token_hybrid'
@@ -166,6 +168,8 @@ export const ACTIVITIES: Record<ActivityKey, { xrpl: boolean }> = {
   gaming: { xrpl: false },
   custody: { xrpl: true },
   payment: { xrpl: true },
+  onramp_offramp: { xrpl: true },
+  cross_border_payment: { xrpl: true },
   token_utility: { xrpl: false },
   token_security: { xrpl: false },
   token_hybrid: { xrpl: false },

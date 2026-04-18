@@ -5,11 +5,11 @@ import { Link, usePathname } from '@/i18n/routing';
 
 const TABS = [
   { key: 'all', href: '/learn' as const, match: (p: string) => p === '/learn', icon: null, labelEn: 'Overview', labelFr: 'Vue d\'ensemble' },
-  { key: 'paths', href: '/learn/paths' as const, match: (p: string) => p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Paths', labelFr: 'Parcours' },
-  { key: 'maps', href: '/learn/maps' as const, match: (p: string) => p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Maps', labelFr: 'Cartes' },
-  { key: 'xrpl', href: '/learn/xrpl' as const, match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL', labelFr: 'XRPL' },
-  { key: 'usecases', href: '/learn/usecases' as const, match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
   { key: 'categories', href: '/learn/categories' as const, match: (p: string) => p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Categories', labelFr: 'Catégories' },
+  { key: 'usecases', href: '/learn/usecases' as const, match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
+  { key: 'xrpl', href: '/learn/xrpl' as const, match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL Hub', labelFr: 'Hub XRPL' },
+  { key: 'maps', href: '/learn/maps' as const, match: (p: string) => p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Maps', labelFr: 'Cartes' },
+  { key: 'paths', href: '/learn/paths' as const, match: (p: string) => p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Paths', labelFr: 'Parcours' },
   { key: 'decision-trees', href: '/learn/decision-trees' as const, match: (p: string) => p.startsWith('/learn/decision-trees'), icon: '🌳', labelEn: 'Decision trees', labelFr: 'Arbres' },
 ];
 

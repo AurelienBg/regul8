@@ -6,7 +6,9 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const ACTIVITY_KEYS: ActivityKey[] = [
   'exchange', 'dapp_fin', 'dapp_util', 'nft', 'mpt', 'rwa',
-  'stablecoin', 'gaming', 'custody', 'payment', 'token_utility', 'token_security', 'token_hybrid',
+  'stablecoin', 'gaming', 'custody',
+  'payment', 'onramp_offramp', 'cross_border_payment',
+  'token_utility', 'token_security', 'token_hybrid',
 ];
 
 export default function StepActivity({

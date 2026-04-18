@@ -1418,6 +1418,18 @@ export const REGULATIONS: RegData = {
   },
 
   // ═══════════════════════════════════════════════════════════════
+  // ONRAMP / OFFRAMP (fiat ↔ crypto conversion)
+  // Filled in next commit — empty stub for now so TypeScript is happy.
+  // ═══════════════════════════════════════════════════════════════
+  onramp_offramp: {},
+
+  // ═══════════════════════════════════════════════════════════════
+  // CROSS-BORDER PAYMENT (international remittance in crypto)
+  // Filled in next commit — empty stub for now so TypeScript is happy.
+  // ═══════════════════════════════════════════════════════════════
+  cross_border_payment: {},
+
+  // ═══════════════════════════════════════════════════════════════
   // TOKEN ISSUANCE \u2014 UTILITY
   // ═══════════════════════════════════════════════════════════════
   token_utility: {

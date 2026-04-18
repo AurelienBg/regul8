@@ -1418,6 +1418,18 @@ export const REGULATIONS_FR: RegData = {
   },
 
   // ═══════════════════════════════════════════════════════════════
+  // ONRAMP / OFFRAMP (conversion fiat ↔ crypto)
+  // Rempli au prochain commit — stub vide pour que TS soit content.
+  // ═══════════════════════════════════════════════════════════════
+  onramp_offramp: {},
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAIEMENT TRANSFRONTALIER (remittance internationale en crypto)
+  // Rempli au prochain commit — stub vide pour que TS soit content.
+  // ═══════════════════════════════════════════════════════════════
+  cross_border_payment: {},
+
+  // ═══════════════════════════════════════════════════════════════
   // ÉMISSION DE TOKEN \u2014 UTILITAIRE
   // ═══════════════════════════════════════════════════════════════
   token_utility: {

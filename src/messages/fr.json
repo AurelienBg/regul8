@@ -94,6 +94,8 @@
       "gaming": "Gaming / GameFi / NFT Gaming",
       "custody": "Custody Crypto / Wallet",
       "payment": "Paiement Crypto / Remittance",
+      "onramp_offramp": "Onramp / Offramp (fiat ↔ crypto)",
+      "cross_border_payment": "Paiement transfrontalier",
       "token_utility": "Émission de Token — Utility",
       "token_security": "Émission de Token — Security",
       "token_hybrid": "Émission de Token — Hybride"
