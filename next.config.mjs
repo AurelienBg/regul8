@@ -64,6 +64,28 @@ const nextConfig = {
         destination: '/:locale/understand/guides/:path*',
         permanent: true,
       },
+      // /understand/maps/* → /understand/diagrams/* (label + URL alignment)
+      {
+        source: '/:locale(en|fr)/understand/maps',
+        destination: '/:locale/understand/diagrams',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/understand/maps/:path*',
+        destination: '/:locale/understand/diagrams/:path*',
+        permanent: true,
+      },
+      // /understand/categories → /understand/concepts (label + URL alignment)
+      {
+        source: '/:locale(en|fr)/understand/categories',
+        destination: '/:locale/understand/concepts',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/understand/categories/:path*',
+        destination: '/:locale/understand/concepts/:path*',
+        permanent: true,
+      },
     ];
   },
 };

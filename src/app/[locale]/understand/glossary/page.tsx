@@ -14,7 +14,7 @@ export default function GlossaryPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-4">{t('title')}</h1>
 
-      {/* Narrative intro — same flow sentences as /understand/categories */}
+      {/* Narrative intro — same flow sentences as /understand/concepts */}
       <section className="mb-6 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900 space-y-3">
         <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200 leading-relaxed">
           {isFr ? (

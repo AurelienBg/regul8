@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import JurisdictionArbitrage from '@/components/understand/maps/JurisdictionArbitrage';
+import JurisdictionArbitrage from '@/components/understand/diagrams/JurisdictionArbitrage';
 
 export default function JurisdictionArbitrageMapPage() {
   const locale = useLocale();
@@ -38,7 +38,7 @@ export default function JurisdictionArbitrageMapPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="mb-4">
-        <Link href="/understand/maps" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+        <Link href="/understand/diagrams" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
           &larr; {tr.back}
         </Link>
       </div>

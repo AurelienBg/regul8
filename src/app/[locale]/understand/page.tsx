@@ -89,7 +89,7 @@ export default function UnderstandHubPage() {
       {/* 1. Concepts */}
       <section className="mb-6">
         <Link
-          href="/understand/categories"
+          href="/understand/concepts"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -155,7 +155,7 @@ export default function UnderstandHubPage() {
       {/* 4. Diagrams — big card (summary only) */}
       <section className="mb-6">
         <Link
-          href="/understand/maps"
+          href="/understand/diagrams"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">

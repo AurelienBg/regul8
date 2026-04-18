@@ -80,7 +80,7 @@ export default function VisualMapsListPage() {
         {maps.map((m) => (
           <Link
             key={m.id}
-            href={`/understand/maps/${m.id}`}
+            href={`/understand/diagrams/${m.id}`}
             className="card hover:border-blue-500 transition-colors group"
           >
             <div className="text-4xl mb-4">{m.icon}</div>
