@@ -72,14 +72,20 @@ function TermLink({
 
   const topicLabel = meta ? (isFr ? meta.labelFr : meta.labelEn) : null;
 
-  // Tooltip width ≈ 288px (w-72), height ≈ 80-120px dynamic
-  const TOOLTIP_WIDTH = 288;
+  // Tooltip width: 288px on ≥ sm, narrower (viewport - 16px margins) on mobile
   const TOOLTIP_EST_HEIGHT = 120;
   const MARGIN = 8;
   const NAV_OFFSET = 64; // sticky header height
+  const [tooltipWidth, setTooltipWidth] = useState(288);
 
   useLayoutEffect(() => {
     if (!hover || !anchorRef.current) return;
+    const viewportWidth = window.innerWidth;
+    // On narrow viewports (< 360), shrink the tooltip so there's always
+    // breathing room on both sides.
+    const width = Math.min(288, viewportWidth - 2 * MARGIN);
+    setTooltipWidth(width);
+
     const rect = anchorRef.current.getBoundingClientRect();
     // Decide placement: above by default, flip to below if not enough room above
     const spaceAbove = rect.top - NAV_OFFSET;
@@ -87,10 +93,9 @@ function TermLink({
 
     // Center horizontally on the anchor, then clamp to viewport
     const centerX = rect.left + rect.width / 2;
-    let left = centerX - TOOLTIP_WIDTH / 2;
-    const viewportWidth = window.innerWidth;
+    let left = centerX - width / 2;
     if (left < MARGIN) left = MARGIN;
-    if (left + TOOLTIP_WIDTH > viewportWidth - MARGIN) left = viewportWidth - TOOLTIP_WIDTH - MARGIN;
+    if (left + width > viewportWidth - MARGIN) left = viewportWidth - width - MARGIN;
 
     const top = placement === 'above' ? rect.top - MARGIN : rect.bottom + MARGIN;
     setPosition({ top, left, placement });
@@ -105,7 +110,7 @@ function TermLink({
               position: 'fixed',
               top: position.placement === 'above' ? position.top : position.top,
               left: position.left,
-              width: TOOLTIP_WIDTH,
+              width: tooltipWidth,
               transform: position.placement === 'above' ? 'translateY(-100%)' : undefined,
             }}
             className="z-[9999] px-3 py-2 rounded-lg bg-gray-900 dark:bg-gray-700 text-white text-xs leading-relaxed shadow-xl pointer-events-none"

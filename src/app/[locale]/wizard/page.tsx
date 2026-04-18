@@ -41,7 +41,7 @@ export default function WizardPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
       <div className="flex items-start justify-between gap-4 mb-10 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>

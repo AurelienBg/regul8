@@ -61,7 +61,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`min-w-[96px] px-4 py-2 rounded-lg text-sm font-medium text-center border-2 transition-colors ${
+                className={`min-w-0 px-3 lg:min-w-[96px] lg:px-4 py-2 rounded-lg text-sm font-medium text-center border-2 transition-colors whitespace-nowrap ${
                   link.isActive(pathname)
                     ? 'bg-blue-500 text-white border-blue-500'
                     : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/40 dark:hover:bg-blue-900/20'
