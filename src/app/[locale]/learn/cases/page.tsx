@@ -20,28 +20,24 @@ export default function UseCasesPage() {
   const tr = isFr
     ? {
         back: 'Comprendre',
-        title: 'Cas d\'usage',
-        subtitle: "Entreprises crypto qui ont réussi leur mise en conformité. Leur use case, leurs juridictions et leurs licences.",
+        title: "Cas d'usage",
+        subtitle: "Entreprises crypto qui ont réussi leur mise en conformité. Leur use case et leurs licences par juridiction.",
         filterBy: 'Filtrer par type',
         company: 'Entreprise',
         useCase: "Cas d'usage",
-        jurisdictions: 'Juridictions',
-        licences: 'Licences',
+        licences: 'Licences par juridiction',
         since: 'Depuis',
-        visit: 'Site web',
         disclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas un conseil juridique ni une recommandation d'investissement.",
       }
     : {
         back: 'Understand',
         title: 'Use Cases',
-        subtitle: 'Crypto companies that nailed their compliance. Their use case, jurisdictions and licences.',
+        subtitle: 'Crypto companies that nailed their compliance. Their use case and licences per jurisdiction.',
         filterBy: 'Filter by type',
         company: 'Company',
         useCase: 'Use case',
-        jurisdictions: 'Jurisdictions',
-        licences: 'Licences',
+        licences: 'Licences by jurisdiction',
         since: 'Since',
-        visit: 'Website',
         disclaimer: 'Public information compiled for educational purposes. Does not constitute legal advice or an investment recommendation.',
       };
 
@@ -88,7 +84,6 @@ export default function UseCasesPage() {
             <tr className="bg-gray-50 dark:bg-gray-900/50">
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.company}</th>
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.useCase}</th>
-              <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.jurisdictions}</th>
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.licences}</th>
             </tr>
           </thead>
@@ -112,20 +107,14 @@ export default function UseCasesPage() {
                   <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
                 </td>
                 <td className="p-3 align-top">
-                  <div className="flex flex-wrap gap-1">
-                    {c.jurisdictions.map((j) => (
-                      <span key={j} className="text-base" title={JURISDICTIONS[j]?.name}>
-                        {JURISDICTIONS[j]?.flag}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td className="p-3 align-top">
-                  <ul className="space-y-1">
+                  <ul className="space-y-1.5">
                     {c.licences.map((l, i) => (
-                      <li key={i} className="text-xs">
+                      <li key={i} className="flex items-start gap-2 text-xs">
+                        <span className="text-base leading-none flex-shrink-0" title={JURISDICTIONS[l.jur]?.name}>
+                          {JURISDICTIONS[l.jur]?.flag}
+                        </span>
                         <span className="inline-block px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
-                          <LinkedText>{l}</LinkedText>
+                          <LinkedText>{l.name}</LinkedText>
                         </span>
                       </li>
                     ))}
@@ -155,21 +144,18 @@ export default function UseCasesPage() {
             <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
               <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
             </p>
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              {c.jurisdictions.map((j) => (
-                <span key={j} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-xs">
-                  <span>{JURISDICTIONS[j]?.flag}</span>
-                  <span>{JURISDICTIONS[j]?.name}</span>
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-1">
+            <ul className="space-y-1.5">
               {c.licences.map((l, i) => (
-                <span key={i} className="inline-block px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200 text-xs">
-                  <LinkedText>{l}</LinkedText>
-                </span>
+                <li key={i} className="flex items-start gap-2 text-xs">
+                  <span className="text-base leading-none flex-shrink-0">
+                    {JURISDICTIONS[l.jur]?.flag}
+                  </span>
+                  <span className="inline-block px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
+                    <LinkedText>{l.name}</LinkedText>
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ))}
       </div>
