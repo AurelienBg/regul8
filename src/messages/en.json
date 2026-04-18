@@ -7,7 +7,8 @@
     "compare": "Compare",
     "glossary": "Glossary",
     "xrpl": "XRPL Hub",
-    "check": "Assess",
+    "check": "Check",
+    "assess": "Assess",
     "ask": "Ask AI"
   },
   "jurisdictions": {
@@ -266,7 +267,11 @@
     "technicalDetails": "Technical Details",
     "useCase": "Use Case",
     "xrplObjects": "XRPL Objects",
-    "startWizard": "Start XRPL Compliance Check"
+    "startWizard": "Start XRPL Compliance Check",
+    "tableFeature": "Feature",
+    "tableStandard": "Standard",
+    "tableStatus": "Status",
+    "tableRegNote": "Regulatory note"
   },
   "common": {
     "disclaimer": "Regul8 provides general information for educational purposes only. This is not legal advice. Information may not be up to date. Always consult a qualified lawyer specializing in digital asset law for advice specific to your situation.",

@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 
 /**
  * The diagnostics list lives on /assess itself (shown as a grid in the hub).
- * /assess/diagnostics exists only as the parent path for detail pages.
+ * /check/diagnostics exists only as the parent path for detail pages.
  */
 type Params = { locale: string };
 

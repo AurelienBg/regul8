@@ -251,7 +251,7 @@ export default function DecisionTreeRunner({ tree }: Props) {
             <Link href="/wizard" className="btn-secondary text-sm">
               {tr.fullCheck}
             </Link>
-            <Link href="/assess/diagnostics" className="btn-secondary text-sm">
+            <Link href="/check/diagnostics" className="btn-secondary text-sm">
               {tr.otherTrees}
             </Link>
           </div>

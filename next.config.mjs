@@ -19,26 +19,26 @@ const nextConfig = {
         destination: '/:locale/understand/:path*',
         permanent: true,
       },
-      // /understand/decision-trees/* → /assess/diagnostics/*
+      // /understand/decision-trees/* → /check/diagnostics/*
       {
         source: '/:locale(en|fr)/understand/decision-trees',
-        destination: '/:locale/assess/diagnostics',
+        destination: '/:locale/check/diagnostics',
         permanent: true,
       },
       {
         source: '/:locale(en|fr)/understand/decision-trees/:path*',
-        destination: '/:locale/assess/diagnostics/:path*',
+        destination: '/:locale/check/diagnostics/:path*',
         permanent: true,
       },
-      // /check/* → /assess/*
+      // /assess/diagnostics/* → /check/diagnostics/* (split Assess/Check April 2026)
       {
-        source: '/:locale(en|fr)/check',
-        destination: '/:locale/assess',
+        source: '/:locale(en|fr)/assess/diagnostics',
+        destination: '/:locale/check/diagnostics',
         permanent: true,
       },
       {
-        source: '/:locale(en|fr)/check/:path*',
-        destination: '/:locale/assess/:path*',
+        source: '/:locale(en|fr)/assess/diagnostics/:path*',
+        destination: '/:locale/check/diagnostics/:path*',
         permanent: true,
       },
       // /glossary → /understand/glossary (moved into Understand hub)

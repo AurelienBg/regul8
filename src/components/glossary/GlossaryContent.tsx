@@ -320,7 +320,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
       </div>
 
       {/* Terms grid */}
-      <div className={`grid gap-3 ${compact ? 'grid-cols-1' : 'sm:grid-cols-2 gap-4'}`}>
+      <div className={`grid gap-3 ${compact ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3 gap-4'}`}>
         {filtered.map((term) => {
           const slug = slugify(term.term);
           const isHighlighted = highlighted === slug;

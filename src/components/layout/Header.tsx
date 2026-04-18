@@ -13,8 +13,11 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   /**
-   * Primary nav = 3 tabs organized by user intent.
-   * Ask AI is now surfaced via the floating FAB (⌘K) — no navbar tab.
+   * Primary nav = 4 tabs organized by user intent.
+   * Ask AI is surfaced via the floating FAB (⌘K) — no navbar tab.
+   *
+   * Assess = full comprehensive compliance report (wizard → /report).
+   * Check  = quick 2-min diagnostics (4 decision trees).
    */
   const links = [
     {
@@ -22,8 +25,8 @@ export default function Header() {
       label: t('learn'),
       isActive: (p: string) =>
         p === '/understand' || p.startsWith('/understand/') ||
-        p === '/learn' || p.startsWith('/learn/') || // legacy /learn paths during redirect window
-        p === '/glossary' || p.startsWith('/glossary/') || // legacy glossary path
+        p === '/learn' || p.startsWith('/learn/') ||
+        p === '/glossary' || p.startsWith('/glossary/') ||
         p.startsWith('/xrpl'),
     },
     {
@@ -33,13 +36,19 @@ export default function Header() {
     },
     {
       href: '/assess',
-      label: t('check'),
+      label: t('assess'),
       isActive: (p: string) =>
         p === '/assess' ||
         p.startsWith('/assess/') ||
-        p === '/check' || p.startsWith('/check/') || // legacy during redirect window
         p.startsWith('/wizard') ||
         p.startsWith('/report'),
+    },
+    {
+      href: '/check',
+      label: t('check'),
+      isActive: (p: string) =>
+        p === '/check' ||
+        p.startsWith('/check/'),
     },
   ] as const;
 

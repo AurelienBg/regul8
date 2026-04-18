@@ -73,7 +73,7 @@ export default function MicaTaxonomyPage() {
       <section className="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
         <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">{tr.ctaTitle}</div>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{tr.ctaDesc}</p>
-        <Link href="/assess/diagnostics/casp" className="btn-primary text-sm inline-block">
+        <Link href="/check/diagnostics/casp" className="btn-primary text-sm inline-block">
           {tr.ctaLink} &rarr;
         </Link>
       </section>
