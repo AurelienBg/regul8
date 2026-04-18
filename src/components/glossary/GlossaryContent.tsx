@@ -171,7 +171,8 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
 
   return (
     <div>
-      {/* Legend (collapsible, open by default) */}
+      {/* Legend (collapsible, open by default) — hidden in drawer/compact mode */}
+      {!compact && (
       <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50">
         <button
           onClick={() => setLegendOpen(!legendOpen)}
@@ -257,6 +258,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
           </div>
         )}
       </div>
+      )}
 
       {/* Search */}
       <div className="mb-3">
