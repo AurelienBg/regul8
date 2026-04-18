@@ -56,8 +56,8 @@ export default function ComparePage() {
   const tr = isFr ? {
     title: 'Comparateur',
     subtitle: 'Deux modes : plusieurs activités dans une juridiction, ou plusieurs juridictions pour une activité.',
-    modeActivities: "Activités × 1 juridiction",
-    modeJurisdictions: "Juridictions × 1 activité",
+    modeActivities: "Comparer activités",
+    modeJurisdictions: "Comparer juridictions",
     modeActivitiesDesc: "Choisissez une juridiction et 2 à 5 activités. Voyez toutes les obligations côte à côte.",
     modeJurisdictionsDesc: "Choisissez une activité et 2 à 5 juridictions. Comparez les régimes, coûts et délais.",
     jurisdiction: 'Juridiction',
@@ -87,8 +87,8 @@ export default function ComparePage() {
   } : {
     title: 'Comparator',
     subtitle: 'Two modes: multiple activities in one jurisdiction, or multiple jurisdictions for one activity.',
-    modeActivities: 'Activities × 1 jurisdiction',
-    modeJurisdictions: 'Jurisdictions × 1 activity',
+    modeActivities: 'Compare activities',
+    modeJurisdictions: 'Compare jurisdictions',
     modeActivitiesDesc: 'Pick one jurisdiction and 2–5 activities. See all obligations side-by-side.',
     modeJurisdictionsDesc: 'Pick one activity and 2–5 jurisdictions. Compare regimes, costs and timelines.',
     jurisdiction: 'Jurisdiction',
