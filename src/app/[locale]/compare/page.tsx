@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
+import EmergingBadge from '@/components/ui/EmergingBadge';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 
 const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
@@ -184,11 +185,12 @@ export default function CompareActivitiesPage() {
         </div>
       ) : (
         <>
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-4 flex items-center gap-3 flex-wrap">
             <span className="text-2xl">{jurisdictionMeta.flag}</span>
             <h2 className="text-xl font-bold">
               {rows.length} {tr.comparedIn} {jurisdictionMeta.name}
             </h2>
+            <EmergingBadge code={jurisdiction} />
           </div>
 
           <div className="overflow-x-auto">

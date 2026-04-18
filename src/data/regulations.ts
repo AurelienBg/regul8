@@ -127,6 +127,36 @@ export const REGULATIONS: RegData = {
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "Banco Central do Brasil (BCB) / CVM"
     },
+    ng: {
+      regime: "SEC Nigeria — Rules on Issuance, Offering Platforms and Custody of Digital Assets (May 2022) + CBN Guidelines 2023",
+      risk: "high",
+      licenses: ["SEC Nigeria DASP registration (Digital Assets Token Offering Platform, Digital Assets Exchange, DACS)", "CBN Virtual Asset licence (post Dec 2023 lifting of banking ban)", "SEC provisional VASP authorization (ARIP framework, 2024)"],
+      obligations: ["KYC/AML under MLPPA 2022", "10% capital gains tax on virtual asset transactions (Finance Act 2024)", "Local office + local director required", "NGN 500M minimum paid-up capital for exchanges", "Investor protection rules + Know-Your-Token (KYT) review", "Reporting to SEC + NFIU"],
+      time: "9–18 months (framework still maturing)",
+      cost: "NGN 500M paid-up + $150K–$500K setup/legal",
+      alts: ["UAE VARA (closer timezone)", "Ghana BoG sandbox", "Outside Africa: Singapore MAS"],
+      authority: "SEC Nigeria + CBN (Central Bank of Nigeria) + NFIU"
+    },
+    ke: {
+      regime: "Virtual Asset Service Providers Act 2025 (in force) + Capital Markets Authority oversight",
+      risk: "med",
+      licenses: ["VASP licence under VASP Act 2025 (CMA-issued for trading, custody, advisory)", "Tax registration with KRA (Digital Asset Tax 3% since 2023)"],
+      obligations: ["KYC/AML/CFT per POCAMLA 2009", "Segregation of customer assets", "Local presence + local directors", "Reporting to CMA + Financial Reporting Centre", "Digital Asset Tax 3% on transfer/exchange value"],
+      time: "9–15 months (new framework, timelines firming up)",
+      cost: "KES 5M–20M (~$40K–$160K)",
+      alts: ["South Africa FSCA (more mature)", "UAE VARA", "Outside Africa: Singapore MAS"],
+      authority: "Capital Markets Authority (CMA) + Central Bank of Kenya (CBK) + KRA"
+    },
+    za: {
+      regime: "FSCA Crypto Asset Declaration (Oct 2022) — crypto assets are financial products under FAIS Act",
+      risk: "med",
+      licenses: ["Crypto Asset Service Provider (CASP) licence under FAIS Act (June 2023+)", "FSP categories: discretionary, non-discretionary, advisory", "FIC registration (AML supervision)"],
+      obligations: ["FAIS Act fit-and-proper officers", "KYC/AML per FICA", "Customer due diligence + record keeping 5 yrs", "Annual financial statements to FSCA", "Insurance/PI cover per FSP category", "Travel Rule compliance from Apr 2023"],
+      time: "6–12 months",
+      cost: "ZAR 1M–3M (~$55K–$170K)",
+      alts: ["UAE VARA", "Singapore MAS", "UK FCA"],
+      authority: "FSCA (Financial Sector Conduct Authority) + FIC + SARB"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -255,6 +285,36 @@ export const REGULATIONS: RegData = {
       cost: "R$300K–R$1.5M ($60K–$300K)",
       alts: ["EU MiCA", "Singapore MAS"],
       authority: "BCB / CVM"
+    },
+    ng: {
+      regime: "No dedicated stablecoin framework yet — falls under SEC Nigeria DASP rules (2022) + CBN Guidelines. USD stablecoins treated as virtual assets.",
+      risk: "high",
+      licenses: ["SEC Nigeria DASP registration", "CBN Virtual Asset licence if fiat on/off ramp"],
+      obligations: ["KYC/AML", "Reserve attestations (best practice, not mandated yet)", "Capital gains tax 10%", "Local entity + directors"],
+      time: "9–18 months",
+      cost: "NGN 500M paid-up + $200K+ setup",
+      alts: ["UAE VARA (dedicated stablecoin framework)", "Singapore MAS SCS"],
+      authority: "SEC Nigeria + CBN"
+    },
+    ke: {
+      regime: "VASP Act 2025 covers stablecoins as virtual assets. No dedicated reserve framework.",
+      risk: "med",
+      licenses: ["VASP licence under VASP Act 2025", "CMA approval for token offerings"],
+      obligations: ["KYC/AML", "Reserve transparency (best practice)", "Digital Asset Tax 3%", "Consumer protection"],
+      time: "9–15 months",
+      cost: "KES 10M–30M (~$80K–$240K)",
+      alts: ["UAE VARA", "South Africa FSCA", "Singapore MAS"],
+      authority: "CMA + CBK"
+    },
+    za: {
+      regime: "Crypto Asset Declaration (FSCA 2022) — stablecoins are financial products. SARB exchange control rules also apply.",
+      risk: "med",
+      licenses: ["CASP licence (FAIS Act)", "SARB approval for cross-border flows", "Potential banking licence if deposit-like"],
+      obligations: ["FSCA FAIS fit-and-proper", "SARB exchange control reporting", "Reserve disclosures (best practice)", "Customer due diligence + Travel Rule"],
+      time: "9–18 months",
+      cost: "ZAR 2M–8M (~$110K–$440K)",
+      alts: ["UAE VARA dedicated stablecoin", "UK FCA e-money"],
+      authority: "FSCA + SARB + FIC"
     },
   },
 
@@ -385,6 +445,36 @@ export const REGULATIONS: RegData = {
       cost: "R$200K–R$800K ($40K–$160K)",
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "BCB"
+    },
+    ng: {
+      regime: "SEC Nigeria — Digital Asset Custodian (DACS) under 2022 Rules",
+      risk: "high",
+      licenses: ["DACS licence (SEC Nigeria)", "CBN oversight for fiat leg"],
+      obligations: ["Asset segregation (cold storage recommended)", "KYC/AML", "Cybersecurity controls", "Capital adequacy (min NGN 500M)", "Insurance for assets under custody"],
+      time: "12–18 months",
+      cost: "NGN 500M paid-up + $200K–$500K setup",
+      alts: ["UAE VARA custody", "Ghana sandbox"],
+      authority: "SEC Nigeria + CBN"
+    },
+    ke: {
+      regime: "VASP Act 2025 — custody as licensed activity under CMA",
+      risk: "med",
+      licenses: ["Custody VASP licence (CMA)", "FRC notification"],
+      obligations: ["Segregation of customer assets", "KYC/AML per POCAMLA", "Cold storage best practices", "Insurance cover", "Reporting to CMA quarterly"],
+      time: "9–15 months",
+      cost: "KES 10M–30M (~$80K–$240K)",
+      alts: ["South Africa FSCA", "UAE VARA"],
+      authority: "CMA + CBK"
+    },
+    za: {
+      regime: "FSCA CASP — custody category under FAIS Act (2023+)",
+      risk: "med",
+      licenses: ["CASP licence — custody category", "FIC registration"],
+      obligations: ["Asset segregation", "SOC 2-like controls", "Insurance PI cover", "Customer risk assessment", "Travel Rule from Apr 2023", "FSCA annual audit"],
+      time: "6–12 months",
+      cost: "ZAR 2M–6M (~$110K–$330K)",
+      alts: ["UAE VARA custody", "UK FCA"],
+      authority: "FSCA + FIC + SARB"
     },
   },
 
@@ -1276,6 +1366,36 @@ export const REGULATIONS: RegData = {
       cost: "R$100K–R$500K ($20K–$100K)",
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "BCB / CVM"
+    },
+    ng: {
+      regime: "CBN — Payments System Vision + Virtual Asset Guidelines 2023. SEC Nigeria DASP rules for crypto leg. Strong local payment rails (NIBSS).",
+      risk: "high",
+      licenses: ["CBN Payment Service Bank / Switching Licence", "SEC Nigeria DASP registration for crypto leg", "NFIU registration"],
+      obligations: ["KYC/AML per MLPPA 2022", "Travel Rule compliance", "Local Naira settlement (NIBSS integration)", "Consumer protection under CPA", "10% capital gains tax on crypto transfers"],
+      time: "12–24 months",
+      cost: "NGN 2B+ for PSB + DASP costs ($2M+ range)",
+      alts: ["Ghana BoG Payment System Providers", "UAE VARA payment"],
+      authority: "CBN + SEC Nigeria + NFIU"
+    },
+    ke: {
+      regime: "VASP Act 2025 (transfer activities) + Payment Systems Act + CBK oversight. M-Pesa ecosystem dominates.",
+      risk: "med",
+      licenses: ["VASP licence — transfer category (CMA)", "CBK Money Remittance Provider licence (if fiat payout)", "KRA registration"],
+      obligations: ["KYC/AML per POCAMLA", "Travel Rule compliance", "Digital Asset Tax 3%", "Consumer protection (CPA 2012)", "M-Pesa/bank integration for KES rail"],
+      time: "9–18 months",
+      cost: "KES 10M–40M (~$80K–$320K)",
+      alts: ["UAE VARA payment", "South Africa FSCA"],
+      authority: "CMA + CBK"
+    },
+    za: {
+      regime: "FSCA CASP (FAIS Act) + SARB exchange control + payment institution framework (NPS Act)",
+      risk: "med",
+      licenses: ["CASP licence under FAIS Act", "SARB approval for cross-border flows", "Payments System Operator (PSO) designation if operating rails"],
+      obligations: ["SARB exchange control compliance (strict for ZAR outflows)", "Travel Rule since Apr 2023", "FICA AML obligations", "CASP category II or III depending on advice component", "Consumer protection under FAIS"],
+      time: "9–15 months",
+      cost: "ZAR 2M–8M (~$110K–$440K)",
+      alts: ["UAE VARA payment", "UK FCA"],
+      authority: "FSCA + SARB + FIC"
     },
   },
 

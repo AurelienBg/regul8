@@ -18,13 +18,10 @@ export default function Header() {
    */
   const links = [
     {
-      href: '/check',
-      label: t('check'),
+      href: '/learn',
+      label: t('learn'),
       isActive: (p: string) =>
-        p === '/check' ||
-        p.startsWith('/check/') ||
-        p.startsWith('/wizard') ||
-        p.startsWith('/report'),
+        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'),
     },
     {
       href: '/compare',
@@ -32,10 +29,13 @@ export default function Header() {
       isActive: (p: string) => p.startsWith('/compare'),
     },
     {
-      href: '/learn',
-      label: t('learn'),
+      href: '/check',
+      label: t('check'),
       isActive: (p: string) =>
-        p === '/learn' || p.startsWith('/learn/') || p.startsWith('/xrpl'),
+        p === '/check' ||
+        p.startsWith('/check/') ||
+        p.startsWith('/wizard') ||
+        p.startsWith('/report'),
     },
     {
       href: '/search',

@@ -36,7 +36,7 @@ export default function LearnHubPage() {
   const maps = isFr ? MAPS_FR : MAPS_EN;
 
   const tr = isFr ? {
-    title: 'Apprendre',
+    title: 'Comprendre',
     subtitle: 'Comprendre et référencer la régulation crypto. Paths narratifs, cartes visuelles, deep dive XRPL.',
     pathsTitle: "Parcours d'apprentissage",
     pathsDesc: 'Plongées ciblées, 6-10 min chacune.',
@@ -52,7 +52,7 @@ export default function LearnHubPage() {
     read: 'Lire',
     open: 'Ouvrir',
   } : {
-    title: 'Learn',
+    title: 'Understand',
     subtitle: 'Understand and reference crypto regulation. Narrative paths, visual maps, XRPL deep dive.',
     pathsTitle: 'Learning Paths',
     pathsDesc: 'Focused deep dives, 6-10 min each.',

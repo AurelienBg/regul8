@@ -1,6 +1,9 @@
 export type Risk = 'high' | 'med' | 'low'
 
-export type Jurisdiction = 'eu' | 'us' | 'uae' | 'sg' | 'uk' | 'hk' | 'ch' | 'li' | 'jp' | 'kr' | 'in' | 'br'
+export type Jurisdiction = 'eu' | 'us' | 'uae' | 'sg' | 'uk' | 'hk' | 'ch' | 'li' | 'jp' | 'kr' | 'in' | 'br' | 'ng' | 'ke' | 'za'
+
+/** Visual tier for the /report + /compare UI. "emerging" = evolving framework, less data depth. */
+export type JurisdictionTier = 'established' | 'emerging'
 
 export type ActivityKey =
   | 'exchange'
@@ -128,7 +131,7 @@ export interface XRPLCustodyMethod {
   xrplObjects?: string[]
 }
 
-export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string }> = {
+export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; tier?: JurisdictionTier }> = {
   eu: { name: 'EU / France', flag: '🇪🇺' },
   us: { name: 'USA', flag: '🇺🇸' },
   uae: { name: 'UAE / Dubai', flag: '🇦🇪' },
@@ -141,6 +144,9 @@ export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string }>
   kr: { name: 'South Korea', flag: '🇰🇷' },
   in: { name: 'India', flag: '🇮🇳' },
   br: { name: 'Brazil', flag: '🇧🇷' },
+  ng: { name: 'Nigeria', flag: '🇳🇬', tier: 'emerging' },
+  ke: { name: 'Kenya', flag: '🇰🇪', tier: 'emerging' },
+  za: { name: 'South Africa', flag: '🇿🇦', tier: 'emerging' },
 }
 
 export const ACTIVITIES: Record<ActivityKey, { xrpl: boolean }> = {

@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
+import EmergingBadge from '@/components/ui/EmergingBadge';
 import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
@@ -229,8 +230,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <th className="text-left p-3 border-b border-[var(--border)] w-40" />
                     {jurisdictions.map((j) => (
                       <th key={j} className="text-left p-3 border-b border-[var(--border)] min-w-[200px]">
-                        <span className="text-lg mr-1">{JURISDICTIONS[j]?.flag}</span>
-                        {JURISDICTIONS[j]?.name}
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-lg">{JURISDICTIONS[j]?.flag}</span>
+                          <span>{JURISDICTIONS[j]?.name}</span>
+                          <EmergingBadge code={j} />
+                        </div>
                       </th>
                     ))}
                   </tr>
@@ -329,9 +333,10 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                 <div key={j} className="card mb-4">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <span className="text-xl">{JURISDICTIONS[j]?.flag}</span>
                         <span className="font-semibold">{JURISDICTIONS[j]?.name}</span>
+                        <EmergingBadge code={j} />
                       </div>
                       <div className="mt-2"><RegimeDisplay result={r} variant="block" /></div>
                     </div>
