@@ -7,7 +7,7 @@
     "compare": "Comparer",
     "glossary": "Glossaire",
     "xrpl": "Hub XRPL",
-    "check": "Vérifier",
+    "check": "Évaluer",
     "ask": "Aide IA"
   },
   "jurisdictions": {
@@ -41,14 +41,14 @@
     "stepperSubtitle": "Trois modes selon vos besoins. Combinez-les pour votre situation.",
     "steps": {
       "check": {
-        "title": "Vérifier",
+        "title": "Évaluer",
         "desc": "Dites-nous vos activités et juridictions. Obtenez un rapport réglementaire complet avec régimes, licences, obligations, délais et coûts.",
-        "cta": "Démarrer une vérification"
+        "cta": "Démarrer une évaluation"
       },
       "learn": {
-        "title": "Apprendre",
+        "title": "Comprendre",
         "desc": "Plongez dans les parcours guidés, les cartes visuelles et le deep-dive XRPL. Comprenez MiCA, Howey, la classification custody et plus.",
-        "cta": "Explorer l'apprentissage"
+        "cta": "Explorer la connaissance"
       },
       "ask": {
         "title": "Demander à l'IA",

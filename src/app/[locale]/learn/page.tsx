@@ -47,6 +47,9 @@ export default function LearnHubPage() {
     xrplTitle: 'XRPL Deep Dive',
     xrplDesc: "Statut légal du XRP par juridiction, EVM Sidechain, fonctionnalités natives (AMM, NFT, MPT, RLUSD) et matrice custody.",
     openHub: 'Ouvrir le hub XRPL',
+    useCasesTitle: "Cas d'usage",
+    useCasesDesc: "Entreprises crypto qui ont réussi leur mise en conformité (Ripple, Circle, Coinbase, Sorare, Anchorage…) avec leurs licences et juridictions.",
+    useCasesCta: 'Voir les cas',
     glossaryHint: "Le glossaire (~60 termes) est accessible via le bouton flottant 📖 en bas à droite ou avec ⌘K depuis n'importe quelle page.",
     openGlossary: 'Ouvrir le glossaire',
     read: 'Lire',
@@ -63,6 +66,9 @@ export default function LearnHubPage() {
     xrplTitle: 'XRPL Deep Dive',
     xrplDesc: 'XRP legal status by jurisdiction, EVM Sidechain, native features (AMM, NFT, MPT, RLUSD) and the custody matrix.',
     openHub: 'Open XRPL hub',
+    useCasesTitle: 'Use Cases',
+    useCasesDesc: 'Crypto companies that nailed compliance (Ripple, Circle, Coinbase, Sorare, Anchorage…) with their licences and jurisdictions.',
+    useCasesCta: 'See use cases',
     glossaryHint: 'The glossary (~60 terms) is accessible via the floating 📖 button bottom-right or with ⌘K from any page.',
     openGlossary: 'Open glossary',
     read: 'Read',
@@ -164,7 +170,7 @@ export default function LearnHubPage() {
       </section>
 
       {/* XRPL Deep Dive */}
-      <section className="mb-10">
+      <section className="mb-6">
         <Link
           href="/xrpl"
           className="card hover:border-violet-500 transition-colors group block p-6 border-2"
@@ -181,6 +187,27 @@ export default function LearnHubPage() {
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.xrplDesc}</p>
               <span className="text-sm font-medium text-violet-600 dark:text-violet-400">
                 {tr.openHub} &rarr;
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      {/* Use Cases */}
+      <section className="mb-10">
+        <Link
+          href="/learn/cases"
+          className="card hover:border-blue-500 transition-colors group block p-6 border-2"
+        >
+          <div className="flex items-start gap-4">
+            <div className="text-4xl">🏢</div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {tr.useCasesTitle}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.useCasesDesc}</p>
+              <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                {tr.useCasesCta} &rarr;
               </span>
             </div>
           </div>

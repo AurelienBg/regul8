@@ -34,10 +34,10 @@ export default function CheckHubPage() {
   const useCaseChips = isFr ? USE_CASE_CHIPS_FR : USE_CASE_CHIPS_EN;
 
   const tr = isFr ? {
-    title: 'Vérifier votre conformité',
-    subtitle: 'Deux modes : vérification complète ou question précise. Pour explorer plusieurs activités côte à côte, passez par Compare.',
+    title: 'Évaluer votre conformité',
+    subtitle: 'Deux modes : évaluation complète ou question précise. Pour explorer plusieurs activités côte à côte, passez par Compare.',
     notSure: "Pas sûr par où commencer ?",
-    fullTitle: 'Vérification complète',
+    fullTitle: 'Évaluation complète',
     fullDesc: "Wizard multi-activités × multi-juridictions. Rapport détaillé avec régimes, licences, obligations, coûts, délais et analyse IA.",
     fullDuration: '5 min',
     fullCta: 'Lancer le wizard',
@@ -47,10 +47,10 @@ export default function CheckHubPage() {
     compareCrossDesc: "Allez dans Compare pour empiler 2 à 5 activités dans une même juridiction.",
     compareCrossCta: 'Ouvrir Compare',
   } : {
-    title: 'Check your compliance',
-    subtitle: 'Two modes: full check or precise question. To explore multiple activities side-by-side, use Compare.',
+    title: 'Assess your compliance',
+    subtitle: 'Two modes: full assessment or precise question. To explore multiple activities side-by-side, use Compare.',
     notSure: 'Not sure where to start?',
-    fullTitle: 'Full Compliance Check',
+    fullTitle: 'Full Compliance Assessment',
     fullDesc: 'Multi-activity × multi-jurisdiction wizard. Detailed report with regimes, licences, obligations, costs, timelines and AI analysis.',
     fullDuration: '5 min',
     fullCta: 'Start the wizard',

@@ -7,7 +7,7 @@
     "compare": "Compare",
     "glossary": "Glossary",
     "xrpl": "XRPL Hub",
-    "check": "Check",
+    "check": "Assess",
     "ask": "Ask AI"
   },
   "jurisdictions": {
@@ -41,14 +41,14 @@
     "stepperSubtitle": "Three modes depending on what you need. Mix and match to fit your situation.",
     "steps": {
       "check": {
-        "title": "Check",
+        "title": "Assess",
         "desc": "Tell us about your activities and jurisdictions. Get a complete regulatory report with regimes, licences, obligations, timeline and cost.",
-        "cta": "Start a check"
+        "cta": "Start an assessment"
       },
       "learn": {
-        "title": "Learn",
+        "title": "Understand",
         "desc": "Dive into curated paths, visual maps, and the XRPL deep-dive. Understand MiCA, Howey, custody classification and more.",
-        "cta": "Explore learning"
+        "cta": "Explore understanding"
       },
       "ask": {
         "title": "Ask AI",
