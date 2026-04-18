@@ -357,7 +357,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               if (!r) return <p key={j} className="text-gray-500">No data for {JURISDICTIONS[j]?.name}</p>;
               return (
                 <div key={j} className="card mb-4">
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between gap-3 mb-4">
                     <div>
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <span className="text-xl">{JURISDICTIONS[j]?.flag}</span>
@@ -366,7 +366,12 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       </div>
                       <div className="mt-2"><RegimeDisplay result={r} variant="block" /></div>
                     </div>
-                    <RiskBadge risk={r.risk} />
+                    <div className="text-right shrink-0">
+                      <div className="text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-normal mb-1">
+                        {t('risk')}
+                      </div>
+                      <RiskBadge risk={r.risk} />
+                    </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-6">

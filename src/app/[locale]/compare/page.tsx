@@ -205,22 +205,10 @@ export default function CompareActivitiesPage() {
                   {rows.map((r) => (
                     <th
                       key={r.activity}
-                      className="text-left p-3 border-b border-[var(--border)] min-w-[220px] align-top"
+                      className="text-left p-3 border-b border-[var(--border)] min-w-[220px]"
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
-                          {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
-                        </div>
-                        {r.result && (
-                          <div className="text-right shrink-0">
-                            <div className="text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-normal mb-1">
-                              {tr.risk}
-                            </div>
-                            <RiskBadge risk={r.result.risk} />
-                          </div>
-                        )}
-                      </div>
+                      <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
+                      {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
                     </th>
                   ))}
                 </tr>
