@@ -9,7 +9,7 @@ const TABS = [
   { key: 'usecases', href: '/understand/usecases' as const, match: (p: string) => p.startsWith('/understand/usecases') || p.startsWith('/understand/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: 'Cas d\'usage' },
   { key: 'xrpl', href: '/understand/xrpl' as const, match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL', labelFr: 'XRPL' },
   { key: 'maps', href: '/understand/maps' as const, match: (p: string) => p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
-  { key: 'paths', href: '/understand/paths' as const, match: (p: string) => p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Deep dives', labelFr: 'Dossiers' },
+  { key: 'paths', href: '/understand/paths' as const, match: (p: string) => p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
   { key: 'decision-trees', href: '/understand/decision-trees' as const, match: (p: string) => p.startsWith('/understand/decision-trees') || p.startsWith('/learn/decision-trees'), icon: '🌳', labelEn: 'Decision trees', labelFr: 'Arbres' },
 ];
 

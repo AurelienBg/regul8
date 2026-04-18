@@ -24,14 +24,14 @@ export default function LearningPathsListPage() {
   const paths = isFr ? LEARNING_PATHS_FR : LEARNING_PATHS;
   const tr = isFr ? {
     back: 'Comprendre',
-    title: 'Dossiers',
-    subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque dossier est une plongée ciblée de 6 à 10 min.',
+    title: 'Guides',
+    subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque guide est une plongée ciblée de 6 à 10 min.',
     read: 'Lire',
     more: "Prochainement : FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.",
   } : {
     back: 'Understand',
-    title: 'Deep Dives',
-    subtitle: 'Curated reads on the core regulatory frameworks. Each deep dive is a focused 6-10 min read.',
+    title: 'Guides',
+    subtitle: 'Curated reads on the core regulatory frameworks. Each guide is a focused 6-10 min read.',
     read: 'Read',
     more: 'Coming soon: FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.',
   };
