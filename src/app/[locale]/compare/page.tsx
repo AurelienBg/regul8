@@ -199,13 +199,13 @@ export default function CompareActivitiesPage() {
             <table className="w-full text-sm border-collapse">
               <thead>
                 <tr>
-                  <th className="text-left p-3 border-b border-[var(--border)] w-44 text-xs uppercase text-gray-500">
+                  <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
                     {tr.field}
                   </th>
                   {rows.map((r) => (
                     <th
                       key={r.activity}
-                      className="text-left p-3 border-b border-[var(--border)] min-w-[220px]"
+                      className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
                     >
                       <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
                       {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
@@ -215,7 +215,7 @@ export default function CompareActivitiesPage() {
               </thead>
               <tbody>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.regime}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.regime}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top">
                       {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : 'N/A'}
@@ -223,7 +223,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.risk}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.risk}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top">
                       {r.result && <RiskBadge risk={r.result.risk} />}
@@ -231,7 +231,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.licences}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.licences}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top">
                       <ul className="space-y-1">
@@ -248,7 +248,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.obligations}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.obligations}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top">
                       <ul className="list-disc ml-4 text-xs space-y-1">
@@ -260,7 +260,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.timeline}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.timeline}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top font-semibold">
                       {r.result?.time}
@@ -268,7 +268,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.cost}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.cost}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top font-semibold">
                       {r.result?.cost}
@@ -276,7 +276,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr className="border-b border-[var(--border)]">
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.authority}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.authority}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top text-sm">
                       {r.result?.authority}
@@ -284,7 +284,7 @@ export default function CompareActivitiesPage() {
                   ))}
                 </tr>
                 <tr>
-                  <td className="p-3 align-top font-medium text-gray-500 text-xs uppercase">{tr.xrplNote}</td>
+                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.xrplNote}</td>
                   {rows.map((r) => (
                     <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                       {r.result?.xrplNote ?? '—'}

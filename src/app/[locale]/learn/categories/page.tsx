@@ -163,20 +163,20 @@ export default function CategoriesPage() {
           <span>{tr.relations}</span>
         </h2>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">{tr.relationsDesc}</p>
-        <div className="flex items-center gap-2 flex-wrap text-sm">
-          <span className={`px-3 py-1.5 rounded-lg font-semibold ${TOPIC_META.regime.pillClass}`}>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-2 text-sm">
+          <span className={`px-3 py-1.5 rounded-lg font-semibold w-fit ${TOPIC_META.regime.pillClass}`}>
             {TOPIC_META.regime.icon} {isFr ? TOPIC_META.regime.labelFr : TOPIC_META.regime.labelEn}
           </span>
-          <span className="text-gray-500">{isFr ? '→ instaure un' : '→ establishes a'}</span>
-          <span className={`px-3 py-1.5 rounded-lg font-semibold ${TOPIC_META.licence.pillClass}`}>
+          <span className="text-gray-500 pl-3 sm:pl-0">{isFr ? '→ instaure un' : '→ establishes a'}</span>
+          <span className={`px-3 py-1.5 rounded-lg font-semibold w-fit ${TOPIC_META.licence.pillClass}`}>
             {TOPIC_META.licence.icon} {isFr ? TOPIC_META.licence.labelFr : TOPIC_META.licence.labelEn}
           </span>
-          <span className="text-gray-500">{isFr ? '→ supervisé par un' : '→ supervised by a'}</span>
-          <span className={`px-3 py-1.5 rounded-lg font-semibold ${TOPIC_META.regulator.pillClass}`}>
+          <span className="text-gray-500 pl-3 sm:pl-0">{isFr ? '→ supervisé par un' : '→ supervised by a'}</span>
+          <span className={`px-3 py-1.5 rounded-lg font-semibold w-fit ${TOPIC_META.regulator.pillClass}`}>
             {TOPIC_META.regulator.icon} {isFr ? TOPIC_META.regulator.labelFr : TOPIC_META.regulator.labelEn}
           </span>
-          <span className="text-gray-500">{isFr ? '→ impose des' : '→ imposes'}</span>
-          <span className={`px-3 py-1.5 rounded-lg font-semibold ${TOPIC_META.obligation.pillClass}`}>
+          <span className="text-gray-500 pl-3 sm:pl-0">{isFr ? '→ impose des' : '→ imposes'}</span>
+          <span className={`px-3 py-1.5 rounded-lg font-semibold w-fit ${TOPIC_META.obligation.pillClass}`}>
             {TOPIC_META.obligation.icon} {isFr ? TOPIC_META.obligation.labelFr : TOPIC_META.obligation.labelEn}
           </span>
         </div>
