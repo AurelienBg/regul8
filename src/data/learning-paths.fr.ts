@@ -622,7 +622,7 @@ const STABLECOIN_FRAMEWORKS: LearningPath = {
   relatedTrees: ['jurisdiction'],
 }
 
-export const LEARNING_PATHS_FR: LearningPath[] = [MICA, XRPL_CUSTODY, HOWEY, LIECHTENSTEIN, US_CRYPTO_101, STABLECOIN_FRAMEWORKS]
+export const LEARNING_PATHS_FR: LearningPath[] = [MICA, US_CRYPTO_101, XRPL_CUSTODY, STABLECOIN_FRAMEWORKS, HOWEY, LIECHTENSTEIN]
 
 export function getLearningPathFr(id: string): LearningPath | undefined {
   return LEARNING_PATHS_FR.find((p) => p.id === id)
