@@ -13,12 +13,12 @@ export default function DecisionTreesListPage() {
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-2">
         <Link href="/understand" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-          &larr; {isFr ? 'Apprendre' : 'Learn'}
+          &larr; {isFr ? 'Comprendre' : 'Understand'}
         </Link>
       </div>
       <header className="text-center mb-12">
-        <div className="text-5xl mb-4">🌳</div>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3">{isFr ? 'Arbres de décision' : 'Decision Trees'}</h1>
+        <div className="text-5xl mb-4">🩺</div>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3">{isFr ? 'Diagnostics' : 'Diagnostics'}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           {isFr
             ? 'Répondez à quelques questions. Obtenez un verdict clair, codé par couleur, avec les étapes suivantes.'
@@ -30,7 +30,7 @@ export default function DecisionTreesListPage() {
         {trees.map((tree) => (
           <Link
             key={tree.id}
-            href={`/learn/decision-trees/${tree.id}`}
+            href={`/understand/decision-trees/${tree.id}`}
             className="card hover:border-blue-500 transition-colors group"
           >
             <div className="text-4xl mb-4">{tree.icon}</div>
@@ -47,8 +47,8 @@ export default function DecisionTreesListPage() {
 
       <p className="text-center text-xs text-gray-500 mt-8 italic">
         {isFr
-          ? "Chaque arbre fournit des indications réglementaires générales. Pour un conseil spécifique, consultez un avocat qualifié."
-          : 'Each tree gives general regulatory guidance. For specific advice, consult a qualified lawyer.'}
+          ? "Chaque diagnostic fournit des indications réglementaires générales. Pour un conseil spécifique, consultez un avocat qualifié."
+          : 'Each diagnostic gives general regulatory guidance. For specific advice, consult a qualified lawyer.'}
       </p>
     </div>
   );

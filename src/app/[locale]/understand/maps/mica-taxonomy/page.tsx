@@ -18,7 +18,7 @@ export default function MicaTaxonomyPage() {
     otherTitle: 'Autre crypto-actif',
     otherDesc: "Pas de mécanisme de stabilisation. Whitepaper + notification NCA au-dessus de 1M€. Les utility tokens y sont.",
     ctaTitle: 'Envie de l\'appliquer à votre token ?',
-    ctaDesc: "Utilisez l'arbre de décision pour examiner les exigences CASP spécifiques à votre service.",
+    ctaDesc: "Utilisez l'diagnostic pour examiner les exigences CASP spécifiques à votre service.",
     ctaLink: "Ai-je besoin d'un agrément CASP ?",
   } : {
     back: 'Visual Maps',

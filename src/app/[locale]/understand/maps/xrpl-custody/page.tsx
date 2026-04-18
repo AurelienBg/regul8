@@ -14,7 +14,7 @@ export default function XrplCustodyMapPage() {
     greyTitle: "⚠️ La zone grise n'est pas un passe-droit",
     greyBody: "Les régulateurs n'ont pas publié de guidance définitive sur Regular Key, les seuils SignerList minorité, ou MPC/TSS sous MiCA. Un avis juridique écrit est essentiel avant de lancer. La classification peut évoluer avec les mises à jour ESMA/FCA.",
     setupTitle: 'Analysez votre propre architecture',
-    setupBody: "Utilisez l'arbre de décision pour router votre architecture à travers les 10 méthodes et obtenir un verdict clair.",
+    setupBody: "Utilisez l'diagnostic pour router votre architecture à travers les 10 méthodes et obtenir un verdict clair.",
     setupLink: 'Ma custody XRPL est-elle custodial ?',
   } : {
     back: 'Visual Maps',
@@ -23,7 +23,7 @@ export default function XrplCustodyMapPage() {
     greyTitle: "⚠️ Grey zone isn't a free pass",
     greyBody: "Regulators haven't issued definitive guidance on Regular Key, SignerList minority thresholds, or MPC/TSS under MiCA. A written legal opinion is essential before launch. The classification can shift with ESMA/FCA updates.",
     setupTitle: 'Figure out your own setup',
-    setupBody: 'Use the decision tree to route your architecture through the 10 methods and get a clear verdict.',
+    setupBody: 'Use the diagnostic to route your architecture through the 10 methods and get a clear verdict.',
     setupLink: 'Is my XRPL custody custodial?',
   };
 

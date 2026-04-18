@@ -112,7 +112,7 @@ If any one prong fails → **not a security**.
 
 **Post-Ripple (July 2023):** Judge Torres ruled that XRP sold on exchanges to retail buyers (programmatic sales) are NOT securities, but Ripple's direct sales to institutional buyers ARE. This introduced context-dependency: the same token can be a security in one transaction, not in another.
 
-See the "Is my token a security?" decision tree for a guided walkthrough.`,
+See the "Is my token a security?" diagnostic for a guided walkthrough.`,
       fr: `Le **Test de Howey** est le test établi par la Cour Suprême US (1946, *SEC v. W.J. Howey Co.*) pour déterminer si quelque chose qualifie de **titre financier** (security).
 
 **4 critères cumulatifs** — TOUS doivent être remplis :
@@ -125,7 +125,7 @@ Si un seul critère manque → **pas un titre financier**.
 
 **Après l'arrêt Ripple (juillet 2023) :** la juge Torres a établi que les ventes de XRP sur les exchanges à des acheteurs retail (ventes programmatiques) ne sont PAS des titres, mais que les ventes directes de Ripple à des institutions LE SONT. Cela introduit la notion de contexte : un même token peut être un titre dans une transaction et pas dans une autre.
 
-Voir l'arbre de décision "Mon token est-il un titre financier ?" pour un cheminement guidé.`,
+Voir l'diagnostic "Mon token est-il un titre financier ?" pour un cheminement guidé.`,
     },
   },
   {
@@ -158,7 +158,7 @@ Voir l'arbre de décision "Mon token est-il un titre financier ?" pour un chemin
 
 A CASP licence passports across all 27 EU states. Timeline 12–18 months.
 
-Run the "Do I need a CASP licence?" decision tree for a verdict on your setup.`,
+Run the "Do I need a CASP licence?" diagnostic for a verdict on your setup.`,
       fr: `Vous avez besoin d'un **agrément CASP** si vous servez ou ciblez des users UE ET vous fournissez l'un des 10 services sur crypto-actifs sous MiCA :
 
 - Conservation & administration (Art. 75, capital 350K€)
@@ -176,7 +176,7 @@ Run the "Do I need a CASP licence?" decision tree for a verdict on your setup.`,
 
 Un agrément CASP passporte sur les 27 États membres. Délai 12–18 mois.
 
-Lancez l'arbre de décision "Ai-je besoin d'un agrément CASP ?" pour un verdict précis.`,
+Lancez l'diagnostic "Ai-je besoin d'un agrément CASP ?" pour un verdict précis.`,
     },
   },
   {
@@ -455,7 +455,7 @@ Régulateur : **FMA** (Finanzmarktaufsicht Liechtenstein).`,
 
 **Design rule:** if **no single party can sign alone**, you have a strong non-custodial argument. The more keys you give the user, the clearer the non-custodial posture.
 
-See the "Is my XRPL custody custodial?" decision tree for a verdict on your specific architecture.`,
+See the "Is my XRPL custody custodial?" diagnostic for a verdict on your specific architecture.`,
       fr: `Sur XRPL, la custody dépend de **qui contrôle les clés de signature**.
 
 **Custodial — 🔴 nécessite CASP Art. 75 MiCA (UE) ou MSB + MTL d'État (US) :**
@@ -477,7 +477,7 @@ See the "Is my XRPL custody custodial?" decision tree for a verdict on your spec
 
 **Règle de design :** si **aucune partie ne peut signer seule**, vous avez un argument non-custodial fort. Plus vous donnez de clés à l'utilisateur, plus la posture non-custodial est claire.
 
-Voir l'arbre de décision "Ma custody XRPL est-elle custodial ?" pour un verdict sur votre architecture.`,
+Voir l'diagnostic "Ma custody XRPL est-elle custodial ?" pour un verdict sur votre architecture.`,
     },
   },
   {

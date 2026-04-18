@@ -27,13 +27,13 @@ export default function LearningPathsListPage() {
     title: 'Guides',
     subtitle: 'Lectures guidées sur les cadres réglementaires clés. Chaque guide est une plongée ciblée de 6 à 10 min.',
     read: 'Lire',
-    more: "Prochainement : FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.",
+    more: "Prochainement : Singapore MAS Deep-Dive, FATF Recommendations primer, KYC/AML pour startups crypto.",
   } : {
     back: 'Understand',
     title: 'Guides',
     subtitle: 'Curated reads on the core regulatory frameworks. Each guide is a focused 6-10 min read.',
     read: 'Read',
-    more: 'Coming soon: FATF Travel Rule Explained, Tokenised RWA 101, Dubai VARA — Zero to Licensed.',
+    more: 'Coming soon: Singapore MAS Deep-Dive, FATF Recommendations primer, KYC/AML for crypto startups.',
   };
 
   return (

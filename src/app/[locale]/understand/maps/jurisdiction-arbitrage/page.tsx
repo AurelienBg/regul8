@@ -18,7 +18,7 @@ export default function JurisdictionArbitrageMapPage() {
     q3Title: '🏛 Lent & cher',
     q3Body: "MTLs d'État US, UE MiCA, Hong Kong SFC. Nécessaires pour accéder aux plus gros marchés. Prévoyez capital et 12-24 mois ; passportez ou empilez une fois approuvé.",
     ctaTitle: 'Prêt à en choisir une ?',
-    ctaBody: "L'arbre de décision vous guide à travers vos priorités délai / coût / marché / réputation et propose une juridiction recommandée.",
+    ctaBody: "L'diagnostic vous guide à travers vos priorités délai / coût / marché / réputation et propose une juridiction recommandée.",
     ctaLink: 'Quelle juridiction choisir ?',
   } : {
     back: 'Visual Maps',
@@ -31,7 +31,7 @@ export default function JurisdictionArbitrageMapPage() {
     q3Title: '🏛 Slow & expensive',
     q3Body: 'US state MTLs, EU MiCA, Hong Kong SFC. Required for access to the biggest markets. Plan capital and 12-24 months; passport or stack once approved.',
     ctaTitle: 'Ready to pick one?',
-    ctaBody: 'The decision tree walks you through speed / cost / market / reputation priorities and outputs a recommended jurisdiction.',
+    ctaBody: 'The diagnostic walks you through speed / cost / market / reputation priorities and outputs a recommended jurisdiction.',
     ctaLink: 'Which jurisdiction should I choose?',
   };
 
