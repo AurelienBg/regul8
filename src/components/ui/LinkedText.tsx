@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState, useLayoutEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocale } from 'next-intl';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
@@ -61,6 +62,8 @@ function TermLink({
   isFr: boolean;
 }) {
   const [hover, setHover] = useState(false);
+  const [position, setPosition] = useState<{ top: number; left: number; placement: 'above' | 'below' } | null>(null);
+  const anchorRef = useRef<HTMLAnchorElement>(null);
   const meta = topic ? TOPIC_META[topic] : undefined;
 
   const underlineClass = meta
@@ -69,39 +72,71 @@ function TermLink({
 
   const topicLabel = meta ? (isFr ? meta.labelFr : meta.labelEn) : null;
 
+  // Tooltip width ≈ 288px (w-72), height ≈ 80-120px dynamic
+  const TOOLTIP_WIDTH = 288;
+  const TOOLTIP_EST_HEIGHT = 120;
+  const MARGIN = 8;
+  const NAV_OFFSET = 64; // sticky header height
+
+  useLayoutEffect(() => {
+    if (!hover || !anchorRef.current) return;
+    const rect = anchorRef.current.getBoundingClientRect();
+    // Decide placement: above by default, flip to below if not enough room above
+    const spaceAbove = rect.top - NAV_OFFSET;
+    const placement: 'above' | 'below' = spaceAbove >= TOOLTIP_EST_HEIGHT + MARGIN ? 'above' : 'below';
+
+    // Center horizontally on the anchor, then clamp to viewport
+    const centerX = rect.left + rect.width / 2;
+    let left = centerX - TOOLTIP_WIDTH / 2;
+    const viewportWidth = window.innerWidth;
+    if (left < MARGIN) left = MARGIN;
+    if (left + TOOLTIP_WIDTH > viewportWidth - MARGIN) left = viewportWidth - TOOLTIP_WIDTH - MARGIN;
+
+    const top = placement === 'above' ? rect.top - MARGIN : rect.bottom + MARGIN;
+    setPosition({ top, left, placement });
+  }, [hover]);
+
+  const tooltip =
+    hover && position && typeof document !== 'undefined'
+      ? createPortal(
+          <span
+            role="tooltip"
+            style={{
+              position: 'fixed',
+              top: position.placement === 'above' ? position.top : position.top,
+              left: position.left,
+              width: TOOLTIP_WIDTH,
+              transform: position.placement === 'above' ? 'translateY(-100%)' : undefined,
+            }}
+            className="z-[9999] px-3 py-2 rounded-lg bg-gray-900 dark:bg-gray-700 text-white text-xs leading-relaxed shadow-xl pointer-events-none"
+          >
+            <span className="flex items-center gap-1.5 mb-1 flex-wrap">
+              <span className="font-semibold text-blue-300">{term}</span>
+              {meta && (
+                <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${meta.pillClass}`}>
+                  {meta.icon} {topicLabel}
+                </span>
+              )}
+            </span>
+            <span className="block text-gray-100">{definition}</span>
+          </span>,
+          document.body,
+        )
+      : null;
+
   return (
-    <span
-      className="relative inline-block"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
+    <>
       <a
+        ref={anchorRef}
         href={href}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
         className={`underline decoration-dotted underline-offset-2 hover:decoration-solid cursor-help ${underlineClass}`}
       >
         {term}
       </a>
-      {hover && (
-        <span
-          role="tooltip"
-          className="absolute z-50 left-1/2 -translate-x-1/2 bottom-full mb-2 w-72 max-w-[90vw] px-3 py-2 rounded-lg bg-gray-900 dark:bg-gray-700 text-white text-xs leading-relaxed shadow-xl pointer-events-none"
-        >
-          <span className="flex items-center gap-1.5 mb-1">
-            <span className="font-semibold text-blue-300">{term}</span>
-            {meta && (
-              <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold ${meta.pillClass}`}>
-                {meta.icon} {topicLabel}
-              </span>
-            )}
-          </span>
-          <span className="text-gray-100">{definition}</span>
-          <span
-            aria-hidden="true"
-            className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700"
-          />
-        </span>
-      )}
-    </span>
+      {tooltip}
+    </>
   );
 }
 
