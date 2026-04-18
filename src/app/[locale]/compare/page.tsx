@@ -400,9 +400,9 @@ export default function ComparePage() {
         <>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
             {isFr ? (
-              <>Choisissez <strong>1 activité</strong> et sélectionnez 2 à 5 juridictions. Voyez toutes les obligations côte à côte.</>
+              <>Choisissez <strong>1 activité</strong> et 2 à 5 juridictions, puis comparez <strong>régimes, coûts et délais</strong>.</>
             ) : (
-              <>Pick <strong>1 activity</strong> and select 2–5 jurisdictions. See all obligations side-by-side.</>
+              <>Pick <strong>1 activity</strong> and 2–5 jurisdictions and compare <strong>regimes, costs and timelines</strong>.</>
             )}
           </p>
 
