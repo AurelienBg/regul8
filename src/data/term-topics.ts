@@ -4,7 +4,7 @@
  * (to color-code underlines based on topic).
  */
 
-export type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
+export type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'doctrine' | 'infra';
 
 export const TERM_TOPICS: Record<string, Topic> = {
   // 🪪 Licences
@@ -33,8 +33,8 @@ export const TERM_TOPICS: Record<string, Topic> = {
   MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
   FCA: 'regulator', VARA: 'regulator',
 
-  // 💡 Concepts / rulings
-  'Howey Test': 'concept',
+  // 💡 Doctrine / legal tests / rulings
+  'Howey Test': 'doctrine',
 
   // 🔧 Infrastructure / tech
   TradFi: 'infra', CeFi: 'infra', DeFi: 'infra', DAO: 'infra',
@@ -98,10 +98,10 @@ export const TOPIC_META: Record<Topic, {
     underline: 'decoration-rose-500',
     hoverText: 'hover:text-rose-700 dark:hover:text-rose-300',
   },
-  concept: {
+  doctrine: {
     icon: '💡',
-    labelEn: 'Concept',
-    labelFr: 'Concept',
+    labelEn: 'Doctrine',
+    labelFr: 'Doctrine',
     pillClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
     underline: 'decoration-indigo-500',
     hoverText: 'hover:text-indigo-700 dark:hover:text-indigo-300',

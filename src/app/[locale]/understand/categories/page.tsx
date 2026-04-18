@@ -5,7 +5,7 @@ import { Link } from '@/i18n/routing';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
 
-const TOPIC_ORDER: Topic[] = ['regime', 'licence', 'regulator', 'obligation', 'token', 'infra', 'concept'];
+const TOPIC_ORDER: Topic[] = ['regime', 'licence', 'regulator', 'obligation', 'token', 'infra', 'doctrine'];
 
 const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; when: string; examples: string }; fr: { title: string; what: string; when: string; examples: string } }> = {
   regime: {
@@ -78,29 +78,29 @@ const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; whe
       examples: 'EMT, ART, S-EMT, S-ART (MiCA), Utility Token, Security Token (Howey), RWA, NFT, Stablecoin, DPT (Singapour), MPT (XLS-33 sur XRPL).',
     },
   },
-  concept: {
+  doctrine: {
     en: {
-      title: 'Concept / Test / Ruling',
-      what: 'A theoretical test or court ruling that interprets the law. Crucial when the statute is silent or ambiguous.',
+      title: 'Doctrine / Legal Test',
+      what: 'A legal test or court ruling that interprets the law. Crucial when the statute is silent or ambiguous — the doctrine fills the gap.',
       when: 'When assessing grey zones — especially in the US where case law plays a major role.',
       examples: 'Howey Test (SEC v. W.J. Howey Co., 1946) — 4 prongs to qualify a security. SEC v. Ripple (2023) — primary vs secondary market distinction.',
     },
     fr: {
-      title: 'Concept / Test / Décision',
-      what: "Un test théorique ou une décision de justice qui interprète la loi. Crucial quand le texte est silencieux ou ambigu.",
+      title: 'Doctrine / Test juridique',
+      what: "Un test juridique ou une décision de justice qui interprète la loi. Crucial quand le texte est silencieux ou ambigu — la doctrine comble le vide.",
       when: "Quand on évalue des zones grises — surtout aux US où la jurisprudence joue un rôle majeur.",
       examples: 'Test de Howey (SEC v. W.J. Howey Co., 1946) — 4 critères pour qualifier un titre. SEC v. Ripple (2023) — distinction marché primaire vs secondaire.',
     },
   },
   infra: {
     en: {
-      title: 'Infrastructure / Concept',
+      title: 'Infrastructure',
       what: 'Technical or ecosystem concepts that are not themselves regulated but shape how regulation applies.',
       when: 'Reference terms you encounter constantly in the crypto space — DeFi vs CeFi, on-chain vs off-chain, XRPL primitives, etc.',
       examples: 'TradFi, CeFi, DeFi, DAO, Smart Contract, DLT, Trust Line, IOU, Escrow, SignerList, MPC, TSS.',
     },
     fr: {
-      title: 'Infrastructure / Concept',
+      title: 'Infrastructure',
       what: "Concepts techniques ou écosystémiques qui ne sont pas régulés en eux-mêmes mais qui façonnent la façon dont la régulation s'applique.",
       when: "Termes de référence que vous croisez constamment en crypto — DeFi vs CeFi, on-chain vs off-chain, primitives XRPL, etc.",
       examples: 'TradFi, CeFi, DeFi, DAO, Smart Contract, DLT, Trust Line, IOU, Escrow, SignerList, MPC, TSS.',
@@ -118,30 +118,30 @@ export default function CategoriesPage() {
 
   const tr = isFr
     ? {
-        title: 'Catégories',
-        subtitle: "Les 7 natures de concepts qu'on trouve dans un rapport réglementaire. Comprendre la différence entre loi, licence et régulateur vous évite bien des confusions.",
+        title: 'Concepts',
+        subtitle: "Les 7 concepts fondamentaux qu'on trouve dans un rapport réglementaire. Comprendre la différence entre loi, licence et régulateur vous évite bien des confusions.",
         whatIs: 'Qu\'est-ce que c\'est ?',
         whenApplies: 'Quand ça s\'applique',
         examples: 'Exemples',
-        allTerms: 'Tous les termes de cette catégorie',
-        relations: 'Les relations entre catégories',
+        allTerms: 'Tous les termes de ce concept',
+        relations: 'Les relations entre concepts',
         relationsDesc: 'Les 4 concepts principaux forment une chaîne logique :',
         disclaimer: 'Cliquez sur un terme pour ouvrir sa définition dans le glossaire.',
       }
     : {
-        title: 'Categories',
-        subtitle: 'The 7 kinds of concepts you find in a regulatory report. Knowing the difference between a law, a licence and a regulator saves you a lot of confusion.',
+        title: 'Concepts',
+        subtitle: 'The 7 core concepts you find in a regulatory report. Knowing the difference between a law, a licence and a regulator saves you a lot of confusion.',
         whatIs: 'What it is',
         whenApplies: 'When it applies',
         examples: 'Examples',
-        allTerms: 'All terms in this category',
-        relations: 'How the categories relate',
-        relationsDesc: 'The 4 main concepts form a logical chain:',
+        allTerms: 'All terms in this concept',
+        relations: 'How the concepts relate',
+        relationsDesc: 'The 4 core concepts form a logical chain:',
         disclaimer: 'Click any term to open its definition in the glossary.',
       };
 
   const termsByTopic: Record<Topic, string[]> = {
-    regime: [], licence: [], regulator: [], obligation: [], token: [], concept: [], infra: [],
+    regime: [], licence: [], regulator: [], obligation: [], token: [], doctrine: [], infra: [],
   };
   for (const [term, topic] of Object.entries(TERM_TOPICS)) {
     if (termsByTopic[topic]) termsByTopic[topic].push(term);

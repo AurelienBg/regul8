@@ -7,12 +7,12 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 
-type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'concept' | 'infra';
-const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'infra', 'concept'] as const;
+type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'doctrine' | 'infra';
+const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'infra', 'doctrine'] as const;
 
 const TOPIC_ICONS: Record<Topic, string> = {
   licence: '🪪', regime: '📜', obligation: '✅', token: '🪙',
-  regulator: '🏛️', concept: '💡', infra: '🔧',
+  regulator: '🏛️', doctrine: '💡', infra: '🔧',
 };
 
 const TOPIC_STYLES: Record<Topic, string> = {
@@ -21,7 +21,7 @@ const TOPIC_STYLES: Record<Topic, string> = {
   obligation: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
   token: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
   regulator: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200',
-  concept: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
+  doctrine: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200',
   infra: 'bg-slate-200 text-slate-800 dark:bg-slate-600/60 dark:text-slate-100',
 };
 
@@ -70,7 +70,7 @@ const TERM_TOPICS: Record<string, Topic> = {
   FATF: 'regulator', FINMA: 'regulator', VQF: 'regulator', SRO: 'regulator',
   MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
   FCA: 'regulator', VARA: 'regulator',
-  'Howey Test': 'concept',
+  'Howey Test': 'doctrine',
   TradFi: 'infra', CeFi: 'infra', DeFi: 'infra', DAO: 'infra',
   'Smart Contract': 'infra', DLT: 'infra',
   'Trust Line': 'infra', IOU: 'infra', Escrow: 'infra', 'Payment Channel': 'infra',
@@ -200,7 +200,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                 <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.topicsBody')}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-                {(['licence','regime','obligation','token','regulator','infra','concept'] as Topic[]).map((tp) => (
+                {(['licence','regime','obligation','token','regulator','infra','doctrine'] as Topic[]).map((tp) => (
                   <div
                     key={tp}
                     className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"

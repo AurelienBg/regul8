@@ -173,7 +173,7 @@
       "obligation": "Obligation",
       "token": "Token type",
       "regulator": "Regulator",
-      "concept": "Concept",
+      "doctrine": "Doctrine",
       "infra": "Infrastructure"
     },
     "topicTooltips": {
@@ -198,9 +198,9 @@
         "question": "Who supervises you?",
         "examples": "Examples: AMF, SEC, CFTC, FinCEN, FATF, FINMA, MAS, SFC, FCA, VARA"
       },
-      "concept": {
-        "question": "Theoretical tests and doctrines",
-        "examples": "Examples: Howey Test"
+      "doctrine": {
+        "question": "Legal tests and interpretive rulings",
+        "examples": "Examples: Howey Test, SEC v. Ripple"
       },
       "infra": {
         "question": "Technical layers and ecosystem concepts",
