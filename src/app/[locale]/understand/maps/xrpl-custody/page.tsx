@@ -16,8 +16,8 @@ export default function XrplCustodyMapPage() {
     setupTitle: 'Analysez votre propre architecture',
     setupBody: "Utilisez le diagnostic pour router votre architecture à travers les 10 méthodes et obtenir un verdict clair.",
     setupLink: 'Ma custody XRPL est-elle custodial ?',
-    providersTitle: 'Build vs Buy — fournisseurs custody institutionnels sur XRPL',
-    providersIntro: "Construire sa propre infrastructure custody coûte cher (12–24 mois, licence requise, capital immobilisé). Beaucoup de startups s'adossent à un fournisseur licencié. Les principaux avec support XRPL :",
+    providersTitle: 'Fournisseurs custody avec support XRPL',
+    providersIntro: "Plutôt que construire votre propre infrastructure custody (12–24 mois, licence requise, capital immobilisé), la plupart des startups s'adossent à un fournisseur licencié. Les principaux avec support XRPL natif ou institutionnel :",
     seeFullList: 'Voir la fiche complète des 8 fournisseurs sur la page XRPL',
   } : {
     back: 'Diagrams',
@@ -28,8 +28,8 @@ export default function XrplCustodyMapPage() {
     setupTitle: 'Figure out your own setup',
     setupBody: 'Use the diagnostic to route your architecture through the 10 methods and get a clear verdict.',
     setupLink: 'Is my XRPL custody custodial?',
-    providersTitle: 'Build vs Buy — institutional custody providers with XRPL support',
-    providersIntro: 'Building your own custody infrastructure is expensive (12–24 months, licence required, locked capital). Many startups partner with a licensed provider instead. Main options with XRPL support:',
+    providersTitle: 'XRPL-compatible custody providers',
+    providersIntro: 'Rather than building your own custody infrastructure (12–24 months, licence required, locked capital), most startups partner with a licensed provider. Main options with native or institutional XRPL support:',
     seeFullList: 'See the full 8-provider detail grid on the XRPL page',
   };
 
