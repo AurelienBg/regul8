@@ -46,17 +46,28 @@ const ACTIVITY_LABELS_FR: Record<ActivityKey, string> = {
   token_hybrid: 'Token hybride',
 };
 
-export default function CompareActivitiesPage() {
+type CompareMode = 'activities' | 'jurisdictions';
+
+export default function ComparePage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
   const ACTIVITY_LABELS = isFr ? ACTIVITY_LABELS_FR : ACTIVITY_LABELS_EN;
+
   const tr = isFr ? {
-    title: "Comparateur d'activités",
-    subtitle: 'Choisissez une juridiction et 2 à 5 activités. Voyez toutes les obligations réglementaires côte à côte.',
+    title: 'Comparateur',
+    subtitle: 'Deux modes : plusieurs activités dans une juridiction, ou plusieurs juridictions pour une activité.',
+    modeActivities: "Activités × 1 juridiction",
+    modeJurisdictions: "Juridictions × 1 activité",
+    modeActivitiesDesc: "Choisissez une juridiction et 2 à 5 activités. Voyez toutes les obligations côte à côte.",
+    modeJurisdictionsDesc: "Choisissez une activité et 2 à 5 juridictions. Comparez les régimes, coûts et délais.",
     jurisdiction: 'Juridiction',
+    activity: 'Activité',
     activities: 'Activités',
-    selectAtLeast2: 'Sélectionnez au moins 2 activités à comparer.',
+    jurisdictions: 'Juridictions',
+    selectAtLeast2Act: 'Sélectionnez au moins 2 activités à comparer.',
+    selectAtLeast2Juri: 'Sélectionnez au moins 2 juridictions à comparer.',
     comparedIn: 'activités comparées en',
+    comparedFor: 'juridictions comparées pour',
     field: 'Champ',
     regime: 'Régime Applicable',
     risk: 'Niveau de Risque',
@@ -72,13 +83,22 @@ export default function CompareActivitiesPage() {
     runningBody3: " — l'exigence la plus stricte s'applique généralement à toute l'entreprise. Prévoyez le capital, la gouvernance et les licences pour l'obligation la plus élevée de votre stack.",
     fullWizard: 'Wizard complet avec multi-juridictions',
     disclaimer: "Information générale uniquement. Pour votre situation spécifique, consultez un avocat qualifié.",
+    noData: 'Pas de données',
   } : {
-    title: 'Activity Comparator',
-    subtitle: 'Pick one jurisdiction and 2–5 activities. See all regulatory obligations side-by-side.',
+    title: 'Comparator',
+    subtitle: 'Two modes: multiple activities in one jurisdiction, or multiple jurisdictions for one activity.',
+    modeActivities: 'Activities × 1 jurisdiction',
+    modeJurisdictions: 'Jurisdictions × 1 activity',
+    modeActivitiesDesc: 'Pick one jurisdiction and 2–5 activities. See all obligations side-by-side.',
+    modeJurisdictionsDesc: 'Pick one activity and 2–5 jurisdictions. Compare regimes, costs and timelines.',
     jurisdiction: 'Jurisdiction',
+    activity: 'Activity',
     activities: 'Activities',
-    selectAtLeast2: 'Select at least 2 activities to compare.',
+    jurisdictions: 'Jurisdictions',
+    selectAtLeast2Act: 'Select at least 2 activities to compare.',
+    selectAtLeast2Juri: 'Select at least 2 jurisdictions to compare.',
     comparedIn: 'activities compared in',
+    comparedFor: 'jurisdictions compared for',
     field: 'Field',
     regime: 'Applicable Regime',
     risk: 'Risk Level',
@@ -94,222 +114,462 @@ export default function CompareActivitiesPage() {
     runningBody3: ' profile — the strictest requirement usually applies across the whole business. Plan capital, governance, and licences for the highest obligation in your stack.',
     fullWizard: 'Full wizard with multi-jurisdiction',
     disclaimer: 'General information only. For your specific situation, consult a qualified lawyer.',
+    noData: 'No data',
   };
-  const [jurisdiction, setJurisdiction] = useState<Jurisdiction>('eu');
-  const [selected, setSelected] = useState<ActivityKey[]>(['exchange', 'custody', 'payment']);
 
-  const toggle = (a: ActivityKey) => {
-    setSelected((prev) => {
+  const [mode, setMode] = useState<CompareMode>('activities');
+
+  // State for mode 1: activities × 1 jurisdiction
+  const [jurisdiction, setJurisdiction] = useState<Jurisdiction>('eu');
+  const [selectedActivities, setSelectedActivities] = useState<ActivityKey[]>(['exchange', 'custody', 'payment']);
+
+  // State for mode 2: jurisdictions × 1 activity
+  const [activity, setActivity] = useState<ActivityKey>('exchange');
+  const [selectedJurisdictions, setSelectedJurisdictions] = useState<Jurisdiction[]>(['eu', 'us', 'sg']);
+
+  const toggleActivity = (a: ActivityKey) => {
+    setSelectedActivities((prev) => {
       if (prev.includes(a)) return prev.filter((x) => x !== a);
       if (prev.length >= 5) return prev;
       return [...prev, a];
     });
   };
 
-  const rows = useMemo(
+  const toggleJurisdiction = (j: Jurisdiction) => {
+    setSelectedJurisdictions((prev) => {
+      if (prev.includes(j)) return prev.filter((x) => x !== j);
+      if (prev.length >= 5) return prev;
+      return [...prev, j];
+    });
+  };
+
+  // Rows for mode 1
+  const activityRows = useMemo(
     () =>
-      selected
-        .map((activity) => ({
-          activity,
-          result: lookupRegulation(activity, jurisdiction, locale),
+      selectedActivities
+        .map((a) => ({
+          activity: a,
+          result: lookupRegulation(a, jurisdiction, locale),
         }))
         .filter((r) => r.result),
-    [selected, jurisdiction, locale],
+    [selectedActivities, jurisdiction, locale],
+  );
+
+  // Rows for mode 2
+  const jurisdictionRows = useMemo(
+    () =>
+      selectedJurisdictions
+        .map((j) => ({
+          jurisdiction: j,
+          result: lookupRegulation(activity, j, locale),
+        }))
+        .filter((r) => r.result),
+    [selectedJurisdictions, activity, locale],
   );
 
   const jurisdictionMeta = JURISDICTIONS[jurisdiction];
+  const activityLabel = ACTIVITY_LABELS[activity];
+
+  // --- shared cell classes ---
+  const stickyLabelCls =
+    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
-      <header className="mb-8">
+      <header className="mb-6">
         <h1 className="text-3xl font-bold mb-2">{tr.title}</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          {tr.subtitle}
-        </p>
+        <p className="text-gray-600 dark:text-gray-400">{tr.subtitle}</p>
       </header>
 
-      {/* Jurisdiction picker */}
-      <section className="mb-6">
-        <label className="block text-sm font-semibold mb-2">{tr.jurisdiction}</label>
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => (
-            <button
-              key={j}
-              onClick={() => setJurisdiction(j)}
-              className={`px-3 py-2 rounded-lg border text-sm transition-colors flex items-center gap-2 ${
-                jurisdiction === j
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
-                  : 'border-[var(--border)] hover:border-blue-300'
-              }`}
-            >
-              <span className="text-lg">{JURISDICTIONS[j].flag}</span>
-              <span>{JURISDICTIONS[j].name}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Activity picker */}
-      <section className="mb-8">
-        <label className="block text-sm font-semibold mb-2">
-          {tr.activities} ({selected.length}/5)
-        </label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-          {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => {
-            const isSel = selected.includes(a);
-            const disabled = !isSel && selected.length >= 5;
+      {/* Mode tabs */}
+      <div className="mb-6 border-b border-[var(--border)]">
+        <div className="flex gap-1 flex-wrap">
+          {(['activities', 'jurisdictions'] as CompareMode[]).map((m) => {
+            const active = mode === m;
+            const label = m === 'activities' ? tr.modeActivities : tr.modeJurisdictions;
             return (
               <button
-                key={a}
-                onClick={() => toggle(a)}
-                disabled={disabled}
-                className={`px-3 py-2 rounded-lg border text-left text-sm transition-colors ${
-                  isSel
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
-                    : disabled
-                      ? 'border-[var(--border)] opacity-40 cursor-not-allowed'
-                      : 'border-[var(--border)] hover:border-blue-300'
+                key={m}
+                onClick={() => setMode(m)}
+                className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-sm transition-colors border-b-4 -mb-px whitespace-nowrap ${
+                  active
+                    ? 'border-blue-500 text-blue-600 dark:text-blue-400 font-bold'
+                    : 'border-transparent text-gray-600 dark:text-gray-400 font-medium hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <span>{ACTIVITY_LABELS[a]}</span>
-                  {ACTIVITIES[a].xrpl && <span className="badge-xrpl">XRPL</span>}
-                </div>
+                {label}
               </button>
             );
           })}
         </div>
-      </section>
+      </div>
 
-      {/* Legend — same as /report, open by default */}
-      {rows.length >= 2 && <RegimeLegend defaultOpen={true} />}
-
-      {/* Comparison table */}
-      {rows.length < 2 ? (
-        <div className="card text-center text-gray-500 py-12">
-          <p>{tr.selectAtLeast2}</p>
-        </div>
-      ) : (
+      {mode === 'activities' ? (
         <>
-          <div className="mb-4 flex items-center gap-3 flex-wrap">
-            <span className="text-2xl">{jurisdictionMeta.flag}</span>
-            <h2 className="text-xl font-bold">
-              {rows.length} {tr.comparedIn} {jurisdictionMeta.name}
-            </h2>
-            <EmergingBadge code={jurisdiction} />
-          </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{tr.modeActivitiesDesc}</p>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr>
-                  <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
-                    {tr.field}
-                  </th>
-                  {rows.map((r) => (
-                    <th
-                      key={r.activity}
-                      className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
-                    >
-                      <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
-                      {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.regime}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top">
-                      {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : 'N/A'}
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.risk}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top">
-                      {r.result && <RiskBadge risk={r.result.risk} />}
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.licences}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top">
-                      <ul className="space-y-1">
-                        {r.result?.licenses.map((l, i) => (
-                          <li
-                            key={i}
-                            className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
-                          >
-                            {l}
-                          </li>
-                        ))}
-                      </ul>
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.obligations}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top">
-                      <ul className="list-disc ml-4 text-xs space-y-1">
-                        {r.result?.obligations.map((o, i) => (
-                          <li key={i}>{o}</li>
-                        ))}
-                      </ul>
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.timeline}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top font-semibold">
-                      {r.result?.time}
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.cost}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top font-semibold">
-                      {r.result?.cost}
-                    </td>
-                  ))}
-                </tr>
-                <tr className="border-b border-[var(--border)]">
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.authority}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top text-sm">
-                      {r.result?.authority}
-                    </td>
-                  ))}
-                </tr>
-                <tr>
-                  <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{tr.xrplNote}</td>
-                  {rows.map((r) => (
-                    <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
-                      {r.result?.xrplNote ?? '—'}
-                    </td>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <section className="mt-10 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
-            <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">
-              {tr.runningTitle}
+          {/* Jurisdiction picker */}
+          <section className="mb-6">
+            <label className="block text-sm font-semibold mb-2">{tr.jurisdiction}</label>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => (
+                <button
+                  key={j}
+                  onClick={() => setJurisdiction(j)}
+                  className={`px-3 py-2 rounded-lg border text-sm transition-colors flex items-center gap-2 ${
+                    jurisdiction === j
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
+                      : 'border-[var(--border)] hover:border-blue-300'
+                  }`}
+                >
+                  <span className="text-lg">{JURISDICTIONS[j].flag}</span>
+                  <span>{JURISDICTIONS[j].name}</span>
+                </button>
+              ))}
             </div>
-            <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
-              {tr.runningBody1}<strong>{tr.runningBody2}</strong>{tr.runningBody3}
-            </p>
-            <Link href="/wizard" className="btn-primary text-sm inline-block">
-              {tr.fullWizard} &rarr;
-            </Link>
           </section>
+
+          {/* Activity picker */}
+          <section className="mb-8">
+            <label className="block text-sm font-semibold mb-2">
+              {tr.activities} ({selectedActivities.length}/5)
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => {
+                const isSel = selectedActivities.includes(a);
+                const disabled = !isSel && selectedActivities.length >= 5;
+                return (
+                  <button
+                    key={a}
+                    onClick={() => toggleActivity(a)}
+                    disabled={disabled}
+                    className={`px-3 py-2 rounded-lg border text-left text-sm transition-colors ${
+                      isSel
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
+                        : disabled
+                          ? 'border-[var(--border)] opacity-40 cursor-not-allowed'
+                          : 'border-[var(--border)] hover:border-blue-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>{ACTIVITY_LABELS[a]}</span>
+                      {ACTIVITIES[a].xrpl && <span className="badge-xrpl">XRPL</span>}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {activityRows.length >= 2 && <RegimeLegend defaultOpen={true} />}
+
+          {activityRows.length < 2 ? (
+            <div className="card text-center text-gray-500 py-12">
+              <p>{tr.selectAtLeast2Act}</p>
+            </div>
+          ) : (
+            <>
+              <div className="mb-4 flex items-center gap-3 flex-wrap">
+                <span className="text-2xl">{jurisdictionMeta.flag}</span>
+                <h2 className="text-xl font-bold">
+                  {activityRows.length} {tr.comparedIn} {jurisdictionMeta.name}
+                </h2>
+                <EmergingBadge code={jurisdiction} />
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
+                        {tr.field}
+                      </th>
+                      {activityRows.map((r) => (
+                        <th
+                          key={r.activity}
+                          className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
+                        >
+                          <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
+                          {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.regime}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top">
+                          {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : tr.noData}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.risk}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top">
+                          {r.result && <RiskBadge risk={r.result.risk} />}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.licences}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top">
+                          <ul className="space-y-1">
+                            {r.result?.licenses.map((l, i) => (
+                              <li
+                                key={i}
+                                className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
+                              >
+                                {l}
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.obligations}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top">
+                          <ul className="list-disc ml-4 text-xs space-y-1">
+                            {r.result?.obligations.map((o, i) => (
+                              <li key={i}>{o}</li>
+                            ))}
+                          </ul>
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.timeline}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top font-semibold">
+                          {r.result?.time}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.cost}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top font-semibold">
+                          {r.result?.cost}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.authority}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top text-sm">
+                          {r.result?.authority}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr>
+                      <td className={stickyLabelCls}>{tr.xrplNote}</td>
+                      {activityRows.map((r) => (
+                        <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
+                          {r.result?.xrplNote ?? '—'}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <section className="mt-10 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
+                <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">
+                  {tr.runningTitle}
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                  {tr.runningBody1}<strong>{tr.runningBody2}</strong>{tr.runningBody3}
+                </p>
+                <Link href="/wizard" className="btn-primary text-sm inline-block">
+                  {tr.fullWizard} &rarr;
+                </Link>
+              </section>
+            </>
+          )}
+        </>
+      ) : (
+        // ============================================================
+        // MODE 2: Jurisdictions × 1 activity
+        // ============================================================
+        <>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{tr.modeJurisdictionsDesc}</p>
+
+          {/* Activity picker (single select) */}
+          <section className="mb-6">
+            <label className="block text-sm font-semibold mb-2">{tr.activity}</label>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => (
+                <button
+                  key={a}
+                  onClick={() => setActivity(a)}
+                  className={`px-3 py-2 rounded-lg border text-left text-sm transition-colors ${
+                    activity === a
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
+                      : 'border-[var(--border)] hover:border-blue-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{ACTIVITY_LABELS[a]}</span>
+                    {ACTIVITIES[a].xrpl && <span className="badge-xrpl">XRPL</span>}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Jurisdictions picker (multi select) */}
+          <section className="mb-8">
+            <label className="block text-sm font-semibold mb-2">
+              {tr.jurisdictions} ({selectedJurisdictions.length}/5)
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => {
+                const isSel = selectedJurisdictions.includes(j);
+                const disabled = !isSel && selectedJurisdictions.length >= 5;
+                return (
+                  <button
+                    key={j}
+                    onClick={() => toggleJurisdiction(j)}
+                    disabled={disabled}
+                    className={`px-3 py-2 rounded-lg border text-sm transition-colors flex items-center gap-2 ${
+                      isSel
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-semibold'
+                        : disabled
+                          ? 'border-[var(--border)] opacity-40 cursor-not-allowed'
+                          : 'border-[var(--border)] hover:border-blue-300'
+                    }`}
+                  >
+                    <span className="text-lg">{JURISDICTIONS[j].flag}</span>
+                    <span>{JURISDICTIONS[j].name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {jurisdictionRows.length >= 2 && <RegimeLegend defaultOpen={true} />}
+
+          {jurisdictionRows.length < 2 ? (
+            <div className="card text-center text-gray-500 py-12">
+              <p>{tr.selectAtLeast2Juri}</p>
+            </div>
+          ) : (
+            <>
+              <div className="mb-4 flex items-center gap-3 flex-wrap">
+                <h2 className="text-xl font-bold">
+                  {jurisdictionRows.length} {tr.comparedFor} {activityLabel}
+                </h2>
+                {ACTIVITIES[activity].xrpl && <span className="badge-xrpl">XRPL</span>}
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
+                        {tr.field}
+                      </th>
+                      {jurisdictionRows.map((r) => (
+                        <th
+                          key={r.jurisdiction}
+                          className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
+                        >
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-lg">{JURISDICTIONS[r.jurisdiction].flag}</span>
+                            <span className="font-bold">{JURISDICTIONS[r.jurisdiction].name}</span>
+                            <EmergingBadge code={r.jurisdiction} />
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.regime}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top">
+                          {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : tr.noData}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.risk}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top">
+                          {r.result && <RiskBadge risk={r.result.risk} />}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.licences}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top">
+                          <ul className="space-y-1">
+                            {r.result?.licenses.map((l, i) => (
+                              <li
+                                key={i}
+                                className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
+                              >
+                                {l}
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.obligations}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top">
+                          <ul className="list-disc ml-4 text-xs space-y-1">
+                            {r.result?.obligations.map((o, i) => (
+                              <li key={i}>{o}</li>
+                            ))}
+                          </ul>
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.timeline}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top font-semibold">
+                          {r.result?.time}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.cost}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top font-semibold">
+                          {r.result?.cost}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr className="border-b border-[var(--border)]">
+                      <td className={stickyLabelCls}>{tr.authority}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top text-sm">
+                          {r.result?.authority}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr>
+                      <td className={stickyLabelCls}>{tr.xrplNote}</td>
+                      {jurisdictionRows.map((r) => (
+                        <td key={r.jurisdiction} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
+                          {r.result?.xrplNote ?? '—'}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </>
       )}
 
