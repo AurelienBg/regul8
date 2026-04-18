@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import GlossaryFab from '@/components/glossary/GlossaryFab';
+import AskFab from '@/components/ui/AskFab';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -82,7 +82,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
-          <GlossaryFab />
+          <AskFab />
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
