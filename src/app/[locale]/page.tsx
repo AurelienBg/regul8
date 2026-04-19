@@ -181,7 +181,7 @@ export default function LandingPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {startHere.cards.map((card) => {
+            {startHere.cards.map((card, i) => {
               const a = accentClasses[card.accent];
               return (
                 <Link
@@ -189,10 +189,15 @@ export default function LandingPage() {
                   href={card.href}
                   className={`group block p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
                 >
-                  <div className="text-4xl mb-3">{card.icon}</div>
-                  <h3 className={`text-lg font-bold mb-2 group-hover:${a.text} transition-colors`}>
-                    {card.title}
-                  </h3>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${a.text} bg-white/80 dark:bg-gray-900/60 border border-current`}>
+                      {i + 1}
+                    </span>
+                    <span className="text-3xl">{card.icon}</span>
+                    <h3 className={`text-lg font-bold group-hover:${a.text} transition-colors`}>
+                      {card.title}
+                    </h3>
+                  </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
                     {card.desc}
                   </p>

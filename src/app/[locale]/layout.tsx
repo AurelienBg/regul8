@@ -13,11 +13,11 @@ import '../globals.css';
 const SEO_COPY: Record<string, { title: string; description: string }> = {
   en: {
     title: 'Regul8 — Navigate Crypto Regulation. Anywhere.',
-    description: 'Understand which regulations, licences, and compliance obligations apply to your crypto/blockchain startup — globally. MiCA, GENIUS Act, CASP, VASP, and more across 12 jurisdictions. Deep XRPL coverage.',
+    description: 'Understand which regulations, licences, and compliance obligations apply to your crypto/blockchain startup — globally. MiCA, GENIUS Act, CASP, VASP, and more across 15 jurisdictions. Deep XRPL coverage.',
   },
   fr: {
     title: 'Regul8 — Naviguez dans la régulation crypto. Partout.',
-    description: "Comprenez quelles régulations, licences et obligations de conformité s'appliquent à votre startup crypto/blockchain — partout dans le monde. MiCA, GENIUS Act, CASP, VASP et plus sur 12 juridictions. Couverture XRPL approfondie.",
+    description: "Comprenez quelles régulations, licences et obligations de conformité s'appliquent à votre startup crypto/blockchain — partout dans le monde. MiCA, GENIUS Act, CASP, VASP et plus sur 15 juridictions. Couverture XRPL approfondie.",
   },
 };
 
