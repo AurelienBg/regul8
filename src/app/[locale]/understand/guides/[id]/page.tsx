@@ -26,17 +26,17 @@ export default function LearningPathPage({ params }: { params: Params }) {
   const p = isFr ? getLearningPathFr(params.id) : getLearningPath(params.id);
   if (!p) notFound();
   const tr = isFr ? {
-    backAll: 'Tous les parcours',
-    inPath: 'Dans ce parcours',
+    backAll: 'Tous les guides',
+    inPath: 'Dans ce guide',
     exploreFurther: 'Pour aller plus loin',
-    decisionTree: 'Arbre de décision',
+    decisionTree: 'Diagnostic',
     relatedTerms: 'Termes associés',
     disclaimer: "Information générale uniquement. Pas un conseil juridique. Pour votre situation spécifique, consultez un avocat qualifié.",
   } : {
-    backAll: 'All paths',
-    inPath: 'In this path',
+    backAll: 'All guides',
+    inPath: 'In this guide',
     exploreFurther: 'Explore further',
-    decisionTree: 'Decision tree',
+    decisionTree: 'Diagnostic',
     relatedTerms: 'Related terms',
     disclaimer: 'General information only. Not legal advice. For your specific situation, consult a qualified lawyer.',
   };
