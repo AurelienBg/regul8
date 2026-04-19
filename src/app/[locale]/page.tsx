@@ -187,7 +187,7 @@ export default function LandingPage() {
                 <Link
                   key={card.href}
                   href={card.href}
-                  className={`group block p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
+                  className={`group flex flex-col h-full p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${a.text} bg-white/80 dark:bg-gray-900/60 border border-current`}>
@@ -198,10 +198,10 @@ export default function LandingPage() {
                       {card.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
                     {card.desc}
                   </p>
-                  <span className={`text-sm font-semibold ${a.text} inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform`}>
+                  <span className={`text-sm font-semibold ${a.text} inline-flex items-center gap-1 mt-auto group-hover:translate-x-1 transition-transform`}>
                     {card.cta} &rarr;
                   </span>
                 </Link>
