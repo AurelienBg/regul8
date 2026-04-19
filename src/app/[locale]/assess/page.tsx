@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
@@ -8,6 +8,9 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const ACTIVITY_KEYS = Object.keys(ACTIVITIES) as ActivityKey[];
 const JURISDICTION_KEYS = Object.keys(JURISDICTIONS) as Jurisdiction[];
+
+/** Key used to persist the picker state across page navigations / reloads */
+const ASSESS_STORAGE_KEY = 'regul8:assess:selection';
 
 export default function AssessPage() {
   const locale = useLocale();
@@ -17,6 +20,44 @@ export default function AssessPage() {
 
   const [selectedActivities, setSelectedActivities] = useState<ActivityKey[]>([]);
   const [selectedJurisdictions, setSelectedJurisdictions] = useState<Jurisdiction[]>([]);
+  // Prevent the save-effect from running with empty state before the load-effect has hydrated
+  const hydratedRef = useRef(false);
+
+  // Load previously saved selection on mount
+  useEffect(() => {
+    try {
+      const raw = typeof window !== 'undefined' ? localStorage.getItem(ASSESS_STORAGE_KEY) : null;
+      if (raw) {
+        const parsed = JSON.parse(raw) as { activities?: ActivityKey[]; jurisdictions?: Jurisdiction[] };
+        if (Array.isArray(parsed.activities)) {
+          setSelectedActivities(parsed.activities.filter((a) => ACTIVITY_KEYS.includes(a)));
+        }
+        if (Array.isArray(parsed.jurisdictions)) {
+          setSelectedJurisdictions(parsed.jurisdictions.filter((j) => JURISDICTION_KEYS.includes(j)));
+        }
+      }
+    } catch {
+      // localStorage unavailable / invalid JSON — fall back to empty state
+    } finally {
+      hydratedRef.current = true;
+    }
+  }, []);
+
+  // Persist on every change (after hydration)
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    try {
+      localStorage.setItem(
+        ASSESS_STORAGE_KEY,
+        JSON.stringify({
+          activities: selectedActivities,
+          jurisdictions: selectedJurisdictions,
+        }),
+      );
+    } catch {
+      // ignore quota / private-mode errors
+    }
+  }, [selectedActivities, selectedJurisdictions]);
 
   const toggleActivity = (a: ActivityKey) => {
     setSelectedActivities((prev) =>

@@ -33,18 +33,62 @@ export default function ReportPage() {
   const [copied, setCopied] = useState(false);
   const aiFiredRef = useRef(false);
 
-  // Auto-trigger AI analysis once when the report loads with valid inputs.
-  // Guarded by aiFiredRef so we only pay for 1 API call per report view.
-  // Placed BEFORE any early return to satisfy React hook rules.
+  /** Cache key: same activities + jurisdictions + locale → same cached AI audit */
+  const aiCacheKey = `${[...activities].sort().join(',')}|${[...jurisdictions].sort().join(',')}|${locale}`;
+  const AI_CACHE_STORAGE_KEY = 'regul8:report:ai-cache';
+
+  // Try cache first; fall back to live generation. Runs once on mount.
   useEffect(() => {
     if (aiFiredRef.current) return;
     if (activities.length === 0 || jurisdictions.length === 0) return;
+
+    // Check cache
+    try {
+      if (typeof window !== 'undefined') {
+        const raw = localStorage.getItem(AI_CACHE_STORAGE_KEY);
+        if (raw) {
+          const cache = JSON.parse(raw) as Record<string, string>;
+          if (cache[aiCacheKey]) {
+            setAiAnalysis(cache[aiCacheKey]);
+            aiFiredRef.current = true;
+            return;
+          }
+        }
+      }
+    } catch {
+      // ignore cache read errors, fall through to live call
+    }
+
+    // No cache → live generation
     aiFiredRef.current = true;
-    // handleAiAnalysis is defined later in the function — the effect
-    // runs on mount when activities/jurisdictions are present
     handleAiAnalysisRef.current?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activities.length, jurisdictions.length]);
+  }, [activities.length, jurisdictions.length, aiCacheKey]);
+
+  // Persist completed audits into the cache (keyed by selection + locale).
+  // Caps the cache at 20 entries to keep localStorage small.
+  useEffect(() => {
+    if (aiLoading) return;
+    if (!aiAnalysis) return;
+    if (aiAnalysis.startsWith('Error')) return;
+    try {
+      if (typeof window === 'undefined') return;
+      const raw = localStorage.getItem(AI_CACHE_STORAGE_KEY);
+      const cache: Record<string, string> = raw ? JSON.parse(raw) : {};
+      cache[aiCacheKey] = aiAnalysis;
+      const keys = Object.keys(cache);
+      if (keys.length > 20) {
+        // Drop oldest N entries above the cap (FIFO on JSON key order).
+        const trimmed: Record<string, string> = {};
+        keys.slice(-20).forEach((k) => { trimmed[k] = cache[k]; });
+        localStorage.setItem(AI_CACHE_STORAGE_KEY, JSON.stringify(trimmed));
+      } else {
+        localStorage.setItem(AI_CACHE_STORAGE_KEY, JSON.stringify(cache));
+      }
+    } catch {
+      // ignore quota errors
+    }
+  }, [aiLoading, aiAnalysis, aiCacheKey]);
 
   // Ref to call handleAiAnalysis from the useEffect above
   const handleAiAnalysisRef = useRef<() => void>();
