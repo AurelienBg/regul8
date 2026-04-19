@@ -63,11 +63,6 @@ export default function VisualMapsListPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="mb-2">
-        <Link href="/understand" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-          &larr; {tr.back}
-        </Link>
-      </div>
       <header className="text-center mb-12">
         <div className="text-5xl mb-4">🗺️</div>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>

@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
-import { Link } from '@/i18n/routing';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
 import { JURISDICTIONS } from '@/types';
 import LinkedText from '@/components/ui/LinkedText';
@@ -43,11 +42,6 @@ export default function UseCasesPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="mb-2">
-        <Link href="/understand" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-          &larr; {tr.back}
-        </Link>
-      </div>
       <header className="text-center mb-10">
         <div className="text-5xl mb-4">🏢</div>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>

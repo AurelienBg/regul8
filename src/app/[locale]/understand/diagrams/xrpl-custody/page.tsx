@@ -35,12 +35,6 @@ export default function XrplCustodyMapPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="mb-4">
-        <Link href="/understand/diagrams" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
-          &larr; {tr.back}
-        </Link>
-      </div>
-
       <header className="mb-8">
         <div className="text-4xl mb-3">🔐</div>
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">{tr.title}</h1>
