@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { XRPL_KNOWLEDGE, XRPL_FEATURES } from '@/data/xrpl';
@@ -16,8 +17,15 @@ export default function XRPLPage() {
   const isFr = locale === 'fr';
   const knowledge = isFr ? XRPL_KNOWLEDGE_FR : XRPL_KNOWLEDGE;
   const features = isFr ? XRPL_FEATURES_FR : XRPL_FEATURES;
+  const searchParams = useSearchParams();
 
   const [tab, setTab] = useState<XrplTab>('legal');
+
+  // Honour ?tab=legal|tech|custody on mount (deep link from elsewhere)
+  useEffect(() => {
+    const t = searchParams.get('tab');
+    if (t === 'legal' || t === 'tech' || t === 'custody') setTab(t);
+  }, [searchParams]);
 
   const statusEntries = Object.entries(knowledge.xrp_legal_status.jurisdiction_notes);
 
@@ -231,6 +239,21 @@ export default function XRPLPage() {
       {/* ── Tab: Custody (Matrix + Providers) ── */}
       {tab === 'custody' && (
         <>
+          <div className="mb-6 p-3 rounded-lg border border-violet-200 dark:border-violet-900/50 bg-violet-50/40 dark:bg-violet-900/10 flex items-center justify-between gap-3 flex-wrap">
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              🔐{' '}
+              {isFr
+                ? 'Vue diagramme : matrice des 10 méthodes de custody XRPL classées par classification réglementaire.'
+                : 'Diagram view: matrix of the 10 XRPL custody methods grouped by regulatory classification.'}
+            </span>
+            <Link
+              href="/understand/diagrams/xrpl-custody"
+              className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline whitespace-nowrap"
+            >
+              {isFr ? 'Ouvrir le diagramme' : 'Open the diagram'} &rarr;
+            </Link>
+          </div>
+
           <section className="mb-10">
             <CustodyImplementations />
           </section>

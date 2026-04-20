@@ -21,11 +21,11 @@ export default function GlossaryPage() {
             <>
               Pour émettre ou manipuler un{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>,{' '}
-              une <span className="font-semibold">🏢 startup</span> a besoin de{' '}
+              une <span className="font-semibold">🏢 startup</span> doit obtenir des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-              sous des{' '}
+              définies par des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Régimes</span>{' '}
-              délivrées par des{' '}
+              et délivrées par des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Régulateurs</span>,{' '}
               qui imposent des{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>{' '}
@@ -35,11 +35,11 @@ export default function GlossaryPage() {
             <>
               To issue or handle a{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>,{' '}
-              a <span className="font-semibold">🏢 startup</span> needs{' '}
+              a <span className="font-semibold">🏢 startup</span> must obtain{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-              under{' '}
+              defined by{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Regimes</span>{' '}
-              granted by{' '}
+              and granted by{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Regulators</span>,{' '}
               who impose ongoing{' '}
               <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>.

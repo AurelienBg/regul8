@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 
@@ -57,14 +58,35 @@ export default function UnderstandTabs({ variant = 'sidebar' }: Props) {
   }
 
   // --- Mobile: horizontal scrollable topbar ---
+  return <UnderstandTopbar pathname={pathname} isFr={isFr} />;
+}
+
+/** Mobile topbar — auto-scrolls the active tab into view on each navigation */
+function UnderstandTopbar({ pathname, isFr }: { pathname: string; isFr: boolean }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const activeRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const el = activeRef.current;
+    const scroller = scrollerRef.current;
+    if (!el || !scroller) return;
+    // Centre the active tab inside the scrollable container without
+    // scrolling the page vertically.
+    const elLeft = el.offsetLeft;
+    const elWidth = el.offsetWidth;
+    const target = elLeft - scroller.clientWidth / 2 + elWidth / 2;
+    scroller.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+  }, [pathname]);
+
   return (
-    <div className="overflow-x-auto -mx-4 px-4">
+    <div ref={scrollerRef} className="overflow-x-auto -mx-4 px-4">
       <nav className="flex gap-1 min-w-max" aria-label="Understand navigation">
         {TABS.map((t) => {
           const active = t.match(pathname);
           return (
             <Link
               key={t.key}
+              ref={active ? activeRef : undefined}
               href={t.href}
               className={`inline-flex items-center gap-1.5 px-3 py-2.5 text-sm whitespace-nowrap border-b-2 -mb-px transition-colors ${
                 active

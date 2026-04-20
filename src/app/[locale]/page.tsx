@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
+import { TOPIC_META } from '@/data/term-topics';
 import Image from 'next/image';
 import ReportCardPreview from '@/components/layout/ReportCardPreview';
 
@@ -153,7 +154,37 @@ export default function LandingPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
               {t('hero')}
             </h1>
-            <p className="mt-5 text-lg text-gray-600 dark:text-gray-300">
+            <p className="mt-5 text-base sm:text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
+              {isFr ? (
+                <>
+                  Pour émettre ou manipuler un{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>,{' '}
+                  une <span className="font-semibold">🏢 startup</span> doit obtenir des{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
+                  définies par des{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Régimes</span>{' '}
+                  et délivrées par des{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Régulateurs</span>,{' '}
+                  qui imposent des{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>{' '}
+                  continues.
+                </>
+              ) : (
+                <>
+                  To issue or handle a{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>,{' '}
+                  a <span className="font-semibold">🏢 startup</span> must obtain{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
+                  defined by{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Regimes</span>{' '}
+                  and granted by{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Regulators</span>,{' '}
+                  who impose ongoing{' '}
+                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>.
+                </>
+              )}
+            </p>
+            <p className="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400">
               {t('subtitle')}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
@@ -264,12 +295,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Disclaimer */}
-      <section className="py-8 px-4 border-t border-[var(--border)]">
-        <p className="text-xs text-gray-500 text-center max-w-2xl mx-auto">
-          {tc('disclaimer')}
-        </p>
-      </section>
+      {/* Disclaimer is rendered globally in <Footer> — no need to duplicate here */}
     </div>
   );
 }

@@ -200,7 +200,7 @@ export default function AssessPage() {
             <button
               onClick={handleSubmit}
               disabled={!canSubmit}
-              className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap shrink-0"
+              className="hidden lg:inline-flex btn-primary disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap shrink-0"
             >
               {tr.generate} &rarr;
             </button>
@@ -239,9 +239,9 @@ export default function AssessPage() {
         </div>
       </section>
 
-      {/* Selection summary (button is above, at top-right of Jurisdictions column) */}
+      {/* Selection summary (right-aligned next to top button on lg+) */}
       {(selectedActivities.length > 0 || selectedJurisdictions.length > 0) && (
-        <div className="text-sm text-gray-500 text-right">
+        <div className="text-sm text-gray-500 text-center lg:text-right mb-4 lg:mb-0">
           {selectedActivities.length > 0 && <span>{tr.summary.activity(selectedActivities.length)}</span>}
           {selectedActivities.length > 0 && selectedJurisdictions.length > 0 && <span> &times; </span>}
           {selectedJurisdictions.length > 0 && (
@@ -254,6 +254,17 @@ export default function AssessPage() {
           )}
         </div>
       )}
+
+      {/* Mobile-only bottom Generate button — saves the user from scrolling back up */}
+      <div className="lg:hidden">
+        <button
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className="btn-primary w-full disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+        >
+          {tr.generate} &rarr;
+        </button>
+      </div>
     </div>
   );
 }

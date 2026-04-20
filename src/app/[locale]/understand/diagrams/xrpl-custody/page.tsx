@@ -130,7 +130,7 @@ export default function XrplCustodyMapPage() {
         </div>
         <div className="mt-4 text-right">
           <Link
-            href="/understand/xrpl"
+            href={{ pathname: '/understand/xrpl', query: { tab: 'custody' } }}
             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
           >
             {tr.seeFullList} &rarr;
