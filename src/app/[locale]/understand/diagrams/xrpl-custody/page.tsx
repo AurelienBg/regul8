@@ -128,10 +128,10 @@ export default function XrplCustodyMapPage() {
             </div>
           ))}
         </div>
-        <div className="mt-4 text-right">
+        <div className="mt-5 text-right">
           <Link
             href={{ pathname: '/understand/xrpl', query: { tab: 'custody' } }}
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-sm transition-colors"
           >
             {tr.seeFullList} &rarr;
           </Link>

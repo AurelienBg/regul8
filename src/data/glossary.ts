@@ -368,4 +368,47 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definition: "MPT (XLS-33) flag allowing the issuer to lock tokens in a holder's account. Enables AML holds and compliance freezes at the individual token level.",
     definitionFr: "Flag MPT (XLS-33) permettant à l'émetteur de verrouiller les tokens dans le compte d'un détenteur. Permet les blocages AML et les gels de conformité au niveau du token individuel.",
     relatedTerms: ["MPT", "XLS-33", "AML"], category: "xrpl", xrplSpecific: true },
+
+  // ─── 7 META-CONCEPTS (the categories themselves, listed as terms so they're searchable in the glossary) ───
+  { term: "Regime",
+    definition: "The legal text itself — the statute, regulation, directive or act passed by a legislature. Grounds everything else: it defines which licences exist, which activities are regulated, and what obligations apply. Examples: MiCA (EU 2023/1114), GENIUS Act (US 2025), TVTG (Liechtenstein 2020), BSA, PSD2.",
+    definitionFr: "Le texte légal lui-même — statut, règlement, directive ou loi adopté par un législateur. Il fonde tout le reste : il définit quelles licences existent, quelles activités sont réglementées, et quelles obligations s'appliquent. Exemples : MiCA (UE 2023/1114), GENIUS Act (US 2025), TVTG (Liechtenstein 2020), BSA, PSD2.",
+    relatedTerms: ["MiCA", "GENIUS Act", "TVTG", "BSA", "PSD2", "Licence", "Regulator", "Obligation"],
+    category: "general" },
+
+  { term: "Licence",
+    definition: "The concrete authorization a startup must obtain to operate legally. The operational consequence of a Regime — when you perform a regulated activity (exchange, custody, stablecoin issuance…), the Regime requires you to hold a specific Licence. Granted by a Regulator. Examples: CASP (under MiCA), MTL (state-by-state US), BitLicense (NY only), VASP (FATF / Dubai), DASP / PSAN (France), EMI.",
+    definitionFr: "L'agrément concret qu'une startup doit obtenir pour opérer légalement. La conséquence opérationnelle d'un Régime — quand vous exercez une activité réglementée (exchange, custody, émission stablecoin…), le Régime exige une Licence spécifique. Délivrée par un Régulateur. Exemples : CASP (sous MiCA), MTL (par État US), BitLicense (NY seulement), VASP (GAFI / Dubaï), DASP / PSAN (France), EMI.",
+    relatedTerms: ["CASP", "MTL", "BitLicense", "VASP", "DASP", "PSAN", "EMI", "Regime", "Regulator"],
+    category: "general" },
+
+  { term: "Regulator",
+    definition: "The official authority that supervises your activity, issues the Licence and enforces compliance. You report to them, they inspect you, they approve your Licence and can revoke it. Examples: AMF / ESMA (EU), SEC / CFTC / FinCEN / OCC (US), VARA (Dubai), MAS (Singapore), SFC (Hong Kong), FCA (UK), FINMA (Switzerland), FMA (Liechtenstein).",
+    definitionFr: "L'autorité officielle qui supervise votre activité, délivre la Licence et fait respecter la conformité. Vous lui faites du reporting, elle vous inspecte, elle approuve votre Licence et peut la retirer. Exemples : AMF / ESMA (UE), SEC / CFTC / FinCEN / OCC (US), VARA (Dubaï), MAS (Singapour), SFC (Hong Kong), FCA (UK), FINMA (Suisse), FMA (Liechtenstein).",
+    relatedTerms: ["AMF", "ESMA", "SEC", "CFTC", "FinCEN", "VARA", "MAS", "SFC", "FCA", "FINMA", "Licence", "Regime"],
+    category: "general" },
+
+  { term: "Obligation",
+    definition: "A concrete operational duty imposed by a Regime or Regulator. Something a startup must DO on a daily basis, captured in policies, processes and systems. Examples: KYC, KYB, AML, CFT, FATF Travel Rule (R.16), SAR filings, OFAC sanctions screening.",
+    definitionFr: "Une tâche opérationnelle concrète imposée par un Régime ou un Régulateur. Quelque chose que la startup doit FAIRE au quotidien, encadrée par politiques, processus et systèmes. Exemples : KYC, KYB, AML, CFT, Règle du Voyage GAFI (R.16), déclarations SAR, filtrage OFAC.",
+    relatedTerms: ["KYC", "KYB", "AML", "CFT", "Travel Rule", "SAR", "OFAC", "Regulator"],
+    category: "general" },
+
+  { term: "Token type",
+    definition: "How a digital asset is classified by a regulator. Determines which Regime applies to the token itself (separate from the service-provider regime). Can evolve over the token's life (a security token may become a commodity as the network decentralises). Examples: EMT, ART, S-EMT, S-ART (MiCA), Utility Token, Security Token (Howey), RWA, NFT, Stablecoin, DPT (Singapore), MPT (XLS-33 on XRPL).",
+    definitionFr: "Comment un actif numérique est classé par le régulateur. Détermine quel Régime s'applique au token lui-même (distinct du régime du prestataire). Peut évoluer pendant la vie du token (un security token peut devenir un commodity au fil de la décentralisation du réseau). Exemples : EMT, ART, S-EMT, S-ART (MiCA), Utility, Security (Howey), RWA, NFT, Stablecoin, DPT (Singapour), MPT (XLS-33 sur XRPL).",
+    relatedTerms: ["EMT", "ART", "STO", "NFT", "RWA", "DPT", "MPT", "Howey Test", "Regime"],
+    category: "general" },
+
+  { term: "Infrastructure",
+    definition: "Technical or ecosystem concepts that are not themselves regulated, but which shape how regulation applies. Reference terms encountered constantly in the crypto space — DeFi vs CeFi, on-chain vs off-chain, XRPL primitives, etc. Examples: TradFi, CeFi, DeFi, DAO, Smart Contract, DLT, Trust Line, IOU, Escrow, SignerList, MPC, TSS.",
+    definitionFr: "Concepts techniques ou écosystémiques qui ne sont pas régulés en eux-mêmes, mais qui façonnent la façon dont la régulation s'applique. Termes que vous croisez constamment en crypto — DeFi vs CeFi, on-chain vs off-chain, primitives XRPL, etc. Exemples : TradFi, CeFi, DeFi, DAO, Smart Contract, DLT, Trust Line, IOU, Escrow, SignerList, MPC, TSS.",
+    relatedTerms: ["DeFi", "CeFi", "TradFi", "DAO", "Smart Contract", "DLT", "Trust Line", "IOU", "Escrow", "MPC"],
+    category: "general" },
+
+  { term: "Doctrine",
+    definition: "A legal test or court ruling that interprets the law. Crucial when the statute is silent or ambiguous — the Doctrine fills the gap. Especially important in the US where case law plays a major role. Examples: Howey Test (SEC v. W.J. Howey Co., 1946) — 4 prongs to qualify a security. SEC v. Ripple (2023) — primary vs secondary market distinction.",
+    definitionFr: "Un test juridique ou une décision de justice qui interprète la loi. Crucial quand le texte est silencieux ou ambigu — la Doctrine comble le vide. Particulièrement important aux US où la jurisprudence joue un rôle majeur. Exemples : Test de Howey (SEC v. W.J. Howey Co., 1946) — 4 critères pour qualifier un titre. SEC v. Ripple (2023) — distinction marché primaire vs secondaire.",
+    relatedTerms: ["Howey Test", "SEC", "Regime"],
+    category: "general" },
 ];

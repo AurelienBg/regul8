@@ -44,6 +44,16 @@ export const TERM_TOPICS: Record<string, Topic> = {
   'Regular Key': 'infra', MPC: 'infra', TSS: 'infra',
   rippling: 'infra', freeze: 'infra', globalFreeze: 'infra',
   RequireAuth: 'infra', lsfLocked: 'infra',
+
+  // The 7 meta-concepts themselves, self-tagged with their own topic so
+  // the colored pill matches the page they live on (/understand/concepts).
+  Regime: 'regime',
+  Licence: 'licence',
+  Regulator: 'regulator',
+  Obligation: 'obligation',
+  'Token type': 'token',
+  Infrastructure: 'infra',
+  Doctrine: 'doctrine',
 };
 
 /** CSS classes for each topic. Used in glossary pills + LinkedText underlines. */
