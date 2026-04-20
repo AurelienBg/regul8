@@ -19,7 +19,7 @@ export default function FaqPage() {
     : {
         title: 'FAQ',
         subtitle: 'The most frequently asked questions on crypto regulation. Same answers served in the 💬 Ask anything drawer.',
-        jumpTitle: 'Jump to a question',
+        jumpTitle: 'Jump to the question',
         disclaimer: 'General information only. For your specific situation, consult a qualified lawyer.',
       };
 
@@ -54,7 +54,7 @@ export default function FaqPage() {
         {/* Sticky ToC (desktop only) */}
         <aside className="hidden lg:block">
           <div className="sticky top-36">
-            <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+            <div className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-5 pb-2 border-b border-[var(--border)]">
               {tr.jumpTitle}
             </div>
             <nav className="space-y-1 text-sm">
