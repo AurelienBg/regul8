@@ -39,6 +39,15 @@ export default function LandingPage() {
         ),
         cards: [
           {
+            href: '/assess',
+            icon: '🧙',
+            title: 'Évaluer',
+            desc: 'Rapport complet multi-activités × multi-juridictions avec analyse IA contextuelle. ~5 min.',
+            cta: 'Lancer une évaluation',
+            accent: 'violet',
+            badge: '👇 Le plus utile pour valider vite',
+          },
+          {
             href: '/understand',
             icon: '📚',
             title: 'Comprendre',
@@ -53,14 +62,6 @@ export default function LandingPage() {
             desc: 'Empilez 2 à 5 activités dans une juridiction — ou 2 à 5 juridictions pour une activité.',
             cta: 'Ouvrir le comparateur',
             accent: 'emerald',
-          },
-          {
-            href: '/assess',
-            icon: '🧙',
-            title: 'Évaluer',
-            desc: 'Rapport complet multi-activités × multi-juridictions avec analyse IA contextuelle. ~5 min.',
-            cta: 'Lancer une évaluation',
-            accent: 'violet',
           },
           {
             href: '/check',
@@ -82,6 +83,15 @@ export default function LandingPage() {
         ),
         cards: [
           {
+            href: '/assess',
+            icon: '🧙',
+            title: 'Assess',
+            desc: 'Comprehensive multi-activity × multi-jurisdiction report with contextual AI analysis. ~5 min.',
+            cta: 'Start assessment',
+            accent: 'violet',
+            badge: '👇 Most useful to validate fast',
+          },
+          {
             href: '/understand',
             icon: '📚',
             title: 'Understand',
@@ -96,14 +106,6 @@ export default function LandingPage() {
             desc: 'Stack 2-5 activities in one jurisdiction — or 2-5 jurisdictions for one activity.',
             cta: 'Open comparator',
             accent: 'emerald',
-          },
-          {
-            href: '/assess',
-            icon: '🧙',
-            title: 'Assess',
-            desc: 'Comprehensive multi-activity × multi-jurisdiction report with contextual AI analysis. ~5 min.',
-            cta: 'Start assessment',
-            accent: 'violet',
           },
           {
             href: '/check',
@@ -203,9 +205,13 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="w-full max-w-sm mx-auto lg:max-w-md lg:ml-auto">
+          <Link
+            href="/assess"
+            className="group block w-full max-w-sm mx-auto lg:max-w-md lg:ml-auto"
+            aria-label={isFr ? 'Lancer une évaluation' : 'Start an assessment'}
+          >
             <ReportCardPreview />
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -220,12 +226,18 @@ export default function LandingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {startHere.cards.map((card, i) => {
               const a = accentClasses[card.accent];
+              const badge = 'badge' in card ? (card as { badge?: string }).badge : undefined;
               return (
                 <Link
                   key={card.href}
                   href={card.href}
-                  className={`group flex flex-col h-full p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
+                  className={`group relative flex flex-col h-full p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
                 >
+                  {badge && (
+                    <span className={`absolute -top-3 left-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold shadow-sm bg-violet-600 text-white dark:bg-violet-500`}>
+                      {badge}
+                    </span>
+                  )}
                   <div className="flex items-center gap-3 mb-3">
                     <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${a.text} bg-white/80 dark:bg-gray-900/60 border border-current`}>
                       {i + 1}
