@@ -188,10 +188,16 @@ export default function LandingPage() {
               {t('subtitle')}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Link href="/assess" className="btn-primary text-base px-6 py-3">
+              <Link
+                href="/assess"
+                className="btn-primary text-base px-6 py-3 border border-transparent w-full sm:w-56 justify-center"
+              >
                 {t('ctaWizard')} &rarr;
               </Link>
-              <Link href="/understand" className="btn-secondary text-base px-6 py-3">
+              <Link
+                href="/understand"
+                className="btn-secondary text-base px-6 py-3 w-full sm:w-56 justify-center"
+              >
                 {isFr ? 'Explorer la régulation' : 'Explore regulation'} &rarr;
               </Link>
             </div>

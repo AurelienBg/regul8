@@ -238,13 +238,23 @@ export default function ConceptsPage() {
                 const desc = TOPIC_DESCRIPTIONS[topic][isFr ? 'fr' : 'en'];
                 const meta = TOPIC_META[topic];
                 const isLast = idx === TOPIC_ORDER.length - 1;
+                // Map a topic key → its glossary term slug (for the click-through link)
+                const TOPIC_TO_TERM: Record<Topic, string> = {
+                  regime: 'regime', licence: 'licence', regulator: 'regulator',
+                  obligation: 'obligation', token: 'token-type', infra: 'infrastructure',
+                  doctrine: 'doctrine',
+                };
+                const slug = TOPIC_TO_TERM[topic];
                 return (
                   <tr key={topic} className={isLast ? '' : 'border-b border-[var(--border)]'}>
                     <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
-                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass}`}>
+                      <Link
+                        href={`/understand/glossary#term-${slug}`}
+                        className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass} hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
+                      >
                         <span className="text-sm leading-none">{meta.icon}</span>
                         <span>{isFr ? meta.labelFr : meta.labelEn}</span>
-                      </span>
+                      </Link>
                       <div className="text-sm font-bold mt-1.5">{desc.title}</div>
                     </td>
                     <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.what}</td>
