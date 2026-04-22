@@ -244,6 +244,17 @@ export const REGULATIONS: RegData = {
       alts: ["Estonia", "Malta MiCA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Bank of Lithuania)"
     },
+    ie: {
+      regime: "Central Bank of Ireland CASP authorisation under MiCA (from Dec 2024) + legacy VASP register (2021)",
+      risk: "med",
+      licenses: ["CBI CASP authorisation under MiCA", "VASP register (transitional, winding down)", "EU passporting via MiCA"],
+      obligations: ["KYC/AML per Criminal Justice (ML/TF) Act 2010", "FATF Travel Rule >€1K", "Capital min. €125K (CASP exchange)", "Fit-and-Probity regime (CBI F&P)", "Consumer Protection Code applies", "DORA operational resilience from Jan 2025"],
+      time: "12–18 months (CASP full application)",
+      cost: "€200K–€600K",
+      alts: ["Lithuania MiCA", "Malta MiCA", "Luxembourg CSSF"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "English-speaking EU hub — popular for US firms expanding into Europe (Coinbase Ireland, Payward Europe for Kraken, Ripple Labs Ireland for RippleNet CBI CASP)."
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -503,6 +514,16 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg CSSF", "Malta MFSA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Bank of Lithuania)"
     },
+    ie: {
+      regime: "MiCA EMT/ART (Central Bank of Ireland) + e-money directive 2009/110/EC transposed",
+      risk: "med",
+      licenses: ["CBI EMI authorisation for EMT issuance", "ART authorisation under MiCA for asset-referenced tokens", "Credit institution licence as alternative for large issuers"],
+      obligations: ["1:1 reserve requirement in segregated accounts", "Whitepaper filed with CBI + notified to ESMA", "Quarterly prudential reports", "Redemption at par requirement", "S-EMT/S-ART rules above €5M daily", "CBI governance + consumer protection"],
+      time: "12–18 months (EMI)",
+      cost: "€250K–€800K",
+      alts: ["Luxembourg EMI", "Lithuania EMI", "Malta MFSA"],
+      authority: "Central Bank of Ireland (CBI)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -750,6 +771,16 @@ export const REGULATIONS: RegData = {
       cost: "€75K–€250K",
       alts: ["Luxembourg CSSF", "Liechtenstein TVTG", "Malta MFSA"],
       authority: "Lietuvos bankas (Bank of Lithuania)"
+    },
+    ie: {
+      regime: "CBI CASP custody service under MiCA Art. 75 + existing financial services framework",
+      risk: "med",
+      licenses: ["CBI CASP authorisation — custody category", "Safeguarding requirements under MiCA Art. 75", "Optional full banking custody licence for traditional finance overlap"],
+      obligations: ["Segregation of client assets (on-chain + off-chain)", "Safeguarding policies + quarterly reconciliation", "Liability for loss (MiCA Art. 75)", "KYC/AML per CJA 2010", "CBI Fitness & Probity regime", "DORA operational resilience (from Jan 2025)", "Professional indemnity insurance"],
+      time: "12–18 months",
+      cost: "€200K–€500K",
+      alts: ["Liechtenstein TVTG", "Luxembourg CSSF", "Germany BaFin"],
+      authority: "Central Bank of Ireland (CBI)"
     },
   },
 
@@ -1751,6 +1782,17 @@ export const REGULATIONS: RegData = {
       cost: "€100K–€350K (historically the most competitive EU EMI hub)",
       alts: ["Luxembourg CSSF", "Malta MFSA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Bank of Lithuania)"
+    },
+    ie: {
+      regime: "PSD2 Payment Institution + MiCA CASP (crypto-transfer service Art. 3) under Central Bank of Ireland",
+      risk: "med",
+      licenses: ["CBI Payment Institution (PI) authorisation under PSD2", "EMI licence for e-money accounts", "MiCA CASP authorisation for crypto-transfer service"],
+      obligations: ["Safeguarding of customer funds under PSD2", "Strong Customer Authentication (SCA)", "KYC/AML per CJA 2010", "FATF Travel Rule >€1K", "Own funds per PI/EMI prudential rules", "EU passporting from Ireland"],
+      time: "12–18 months",
+      cost: "€200K–€600K",
+      alts: ["Luxembourg CSSF", "Lithuania EMI", "UK FCA EMI"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "Ireland-based Ripple Labs Ireland Ltd uses this licensing stack for RippleNet payments + Palisade MPC wallet services into the EU market."
     },
   },
 

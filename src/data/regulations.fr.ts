@@ -244,6 +244,17 @@ export const REGULATIONS_FR: RegData = {
       alts: ["Estonie", "Malte MiCA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Banque de Lituanie)"
     },
+    ie: {
+      regime: "Agrément CASP de la Central Bank of Ireland sous MiCA (depuis déc. 2024) + registre VASP historique (2021)",
+      risk: "med",
+      licenses: ["Agrément CASP de la CBI sous MiCA", "Registre VASP (transitoire, en voie d'extinction)", "Passeporting UE via MiCA"],
+      obligations: ["KYC/AML selon le Criminal Justice (ML/TF) Act 2010", "Règle du voyage FATF >€1K", "Capital min. €125K (CASP exchange)", "Régime Fitness & Probity (CBI F&P)", "Code de protection des consommateurs", "Résilience opérationnelle DORA depuis janv. 2025"],
+      time: "12–18 mois (dossier CASP complet)",
+      cost: "€200K–€600K",
+      alts: ["Lituanie MiCA", "Malte MiCA", "Luxembourg CSSF"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "Hub UE anglophone — privilégié par les sociétés US s'étendant en Europe (Coinbase Ireland, Payward Europe pour Kraken, Ripple Labs Ireland pour RippleNet CASP CBI)."
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -503,6 +514,16 @@ export const REGULATIONS_FR: RegData = {
       alts: ["Luxembourg CSSF", "Malte MFSA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Banque de Lituanie)"
     },
+    ie: {
+      regime: "MiCA EMT/ART (Central Bank of Ireland) + directive monnaie électronique 2009/110/CE transposée",
+      risk: "med",
+      licenses: ["Agrément EMI de la CBI pour l'émission d'EMT", "Agrément ART sous MiCA pour les tokens adossés à des actifs", "Licence d'établissement de crédit comme alternative pour les gros émetteurs"],
+      obligations: ["Exigence de réserves 1:1 en comptes ségrégués", "Whitepaper déposé auprès de la CBI + notifié à l'ESMA", "Rapports prudentiels trimestriels", "Remboursement au pair", "Règles S-EMT/S-ART au-dessus de €5M/jour", "Gouvernance CBI + protection des consommateurs"],
+      time: "12–18 mois (EMI)",
+      cost: "€250K–€800K",
+      alts: ["Luxembourg EMI", "Lituanie EMI", "Malte MFSA"],
+      authority: "Central Bank of Ireland (CBI)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -750,6 +771,16 @@ export const REGULATIONS_FR: RegData = {
       cost: "€75K–€250K",
       alts: ["Luxembourg CSSF", "Liechtenstein TVTG", "Malte MFSA"],
       authority: "Lietuvos bankas (Banque de Lituanie)"
+    },
+    ie: {
+      regime: "Service custody CASP CBI sous MiCA Art. 75 + cadre de services financiers existant",
+      risk: "med",
+      licenses: ["Agrément CASP CBI — catégorie custody", "Exigences de safeguarding sous MiCA Art. 75", "Licence custody bancaire complète en option (chevauchement finance traditionnelle)"],
+      obligations: ["Ségrégation des actifs clients (on-chain + off-chain)", "Politiques de safeguarding + rapprochement trimestriel", "Responsabilité en cas de perte (MiCA Art. 75)", "KYC/AML selon CJA 2010", "Régime Fitness & Probity CBI", "Résilience opérationnelle DORA (depuis janv. 2025)", "Assurance responsabilité professionnelle"],
+      time: "12–18 mois",
+      cost: "€200K–€500K",
+      alts: ["Liechtenstein TVTG", "Luxembourg CSSF", "Allemagne BaFin"],
+      authority: "Central Bank of Ireland (CBI)"
     },
   },
 
@@ -1751,6 +1782,17 @@ export const REGULATIONS_FR: RegData = {
       cost: "€100K–€350K (historiquement le hub EMI UE le plus compétitif)",
       alts: ["Luxembourg CSSF", "Malte MFSA", "Liechtenstein TVTG"],
       authority: "Lietuvos bankas (Banque de Lituanie)"
+    },
+    ie: {
+      regime: "Payment Institution PSD2 + MiCA CASP (service de transfert crypto art. 3) sous la Central Bank of Ireland",
+      risk: "med",
+      licenses: ["Agrément Payment Institution (PI) de la CBI sous PSD2", "Licence EMI pour les comptes de monnaie électronique", "Agrément CASP MiCA pour le service de transfert crypto"],
+      obligations: ["Safeguarding des fonds clients sous PSD2", "Strong Customer Authentication (SCA)", "KYC/AML selon CJA 2010", "Règle du voyage FATF >€1K", "Fonds propres selon règles PI/EMI", "Passeporting UE depuis l'Irlande"],
+      time: "12–18 mois",
+      cost: "€200K–€600K",
+      alts: ["Luxembourg CSSF", "Lituanie EMI", "UK FCA EMI"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "Ripple Labs Ireland Ltd utilise ce stack de licences pour les paiements RippleNet + les services MPC wallet Palisade sur le marché UE."
     },
   },
 
