@@ -1,9 +1,11 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { DECISION_TREES } from '@/data/decision-trees';
 import { DECISION_TREES_FR } from '@/data/decision-trees.fr';
+import CheckFunnel from '@/components/check/CheckFunnel';
 
 /** Per-diagnostic accent — makes each card visually distinct */
 const ACCENTS: Record<
@@ -66,6 +68,8 @@ export default function CheckHubPage() {
         start: 'Démarrer',
         duration: '2 min',
         disclaimer: 'Chaque diagnostic fournit des indications réglementaires générales. Pour un conseil spécifique, consultez un avocat qualifié.',
+        advancedTitle: 'Ou lancez directement un diagnostic spécifique',
+        advancedSubtitle: 'Si vous savez déjà ce que vous voulez tester, allez directement sur l\'arbre de décision concerné.',
       }
     : {
         title: 'Check',
@@ -73,17 +77,32 @@ export default function CheckHubPage() {
         start: 'Start',
         duration: '2 min',
         disclaimer: 'Each diagnostic gives general regulatory guidance. For specific advice, consult a qualified lawyer.',
+        advancedTitle: 'Or jump straight into a specific diagnostic',
+        advancedSubtitle: 'If you already know which tree you want to run, skip the funnel and go directly.',
       };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* Header */}
-      <header className="text-center mb-10">
+      <header className="text-center mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{tr.subtitle}</p>
       </header>
 
-      {/* 4 diagnostic cards — 2×2 grid with per-card accent colors */}
+      {/* Level 2 guided funnel — Q1-Q3 then verdict */}
+      <div className="mb-10">
+        <Suspense fallback={<div className="p-6 rounded-xl border border-[var(--border)] text-sm text-gray-500">Loading…</div>}>
+          <CheckFunnel />
+        </Suspense>
+      </div>
+
+      {/* Advanced: 4 diagnostic cards as a fallback for users who know what they want */}
+      <div className="mb-6">
+        <h2 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">
+          {tr.advancedTitle}
+        </h2>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{tr.advancedSubtitle}</p>
+      </div>
       <div className="grid md:grid-cols-2 gap-5 mb-10">
         {diagnostics.map((d) => {
           const accent = ACCENTS[d.id] ?? ACCENTS.howey;
