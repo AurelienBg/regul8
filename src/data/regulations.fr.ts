@@ -400,14 +400,28 @@ export const REGULATIONS_FR: RegData = {
       authority: "CMA + CBK"
     },
     za: {
-      regime: "Crypto Asset Declaration (FSCA 2022) — les stablecoins sont des produits financiers. Les règles de contrôle des changes SARB s'appliquent également.",
+      // FSCA CASP se divise en deux catégories sous FAIS :
+      // Cat 1 = conseil / distribution / intermédiation non-custody (voie par défaut, plus légère).
+      // Cat 2 = gestion discrétionnaire : détention de fonds clients / agir pour leur compte sans accord par opération.
+      // Un émetteur stablecoin non-custodial relève typiquement de la Cat 1. SARB n'intervient
+      // que si le stablecoin est adossé au ZAR ou génère des flux fiat transfrontaliers.
+      regime: "FSCA Crypto Asset Declaration (oct. 2022) — les stablecoins sont des produits financiers sous FAIS. Position Paper SARB sur stablecoins (déc. 2023) mais pas encore de licence d'émission dédiée. Catégorie 1 CASP par défaut ; Catégorie 2 uniquement si l'émetteur détient des fonds clients ou opère des flux ZAR transfrontaliers.",
       risk: "med",
-      licenses: ["Licence CASP (FAIS Act)", "Approbation SARB pour les flux transfrontaliers", "Licence bancaire potentielle si assimilable à un dépôt"],
-      obligations: ["Fit-and-proper FSCA FAIS", "Reporting contrôle des changes SARB", "Divulgations des réserves (best practice)", "Due diligence client + Travel Rule"],
-      time: "9–18 mois",
-      cost: "ZAR 2M–8M (~$110K–$440K)",
+      licenses: [
+        "Licence CASP Catégorie 1 (FAIS Act) — voie par défaut pour l'émission non-custodial",
+        "Catégorie 2 uniquement si détention de réserves clients ou gestion discrétionnaire",
+        "Approbation SARB contrôle des changes uniquement si adossé ZAR ou transfrontalier",
+      ],
+      obligations: [
+        "Fit-and-proper FSCA FAIS (Cat 1 plus léger que Cat 2)",
+        "Divulgation des réserves (best practice en attendant un cadre SARB formel)",
+        "Due diligence FICA + Travel Rule (depuis avril 2023)",
+        "Reporting SARB uniquement si flux ZAR transfrontaliers",
+      ],
+      time: "6–12 mois (Cat 1) / 12–18 mois (Cat 2)",
+      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1 / ZAR 2M–8M ($110K–$440K) Cat 2",
       alts: ["UAE VARA stablecoin dédié", "UK FCA e-money"],
-      authority: "FSCA + SARB + FIC"
+      authority: "FSCA + FIC (SARB uniquement si transfrontalier)"
     },
     lu: {
       regime: "MiCA EMT/ART via CSSF + Loi luxembourgeoise du 30 mai 2018 sur la monnaie électronique",
@@ -1899,15 +1913,30 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "L'adoption XRPL au Kenya se fait via les corridors Ripple ODL (KES/USD). Les ponts M-Pesa + crypto (Cellulant, Kotani Pay) intègrent XRPL pour le transfrontalier."
     },
     za: {
-      regime: "FSCA CASP (FAIS Act) + cadre de contrôle des changes SARB + AML FICA + NPS Act pour les rails",
+      // FSCA CASP Cat 1 = conseil / arrangement / distribution (widgets onramp non-custody).
+      // FSCA CASP Cat 2 = gestion discrétionnaire (détient fiat OU crypto client, agit sans accord par ordre).
+      // Le contrôle des changes SARB ne s'applique QUE si du ZAR traverse réellement une frontière —
+      // un onramp USD↔crypto qui ne touche jamais au ZAR sort typiquement du périmètre SARB.
+      regime: "FSCA CASP (FAIS Act) — Catégorie 1 pour les widgets onramp non-custodial typiques ; Catégorie 2 si l'onramp détient du fiat ou de la crypto client. Obligations AML FICA (Travel Rule depuis avril 2023). Contrôle des changes SARB uniquement si du ZAR traverse une frontière ; les onramps USD-crypto sortent du périmètre SARB.",
       risk: "med",
-      licenses: ["CASP Catégorie I + II sous FAIS (conseil + intermédiation)", "Approbation SARB pour les flux fiat transfrontaliers (sorties ZAR strictes)", "Désignation Payments System Operator (PSO) si exploitation de rails"],
-      obligations: ["Contrôle des changes SARB (limites strictes de sortie ZAR)", "Règle du voyage depuis avril 2023", "AML FICA + registre des bénéficiaires effectifs", "Protection des consommateurs sous FAIS"],
-      time: "12\u201318 mois",
-      cost: "ZAR 3M\u201310M ($165K\u2013$550K)",
+      licenses: [
+        "CASP Catégorie 1 (FAIS Act) — voie par défaut pour onramp/offramp non-custodial",
+        "Catégorie 2 uniquement si détention de fiat ou crypto client",
+        "Approbation SARB uniquement pour flux ZAR transfrontaliers",
+        "Désignation Payments System Operator (PSO) si exploitation de rails de paiement",
+      ],
+      obligations: [
+        "Fit-and-proper FSCA FAIS (Cat 1 plus léger que Cat 2)",
+        "AML FICA + registre des bénéficiaires effectifs",
+        "Travel Rule GAFI (en vigueur depuis avril 2023)",
+        "Protection des consommateurs sous FAIS",
+        "Reporting SARB uniquement si le ZAR traverse une frontière",
+      ],
+      time: "6\u201312 mois (Cat 1) / 12\u201318 mois (Cat 2 + SARB)",
+      cost: "ZAR 1M\u20134M (~$55K\u2013$220K) Cat 1 / ZAR 3M\u201310M ($165K\u2013$550K) Cat 2+SARB",
       alts: ["UAE VARA", "UK FCA (corridor diaspora)"],
-      authority: "FSCA + SARB + FIC",
-      xrplNote: "L'Afrique du Sud a été la première juridiction africaine à réguler la crypto (oct. 2022). Luno, VALR, AltCoinTrader proposent l'onramp XRP. La SARB étudie XRPL pour le bridging CBDC transfrontalier."
+      authority: "FSCA + FIC (SARB conditionnel, SARB/NPS si exploitation de rails)",
+      xrplNote: "L'Afrique du Sud a été la première juridiction africaine à réguler la crypto (oct. 2022). Luno, VALR, AltCoinTrader proposent l'onramp XRP. Un widget onramp XRPL purement non-custodial (pas de ZAR, pas de custody) peut généralement relever de la Cat 1. La SARB étudie XRPL pour le bridging CBDC transfrontalier."
     },
   },
 
