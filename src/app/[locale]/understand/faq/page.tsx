@@ -44,10 +44,12 @@ export default function FaqPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <header className="mb-8 text-center">
-        <div className="text-5xl mb-4">❓</div>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
-        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">{tr.subtitle}</p>
+      <header className="mb-8">
+        <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <span className="text-4xl leading-none">❓</span>
+          <h1 className="text-3xl sm:text-4xl font-bold">{tr.title}</h1>
+        </div>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">{tr.subtitle}</p>
       </header>
 
       <div className="grid lg:grid-cols-[260px_minmax(0,1fr)] gap-10">

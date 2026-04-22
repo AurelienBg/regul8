@@ -147,10 +147,13 @@ export default function XRPLPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <header className="text-center mb-8">
-        <span className="badge-xrpl text-sm px-3 py-1">XRPL</span>
-        <h1 className="mt-4 text-3xl sm:text-4xl font-bold">{t('title')}</h1>
-        <p className="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t('subtitle')}</p>
+      <header className="mb-8">
+        <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <span className="text-4xl leading-none">🟣</span>
+          <h1 className="text-3xl sm:text-4xl font-bold">{t('title')}</h1>
+          <span className="badge-xrpl">XRPL</span>
+        </div>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">{t('subtitle')}</p>
       </header>
 
       {/* Sub-tabs — 3 full-width segments */}

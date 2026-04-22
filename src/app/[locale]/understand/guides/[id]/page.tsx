@@ -51,8 +51,12 @@ export default function LearningPathPage({ params }: { params: Params }) {
 
       {/* Header */}
       <header className="mb-10 pb-8 border-b border-[var(--border)]">
-        <div className="text-5xl mb-4">{p.icon}</div>
-        <div className="flex items-center gap-3 mb-3 flex-wrap">
+        <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <span className="text-4xl leading-none">{p.icon}</span>
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight">{p.title}</h1>
+        </div>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mb-3">{p.subtitle}</p>
+        <div className="flex items-center gap-3 flex-wrap">
           <span className={`px-2 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wide ${levelStyles[p.level]}`}>
             {isFr ? levelLabels[p.level].fr : levelLabels[p.level].en}
           </span>
@@ -64,8 +68,6 @@ export default function LearningPathPage({ params }: { params: Params }) {
             </span>
           ))}
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-3 leading-tight">{p.title}</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400">{p.subtitle}</p>
       </header>
 
       {/* Table of contents */}
