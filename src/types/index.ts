@@ -1,6 +1,12 @@
 export type Risk = 'high' | 'med' | 'low'
 
-export type Jurisdiction = 'eu' | 'us' | 'uae' | 'sg' | 'uk' | 'hk' | 'ch' | 'li' | 'jp' | 'kr' | 'in' | 'br' | 'ng' | 'ke' | 'za'
+export type Jurisdiction =
+  | 'eu' | 'us' | 'ca'
+  | 'uae' | 'sg' | 'uk' | 'hk' | 'au'
+  | 'ch' | 'li' | 'lu' | 'mt' | 'lt'
+  | 'jp' | 'kr' | 'in' | 'br'
+  | 'ky' | 'vg' | 'bm'
+  | 'ng' | 'ke' | 'za'
 
 /** Visual tier for the /report + /compare UI. "emerging" = evolving framework, less data depth. */
 export type JurisdictionTier = 'established' | 'emerging'
@@ -140,18 +146,32 @@ export interface XRPLCustodyMethod {
 }
 
 export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; tier?: JurisdictionTier }> = {
+  // North America
   eu: { name: 'EU / France', flag: '🇪🇺' },
   us: { name: 'USA', flag: '🇺🇸' },
+  ca: { name: 'Canada', flag: '🇨🇦', tier: 'emerging' },
+  // Gulf / APAC
   uae: { name: 'UAE / Dubai', flag: '🇦🇪' },
   sg: { name: 'Singapore', flag: '🇸🇬' },
   uk: { name: 'United Kingdom', flag: '🇬🇧' },
   hk: { name: 'Hong Kong', flag: '🇭🇰' },
+  au: { name: 'Australia', flag: '🇦🇺', tier: 'emerging' },
+  // EU crypto hubs
   ch: { name: 'Switzerland', flag: '🇨🇭' },
   li: { name: 'Liechtenstein', flag: '🇱🇮' },
+  lu: { name: 'Luxembourg', flag: '🇱🇺', tier: 'emerging' },
+  mt: { name: 'Malta', flag: '🇲🇹', tier: 'emerging' },
+  lt: { name: 'Lithuania', flag: '🇱🇹', tier: 'emerging' },
+  // Asia / LatAm
   jp: { name: 'Japan', flag: '🇯🇵' },
   kr: { name: 'South Korea', flag: '🇰🇷' },
   in: { name: 'India', flag: '🇮🇳' },
   br: { name: 'Brazil', flag: '🇧🇷' },
+  // Offshore financial centers
+  ky: { name: 'Cayman Islands', flag: '🇰🇾', tier: 'emerging' },
+  vg: { name: 'BVI', flag: '🇻🇬', tier: 'emerging' },
+  bm: { name: 'Bermuda', flag: '🇧🇲', tier: 'emerging' },
+  // African emerging markets
   ng: { name: 'Nigeria', flag: '🇳🇬', tier: 'emerging' },
   ke: { name: 'Kenya', flag: '🇰🇪', tier: 'emerging' },
   za: { name: 'South Africa', flag: '🇿🇦', tier: 'emerging' },

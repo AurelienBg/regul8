@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     default: "Regul8 — Navigate Crypto Regulation. Anywhere.",
     template: "%s — Regul8",
   },
-  description: "Understand which regulations, licences, and compliance obligations apply to your crypto/blockchain startup — globally. MiCA, MiFID, CASP, VASP, and more across 15 jurisdictions.",
+  description: "Understand which regulations, licences, and compliance obligations apply to your crypto/blockchain startup — globally. MiCA, MiFID, CASP, VASP, and more across 23 jurisdictions.",
   keywords: [
     "crypto regulation", "MiCA", "compliance", "CASP", "VASP", "blockchain law",
     "XRPL", "stablecoin", "crypto custody", "KYC", "AML", "startup compliance",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Regul8 — Navigate Crypto Regulation. Anywhere.",
-    description: "15 activities × 15 jurisdictions. MiCA, CASP, VASP, and more. With deep XRPL coverage.",
+    description: "15 activities × 23 jurisdictions. MiCA, CASP, VASP, and more. With deep XRPL coverage.",
     images: ["/logo.svg"],
   },
   icons: {
