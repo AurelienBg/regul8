@@ -8,7 +8,7 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
 
 type Topic = 'licence' | 'regime' | 'obligation' | 'token' | 'regulator' | 'doctrine' | 'infra';
-const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'infra', 'doctrine'] as const;
+const TOPICS = ['all', 'licence', 'regime', 'obligation', 'token', 'regulator', 'infra', 'doctrine', 'meta'] as const;
 
 const TOPIC_ICONS: Record<Topic, string> = {
   licence: '🪪', regime: '📜', obligation: '✅', token: '🪙',
@@ -135,7 +135,10 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
         term.term.toLowerCase().includes(search.toLowerCase()) ||
         def.toLowerCase().includes(search.toLowerCase());
       const matchCategory = category === 'all' || term.category === category;
-      const matchTopic = topic === 'all' || TERM_TOPICS[term.term] === topic;
+      const matchTopic =
+        topic === 'all' ||
+        (topic === 'meta' && META_CONCEPT_TERMS.has(term.term)) ||
+        TERM_TOPICS[term.term] === topic;
       return matchSearch && matchCategory && matchTopic;
     });
   }, [search, category, topic, locale]);
@@ -216,6 +219,28 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
         <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">{t('filterByTopic')}</div>
         <div className="flex gap-1 flex-wrap">
           {TOPICS.map((tp) => {
+            // The 'meta' filter is a special virtual topic that shows only the 7 meta-concepts.
+            if (tp === 'meta') {
+              const label = locale === 'fr' ? 'Méta-concept' : 'Meta-concept';
+              const tooltip = locale === 'fr'
+                ? 'Les 7 méta-concepts fondamentaux — ouvrir leur fiche détaillée sur /understand/concepts.'
+                : 'The 7 foundational meta-concepts — open the full breakdown on /understand/concepts.';
+              return (
+                <button
+                  key={tp}
+                  onClick={() => setTopic(tp)}
+                  title={tooltip}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors flex items-center gap-1 border ${
+                    topic === tp
+                      ? 'bg-yellow-500 text-white border-yellow-500'
+                      : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-800 hover:bg-yellow-100 dark:hover:bg-yellow-900/40'
+                  }`}
+                >
+                  <span>⭐</span>
+                  {label}
+                </button>
+              );
+            }
             const tooltip = tp === 'all'
               ? t('topicTooltips.all')
               : `${t(`topicTooltips.${tp}.question`)}\n\n${t(`topicTooltips.${tp}.examples`)}`;
@@ -238,19 +263,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
         </div>
       </div>
 
-      {/* Cross-link to /understand/concepts for pedagogical content */}
-      {!compact && (
-        <div className="mb-6 text-xs text-gray-500 dark:text-gray-400">
-          <a
-            href={`/${locale}/understand/concepts`}
-            className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            ❓ {locale === 'fr'
-              ? 'Que signifient ces topics, drapeaux, et portées ? → Concepts'
-              : 'What do these topics, flags, and scopes mean? → Concepts'}
-          </a>
-        </div>
-      )}
+      <div className="mb-6" />
 
       {/* Terms grid */}
       <div className={`grid gap-3 ${compact ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3 gap-4'}`}>
