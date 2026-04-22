@@ -1,70 +1,20 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import GlossaryContent from '@/components/glossary/GlossaryContent';
-import { TOPIC_META } from '@/data/term-topics';
+import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
 
 export default function GlossaryPage() {
   const t = useTranslations('glossary');
   const tc = useTranslations('common');
-  const locale = useLocale();
-  const isFr = locale === 'fr';
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-4">{t('title')}</h1>
 
-      {/* Narrative intro — same flow sentences as /understand/concepts */}
-      <section className="mb-6 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900 space-y-3">
-        <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200 leading-relaxed">
-          {isFr ? (
-            <>
-              Pour émettre ou manipuler un{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>,{' '}
-              une <span className="font-semibold">🏢 startup</span> doit obtenir des{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-              définies par des{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Régimes</span>{' '}
-              et délivrées par des{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Régulateurs</span>,{' '}
-              qui imposent des{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>{' '}
-              continues.
-            </>
-          ) : (
-            <>
-              To issue or handle a{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>,{' '}
-              a <span className="font-semibold">🏢 startup</span> must obtain{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-              defined by{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Regimes</span>{' '}
-              and granted by{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Regulators</span>,{' '}
-              who impose ongoing{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>.
-            </>
-          )}
-        </p>
-        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-          {isFr ? (
-            <>
-              L&apos;{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
-              technique (DeFi, custody, primitives XRPL…) façonne <em>comment</em> la régulation s&apos;applique, et la{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
-              juridique (Howey Test, jurisprudence) tranche les zones grises.
-            </>
-          ) : (
-            <>
-              The technical{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.infra.pillClass}`}>{TOPIC_META.infra.icon} Infrastructure</span>{' '}
-              (DeFi, custody, XRPL primitives…) shapes <em>how</em> regulation applies, and the legal{' '}
-              <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.doctrine.pillClass}`}>{TOPIC_META.doctrine.icon} Doctrine</span>{' '}
-              (Howey Test, case law) settles the grey zones.
-            </>
-          )}
-        </p>
+      {/* Narrative intro — clickable card linking to /understand/concepts */}
+      <section className="mb-6 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900">
+        <ConceptsNarrative variant="full" linkTo="/understand/concepts" />
       </section>
 
       <GlossaryContent />

@@ -1,9 +1,9 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
-import { TOPIC_META } from '@/data/term-topics';
 import Image from 'next/image';
 import ReportCardPreview from '@/components/layout/ReportCardPreview';
+import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
 
 const ACTIVITY_LABELS_EN: Record<string, string> = {
   exchange: 'Exchange', dapp_fin: 'DeFi', dapp_util: 'Utility DApp', nft: 'NFT',
@@ -156,49 +156,22 @@ export default function LandingPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
               {t('hero')}
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
-              {isFr ? (
-                <>
-                  Pour émettre ou manipuler un{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Type de token</span>,{' '}
-                  une <span className="font-semibold">🏢 startup</span> doit obtenir des{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-                  définies par des{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Régimes</span>{' '}
-                  et délivrées par des{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Régulateurs</span>,{' '}
-                  qui imposent des{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>{' '}
-                  continues.
-                </>
-              ) : (
-                <>
-                  To issue or handle a{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.token.pillClass}`}>{TOPIC_META.token.icon} Token type</span>,{' '}
-                  a <span className="font-semibold">🏢 startup</span> must obtain{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.licence.pillClass}`}>{TOPIC_META.licence.icon} Licences</span>{' '}
-                  defined by{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regime.pillClass}`}>{TOPIC_META.regime.icon} Regimes</span>{' '}
-                  and granted by{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.regulator.pillClass}`}>{TOPIC_META.regulator.icon} Regulators</span>,{' '}
-                  who impose ongoing{' '}
-                  <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold ${TOPIC_META.obligation.pillClass}`}>{TOPIC_META.obligation.icon} Obligations</span>.
-                </>
-              )}
-            </p>
+            <div className="mt-5 text-base sm:text-lg">
+              <ConceptsNarrative variant="short" linkTo="/understand/concepts" />
+            </div>
             <p className="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400">
               {t('subtitle')}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
               <Link
                 href="/assess"
-                className="btn-primary text-base px-6 py-3 border border-transparent w-full sm:w-56 justify-center"
+                className="btn-primary text-base px-6 py-3 border border-transparent w-full sm:w-72 justify-center whitespace-nowrap"
               >
                 {t('ctaWizard')} &rarr;
               </Link>
               <Link
                 href="/understand"
-                className="btn-secondary text-base px-6 py-3 w-full sm:w-56 justify-center"
+                className="btn-secondary text-base px-6 py-3 w-full sm:w-72 justify-center whitespace-nowrap"
               >
                 {isFr ? 'Explorer la régulation' : 'Explore regulation'} &rarr;
               </Link>
@@ -284,11 +257,16 @@ export default function LandingPage() {
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-8">{t('jurisdictions')}</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center">
             {Object.entries(JURISDICTIONS).map(([code, j]) => (
-              <div key={code} className="card px-4 py-3 flex items-center gap-2">
-                <span className="text-2xl">{j.flag}</span>
-                <span className="font-medium text-sm">{j.name}</span>
+              <div
+                key={code}
+                className="card px-2 py-3 flex flex-col items-center text-center gap-1 overflow-hidden"
+              >
+                <span className="text-3xl leading-none">{j.flag}</span>
+                <span className="font-medium text-xs sm:text-sm whitespace-nowrap truncate w-full">
+                  {j.name}
+                </span>
               </div>
             ))}
           </div>
