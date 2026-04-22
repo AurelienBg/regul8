@@ -337,14 +337,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('timeline')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top font-bold text-sm">{r?.time ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('cost')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top font-bold text-sm">{r?.cost ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -440,11 +440,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 pt-4 border-t border-[var(--border)]">
                     <div>
                       <p className="text-xs text-gray-500">{t('timeline')}</p>
-                      <p className="font-bold">{r.time}</p>
+                      <p className="font-bold whitespace-pre-line">{r.time}</p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">{t('cost')}</p>
-                      <p className="font-bold">{r.cost}</p>
+                      <p className="font-bold whitespace-pre-line">{r.cost}</p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-xs text-gray-500">{t("authority")}</p>

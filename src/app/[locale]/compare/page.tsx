@@ -356,7 +356,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.timeline}</td>
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top font-semibold">
+                        <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
                         </td>
                       ))}
@@ -364,7 +364,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.cost}</td>
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top font-semibold">
+                        <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
                         </td>
                       ))}
@@ -554,7 +554,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.timeline}</td>
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top font-semibold">
+                        <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
                         </td>
                       ))}
@@ -562,7 +562,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.cost}</td>
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top font-semibold">
+                        <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
                         </td>
                       ))}

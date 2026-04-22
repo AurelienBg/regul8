@@ -429,8 +429,8 @@ export const REGULATIONS: RegData = {
         "FICA AML customer due diligence + Travel Rule (since Apr 2023)",
         "SARB reporting only if cross-border ZAR flows",
       ],
-      time: "6–12 months (Cat 1) / 12–18 months (Cat 2)",
-      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1 / ZAR 2M–8M ($110K–$440K) Cat 2",
+      time: "6–12 months (Cat 1)\n12–18 months (Cat 2)",
+      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1\nZAR 2M–8M ($110K–$440K) Cat 2",
       alts: ["UAE VARA dedicated stablecoin", "UK FCA e-money"],
       authority: "FSCA + FIC (SARB only if cross-border)"
     },
@@ -1974,8 +1974,8 @@ export const REGULATIONS: RegData = {
         "Consumer protection under FAIS",
         "SARB reporting only if ZAR crosses border",
       ],
-      time: "6–12 months (Cat 1) / 12–18 months (Cat 2 + SARB)",
-      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1 / ZAR 3M–10M ($165K–$550K) Cat 2+SARB",
+      time: "6–12 months (Cat 1)\n12–18 months (Cat 2 + SARB)",
+      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1\nZAR 3M–10M ($165K–$550K) Cat 2+SARB",
       alts: ["UAE VARA", "UK FCA (diaspora corridor)"],
       authority: "FSCA + FIC (SARB conditional, SARB/NPS if operating rails)",
       xrplNote: "South Africa was first African jurisdiction to regulate crypto (Oct 2022). Luno, VALR, AltCoinTrader offer XRP onramp. A pure non-custodial XRPL onramp widget (no ZAR, no custody) can generally sit under Cat 1. SARB exploring XRPL for cross-border CBDC bridging."

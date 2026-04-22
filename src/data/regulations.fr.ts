@@ -429,8 +429,8 @@ export const REGULATIONS_FR: RegData = {
         "Due diligence FICA + Travel Rule (depuis avril 2023)",
         "Reporting SARB uniquement si flux ZAR transfrontaliers",
       ],
-      time: "6–12 mois (Cat 1) / 12–18 mois (Cat 2)",
-      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1 / ZAR 2M–8M ($110K–$440K) Cat 2",
+      time: "6–12 mois (Cat 1)\n12–18 mois (Cat 2)",
+      cost: "ZAR 1M–4M (~$55K–$220K) Cat 1\nZAR 2M–8M ($110K–$440K) Cat 2",
       alts: ["UAE VARA stablecoin dédié", "UK FCA e-money"],
       authority: "FSCA + FIC (SARB uniquement si transfrontalier)"
     },
@@ -1974,8 +1974,8 @@ export const REGULATIONS_FR: RegData = {
         "Protection des consommateurs sous FAIS",
         "Reporting SARB uniquement si le ZAR traverse une frontière",
       ],
-      time: "6\u201312 mois (Cat 1) / 12\u201318 mois (Cat 2 + SARB)",
-      cost: "ZAR 1M\u20134M (~$55K\u2013$220K) Cat 1 / ZAR 3M\u201310M ($165K\u2013$550K) Cat 2+SARB",
+      time: "6\u201312 mois (Cat 1)\n12\u201318 mois (Cat 2 + SARB)",
+      cost: "ZAR 1M\u20134M (~$55K\u2013$220K) Cat 1\nZAR 3M\u201310M ($165K\u2013$550K) Cat 2+SARB",
       alts: ["UAE VARA", "UK FCA (corridor diaspora)"],
       authority: "FSCA + FIC (SARB conditionnel, SARB/NPS si exploitation de rails)",
       xrplNote: "L'Afrique du Sud a été la première juridiction africaine à réguler la crypto (oct. 2022). Luno, VALR, AltCoinTrader proposent l'onramp XRP. Un widget onramp XRPL purement non-custodial (pas de ZAR, pas de custody) peut généralement relever de la Cat 1. La SARB étudie XRPL pour le bridging CBDC transfrontalier."
