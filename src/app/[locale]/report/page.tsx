@@ -27,20 +27,25 @@ export default function ReportPage() {
 
   const activities = (params.get('activities') ?? '').split(',').filter(Boolean) as ActivityKey[];
   const jurisdictions = (params.get('jurisdictions') ?? '').split(',').filter(Boolean) as Jurisdiction[];
+  /** Optional free-form activity outside our taxonomy (e.g., 'Digital product passport').
+   *  Passed by /assess when the user fills the 'Other activity' field. */
+  const otherActivity = (params.get('other') ?? '').trim();
 
   const [aiAnalysis, setAiAnalysis] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const aiFiredRef = useRef(false);
 
-  /** Cache key: same activities + jurisdictions + locale → same cached AI audit */
-  const aiCacheKey = `${[...activities].sort().join(',')}|${[...jurisdictions].sort().join(',')}|${locale}`;
+  /** Cache key: same activities + other + jurisdictions + locale → same cached AI audit */
+  const aiCacheKey = `${[...activities].sort().join(',')}|other:${otherActivity}|${[...jurisdictions].sort().join(',')}|${locale}`;
   const AI_CACHE_STORAGE_KEY = 'regul8:report:ai-cache';
 
   // Try cache first; fall back to live generation. Runs once on mount.
   useEffect(() => {
     if (aiFiredRef.current) return;
-    if (activities.length === 0 || jurisdictions.length === 0) return;
+    // Skip AI if we don't have ANY activity input + at least one jurisdiction
+    const noActivityInput = activities.length === 0 && !otherActivity;
+    if (noActivityInput || jurisdictions.length === 0) return;
 
     // Check cache
     try {
@@ -104,7 +109,12 @@ export default function ReportPage() {
     }
   };
 
-  if (activities.length === 0 || jurisdictions.length === 0) {
+  // Report is valid if we have at least (activities OR other) AND jurisdictions
+  const hasStructuredActivities = activities.length > 0;
+  const hasOtherActivity = otherActivity.length > 0;
+  const hasAnyActivityInput = hasStructuredActivities || hasOtherActivity;
+
+  if (!hasAnyActivityInput || jurisdictions.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500 mb-4">{t('noSelection')}</p>
@@ -118,6 +128,14 @@ export default function ReportPage() {
   // Build context summary for AI
   const buildAiContext = () => {
     const sections: string[] = [];
+
+    // Custom (non-taxonomy) activity — flagged prominently so Claude addresses it explicitly
+    if (otherActivity) {
+      sections.push(`## CUSTOM ACTIVITY (outside Regul8 taxonomy) — ${jurisdictions.map((j) => JURISDICTIONS[j]?.name ?? j).join(', ')}
+Description: ${otherActivity}
+(No structured regulation data in our database — please analyse based on general knowledge and jurisdiction-specific context. Flag that a specific legal opinion is strongly recommended.)`);
+    }
+
     for (const activity of activities) {
       for (const j of jurisdictions) {
         const r = lookupRegulation(activity, j, locale);
@@ -256,8 +274,46 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         Regul8 — {t('title')}
       </h1>
 
-      {/* Legend explaining Regime / Licence / Ruling / Authority */}
-      <RegimeLegend />
+      {/* Custom activity banner — when the user filled the 'Other' field in /assess */}
+      {otherActivity && (
+        <div className="mb-6 p-4 rounded-lg border-2 border-violet-300 dark:border-violet-800 bg-violet-50/80 dark:bg-violet-900/20">
+          <div className="flex items-start gap-3">
+            <span className="text-xl leading-none">✨</span>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm mb-1">
+                {locale === 'fr' ? 'Activité hors taxonomie détectée' : 'Custom activity detected'}
+              </div>
+              <div className="text-sm text-gray-800 dark:text-gray-200 mb-2">
+                <span className="inline-block px-2 py-0.5 rounded bg-white dark:bg-gray-900 border border-violet-300 dark:border-violet-700 font-semibold text-violet-700 dark:text-violet-300">
+                  {otherActivity}
+                </span>
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                {locale === 'fr'
+                  ? "Cette activité n'est pas dans notre liste de 20 activités structurées — nous n'avons pas de data réglementaire dédiée. L'analyse IA (ci-dessous) en tiendra compte et donnera une orientation générale, mais un avis juridique spécifique est fortement recommandé."
+                  : 'This activity is outside our 20-activity taxonomy — we don\'t have dedicated regulation data for it. The AI analysis (below) will factor it in and give general guidance, but a specific legal opinion is strongly recommended.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Legend explaining Regime / Licence / Ruling / Authority — only shown when structured data exists */}
+      {hasStructuredActivities && <RegimeLegend />}
+
+      {/* Empty-state when only `other` is present — no structured activity rows to render */}
+      {!hasStructuredActivities && hasOtherActivity && (
+        <div className="mb-10 p-6 rounded-xl border border-[var(--border)] bg-gray-50 dark:bg-gray-900/40 text-center">
+          <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+            {locale === 'fr'
+              ? "Pas de table de régulations à afficher (pas d'activité structurée sélectionnée). Vous pouvez lancer l'analyse IA ci-dessous ou retourner sur Assess pour ajouter une activité de notre liste."
+              : 'No regulation tables to show (no structured activity selected). You can run the AI analysis below, or go back to Assess to add an activity from our list.'}
+          </p>
+          <Link href="/assess" className="btn-secondary text-sm">
+            ← Assess
+          </Link>
+        </div>
+      )}
 
       {/* Results grid */}
       {activities.map((activity) => (
