@@ -1,5 +1,12 @@
 import type { Jurisdiction } from '@/types';
 
+/**
+ * Last audited: 2026-04-22 — added ripple-payments, kraken, bitgo; enriched
+ * coinbase / circle / gemini / uphold with missing licences; migrated
+ * Ireland-based entities from the generic 'eu' code to the dedicated 'ie'
+ * code now that it exists.
+ */
+
 export type UseCaseTag =
   | 'stablecoin'
   | 'exchange'
@@ -49,6 +56,25 @@ export const USE_CASES: UseCase[] = [
     since: '2024',
   },
   {
+    id: 'ripple-payments',
+    company: 'Ripple Payments (RippleNet / ODL)',
+    logo: '💸',
+    website: 'https://ripple.com/solutions/payments/',
+    tag: 'payment',
+    licences: [
+      { jur: 'us', name: 'FinCEN MSB + State MTLs (~30 states)' },
+      { jur: 'sg', name: 'MAS Major Payment Institution (MPI, Oct 2023)' },
+      { jur: 'uk', name: 'FCA Electronic Money Institution (Ripple Payments UK Ltd, 2024)' },
+      { jur: 'uae', name: 'DFSA licence (DIFC Dubai, Mar 2024)' },
+      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA path (Ripple Labs Ireland, 2025)' },
+    ],
+    useCase: {
+      en: "Cross-border payments infrastructure using XRPL for settlement (ODL — On-Demand Liquidity). One of the most broadly licensed crypto-payment companies globally: ~30 US state MTLs + APAC via Singapore MPI + UK EMI + UAE DFSA + Ireland CBI CASP for EU coverage under MiCA.",
+      fr: "Infrastructure de paiements transfrontaliers utilisant XRPL pour le règlement (ODL — On-Demand Liquidity). Une des entreprises de paiement crypto les plus largement licenciées au monde : ~30 MTL d'États US + APAC via le MPI de Singapour + EMI au UK + licence DFSA aux Émirats + CASP Irlande CBI pour la couverture UE sous MiCA.",
+    },
+    since: '2012',
+  },
+  {
     id: 'circle-usdc',
     company: 'Circle (USDC)',
     logo: '🪙',
@@ -56,12 +82,14 @@ export const USE_CASES: UseCase[] = [
     tag: 'stablecoin',
     licences: [
       { jur: 'us', name: 'NYDFS Trust Charter' },
-      { jur: 'eu', name: 'MiCA EMT authorization (Circle Mint Europe, France)' },
+      { jur: 'eu', name: 'MiCA EMT authorization (Circle Mint Europe, France, Jul 2024)' },
       { jur: 'sg', name: 'MAS MPI (Circle Singapore)' },
+      { jur: 'bm', name: 'Bermuda Monetary Authority — Digital Asset Business Act Class F (since 2019, historical issuance jurisdiction)' },
+      { jur: 'uae', name: 'ADGM Financial Services (Circle MENA, 2024 RAK DAO pilots)' },
     ],
     useCase: {
-      en: 'USD-pegged stablecoin issued by Circle. One of the first to achieve full MiCA EMT compliance in the EU (July 2024) via Circle Mint Europe (France-based).',
-      fr: "Stablecoin indexé sur l'USD émis par Circle. L'un des premiers à avoir obtenu la pleine conformité MiCA EMT dans l'UE (juillet 2024) via Circle Mint Europe (basé en France).",
+      en: 'USD-pegged stablecoin issued by Circle. One of the first to achieve full MiCA EMT compliance in the EU (July 2024) via Circle Mint Europe (France-based). Historically issued under Bermuda DABA before the MiCA transition.',
+      fr: "Stablecoin indexé sur l'USD émis par Circle. L'un des premiers à avoir obtenu la pleine conformité MiCA EMT dans l'UE (juillet 2024) via Circle Mint Europe (basé en France). Historiquement émis sous DABA Bermudes avant la transition MiCA.",
     },
     since: '2018',
   },
@@ -74,14 +102,54 @@ export const USE_CASES: UseCase[] = [
     licences: [
       { jur: 'us', name: 'NYDFS BitLicense' },
       { jur: 'us', name: 'State MTLs (~48 states)' },
-      { jur: 'eu', name: 'MiCA CASP (Coinbase Europe, Ireland / Germany)' },
-      { jur: 'uk', name: 'FCA Crypto registration' },
+      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA (Coinbase Ireland Ltd — EU passporting hub)' },
+      { jur: 'eu', name: 'BaFin Crypto Custody licence (Coinbase Germany GmbH, since Jun 2021 — first in Germany)' },
+      { jur: 'uk', name: 'FCA Cryptoasset registration (Coinbase UK)' },
+      { jur: 'sg', name: 'MAS Major Payment Institution (Coinbase Singapore, 2023)' },
     ],
     useCase: {
-      en: 'Largest US crypto exchange + institutional custody. Publicly listed (NASDAQ:COIN). Extended to EU via Ireland/Germany MiCA CASP + UK FCA registration.',
-      fr: "Plus grande plateforme crypto US + custody institutionnelle. Cotée en bourse (NASDAQ:COIN). Étendue à l'UE via l'agrément MiCA CASP Irlande/Allemagne + enregistrement FCA UK.",
+      en: 'Largest US crypto exchange + institutional custody. Publicly listed (NASDAQ:COIN). Ireland-based EU hub for MiCA passporting; Germany was the first BaFin crypto-custody licensee (Jun 2021). Singapore MAS MPI granted 2023.',
+      fr: "Plus grande plateforme crypto US + custody institutionnelle. Cotée en bourse (NASDAQ:COIN). Hub UE basé en Irlande pour le passporting MiCA ; l'Allemagne fut le premier détenteur de licence custody crypto BaFin (juin 2021). MPI Singapour accordé en 2023.",
     },
     since: '2012',
+  },
+  {
+    id: 'kraken',
+    company: 'Kraken',
+    logo: '🐙',
+    website: 'https://www.kraken.com',
+    tag: 'exchange',
+    licences: [
+      { jur: 'us', name: 'FinCEN MSB + State MTLs (~40 states)' },
+      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA (Payward Europe, EU entry point)' },
+      { jur: 'uk', name: 'FCA Cryptoasset registration (Payward Ltd)' },
+      { jur: 'au', name: 'AUSTRAC Digital Currency Exchange + ASIC AFSL (Bit Trade Pty, Kraken Australia)' },
+      { jur: 'ca', name: 'CSA Pre-registration Undertaking + IIROC path (Kraken Canada)' },
+    ],
+    useCase: {
+      en: 'Top-tier US crypto exchange, founded in 2011. Ireland-based EU hub (Payward Europe) for MiCA CASP passporting. Strong institutional and staking products — settled SEC action on staking in Feb 2023. Broad regulatory footprint across 40+ US states, UK, Canada, Australia.',
+      fr: "Plateforme crypto US de premier plan, fondée en 2011. Hub UE basé en Irlande (Payward Europe) pour le passporting CASP MiCA. Produits institutionnels et staking solides — accord SEC sur le staking en février 2023. Empreinte réglementaire large : 40+ États US, UK, Canada, Australie.",
+    },
+    since: '2011',
+  },
+  {
+    id: 'bitgo',
+    company: 'BitGo',
+    logo: '🛡️',
+    website: 'https://www.bitgo.com',
+    tag: 'custody',
+    licences: [
+      { jur: 'us', name: 'South Dakota Trust Charter (BitGo Trust Company, since 2018)' },
+      { jur: 'us', name: 'NYDFS licence (BitGo New York Trust Company, 2021)' },
+      { jur: 'eu', name: 'BaFin Crypto Custody registration (BitGo Europe GmbH, Germany)' },
+      { jur: 'sg', name: 'MAS MPI registration (BitGo Singapore Pte Ltd)' },
+      { jur: 'ch', name: 'FINMA — SST / DLT framework (BitGo Swiss)' },
+    ],
+    useCase: {
+      en: 'Pioneer of multi-signature institutional crypto custody (founded 2013). Holds a South Dakota trust charter (2018) and later a NY trust licence (2021). Custodies for >500 institutions, filed for US IPO in 2025 (S-1). Germany BaFin-registered under the crypto-custody licence.',
+      fr: "Pionnier de la custody crypto institutionnelle multi-signatures (fondée 2013). Détient une charte trust du Dakota du Sud (2018) puis une licence trust NY (2021). Custody pour >500 institutions, dépôt d'IPO aux US en 2025 (S-1). Enregistré BaFin en Allemagne sous la licence custody crypto.",
+    },
+    since: '2013',
   },
   {
     id: 'binance',
@@ -190,8 +258,8 @@ export const USE_CASES: UseCase[] = [
     licences: [
       { jur: 'us', name: 'NYDFS Trust Charter' },
       { jur: 'us', name: 'NYDFS BitLicense' },
-      { jur: 'uk', name: 'FCA Crypto registration' },
-      { jur: 'eu', name: 'Ireland Central Bank E-Money Institution' },
+      { jur: 'uk', name: 'FCA Cryptoasset registration' },
+      { jur: 'ie', name: 'Central Bank of Ireland E-Money Institution (Gemini Payments Europe, EU passporting)' },
     ],
     useCase: {
       en: 'Regulated US crypto exchange + custody. Issued GUSD stablecoin. NYDFS-chartered trust company; operates in US, UK, and EU. Focus on institutional and compliance-first.',
@@ -209,11 +277,12 @@ export const USE_CASES: UseCase[] = [
     licences: [
       { jur: 'us', name: 'FinCEN MSB + State MTLs' },
       { jur: 'uk', name: 'FCA Cryptoasset registration' },
-      { jur: 'eu', name: 'Lithuania VASP (VASPI) — EU expansion pre-MiCA' },
+      { jur: 'lt', name: 'Lithuania VASP (Uphold Europe) — pre-MiCA base, transitioning to MiCA CASP' },
+      { jur: 'au', name: 'AUSTRAC Digital Currency Exchange registration' },
     ],
     useCase: {
-      en: 'Multi-asset trading platform. XRPL-native since launch (2015) and a long-standing ODL corridor partner of Ripple. Regulated across US, UK, and EU, with mid-2020s transition to full MiCA CASP authorisation.',
-      fr: "Plateforme de trading multi-actifs. Native XRPL depuis son lancement (2015) et partenaire historique d'ODL avec Ripple. Régulée aux US, UK et UE, avec une transition en cours vers l'agrément MiCA CASP complet.",
+      en: 'Multi-asset trading platform. XRPL-native since launch (2015) and a long-standing ODL corridor partner of Ripple. Regulated across US, UK, Lithuania (EU), and Australia, with mid-2020s transition to full MiCA CASP authorisation.',
+      fr: "Plateforme de trading multi-actifs. Native XRPL depuis son lancement (2015) et partenaire historique d'ODL avec Ripple. Régulée aux US, UK, Lituanie (UE) et Australie, avec une transition en cours vers l'agrément MiCA CASP complet.",
     },
     since: '2015',
   },
