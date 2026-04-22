@@ -60,3 +60,64 @@ export async function* streamSearch(query: string): AsyncGenerator<string> {
     }
   }
 }
+
+/**
+ * Classify a freeform startup description into structured activities + jurisdictions.
+ * Used by /api/classify → /assess step-0 ("Describe your startup").
+ *
+ * Keeps token usage tiny: haiku model, max 512 tokens, forced JSON output.
+ */
+export async function classifyStartup(
+  description: string,
+  locale: 'en' | 'fr',
+  allowedActivities: readonly string[],
+  allowedJurisdictions: readonly string[],
+): Promise<{ activities: string[]; jurisdictions: string[]; reasoning: string }> {
+  const systemPrompt = `You classify crypto/fintech startup descriptions into a fixed vocabulary.
+
+You MUST respond with a single JSON object, no prose before or after, of the shape:
+{
+  "activities": ["..."],   // 1-5 codes from the ALLOWED_ACTIVITIES list below
+  "jurisdictions": ["..."], // 1-5 codes from the ALLOWED_JURISDICTIONS list below
+  "reasoning": "..."        // 2-3 sentences, ${locale === 'fr' ? 'in French' : 'in English'}, explaining the choice
+}
+
+ALLOWED_ACTIVITIES = ${JSON.stringify(allowedActivities)}
+ALLOWED_JURISDICTIONS = ${JSON.stringify(allowedJurisdictions)}
+
+Rules:
+- Only return codes from the two lists above.
+- If the user does not specify a jurisdiction, infer from context (language, currency, market cues) or default to ["eu"] if genuinely unclear.
+- Prefer fewer, sharper selections over many vague ones (1-3 items of each is typical).
+- If the description is too vague or unrelated to a crypto business, return empty arrays with reasoning explaining why.
+- Respond ONLY with the JSON — no markdown, no explanation.`;
+
+  const message = await client.messages.create({
+    model: 'claude-haiku-4-5',
+    max_tokens: 512,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: description }],
+  });
+
+  const block = message.content[0];
+  const text = block.type === 'text' ? block.text : '';
+
+  try {
+    const cleaned = text.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    const parsed = JSON.parse(cleaned) as {
+      activities?: unknown;
+      jurisdictions?: unknown;
+      reasoning?: unknown;
+    };
+    const activities = Array.isArray(parsed.activities)
+      ? parsed.activities.filter((x): x is string => typeof x === 'string' && allowedActivities.includes(x))
+      : [];
+    const jurisdictions = Array.isArray(parsed.jurisdictions)
+      ? parsed.jurisdictions.filter((x): x is string => typeof x === 'string' && allowedJurisdictions.includes(x))
+      : [];
+    const reasoning = typeof parsed.reasoning === 'string' ? parsed.reasoning : '';
+    return { activities, jurisdictions, reasoning };
+  } catch {
+    return { activities: [], jurisdictions: [], reasoning: '' };
+  }
+}

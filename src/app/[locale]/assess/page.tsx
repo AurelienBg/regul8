@@ -23,6 +23,16 @@ export default function AssessPage() {
   // Prevent the save-effect from running with empty state before the load-effect has hydrated
   const hydratedRef = useRef(false);
 
+  // Step 0: "Describe your startup" — AI classification
+  const [description, setDescription] = useState('');
+  const [isClassifying, setIsClassifying] = useState(false);
+  const [classifyError, setClassifyError] = useState<string | null>(null);
+  const [aiActivities, setAiActivities] = useState<Set<ActivityKey>>(new Set());
+  const [aiJurisdictions, setAiJurisdictions] = useState<Set<Jurisdiction>>(new Set());
+  const [reasoning, setReasoning] = useState('');
+  const [reasoningOpen, setReasoningOpen] = useState(false);
+  const [describeCollapsed, setDescribeCollapsed] = useState(false);
+
   // Load previously saved selection on mount
   useEffect(() => {
     try {
@@ -70,6 +80,48 @@ export default function AssessPage() {
     );
   };
 
+  const handleClassify = async () => {
+    const trimmed = description.trim();
+    if (!trimmed || isClassifying) return;
+    setIsClassifying(true);
+    setClassifyError(null);
+    try {
+      const res = await fetch('/api/classify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: trimmed, locale }),
+      });
+      const data = await res.json() as {
+        activities?: string[];
+        jurisdictions?: string[];
+        reasoning?: string;
+        error?: string;
+      };
+      if (data.error) {
+        setClassifyError(data.error);
+        return;
+      }
+      const acts = (data.activities ?? []).filter((a): a is ActivityKey =>
+        ACTIVITY_KEYS.includes(a as ActivityKey),
+      );
+      const juris = (data.jurisdictions ?? []).filter((j): j is Jurisdiction =>
+        JURISDICTION_KEYS.includes(j as Jurisdiction),
+      );
+      // Merge (don't replace) — keep any manual selections the user already made
+      setSelectedActivities((prev) => Array.from(new Set([...prev, ...acts])));
+      setSelectedJurisdictions((prev) => Array.from(new Set([...prev, ...juris])));
+      setAiActivities(new Set(acts));
+      setAiJurisdictions(new Set(juris));
+      setReasoning(data.reasoning ?? '');
+      setReasoningOpen(Boolean(data.reasoning));
+      setDescribeCollapsed(true);
+    } catch {
+      setClassifyError(isFr ? 'Erreur réseau, réessayez.' : 'Network error, please retry.');
+    } finally {
+      setIsClassifying(false);
+    }
+  };
+
   const canSubmit = selectedActivities.length > 0 && selectedJurisdictions.length > 0;
 
   const handleSubmit = () => {
@@ -102,6 +154,19 @@ export default function AssessPage() {
           jurisdiction: (n: number) => (n > 1 ? `${n} juridictions` : `${n} juridiction`),
           resultsLabel: (n: number) => `= ${n} résultats`,
         },
+        describe: {
+          title: '💬 Décrivez votre startup',
+          subtitle: 'Optionnel — en 2-3 phrases. L\'IA détecte vos activités et juridictions et pré-remplit le formulaire.',
+          placeholder: 'Ex : On est une app mobile qui permet à des utilisateurs français de convertir EUR ↔ USDC instantanément, avec custody MPC non-custodial…',
+          analyze: '✨ Analyser et pré-remplir',
+          analyzing: 'Analyse…',
+          skip: 'Passer',
+          chars: (n: number) => `${n}/500`,
+          reasoningToggle: 'Pourquoi ces choix ?',
+          aiLabel: 'IA',
+          editAgain: 'Modifier la description',
+          genericError: 'Erreur. Vous pouvez continuer manuellement.',
+        },
       }
     : {
         title: 'Assess your compliance',
@@ -125,6 +190,19 @@ export default function AssessPage() {
           jurisdiction: (n: number) => (n > 1 ? `${n} jurisdictions` : `${n} jurisdiction`),
           resultsLabel: (n: number) => `= ${n} results`,
         },
+        describe: {
+          title: '💬 Describe your startup',
+          subtitle: 'Optional — in 2-3 sentences. AI detects your activities and jurisdictions and pre-fills the form.',
+          placeholder: 'Ex: We\'re a mobile app that lets US users instantly convert USD ↔ USDC, with non-custodial MPC custody…',
+          analyze: '✨ Analyze and pre-fill',
+          analyzing: 'Analyzing…',
+          skip: 'Skip',
+          chars: (n: number) => `${n}/500`,
+          reasoningToggle: 'Why these choices?',
+          aiLabel: 'AI',
+          editAgain: 'Edit description',
+          genericError: 'Error. You can continue manually.',
+        },
       };
 
   return (
@@ -134,6 +212,81 @@ export default function AssessPage() {
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{tr.subtitle}</p>
       </header>
+
+      {/* Step 0 — 💬 Describe your startup (optional) */}
+      <section className="mb-8 p-5 rounded-xl border border-violet-200 dark:border-violet-900/50 bg-violet-50/40 dark:bg-violet-900/10">
+        {!describeCollapsed ? (
+          <>
+            <h2 className="text-lg font-bold mb-1">{tr.describe.title}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.describe.subtitle}</p>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value.slice(0, 500))}
+              placeholder={tr.describe.placeholder}
+              rows={3}
+              disabled={isClassifying}
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-white dark:bg-gray-900 text-sm focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-y disabled:opacity-60"
+            />
+            <div className="mt-2 flex items-center justify-between gap-3 flex-wrap">
+              <span className="text-xs text-gray-500">{tr.describe.chars(description.length)}</span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setDescribeCollapsed(true)}
+                  disabled={isClassifying}
+                  className="text-sm px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  {tr.describe.skip}
+                </button>
+                <button
+                  onClick={handleClassify}
+                  disabled={!description.trim() || isClassifying}
+                  className="text-sm px-4 py-1.5 rounded-lg bg-violet-600 text-white font-medium hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                >
+                  {isClassifying ? tr.describe.analyzing : tr.describe.analyze}
+                </button>
+              </div>
+            </div>
+            {classifyError && (
+              <p className="mt-2 text-xs text-red-600 dark:text-red-400">{classifyError}</p>
+            )}
+          </>
+        ) : (
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="flex-1 min-w-0">
+              <p className="text-sm">
+                <span className="font-semibold text-violet-700 dark:text-violet-300">✨ {tr.describe.title}</span>
+                {reasoning && (
+                  <>
+                    {' · '}
+                    <button
+                      onClick={() => setReasoningOpen(!reasoningOpen)}
+                      className="text-violet-700 dark:text-violet-300 underline text-xs hover:no-underline"
+                    >
+                      {tr.describe.reasoningToggle}
+                    </button>
+                  </>
+                )}
+              </p>
+              {reasoningOpen && reasoning && (
+                <p className="mt-2 text-xs text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                  {reasoning}
+                </p>
+              )}
+              {description && (
+                <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400 italic truncate">
+                  « {description} »
+                </p>
+              )}
+            </div>
+            <button
+              onClick={() => setDescribeCollapsed(false)}
+              className="text-xs px-3 py-1 rounded-md border border-violet-300 dark:border-violet-700 text-violet-700 dark:text-violet-300 hover:bg-violet-100 dark:hover:bg-violet-900/30 transition-colors shrink-0"
+            >
+              {tr.describe.editAgain}
+            </button>
+          </div>
+        )}
+      </section>
 
       {/* What's in the report */}
       <section className="mb-10 p-5 rounded-xl border border-[var(--border)] bg-[var(--card)]">
@@ -159,6 +312,7 @@ export default function AssessPage() {
           <div className="grid sm:grid-cols-2 gap-2">
             {ACTIVITY_KEYS.map((key) => {
               const active = selectedActivities.includes(key);
+              const aiSuggested = aiActivities.has(key);
               return (
                 <button
                   key={key}
@@ -183,7 +337,17 @@ export default function AssessPage() {
                     </span>
                     <span className="text-sm font-medium truncate">{tw(`activities.${key}`)}</span>
                   </span>
-                  {ACTIVITIES[key].xrpl && <XRPLBadge />}
+                  <span className="flex items-center gap-1 shrink-0">
+                    {aiSuggested && (
+                      <span
+                        title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
+                        className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300"
+                      >
+                        ✨ {tr.describe.aiLabel}
+                      </span>
+                    )}
+                    {ACTIVITIES[key].xrpl && <XRPLBadge />}
+                  </span>
                 </button>
               );
             })}
@@ -209,6 +373,7 @@ export default function AssessPage() {
             {JURISDICTION_KEYS.map((code) => {
               const j = JURISDICTIONS[code];
               const active = selectedJurisdictions.includes(code);
+              const aiSuggested = aiJurisdictions.has(code);
               return (
                 <button
                   key={code}
@@ -231,7 +396,15 @@ export default function AssessPage() {
                     )}
                   </span>
                   <span className="text-lg">{j.flag}</span>
-                  <span className="text-sm font-medium truncate">{j.name}</span>
+                  <span className="text-sm font-medium truncate flex-1">{j.name}</span>
+                  {aiSuggested && (
+                    <span
+                      title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
+                      className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
+                    >
+                      ✨
+                    </span>
+                  )}
                 </button>
               );
             })}
