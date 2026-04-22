@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
@@ -63,6 +63,23 @@ export default function ComparePage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
   const ACTIVITY_LABELS = isFr ? ACTIVITY_LABELS_FR : ACTIVITY_LABELS_EN;
+
+  // Alphabetical ordering for both lists — matches /assess. Memoised since
+  // label mappings are locale-dependent.
+  const activityKeysSorted = useMemo(
+    () =>
+      (Object.keys(ACTIVITIES) as ActivityKey[]).sort((a, b) =>
+        ACTIVITY_LABELS[a].localeCompare(ACTIVITY_LABELS[b], locale),
+      ),
+    [ACTIVITY_LABELS, locale],
+  );
+  const jurisdictionKeysSorted = useMemo(
+    () =>
+      (Object.keys(JURISDICTIONS) as Jurisdiction[]).sort((a, b) =>
+        JURISDICTIONS[a].name.localeCompare(JURISDICTIONS[b].name, locale),
+      ),
+    [locale],
+  );
 
   const tr = isFr ? {
     title: 'Comparateur',
@@ -225,7 +242,7 @@ export default function ComparePage() {
           <section className="mb-6">
             <label className="block text-sm font-semibold mb-2">{tr.jurisdiction}</label>
             <div className="flex flex-wrap gap-2">
-              {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => (
+              {jurisdictionKeysSorted.map((j) => (
                 <button
                   key={j}
                   onClick={() => setJurisdiction(j)}
@@ -248,7 +265,7 @@ export default function ComparePage() {
               {tr.activities} ({selectedActivities.length}/5)
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => {
+              {activityKeysSorted.map((a) => {
                 const isSel = selectedActivities.includes(a);
                 const disabled = !isSel && selectedActivities.length >= 5;
                 return (
@@ -421,7 +438,7 @@ export default function ComparePage() {
           <section className="mb-6">
             <label className="block text-sm font-semibold mb-2">{tr.activity}</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {(Object.keys(ACTIVITIES) as ActivityKey[]).map((a) => (
+              {activityKeysSorted.map((a) => (
                 <button
                   key={a}
                   onClick={() => setActivity(a)}
@@ -446,7 +463,7 @@ export default function ComparePage() {
               {tr.jurisdictions} ({selectedJurisdictions.length}/5)
             </label>
             <div className="flex flex-wrap gap-2">
-              {(Object.keys(JURISDICTIONS) as Jurisdiction[]).map((j) => {
+              {jurisdictionKeysSorted.map((j) => {
                 const isSel = selectedJurisdictions.includes(j);
                 const disabled = !isSel && selectedJurisdictions.length >= 5;
                 return (

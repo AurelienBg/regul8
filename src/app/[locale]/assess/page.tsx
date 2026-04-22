@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
@@ -8,6 +8,12 @@ import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const ACTIVITY_KEYS = Object.keys(ACTIVITIES) as ActivityKey[];
 const JURISDICTION_KEYS = Object.keys(JURISDICTIONS) as Jurisdiction[];
+// Jurisdictions are alphabetised by their display name (locale-insensitive since
+// names are identical across EN/FR for the most part). Sorted once at module
+// init — cheap + stable reference.
+const JURISDICTION_KEYS_SORTED = [...JURISDICTION_KEYS].sort((a, b) =>
+  JURISDICTIONS[a].name.localeCompare(JURISDICTIONS[b].name),
+);
 
 /** Key used to persist the picker state across page navigations / reloads */
 const ASSESS_STORAGE_KEY = 'regul8:assess:selection';
@@ -38,6 +44,17 @@ export default function AssessPage() {
   // populate this automatically when the description mentions something unlisted.
   const [otherActivity, setOtherActivity] = useState('');
   const [aiOtherDetected, setAiOtherDetected] = useState(false);
+
+  // Activities sorted alphabetically by their *localised* label. Memoised on
+  // locale change so the sort only runs once per language.
+  const activityKeysSorted = useMemo(
+    () =>
+      [...ACTIVITY_KEYS].sort((a, b) =>
+        tw(`activities.${a}`).localeCompare(tw(`activities.${b}`), locale),
+      ),
+    // tw is stable per-locale in next-intl, so keying on locale is sufficient
+    [locale, tw],
+  );
 
   // Load previously saved selection on mount
   useEffect(() => {
@@ -340,7 +357,7 @@ export default function AssessPage() {
           <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
           <p className="text-xs text-gray-500 mb-4">{tr.selectAll}</p>
           <div className="grid sm:grid-cols-2 gap-2">
-            {ACTIVITY_KEYS.map((key) => {
+            {activityKeysSorted.map((key) => {
               const active = selectedActivities.includes(key);
               const aiSuggested = aiActivities.has(key);
               return (
@@ -365,7 +382,7 @@ export default function AssessPage() {
                         </svg>
                       )}
                     </span>
-                    <span className="text-sm font-medium truncate">{tw(`activities.${key}`)}</span>
+                    <span className="text-sm font-medium leading-snug">{tw(`activities.${key}`)}</span>
                   </span>
                   <span className="flex items-center gap-1 shrink-0">
                     {aiSuggested && (
@@ -425,7 +442,7 @@ export default function AssessPage() {
             </button>
           </div>
           <div className="grid sm:grid-cols-2 gap-2">
-            {JURISDICTION_KEYS.map((code) => {
+            {JURISDICTION_KEYS_SORTED.map((code) => {
               const j = JURISDICTIONS[code];
               const active = selectedJurisdictions.includes(code);
               const aiSuggested = aiJurisdictions.has(code);
