@@ -26,6 +26,11 @@ const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
   token_utility: 'Utility token',
   token_security: 'Security token',
   token_hybrid: 'Hybrid token',
+  staking: 'Staking service',
+  lending: 'Lending / Borrowing',
+  asset_management: 'Asset management',
+  derivatives: 'Derivatives',
+  launchpad: 'Launchpad',
 };
 
 const ACTIVITY_LABELS_FR: Record<ActivityKey, string> = {
@@ -44,6 +49,11 @@ const ACTIVITY_LABELS_FR: Record<ActivityKey, string> = {
   token_utility: 'Utility token',
   token_security: 'Security token',
   token_hybrid: 'Token hybride',
+  staking: 'Service de staking',
+  lending: 'Prêt / Emprunt',
+  asset_management: 'Gestion d\'actifs',
+  derivatives: 'Dérivés',
+  launchpad: 'Launchpad',
 };
 
 type CompareMode = 'activities' | 'jurisdictions';

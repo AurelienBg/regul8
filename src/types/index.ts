@@ -63,7 +63,12 @@ export interface RegResult {
   clientEligibility?: string
 }
 
-export type RegData = Record<ActivityKey, Partial<Record<Jurisdiction, RegResult>>>
+/**
+ * Partial on the outer record too — we may add an ActivityKey before its
+ * regulation data is backfilled across all jurisdictions. `lookupRegulation`
+ * and friends already return null for missing entries.
+ */
+export type RegData = Partial<Record<ActivityKey, Partial<Record<Jurisdiction, RegResult>>>>
 
 export interface WizardAnswers {
   activity: ActivityKey

@@ -1658,6 +1658,86 @@ export const REGULATIONS_FR: RegData = {
       alts: ["Paiement UAE VARA", "UK FCA"],
       authority: "FSCA + SARB + FIC"
     },
+    lu: {
+      regime: "Payment Institution PSD2/PSD3 + service de transfert crypto MiCA CASP (CSSF)",
+      risk: "med",
+      licenses: ["Licence PI CSSF (PSD2) pour les rails fiat", "Licence EMI pour les comptes de monnaie électronique", "Agrément CASP pour le service de transfert crypto (MiCA Art. 3)"],
+      obligations: ["Safeguarding des fonds clients", "SCA selon PSD2", "KYC/AML + Règle du voyage FATF >€1K", "Fonds propres selon les règles PI / EMI", "Passeport UE"],
+      time: "12–18 mois",
+      cost: "€200K–€600K",
+      alts: ["Lituanie (hub EMI moins cher)", "Irlande PI", "Malte MFSA"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "VASP Act 2020 — transfert d'actifs virtuels + Money Services Act pour remittance fiat",
+      risk: "med",
+      licenses: ["Enregistrement VASP — transfert d'actifs virtuels (CIMA)", "Money Services Licence si leg fiat (CIMA)"],
+      obligations: ["AML selon AMLR 2020 + Travel Rule", "Honorabilité des dirigeants", "MLRO + audit annuel", "Ségrégation des fonds clients", "Retours annuels à la CIMA"],
+      time: "6–12 mois",
+      cost: "$50K–$200K — impôt sur les sociétés 0%",
+      alts: ["BVI VASP", "Bermudes DABA", "Dubaï VARA payment"],
+      authority: "Cayman Islands Monetary Authority (CIMA)"
+    },
+    ca: {
+      regime: "Retail Payment Activities Act (RPAA, en vigueur sept. 2024) + FINTRAC MSB + overlay titres CSA",
+      risk: "high",
+      licenses: ["Enregistrement Payment Service Provider (PSP) auprès de la Banque du Canada sous la RPAA", "Enregistrement FINTRAC MSB", "Enregistrements provinciaux money-transmitter (AMF Québec)"],
+      obligations: ["Safeguarding des fonds des utilisateurs finaux (RPAA)", "Cadre de risque opérationnel + reporting incidents à la BdC", "KYC/AML PCMLTFA (amendements mars 2026)", "Travel Rule (C$1K)", "Protection des consommateurs (LPC)"],
+      time: "9–18 mois",
+      cost: "C$200K–C$800K",
+      alts: ["MTL d'État américaines", "UE MiCA + passeport PI", "Dubaï VARA"],
+      authority: "Banque du Canada (RPAA) + FINTRAC + CSA"
+    },
+    vg: {
+      regime: "VASP Act 2022 — transfert d'actifs virtuels + Financing and Money Services Act (fiat)",
+      risk: "med",
+      licenses: ["Enregistrement VASP — services de transfert (BVI FSC)", "Licence FMS si remittance fiat"],
+      obligations: ["AML selon AMLR + Code of Practice", "Conformité Travel Rule", "MLRO + audit annuel", "Ségrégation des fonds clients", "FSC Circular 43/2025 cyber + gestion des clés"],
+      time: "4–12 mois",
+      cost: "$150K–$400K — impôt sur les sociétés 0%",
+      alts: ["Cayman VASP + MSA", "Bermudes DABA", "Dubaï VARA payment"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "Digital Assets Framework Act 2026 + Payment Systems (Regulation) Act 1998 + AUSTRAC DCE",
+      risk: "med",
+      licenses: ["AFSL ASIC — digital asset platform (transfert)", "Enregistrement AUSTRAC DCE", "Agrément APRA si dépôt", "Accès RBA aux systèmes de paiement"],
+      obligations: ["Safeguarding des fonds clients", "KYC/AML + Travel Rule (31 mars 2026)", "ePayments Code pour le retail", "Risque opérationnel + cyber", "Reporting des manquements ASIC"],
+      time: "9–18 mois",
+      cost: "A$300K–A$1M",
+      alts: ["Singapour MAS MPI", "UE MiCA + PI", "Nouvelle-Zélande FMA"],
+      authority: "ASIC + AUSTRAC + RBA"
+    },
+    mt: {
+      regime: "Payment Institution PSD2 + MiCA CASP (transfert crypto) sous MFSA",
+      risk: "med",
+      licenses: ["Licence PI MFSA (PSD2)", "Licence EMI si comptes de monnaie électronique", "MiCA CASP pour le service de transfert crypto"],
+      obligations: ["Safeguarding des fonds clients", "SCA selon PSD2", "Travel Rule MiCA + AML", "Fonds propres selon les règles PI / EMI", "Substance locale à Malte"],
+      time: "9–15 mois",
+      cost: "€150K–€500K",
+      alts: ["Lituanie MiCA + PI", "Luxembourg CSSF", "Liechtenstein TVTG"],
+      authority: "Malta Financial Services Authority (MFSA)"
+    },
+    bm: {
+      regime: "Digital Asset Business Act 2018 — services de paiement en ou impliquant des actifs numériques",
+      risk: "med",
+      licenses: ["DABA Class F (complète) ou Class M (modifiée / sandbox)", "Approbation BMA"],
+      obligations: ["AML/ATF selon POCA 1997", "Conformité Travel Rule", "Safeguarding des fonds clients", "BMA Cyber Risk Management Code", "Audit annuel + retours BMA"],
+      time: "6–12 mois",
+      cost: "BMD 75K–300K",
+      alts: ["Cayman payment", "BVI VASP", "Dubaï VARA payment"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "Payment Institution PSD2 + MiCA CASP (transfert crypto) sous Lietuvos bankas",
+      risk: "med",
+      licenses: ["Licence PI Lietuvos bankas (PSD2)", "Licence EMI (la Lituanie est un hub EMI UE majeur)", "MiCA CASP pour le service de transfert crypto"],
+      obligations: ["Safeguarding des fonds clients", "SCA selon PSD2", "KYC/AML selon la Loi AML lituanienne (2022/2024)", "Travel Rule >€1K", "Fonds propres selon les règles PI / EMI", "Dirigeant local + responsable AML"],
+      time: "6–12 mois",
+      cost: "€100K–€350K (historiquement le hub EMI UE le plus compétitif)",
+      alts: ["Luxembourg CSSF", "Malte MFSA", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas (Banque de Lituanie)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
