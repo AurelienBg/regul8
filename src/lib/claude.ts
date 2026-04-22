@@ -93,8 +93,10 @@ ALLOWED_JURISDICTIONS = ${JSON.stringify(allowedJurisdictions)}
 
 Rules:
 - Only return codes from the two lists above in "activities" and "jurisdictions".
-- If the user does not specify a jurisdiction, infer from context (language, currency, market cues) or default to ["eu"] if genuinely unclear.
+- **Jurisdictions — STRICT rule**: only return jurisdictions EXPLICITLY mentioned by the user. Do NOT add adjacent, regional, neighbouring, corridor-partner, or "commonly associated" jurisdictions, even if they seem natural. Example: "cross-border payment from US to Nigeria" → ["us", "ng"] ONLY, never add Kenya/Ghana/South Africa even though they are common African corridor markets. If the description genuinely implies an unnamed jurisdiction (e.g. "serving French users" → "eu"), that's fine — but "implied by geography/corridor" is NOT sufficient.
+- If the user does not specify any jurisdiction at all, infer from clear context (language, currency, market cues) or default to ["eu"] if genuinely unclear. Do not infer more than 1 juri when nothing is explicit.
 - Prefer fewer, sharper selections over many vague ones (1-3 items of each is typical).
+- Activities are less strict than jurisdictions — you can infer activities that are clearly implied by the description (e.g. "users can buy crypto with EUR" → onramp_offramp even if not spelled out).
 - If the description mentions something that doesn't cleanly fit any listed activity code (e.g., insurance protocol, prediction market, DAO tooling, identity/DID, oracle network, mining pool, broker/OTC desk, crypto-card issuance), set "other" to a concise label for it (e.g., "prediction market", "crypto insurance protocol", "crypto-card issuance"). "other" is optional — leave "" when everything fits.
 - In "reasoning", be explicit about any gap: e.g., "Note: the description also mentions <X> which is not in our activity taxonomy — treat as a known gap."
 - If the description is too vague or unrelated to a crypto business, return empty arrays and an empty "other" with reasoning explaining why.
