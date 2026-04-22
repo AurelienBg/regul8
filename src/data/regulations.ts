@@ -2820,6 +2820,126 @@ export const REGULATIONS: RegData = {
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "BCB / CVM"
     },
+    ng: {
+      regime: "SEC Nigeria DASP — utility tokens generally exempt if no investment expectation",
+      risk: "med",
+      licenses: ["SEC Nigeria DASP if marketed with investment angle", "No licence for pure utility"],
+      obligations: ["KYC/AML if DASP", "Consumer-protection disclosures"],
+      time: "6–12 months",
+      cost: "NGN 50M–200M ($50K–$200K)",
+      alts: ["UAE VARA", "UE MiCA"],
+      authority: "SEC Nigeria"
+    },
+    ke: {
+      regime: "VASP Act 2025 — utility tokens generally exempt if genuine consumption use",
+      risk: "low",
+      licenses: ["No VASP for pure utility", "CMA VASP if secondary trading platform"],
+      obligations: ["KYC/AML if VASP", "Consumer protection"],
+      time: "3–9 months",
+      cost: "KES 2M–10M ($15K–$75K)",
+      alts: ["South Africa FSCA", "UAE VARA"],
+      authority: "CMA"
+    },
+    za: {
+      regime: "FSCA CASP — utility tokens outside scope if no investment character; copyright applies for in-app use",
+      risk: "low",
+      licenses: ["No CASP for pure utility", "CASP Cat 1 if secondary trading / advice"],
+      obligations: ["FICA AML if CASP", "Consumer protection under FAIS"],
+      time: "3–9 months",
+      cost: "ZAR 500K–2M ($30K–$110K)",
+      alts: ["UAE VARA", "Mauritius FSC"],
+      authority: "FSCA + FIC"
+    },
+    lu: {
+      regime: "MiCA Utility Token regime (light) — CSSF whitepaper notification if offering >€1M",
+      risk: "low",
+      licenses: ["No CASP authorisation needed", "Whitepaper notification to CSSF (if offering >€1M)"],
+      obligations: ["Truthful whitepaper", "Consumer info + 14-day cooling-off", "Market abuse rules if listed"],
+      time: "2–4 months",
+      cost: "€30K–€120K",
+      alts: ["Liechtenstein TVTG", "Switzerland"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "Cayman Virtual Asset Issuance under VASP Act — utility tokens lighter than security",
+      risk: "low",
+      licenses: ["Registered VASP issuer (CIMA)", "Cayman Foundation Company commonly used"],
+      obligations: ["AML per AMLR 2020 + MLRO", "Issuance disclosures"],
+      time: "3–6 months",
+      cost: "$50K–$200K — 0% corporate tax",
+      alts: ["BVI Foundation", "Liechtenstein TVTG"],
+      authority: "CIMA"
+    },
+    ca: {
+      regime: "CSA — utility tokens case-by-case; Pacific Coast v Howey 4-prong test applied",
+      risk: "med",
+      licenses: ["No CSA registration if pure utility", "Prospectus if investment-contract test met", "FINTRAC MSB if custody"],
+      obligations: ["CSA Staff Notice 46-307/308 analysis", "Consumer protection", "KYC/AML if dealer"],
+      time: "6–12 months",
+      cost: "C$150K–C$500K",
+      alts: ["US SAFT", "EU MiCA"],
+      authority: "CSA"
+    },
+    vg: {
+      regime: "BVI VASP Act 2022 — utility tokens generally lighter path",
+      risk: "low",
+      licenses: ["BVI VASP registration as issuer", "BVI Foundation Company for community tokens"],
+      obligations: ["AML per AMLR + MLRO", "Issuance disclosures"],
+      time: "3–6 months",
+      cost: "$50K–$200K — 0% corporate tax",
+      alts: ["Cayman VASP", "Liechtenstein TVTG"],
+      authority: "BVI FSC"
+    },
+    au: {
+      regime: "ASIC — utility tokens case-by-case; financial-product classification via INFO 225",
+      risk: "med",
+      licenses: ["No AFSL if pure utility", "ASIC AFSL if financial-product", "AUSTRAC DCE if issuer also exchanges"],
+      obligations: ["Truthful marketing (Corporations Act)", "KYC/AML if licensed"],
+      time: "4–9 months",
+      cost: "A$100K–A$400K",
+      alts: ["Singapore MAS", "UAE VARA"],
+      authority: "ASIC"
+    },
+    mt: {
+      regime: "MiCA Utility Token regime (light) via MFSA",
+      risk: "low",
+      licenses: ["No CASP authorisation needed", "Whitepaper notification to MFSA (if offering >€1M)"],
+      obligations: ["Truthful whitepaper", "14-day cooling-off", "Market abuse rules if listed"],
+      time: "2–4 months",
+      cost: "€20K–€100K",
+      alts: ["Lithuania MiCA", "Liechtenstein TVTG"],
+      authority: "MFSA"
+    },
+    bm: {
+      regime: "DABA 2018 Class F/M — utility tokens typically Class M (modified)",
+      risk: "low",
+      licenses: ["DABA Class M if sandbox", "BMA approval"],
+      obligations: ["AML/ATF per POCA 1997", "BMA Cyber Risk Management Code"],
+      time: "4–9 months",
+      cost: "BMD 50K–200K",
+      alts: ["Cayman VASP", "BVI VASP"],
+      authority: "BMA"
+    },
+    lt: {
+      regime: "MiCA Utility Token regime (light) via Lietuvos bankas",
+      risk: "low",
+      licenses: ["No CASP authorisation", "Whitepaper notification (if offering >€1M)"],
+      obligations: ["Truthful whitepaper", "14-day cooling-off", "Market abuse rules"],
+      time: "2–4 months",
+      cost: "€15K–€80K",
+      alts: ["Malta MiCA", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas"
+    },
+    ie: {
+      regime: "MiCA Utility Token regime (light) via CBI",
+      risk: "low",
+      licenses: ["No CBI CASP required", "Whitepaper notification to CBI (if offering >€1M)"],
+      obligations: ["Truthful whitepaper per CJA 2010", "14-day cooling-off", "Market abuse rules if listed"],
+      time: "3–6 months",
+      cost: "€40K–€200K",
+      alts: ["Luxembourg CSSF", "Malta MFSA"],
+      authority: "Central Bank of Ireland (CBI)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2946,6 +3066,126 @@ export const REGULATIONS: RegData = {
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "BCB / CVM"
     },
+    ng: {
+      regime: "SEC Nigeria — Digital Asset Rules (2022) for security token offerings (STO)",
+      risk: "high",
+      licenses: ["SEC Nigeria STO authorisation", "Prospectus filing", "DASP registration if secondary trading"],
+      obligations: ["Full prospectus + risk disclosures", "KYC/AML per MLPPA 2022", "Investor accreditation"],
+      time: "18–36 months",
+      cost: "NGN 500M+ ($500K+)",
+      alts: ["UAE VARA", "EU DLT Pilot"],
+      authority: "SEC Nigeria"
+    },
+    ke: {
+      regime: "CMA Capital Markets Act + VASP Act 2025 for issuance + trading",
+      risk: "high",
+      licenses: ["CMA prospectus approval", "CMA VASP if tokenised trading", "CBK approval for KES flows"],
+      obligations: ["Full prospectus", "KYC/AML per POCAMLA", "Ongoing disclosure", "3% Digital Asset Tax"],
+      time: "12–24 months",
+      cost: "KES 15M–60M ($115K–$460K)",
+      alts: ["UAE VARA", "Mauritius FSC"],
+      authority: "CMA"
+    },
+    za: {
+      regime: "FSCA CISCA + JSE listing rules + CASP if trading; IFWG tokenised securities project",
+      risk: "high",
+      licenses: ["CISCA manager licence", "JSE listing (if exchange-traded)", "CASP Category II if secondary trading platform"],
+      obligations: ["FSCA prospectus + ongoing disclosure", "KYC/AML per FICA", "POPIA data protection"],
+      time: "12–18 months",
+      cost: "ZAR 5M–15M ($275K–$825K)",
+      alts: ["UAE ADGM", "Mauritius FSC"],
+      authority: "FSCA + JSE"
+    },
+    lu: {
+      regime: "Luxembourg Securities Law + MiFID + DLT Pilot Regime — dominant EU STO hub",
+      risk: "med",
+      licenses: ["CSSF prospectus approval", "MiFID investment firm if trading / dealing", "DLT Pilot Regime sandbox"],
+      obligations: ["Prospectus Regulation (EU 2017/1129)", "MAR market abuse rules", "CSDR custody segregation", "KYC/AML"],
+      time: "9–15 months",
+      cost: "€300K–€1M+",
+      alts: ["Switzerland FINMA", "Liechtenstein TVTG", "Ireland CBI"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "Cayman Mutual Funds Law + SIBL (Securities) — popular for offshore STO structures",
+      risk: "med",
+      licenses: ["CIMA Mutual/Private Fund registration", "SIBL if brokerage", "CIMA VASP if trading platform"],
+      obligations: ["AML per AMLR + MLRO", "Fund audit + prospectus", "Investor suitability if retail"],
+      time: "3–9 months",
+      cost: "$100K–$500K — 0% corporate tax",
+      alts: ["BVI SIBA", "Bermuda DABA"],
+      authority: "CIMA"
+    },
+    ca: {
+      regime: "CSA — full securities regime; restricted to accredited investors unless prospectus",
+      risk: "high",
+      licenses: ["CSA prospectus or Reg 45-106 exemption", "Registered dealer (IIROC)", "ATS registration if trading"],
+      obligations: ["Full prospectus + continuous disclosure", "KYC/AML per PCMLTFA", "Accredited investor verification"],
+      time: "12–24 months",
+      cost: "C$500K–C$2M",
+      alts: ["US Reg D", "EU DLT Pilot"],
+      authority: "CSA / OSC / AMF / IIROC"
+    },
+    vg: {
+      regime: "BVI Securities and Investment Business Act (SIBA) — STO via Approved Manager / Incubator Fund",
+      risk: "med",
+      licenses: ["BVI Approved Manager licence", "BVI Incubator Fund / Private Fund", "VASP Act if tokenised secondary"],
+      obligations: ["AML + MLRO", "SIBA reporting", "Audit if fund"],
+      time: "4–9 months",
+      cost: "$100K–$400K — 0% corporate tax",
+      alts: ["Cayman SIBL", "Bermuda DABA"],
+      authority: "BVI FSC"
+    },
+    au: {
+      regime: "Corporations Act full securities regime + ASIC AFSL + Digital Assets Framework Act 2026",
+      risk: "high",
+      licenses: ["ASIC AFSL — issuer + dealer", "Prospectus under s.710", "ASIC Digital Asset Platform if secondary"],
+      obligations: ["Full prospectus + continuous disclosure", "Design and Distribution Obligations (DDO)", "Accredited investor gating for wholesale"],
+      time: "12–24 months",
+      cost: "A$500K–A$1.5M",
+      alts: ["Singapore MAS", "EU DLT Pilot"],
+      authority: "ASIC"
+    },
+    mt: {
+      regime: "Malta Financial Markets Act + MiFID + DLT Pilot Regime via MFSA",
+      risk: "med",
+      licenses: ["MFSA prospectus approval", "MiFID investment firm licence", "DLT Pilot Regime sandbox"],
+      obligations: ["Prospectus Regulation", "MAR market abuse rules", "CSDR custody", "KYC/AML"],
+      time: "9–15 months",
+      cost: "€200K–€700K",
+      alts: ["Lithuania MiCA", "Luxembourg CSSF"],
+      authority: "MFSA"
+    },
+    bm: {
+      regime: "DABA 2018 + BMA Investment Business Act (if fund structure)",
+      risk: "med",
+      licenses: ["DABA Class F + BMA Investment Business", "BMA approval"],
+      obligations: ["AML/ATF per POCA 1997", "Fund reporting", "BMA Cyber Risk Management Code"],
+      time: "6–12 months",
+      cost: "BMD 150K–500K",
+      alts: ["Cayman SIBL", "BVI Approved Manager"],
+      authority: "BMA"
+    },
+    lt: {
+      regime: "Lithuania Securities Law + MiFID + DLT Pilot Regime via Lietuvos bankas",
+      risk: "med",
+      licenses: ["Lietuvos bankas prospectus approval", "MiFID investment firm", "DLT Pilot Regime sandbox"],
+      obligations: ["Prospectus Regulation", "MAR market abuse rules", "KYC/AML", "Local director + AML officer"],
+      time: "6–12 months",
+      cost: "€100K–€400K",
+      alts: ["Malta MiCA", "Luxembourg CSSF"],
+      authority: "Lietuvos bankas"
+    },
+    ie: {
+      regime: "Irish Securities Law + MiFID + DLT Pilot Regime — leading EU fund-admin hub",
+      risk: "med",
+      licenses: ["CBI prospectus approval", "CBI MiFID investment firm authorisation", "DLT Pilot Regime sandbox"],
+      obligations: ["Prospectus Regulation (EU 2017/1129)", "MAR market abuse rules", "UCITS/AIFMD if collective", "KYC/AML per CJA 2010", "DORA operational resilience"],
+      time: "12–18 months",
+      cost: "€300K–€1M+",
+      alts: ["Luxembourg CSSF", "Malta MFSA"],
+      authority: "Central Bank of Ireland (CBI)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -3071,6 +3311,126 @@ export const REGULATIONS: RegData = {
       cost: "R$100K–R$500K ($20K–$100K)",
       alts: ["EU MiCA", "Liechtenstein TVTG"],
       authority: "BCB / CVM"
+    },
+    ng: {
+      regime: "SEC Nigeria — hybrid tokens classified per dominant feature (utility vs investment)",
+      risk: "high",
+      licenses: ["SEC Nigeria DASP + STO treatment if investment dominates", "Utility-only if consumption dominates"],
+      obligations: ["Full disclosure of token mechanics", "KYC/AML per MLPPA 2022", "Reclassification risk over time"],
+      time: "12–24 months",
+      cost: "NGN 200M+ ($200K+)",
+      alts: ["UAE VARA", "Cayman VASP"],
+      authority: "SEC Nigeria"
+    },
+    ke: {
+      regime: "CMA case-by-case — utility vs security analysis; hybrid tends toward securities treatment",
+      risk: "high",
+      licenses: ["CMA prospectus if securities element dominant", "VASP + DASP if dual-purpose"],
+      obligations: ["Disclosure of hybrid mechanics", "KYC/AML per POCAMLA", "3% Digital Asset Tax"],
+      time: "9–18 months",
+      cost: "KES 10M–40M ($75K–$310K)",
+      alts: ["UAE VARA", "Mauritius FSC"],
+      authority: "CMA"
+    },
+    za: {
+      regime: "FSCA CASP + FAIS Act + CISCA — hybrid tokens trigger both if investment + utility",
+      risk: "high",
+      licenses: ["CASP Category II", "CISCA manager if pooled", "FAIS advice + intermediary licences"],
+      obligations: ["Dual-regime disclosures", "FICA AML", "Consumer protection"],
+      time: "12–18 months",
+      cost: "ZAR 3M–10M ($165K–$550K)",
+      alts: ["UAE VARA", "Mauritius FSC"],
+      authority: "FSCA + FIC"
+    },
+    lu: {
+      regime: "MiCA + MiFID dual regime for hybrid tokens — CSSF classifies per dominant feature",
+      risk: "high",
+      licenses: ["CSSF CASP + MiFID investment firm if dual", "Simplified if utility dominates", "Full prospectus if security dominates"],
+      obligations: ["Dual KYC/AML", "Whitepaper + prospectus depending on classification", "MAR market abuse rules"],
+      time: "9–18 months",
+      cost: "€200K–€800K",
+      alts: ["Liechtenstein TVTG (flexible token container)", "Switzerland FINMA"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "Cayman VASP Act + SIBL — hybrid analysis determines regulatory path",
+      risk: "med",
+      licenses: ["CIMA VASP as issuer + SIBL if brokerage element", "Cayman Foundation if community-governed"],
+      obligations: ["AML per AMLR + MLRO", "Dual disclosures if hybrid", "Investor suitability if retail"],
+      time: "4–9 months",
+      cost: "$75K–$300K — 0% corporate tax",
+      alts: ["BVI Foundation", "Liechtenstein TVTG"],
+      authority: "CIMA"
+    },
+    ca: {
+      regime: "CSA Staff Notice 46-307/308 — hybrid tokens subject to full Howey-like 4-prong analysis",
+      risk: "high",
+      licenses: ["CSA prospectus if investment-contract test met", "FINTRAC MSB if custody", "IIROC if secondary trading"],
+      obligations: ["Full disclosure + classification analysis", "KYC/AML per PCMLTFA", "Accredited investor gating if exempt"],
+      time: "12–24 months",
+      cost: "C$300K–C$1M",
+      alts: ["US Reg D / SAFT", "EU MiCA"],
+      authority: "CSA"
+    },
+    vg: {
+      regime: "BVI VASP Act + SIBA — hybrid analysis per dominant feature",
+      risk: "med",
+      licenses: ["BVI VASP + SIBA investment business if hybrid", "BVI Foundation for community tokens"],
+      obligations: ["AML + MLRO", "Dual-regime disclosures"],
+      time: "4–9 months",
+      cost: "$75K–$300K — 0% corporate tax",
+      alts: ["Cayman VASP + SIBL", "Liechtenstein TVTG"],
+      authority: "BVI FSC"
+    },
+    au: {
+      regime: "ASIC INFO 225 — hybrid tokens case-by-case; most trigger AFSL + MIS regime",
+      risk: "high",
+      licenses: ["ASIC AFSL if financial-product", "AUSTRAC DCE if exchange element", "Prospectus/PDS depending on retail/wholesale"],
+      obligations: ["Design and Distribution Obligations (DDO)", "KYC/AML per AML/CTF Act", "Dual-regime disclosures"],
+      time: "12–24 months",
+      cost: "A$300K–A$1M",
+      alts: ["Singapore MAS", "UAE VARA"],
+      authority: "ASIC"
+    },
+    mt: {
+      regime: "MiCA + MiFID dual regime via MFSA — hybrid analysis per dominant feature",
+      risk: "med",
+      licenses: ["MFSA CASP + MiFID investment firm if hybrid", "Utility-only path if consumption dominates"],
+      obligations: ["Dual KYC/AML", "Whitepaper + prospectus", "MAR market abuse rules"],
+      time: "9–15 months",
+      cost: "€150K–€600K",
+      alts: ["Lithuania MiCA", "Luxembourg CSSF"],
+      authority: "MFSA"
+    },
+    bm: {
+      regime: "DABA 2018 — hybrid tokens typically Class F with supplementary BMA review",
+      risk: "med",
+      licenses: ["DABA Class F (full) + BMA supplementary approval for hybrid"],
+      obligations: ["AML/ATF per POCA 1997", "Dual-regime disclosures", "BMA Cyber Risk Management Code"],
+      time: "6–12 months",
+      cost: "BMD 100K–400K",
+      alts: ["Cayman VASP", "BVI VASP"],
+      authority: "BMA"
+    },
+    lt: {
+      regime: "MiCA + MiFID dual regime via Lietuvos bankas — hybrid per dominant feature",
+      risk: "med",
+      licenses: ["Lietuvos bankas CASP + MiFID investment firm if dual", "Utility-only path if consumption dominates"],
+      obligations: ["Dual KYC/AML", "Whitepaper + prospectus depending on classification", "MAR market abuse rules"],
+      time: "6–12 months",
+      cost: "€100K–€400K",
+      alts: ["Malta MiCA", "Luxembourg CSSF"],
+      authority: "Lietuvos bankas"
+    },
+    ie: {
+      regime: "MiCA + MiFID dual regime via CBI — hybrid analysis per dominant feature",
+      risk: "med",
+      licenses: ["CBI CASP + MiFID investment firm if hybrid", "Simplified if utility dominates"],
+      obligations: ["Dual KYC/AML per CJA 2010", "Whitepaper + prospectus depending on classification", "MAR market abuse rules", "DORA operational resilience"],
+      time: "12–18 months",
+      cost: "€250K–€800K",
+      alts: ["Luxembourg CSSF", "Malta MFSA"],
+      authority: "Central Bank of Ireland (CBI)"
     },
   },
 };
