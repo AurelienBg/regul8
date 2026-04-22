@@ -14,6 +14,7 @@ import {
   type CustodyModel,
 } from '@/data/check-funnel';
 import { composeVerdict, type VerdictCard, type VerdictItem } from '@/lib/check-verdict';
+import { prefillFromAssess, readAssessSelection } from '@/lib/check-prefill';
 import { DECISION_TREES } from '@/data/decision-trees';
 import { DECISION_TREES_FR } from '@/data/decision-trees.fr';
 
@@ -27,6 +28,10 @@ export default function CheckFunnel() {
   const searchParams = useSearchParams();
 
   const [answers, setAnswers] = useState<FunnelAnswers>({});
+  // If the user has an /assess selection saved, we surface a 'Continue from
+  // your Assess picks' banner on step 1 when the funnel is empty.
+  const [assessSelection, setAssessSelection] = useState<ReturnType<typeof readAssessSelection>>(null);
+  const [bannerDismissed, setBannerDismissed] = useState(false);
 
   // Hydrate from URL (priority) then localStorage (fallback) on mount
   useEffect(() => {
@@ -38,14 +43,16 @@ export default function CheckFunnel() {
     const hasUrl = (fromUrl.products?.length || fromUrl.markets?.length || fromUrl.custody?.length);
     if (hasUrl) {
       setAnswers(fromUrl);
-      return;
+    } else {
+      try {
+        const raw = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
+        if (raw) setAnswers(JSON.parse(raw) as FunnelAnswers);
+      } catch {
+        /* fall back to empty */
+      }
     }
-    try {
-      const raw = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
-      if (raw) setAnswers(JSON.parse(raw) as FunnelAnswers);
-    } catch {
-      /* fall back to empty */
-    }
+    // Check for /assess selection (independent of funnel state)
+    setAssessSelection(readAssessSelection());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -84,8 +91,22 @@ export default function CheckFunnel() {
     } catch {
       /* ignore */
     }
+    setBannerDismissed(false); // re-show banner after a full reset if assess state still exists
     router.push('/check?step=1');
   }, [router]);
+
+  const applyAssessPrefill = useCallback(() => {
+    if (!assessSelection) return;
+    const prefilled = prefillFromAssess(assessSelection);
+    setAnswers(prefilled);
+    setBannerDismissed(true);
+    // Jump straight to Q3 (custody) since Q1+Q2 are filled from /assess
+    const params = new URLSearchParams();
+    if (prefilled.products?.length) params.set('products', prefilled.products.join(','));
+    if (prefilled.markets?.length) params.set('markets', prefilled.markets.join(','));
+    params.set('step', '3');
+    router.push(`/check?${params.toString()}`);
+  }, [assessSelection, router]);
 
   const toggleChoice = useCallback(
     (field: 'products' | 'markets' | 'custody', value: string) => {
@@ -131,6 +152,11 @@ export default function CheckFunnel() {
         diagnosticsTitle: 'Diagnostics recommandés à lancer',
         diagnosticsIntro: 'Cliquez pour dérouler l\'arbre de décision complet sur chaque point.',
         changeAnswers: '← Modifier mes réponses',
+        assessBannerTitle: '✨ Reprendre depuis votre sélection Assess',
+        assessBannerBody: (nA: number, nJ: number) =>
+          `Vous avez sélectionné ${nA} activité${nA > 1 ? 's' : ''} et ${nJ} juridiction${nJ > 1 ? 's' : ''} dans Assess. Pré-remplir Q1-Q2 et sauter directement à Q3 ?`,
+        assessBannerApply: 'Pré-remplir depuis Assess',
+        assessBannerSkip: 'Commencer à zéro',
       }
     : {
         stepLabel: (n: number) => `Step ${n} of 3`,
@@ -149,6 +175,11 @@ export default function CheckFunnel() {
         diagnosticsTitle: 'Recommended diagnostics to run',
         diagnosticsIntro: 'Click through to walk the full decision tree on each point.',
         changeAnswers: '← Change my answers',
+        assessBannerTitle: '✨ Continue from your Assess picks',
+        assessBannerBody: (nA: number, nJ: number) =>
+          `You selected ${nA} activit${nA > 1 ? 'ies' : 'y'} and ${nJ} jurisdiction${nJ > 1 ? 's' : ''} in Assess. Pre-fill Q1-Q2 and jump straight to Q3?`,
+        assessBannerApply: 'Pre-fill from Assess',
+        assessBannerSkip: 'Start fresh',
       };
 
   // --- VERDICT step ---
@@ -255,8 +286,43 @@ export default function CheckFunnel() {
   const nextStep = stepIndex < 3 ? String(stepIndex + 1) : 'verdict';
   const nextLabel = stepIndex < 3 ? tr.next : tr.seeVerdict;
 
+  // Banner only on step 1 and only if:
+  // - user has an /assess selection
+  // - user hasn't started the funnel yet (no answers filled)
+  // - user hasn't dismissed the banner this session
+  const funnelEmpty = !(answers.products?.length || answers.markets?.length || answers.custody?.length);
+  const showAssessBanner =
+    stepIndex === 1 && !!assessSelection && funnelEmpty && !bannerDismissed;
+
   return (
     <section className="p-5 sm:p-6 rounded-xl border-2 border-blue-200 dark:border-blue-900/50 bg-blue-50/50 dark:bg-blue-900/10">
+      {/* Assess pre-fill banner */}
+      {showAssessBanner && assessSelection && (
+        <div className="mb-5 p-4 rounded-lg border-2 border-violet-300 dark:border-violet-800 bg-violet-50/80 dark:bg-violet-900/20">
+          <h3 className="font-bold text-sm mb-1">{tr.assessBannerTitle}</h3>
+          <p className="text-xs text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+            {tr.assessBannerBody(
+              assessSelection.activities?.length ?? 0,
+              assessSelection.jurisdictions?.length ?? 0,
+            )}
+          </p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              onClick={applyAssessPrefill}
+              className="text-xs px-3 py-1.5 rounded-md bg-violet-600 text-white font-medium hover:bg-violet-700 transition-colors"
+            >
+              {tr.assessBannerApply}
+            </button>
+            <button
+              onClick={() => setBannerDismissed(true)}
+              className="text-xs px-3 py-1.5 rounded-md border border-[var(--border)] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              {tr.assessBannerSkip}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Progress indicator + restart */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div className="flex items-center gap-3">
