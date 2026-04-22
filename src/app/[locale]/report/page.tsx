@@ -440,11 +440,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 pt-4 border-t border-[var(--border)]">
                     <div>
                       <p className="text-xs text-gray-500">{t('timeline')}</p>
-                      <p className="font-bold whitespace-pre-line">{r.time}</p>
+                      <p className="text-sm whitespace-pre-line">{r.time}</p>
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">{t('cost')}</p>
-                      <p className="font-bold whitespace-pre-line">{r.cost}</p>
+                      <p className="text-sm whitespace-pre-line">{r.cost}</p>
                     </div>
                     <div className="col-span-2">
                       <p className="text-xs text-gray-500">{t("authority")}</p>

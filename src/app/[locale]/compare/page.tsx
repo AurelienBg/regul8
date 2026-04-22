@@ -7,6 +7,7 @@ import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '
 import { lookupRegulation } from '@/lib/regulations-lookup';
 import RiskBadge from '@/components/ui/RiskBadge';
 import EmergingBadge from '@/components/ui/EmergingBadge';
+import XRPLBadge from '@/components/ui/XRPLBadge';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
 
@@ -265,7 +266,7 @@ export default function ComparePage() {
                   >
                     <div className="flex items-center gap-2">
                       <span>{ACTIVITY_LABELS[a]}</span>
-                      {ACTIVITIES[a].xrpl && <span className="badge-xrpl">XRPL</span>}
+                      {ACTIVITIES[a].xrpl && <XRPLBadge />}
                     </div>
                   </button>
                 );
@@ -302,7 +303,7 @@ export default function ComparePage() {
                           className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
                         >
                           <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
-                          {ACTIVITIES[r.activity].xrpl && <span className="badge-xrpl">XRPL</span>}
+                          {ACTIVITIES[r.activity].xrpl && <XRPLBadge />}
                         </th>
                       ))}
                     </tr>
@@ -432,7 +433,7 @@ export default function ComparePage() {
                 >
                   <div className="flex items-center gap-2">
                     <span>{ACTIVITY_LABELS[a]}</span>
-                    {ACTIVITIES[a].xrpl && <span className="badge-xrpl">XRPL</span>}
+                    {ACTIVITIES[a].xrpl && <XRPLBadge />}
                   </div>
                 </button>
               ))}
@@ -481,7 +482,7 @@ export default function ComparePage() {
                 <h2 className="text-xl font-bold">
                   {jurisdictionRows.length} {tr.comparedFor} {activityLabel}
                 </h2>
-                {ACTIVITIES[activity].xrpl && <span className="badge-xrpl">XRPL</span>}
+                {ACTIVITIES[activity].xrpl && <XRPLBadge />}
               </div>
 
               <div className="overflow-x-auto">
