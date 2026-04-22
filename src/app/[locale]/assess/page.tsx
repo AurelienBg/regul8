@@ -33,6 +33,12 @@ export default function AssessPage() {
   const [reasoningOpen, setReasoningOpen] = useState(false);
   const [describeCollapsed, setDescribeCollapsed] = useState(false);
 
+  // Free-form 'other activity' — covers exotic cases outside our 20-activity taxonomy
+  // (insurance protocols, prediction markets, DID, oracle networks…). Claude may
+  // populate this automatically when the description mentions something unlisted.
+  const [otherActivity, setOtherActivity] = useState('');
+  const [aiOtherDetected, setAiOtherDetected] = useState(false);
+
   // Load previously saved selection on mount
   useEffect(() => {
     try {
@@ -94,6 +100,7 @@ export default function AssessPage() {
       const data = await res.json() as {
         activities?: string[];
         jurisdictions?: string[];
+        other?: string;
         reasoning?: string;
         error?: string;
       };
@@ -112,6 +119,13 @@ export default function AssessPage() {
       setSelectedJurisdictions((prev) => Array.from(new Set([...prev, ...juris])));
       setAiActivities(new Set(acts));
       setAiJurisdictions(new Set(juris));
+      // If AI detected an activity outside our taxonomy, pre-fill the 'other' textarea
+      if (data.other && data.other.trim()) {
+        setOtherActivity(data.other.trim());
+        setAiOtherDetected(true);
+      } else {
+        setAiOtherDetected(false);
+      }
       setReasoning(data.reasoning ?? '');
       setReasoningOpen(Boolean(data.reasoning));
       setDescribeCollapsed(true);
@@ -122,12 +136,16 @@ export default function AssessPage() {
     }
   };
 
-  const canSubmit = selectedActivities.length > 0 && selectedJurisdictions.length > 0;
+  const canSubmit =
+    (selectedActivities.length > 0 || otherActivity.trim().length > 0) &&
+    selectedJurisdictions.length > 0;
 
   const handleSubmit = () => {
     const params = new URLSearchParams();
-    params.set('activities', selectedActivities.join(','));
+    if (selectedActivities.length > 0) params.set('activities', selectedActivities.join(','));
     params.set('jurisdictions', selectedJurisdictions.join(','));
+    const otherTrimmed = otherActivity.trim();
+    if (otherTrimmed) params.set('other', otherTrimmed);
     router.push(`/report?${params.toString()}`);
   };
 
@@ -167,6 +185,12 @@ export default function AssessPage() {
           editAgain: 'Modifier la description',
           genericError: 'Erreur. Vous pouvez continuer manuellement.',
         },
+        otherActivity: {
+          label: 'Autre activité (hors taxonomie)',
+          hint: 'Pour les cas exotiques : protocole d\'assurance, marché de prédiction, DID, oracle network, mining pool, broker/OTC, crypto-card…',
+          placeholder: 'Ex : protocole d\'assurance décentralisée',
+          aiDetected: 'Détecté par l\'IA',
+        },
       }
     : {
         title: 'Assess your compliance',
@@ -202,6 +226,12 @@ export default function AssessPage() {
           aiLabel: 'AI',
           editAgain: 'Edit description',
           genericError: 'Error. You can continue manually.',
+        },
+        otherActivity: {
+          label: 'Other activity (outside our taxonomy)',
+          hint: 'For exotic cases: insurance protocol, prediction market, DID, oracle network, mining pool, broker/OTC desk, crypto-card…',
+          placeholder: 'Ex: decentralised insurance protocol',
+          aiDetected: 'Detected by AI',
         },
       };
 
@@ -351,6 +381,31 @@ export default function AssessPage() {
                 </button>
               );
             })}
+          </div>
+
+          {/* Free-form 'other activity' — for cases outside the 20-activity taxonomy */}
+          <div className="mt-4 p-3 rounded-lg border border-dashed border-[var(--border)] bg-gray-50 dark:bg-gray-900/40">
+            <div className="flex items-center justify-between gap-2 flex-wrap mb-1">
+              <label className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                {tr.otherActivity.label}
+              </label>
+              {aiOtherDetected && otherActivity && (
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300">
+                  ✨ {tr.otherActivity.aiDetected}
+                </span>
+              )}
+            </div>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-2">{tr.otherActivity.hint}</p>
+            <input
+              type="text"
+              value={otherActivity}
+              onChange={(e) => {
+                setOtherActivity(e.target.value.slice(0, 80));
+                if (aiOtherDetected) setAiOtherDetected(false); // user took over
+              }}
+              placeholder={tr.otherActivity.placeholder}
+              className="w-full px-3 py-1.5 rounded-md border border-[var(--border)] bg-white dark:bg-gray-900 text-sm focus:outline-none focus:border-blue-500"
+            />
           </div>
         </div>
 

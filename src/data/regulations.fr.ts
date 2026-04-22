@@ -163,6 +163,87 @@ export const REGULATIONS_FR: RegData = {
       alts: ["UAE VARA", "Singapour MAS", "UK FCA"],
       authority: "FSCA (Financial Sector Conduct Authority) + FIC + SARB"
     },
+    lu: {
+      regime: "MiCA CASP + régime transitoire VASP (Loi AML du 25 mars 2020)",
+      risk: "med",
+      licenses: ["Agrément CASP CSSF sous MiCA", "Statut PSF/PFS si instruments MiFID impliqués", "Passeport UE pour les services d'échange transfrontaliers"],
+      obligations: ["KYC/KYB complet selon la Loi AML luxembourgeoise", "Whitepaper MiCA + notification ESMA", "Capital min. €125K", "Règle du voyage FATF >€1K", "Substance locale (dirigeant, bureau) + règles d'externalisation Circulaire CSSF 22/806"],
+      time: "9–18 mois",
+      cost: "€100K–€400K (frais CSSF + juridique)",
+      alts: ["Lituanie / Irlande (hubs UE)", "Liechtenstein TVTG", "Malte MiCA"],
+      authority: "CSSF (Commission de Surveillance du Secteur Financier)"
+    },
+    ky: {
+      regime: "Virtual Asset (Service Providers) Act 2020 — Trading Platform",
+      risk: "med",
+      licenses: ["Enregistrement VASP — Trading Platform (CIMA)", "Licence VASP (revue post-lancement)", "Licence sandbox alternative pour les modèles innovants"],
+      obligations: ["Honorabilité des dirigeants (approbation CIMA)", "AML selon l'AMLR 2020", "MLRO + DMLRO nommés", "Registre des bénéficiaires effectifs", "Ségrégation des actifs clients", "Audit annuel + reporting CIMA"],
+      time: "6–12 mois",
+      cost: "$50K–$150K (frais CIMA + juridique) — impôt sur les sociétés 0%",
+      alts: ["BVI VASP", "Bermudes DABA", "Dubaï VARA"],
+      authority: "Cayman Islands Monetary Authority (CIMA)"
+    },
+    ca: {
+      regime: "FINTRAC MSB (AML fédéral) + CSA Pre-Registration Undertaking (titres provinciaux)",
+      risk: "high",
+      licenses: ["Enregistrement FINTRAC MSB / FMSB", "CSA Pre-Registration Undertaking (PRU) avec les régulateurs provinciaux (OSC, AMF QC)", "Enregistrement CSA complet en tant que restricted dealer / investment dealer"],
+      obligations: ["KYC/AML selon PCMLTFA + amendements de mars 2026", "Reporting FINTRAC STR / LCTR", "Conditions opérationnelles CSA Staff Notice 21-332 (ségrégation custody, limites leverage)", "Adhésion OCRI (ex-IIROC) si investment dealer", "Travel Rule (C$1K)"],
+      time: "12–24 mois (double FINTRAC + CSA)",
+      cost: "C$300K–C$1M+",
+      alts: ["MTL d'État américaines", "UE MiCA", "Dubaï VARA"],
+      authority: "FINTRAC + CSA / OSC / AMF + OCRI"
+    },
+    vg: {
+      regime: "Virtual Asset Service Providers Act 2022 — catégorie Exchange",
+      risk: "med",
+      licenses: ["Enregistrement VASP — exchange (BVI FSC)", "Constitution en BVI Business Company"],
+      obligations: ["MLRO nommé + approuvé par la FSC avant lancement", "AML selon l'AMLR + Code of Practice", "Honorabilité des dirigeants", "États financiers audités annuels à la FSC", "Cybersécurité + gestion des clés (FSC Circular 43/2025)", "Travel Rule"],
+      time: "4–12 mois",
+      cost: "US$5K–15K application + $150K–$400K setup — impôt sur les sociétés 0%",
+      alts: ["Cayman VASP", "Bermudes DABA", "Dubaï VARA"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "Enregistrement AUSTRAC DCE + AFSL ASIC (Digital Assets Framework Act 2026)",
+      risk: "med",
+      licenses: ["Enregistrement Digital Currency Exchange (DCE) AUSTRAC", "Australian Financial Services Licence (AFSL) ASIC — catégorie Digital Asset Platform", "Adhésion AFCA (Australian Financial Complaints Authority)"],
+      obligations: ["KYC/AML selon l'AML/CTF Act 2006 (amendé 2024)", "Travel Rule (en vigueur 31 mars 2026)", "Ségrégation des actifs clients + règles de custody", "Product disclosure statements pour le retail", "Protection des consommateurs (Corporations Act)", "Reporting des manquements à l'ASIC"],
+      time: "9–18 mois (AFSL à déposer avant le 30 juin 2026 pour conserver la no-action protection)",
+      cost: "A$250K–A$1M",
+      alts: ["Singapour MAS", "Dubaï VARA", "Nouvelle-Zélande FMA"],
+      authority: "AUSTRAC (AML) + ASIC (agrément)",
+      reportingFrequency: "AUSTRAC : SMR immédiat + rapport de conformité annuel · ASIC : reporting des manquements en temps réel + attestation de conformité annuelle · Audit annuel (condition AFSL) · Cotisation AFCA annuelle + reporting des litiges."
+    },
+    mt: {
+      regime: "MiCA CASP (MFSA) — fenêtre de transition VFA Act fermée le 1er juillet 2026",
+      risk: "med",
+      licenses: ["Agrément CASP MFSA sous MiCA", "Voie simplifiée Art. 143(6) pour les titulaires VFA Class 3/4 (Catégorie A)", "Dossier MiCA complet pour les nouveaux entrants (Catégorie B)"],
+      obligations: ["KYC/KYB complet", "Whitepaper MiCA + registre ESMA", "Capital min. €125K (exchange)", "Règle du voyage FATF >€1K", "Substance locale (dirigeant maltais, cadres résidents)", "Gouvernance + cybersécurité du MFSA Rulebook"],
+      time: "6–12 mois (Catégorie A simplifiée) · 12–18 mois (Catégorie B)",
+      cost: "€80K–€300K",
+      alts: ["Lituanie MiCA", "Liechtenstein TVTG", "Luxembourg CSSF"],
+      authority: "Malta Financial Services Authority (MFSA)"
+    },
+    bm: {
+      regime: "Digital Asset Business Act 2018 (DABA) — licence Class F / Class M",
+      risk: "med",
+      licenses: ["DABA Class F (complète) ou Class M (modifiée / sandbox)", "DABA Class T (test) pour preuve de concept", "Approbation BMA"],
+      obligations: ["Actifs nets minimums selon la classe et l'activité", "BMA Cyber Risk Management Code", "Ségrégation des fonds / actifs clients", "AML/ATF selon POCA 1997 + règlements DABA", "Travel Rule", "Comptes audités annuels + reporting BMA"],
+      time: "6–12 mois",
+      cost: "BMD 50K–250K (frais BMA + juridique)",
+      alts: ["Cayman VASP", "BVI VASP", "Dubaï VARA"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "MiCA CASP (Lietuvos bankas) — remplace le régime VASP historique",
+      risk: "med",
+      licenses: ["Agrément CASP Lietuvos bankas sous MiCA", "Enregistrement VASP transitoire valable jusqu'au 1er juillet 2026", "Passeport UE depuis la Lituanie"],
+      obligations: ["AML selon la Loi AML lituanienne (mises à jour 2022 + 2024)", "Capital min. €125K (CASP exchange)", "Dirigeant local + responsable AML résident en Lituanie", "Règle du voyage FATF >€1K", "Whitepaper MiCA + règles d'abus de marché"],
+      time: "6–12 mois (dossier MiCA complet)",
+      cost: "€50K–€200K (historiquement le hub crypto UE le plus compétitif)",
+      alts: ["Estonie", "Malte MiCA", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas (Banque de Lituanie)"
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -327,6 +408,86 @@ export const REGULATIONS_FR: RegData = {
       cost: "ZAR 2M–8M (~$110K–$440K)",
       alts: ["UAE VARA stablecoin dédié", "UK FCA e-money"],
       authority: "FSCA + SARB + FIC"
+    },
+    lu: {
+      regime: "MiCA EMT/ART via CSSF + Loi luxembourgeoise du 30 mai 2018 sur la monnaie électronique",
+      risk: "med",
+      licenses: ["Licence EMI (CSSF) pour l'émission d'EMT", "Licence d'établissement de crédit (voie alternative)", "Agrément ANC pour ART sous MiCA"],
+      obligations: ["Réserve 1:1 (EMT) en comptes ségrégués", "Gouvernance CSSF + fonds propres (min €350K pour EMI)", "Whitepaper déposé auprès de la CSSF", "Remboursement au pair", "Rapports prudentiels trimestriels", "Règles S-EMT/S-ART si seuils dépassés"],
+      time: "12–18 mois",
+      cost: "€200K–€600K",
+      alts: ["Lituanie MiCA EMT", "Liechtenstein TVTG"],
+      authority: "CSSF + BCE (si significatif / systémique)"
+    },
+    ky: {
+      regime: "Virtual Asset (Service Providers) Act 2020 + guidance CIMA sur l'émission de stablecoins",
+      risk: "med",
+      licenses: ["Enregistrement VASP — catégorie issuer (CIMA)", "Voie sandbox pour les structures stablecoin innovantes", "Structure Foundation Companies Act 2017 pour l'émetteur"],
+      obligations: ["Attestation de réserve (mensuelle, best practice)", "AML selon AMLR 2020 + VASP Act", "Ségrégation des actifs de réserve", "Honorabilité CIMA", "MLRO + audit annuel"],
+      time: "6–12 mois",
+      cost: "$75K–$250K — impôt sur les sociétés 0%",
+      alts: ["BVI VASP", "Bermudes DABA", "Dubaï VARA payment token"],
+      authority: "Cayman Islands Monetary Authority (CIMA)"
+    },
+    ca: {
+      regime: "CSA Staff Notice 21-333 (Value-Referenced Crypto Assets) + régime fédéral stablecoin MSB à venir (amendements PCMLTFA mars 2026)",
+      risk: "high",
+      licenses: ["Enregistrement FINTRAC MSB (plus future classe MSB stablecoin spécifique)", "Engagement CSA : l'émetteur VRCA doit respecter les conditions de réserve + remboursement + divulgation", "Prospectus provincial ou dispense"],
+      obligations: ["Réserves 1:1 en espèces + titres à court terme du gouvernement du Canada", "Attestations mensuelles des réserves", "Remboursement au pair", "KYC/AML selon les amendements PCMLTFA 2026", "Reporting risque opérationnel + technologique"],
+      time: "12–18 mois",
+      cost: "C$400K–C$1,5M",
+      alts: ["Voie US GENIUS Act", "UE MiCA EMT", "Bermudes DABA"],
+      authority: "FINTRAC + CSA / OSC / AMF"
+    },
+    vg: {
+      regime: "Virtual Asset Service Providers Act 2022 — catégorie issuer (pas de loi stablecoin dédiée)",
+      risk: "med",
+      licenses: ["Enregistrement VASP — issuer (BVI FSC)", "Structure BVI Business Company"],
+      obligations: ["Divulgations des réserves (best practice, non obligatoire)", "AML selon AMLR + FSC Code of Practice", "MLRO nommé + approuvé par la FSC", "Audit annuel", "Cybersécurité + gestion des clés (FSC Circular 43/2025)"],
+      time: "4–12 mois",
+      cost: "$150K–$400K setup — impôt sur les sociétés 0%",
+      alts: ["Cayman VASP", "Bermudes DABA stablecoin", "Dubaï VARA"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "Digital Assets Framework Act 2026 — stablecoins classifiés comme produits financiers + supervision systémique RBA",
+      risk: "med",
+      licenses: ["AFSL ASIC — émission de stablecoin", "Enregistrement AUSTRAC DCE si on/off-ramp", "Désignation RBA si systémique (Payment Systems Regulation Act)"],
+      obligations: ["Réserves 1:1 en actifs liquides de haute qualité (HQLA)", "Divulgations mensuelles des réserves", "Remboursement au pair", "KYC/AML + Travel Rule (31 mars 2026)", "Product disclosure statement (PDS) pour le retail"],
+      time: "12–18 mois",
+      cost: "A$500K–A$2M",
+      alts: ["Singapour MAS SCS", "UE MiCA EMT", "US GENIUS Act"],
+      authority: "ASIC + RBA + AUSTRAC"
+    },
+    mt: {
+      regime: "MiCA EMT/ART (MFSA) — transition depuis la guidance stablecoin du VFA Act",
+      risk: "med",
+      licenses: ["Licence EMI (MFSA) pour l'émission d'EMT", "Agrément ART sous MiCA", "Voie simplifiée Art. 143(6) si agrément VFA historique"],
+      obligations: ["Réserves 1:1 (EMT)", "Remboursement au pair", "Whitepaper + dépôts MFSA", "Rapports prudentiels trimestriels", "Capital min. €350K (EMI / émetteur ART)", "Substance locale à Malte"],
+      time: "9–18 mois",
+      cost: "€150K–€500K",
+      alts: ["Liechtenstein TVTG", "Lituanie MiCA EMT", "Luxembourg CSSF"],
+      authority: "Malta Financial Services Authority (MFSA)"
+    },
+    bm: {
+      regime: "Digital Asset Business Act 2018 + Digital Asset Issuance Act 2018 — voie stablecoin dédiée",
+      risk: "med",
+      licenses: ["DABA Class F (licence émetteur complète)", "Dépôt Digital Asset Issuance Act pour l'offre"],
+      obligations: ["Adossement des réserves 1:1 divulgué + attesté", "Honorabilité BMA + Cyber Risk Management Code", "AML/ATF selon POCA", "Ségrégation des actifs clients", "Reporting trimestriel BMA"],
+      time: "6–12 mois",
+      cost: "BMD 100K–500K",
+      alts: ["Cayman VASP", "BVI VASP", "Dubaï VARA stablecoin"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "MiCA EMT/ART (Lietuvos bankas) — remplace le régime EMI + VASP historique",
+      risk: "med",
+      licenses: ["Licence EMI de Lietuvos bankas pour l'émission d'EMT", "Agrément ART sous MiCA", "Passeport UE depuis la Lituanie"],
+      obligations: ["Réserves 1:1 en comptes ségrégués", "Rapports prudentiels trimestriels", "Remboursement au pair", "Capital min. €350K (EMI)", "Dirigeant local + responsable AML"],
+      time: "9–15 mois",
+      cost: "€100K–€350K (historiquement un hub EMI compétitif)",
+      alts: ["Luxembourg CSSF", "Malte MFSA", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas (Banque de Lituanie)"
     },
   },
 
@@ -493,6 +654,88 @@ export const REGULATIONS_FR: RegData = {
       cost: "ZAR 2M–6M (~$110K–$330K)",
       alts: ["Custody UAE VARA", "UK FCA"],
       authority: "FSCA + FIC + SARB"
+    },
+    lu: {
+      regime: "MiCA CASP Art. 75 (CSSF) + catégories PFS/PSF sous la Loi du 5 avril 1993",
+      risk: "med",
+      licenses: ["Agrément CASP custody CSSF", "PSF Art. 29-3/29-4 (service d'actifs clients) optionnel pour institutionnels", "Licence de dépositaire professionnel si fonds"],
+      obligations: ["Ségrégation des actifs (on-chain + off-chain)", "Responsabilité en cas de perte (MiCA Art. 75)", "Gouvernance CSSF + cybersécurité", "Assurance ou couverture en fonds propres", "Règles d'externalisation Circulaire 22/806", "Cadre risques ICT DORA"],
+      time: "9–18 mois",
+      cost: "€150K–€500K",
+      alts: ["Token Custodian TVTG Liechtenstein", "FINMA Suisse", "Irlande / Lituanie MiCA"],
+      authority: "CSSF (Commission de Surveillance du Secteur Financier)",
+      xrplNote: "Le Luxembourg est un hub majeur pour les fund services. La custody XRPL MPC/TSS convient aux dépositaires institutionnels sous statut PSF. Fireblocks et Taurus sont actifs sur le marché luxembourgeois."
+    },
+    ky: {
+      regime: "Virtual Asset (Service Providers) Act 2020 — catégorie Custody",
+      risk: "med",
+      licenses: ["Enregistrement VASP — custody d'actifs virtuels (CIMA)", "Voie sandbox alternative pour les modèles de custody innovants", "Licence de trust company si structure trust"],
+      obligations: ["Majorité en cold storage (guidance CIMA)", "Ségrégation des actifs + bankruptcy remoteness", "AML selon AMLR 2020", "MLRO + DMLRO", "Honorabilité + audit annuel", "Contrôles de cybersécurité"],
+      time: "6–12 mois",
+      cost: "$75K–$250K — impôt sur les sociétés 0%",
+      alts: ["BVI VASP custody", "Bermudes DABA", "Dubaï VARA custody"],
+      authority: "Cayman Islands Monetary Authority (CIMA)"
+    },
+    ca: {
+      regime: "Conditions opérationnelles custody CSA Staff Notice 21-332 + FINTRAC MSB + règles provinciales qualified-custodian",
+      risk: "high",
+      licenses: ["Enregistrement FINTRAC MSB", "CSA Pre-Registration Undertaking avec conditions custody", "Statut qualified custodian selon NI 31-103 / NI 81-102 (pour fonds)", "Adhésion OCRI si investment dealer"],
+      obligations: ["Ségrégation + bankruptcy remoteness (SN 21-332)", "Minimum 80 % cold storage chez un tiers custodian acceptable (condition opérationnelle CSA)", "Assurance (crime + cyber)", "SOC 2 Type II", "Independent systems review (ISR)", "KYC/AML + Travel Rule (C$1K)"],
+      time: "12–24 mois",
+      cost: "C$400K–C$1,5M+",
+      alts: ["Trust charter d'État américain (Wyoming SPDI)", "UE MiCA CASP", "Bermudes DABA"],
+      authority: "FINTRAC + CSA / OSC / AMF + OCRI",
+      xrplNote: "Les custodians institutionnels canadiens (Tetra Trust, Balance) s'appuient sur des stacks MPC / HSM. La custody XRPL via Fireblocks / BitGo est la voie typique pour les entités régulées canadiennes."
+    },
+    vg: {
+      regime: "Virtual Asset Service Providers Act 2022 — catégorie Custody Services",
+      risk: "med",
+      licenses: ["Enregistrement VASP — custody services (BVI FSC)", "Structure BVI Business Company"],
+      obligations: ["Ségrégation des actifs clients", "Contrôles cold storage / gestion des clés (FSC Circular 43/2025)", "Authentification multi-facteurs + journaux d'audit", "MLRO nommé + approuvé par la FSC", "Comptes audités annuels", "Cybersécurité + plan de continuité"],
+      time: "4–12 mois",
+      cost: "$150K–$400K — impôt sur les sociétés 0%",
+      alts: ["Cayman custody", "Bermudes DABA", "Dubaï VARA custody"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "Digital Assets Framework Act 2026 — Tokenised Custody Platform + AFSL ASIC",
+      risk: "med",
+      licenses: ["AFSL ASIC — catégorie tokenised custody platform", "Enregistrement AUSTRAC DCE si on-ramp", "Adhésion AFCA"],
+      obligations: ["Ségrégation des actifs clients + règles de custody (Corporations Act)", "Assurance / compensation arrangements", "Standards de gestion des clés + cybersécurité", "Conformité ASIC Regulatory Guide 133 (trust money)", "KYC/AML + Travel Rule (31 mars 2026)"],
+      time: "9–18 mois",
+      cost: "A$300K–A$1,2M",
+      alts: ["Singapour MAS", "Liechtenstein TVTG", "Dubaï VARA"],
+      authority: "ASIC + AUSTRAC"
+    },
+    mt: {
+      regime: "MiCA CASP Art. 75 (MFSA) — transition depuis VFA Custodian Class 2",
+      risk: "med",
+      licenses: ["Agrément CASP custody MFSA", "Voie simplifiée Art. 143(6) pour les titulaires VFA Class 2 historiques"],
+      obligations: ["Ségrégation des actifs", "Responsabilité en cas de perte (MiCA Art. 75)", "Gouvernance + cybersécurité du MFSA Rulebook", "Assurance ou couverture en fonds propres", "Cadre risques ICT DORA", "Substance locale"],
+      time: "6–12 mois (Catégorie A) / 12–18 mois (Catégorie B)",
+      cost: "€100K–€400K",
+      alts: ["Lituanie MiCA", "Liechtenstein TVTG", "Luxembourg CSSF"],
+      authority: "Malta Financial Services Authority (MFSA)"
+    },
+    bm: {
+      regime: "Digital Asset Business Act 2018 — activité custody digital-asset business",
+      risk: "med",
+      licenses: ["DABA Class F (complète) ou Class M (modifiée / sandbox) — activité custody"],
+      obligations: ["Ségrégation des actifs clients + protections type trust", "BMA Cyber Risk Management Code + résilience opérationnelle", "AML/ATF selon POCA", "Actifs nets minimums selon la classe", "Assurance (attente BMA)", "Audit annuel + retours trimestriels"],
+      time: "6–12 mois",
+      cost: "BMD 75K–350K",
+      alts: ["Cayman custody", "BVI VASP", "Dubaï VARA custody"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "MiCA CASP Art. 75 (Lietuvos bankas) — remplace l'enregistrement VASP custody historique",
+      risk: "med",
+      licenses: ["Agrément CASP custody Lietuvos bankas", "Enregistrement VASP transitoire valable jusqu'au 1er juillet 2026"],
+      obligations: ["Ségrégation des actifs clients", "Responsabilité en cas de perte (MiCA Art. 75)", "Capital min. €150K (custody)", "AML selon la Loi AML lituanienne", "Dirigeant local + responsable AML", "Cadre risques ICT DORA"],
+      time: "6–12 mois",
+      cost: "€75K–€250K",
+      alts: ["Luxembourg CSSF", "Liechtenstein TVTG", "Malte MFSA"],
+      authority: "Lietuvos bankas (Banque de Lituanie)"
     },
   },
 

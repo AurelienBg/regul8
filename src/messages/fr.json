@@ -99,7 +99,12 @@
       "cross_border_payment": "Paiement transfrontalier",
       "token_utility": "Émission de Token — Utility",
       "token_security": "Émission de Token — Security",
-      "token_hybrid": "Émission de Token — Hybride"
+      "token_hybrid": "Émission de Token — Hybride",
+      "staking": "Service de staking / Validator-as-a-Service",
+      "lending": "Prêt / Emprunt (CeFi ou DeFi)",
+      "asset_management": "Gestion d'actifs / Fonds crypto",
+      "derivatives": "Dérivés (perps, futures, options)",
+      "launchpad": "Launchpad / Plateforme de vente de tokens"
     },
     "stages": {
       "idea": "Idée / Recherche",

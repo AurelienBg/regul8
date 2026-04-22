@@ -27,6 +27,11 @@ export type ActivityKey =
   | 'token_utility'
   | 'token_security'
   | 'token_hybrid'
+  | 'staking'
+  | 'lending'
+  | 'asset_management'
+  | 'derivatives'
+  | 'launchpad'
 
 export type RegimeItemType = 'law' | 'licence-framework' | 'ruling' | 'guidance' | 'other'
 
@@ -193,4 +198,10 @@ export const ACTIVITIES: Record<ActivityKey, { xrpl: boolean }> = {
   token_utility: { xrpl: false },
   token_security: { xrpl: false },
   token_hybrid: { xrpl: false },
+  // Newly added — Oct 2026 — covers ~20% additional real-world startups
+  staking: { xrpl: false },
+  lending: { xrpl: false },
+  asset_management: { xrpl: false },
+  derivatives: { xrpl: false },
+  launchpad: { xrpl: false },
 }

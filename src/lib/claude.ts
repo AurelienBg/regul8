@@ -72,13 +72,19 @@ export async function classifyStartup(
   locale: 'en' | 'fr',
   allowedActivities: readonly string[],
   allowedJurisdictions: readonly string[],
-): Promise<{ activities: string[]; jurisdictions: string[]; reasoning: string }> {
+): Promise<{
+  activities: string[];
+  jurisdictions: string[];
+  other: string;
+  reasoning: string;
+}> {
   const systemPrompt = `You classify crypto/fintech startup descriptions into a fixed vocabulary.
 
 You MUST respond with a single JSON object, no prose before or after, of the shape:
 {
   "activities": ["..."],   // 1-5 codes from the ALLOWED_ACTIVITIES list below
   "jurisdictions": ["..."], // 1-5 codes from the ALLOWED_JURISDICTIONS list below
+  "other": "...",           // Short label (3-8 words) for any activity described that does NOT fit the list. "" if everything fits.
   "reasoning": "..."        // 2-3 sentences, ${locale === 'fr' ? 'in French' : 'in English'}, explaining the choice
 }
 
@@ -86,10 +92,12 @@ ALLOWED_ACTIVITIES = ${JSON.stringify(allowedActivities)}
 ALLOWED_JURISDICTIONS = ${JSON.stringify(allowedJurisdictions)}
 
 Rules:
-- Only return codes from the two lists above.
+- Only return codes from the two lists above in "activities" and "jurisdictions".
 - If the user does not specify a jurisdiction, infer from context (language, currency, market cues) or default to ["eu"] if genuinely unclear.
 - Prefer fewer, sharper selections over many vague ones (1-3 items of each is typical).
-- If the description is too vague or unrelated to a crypto business, return empty arrays with reasoning explaining why.
+- If the description mentions something that doesn't cleanly fit any listed activity code (e.g., insurance protocol, prediction market, DAO tooling, identity/DID, oracle network, mining pool, broker/OTC desk, crypto-card issuance), set "other" to a concise label for it (e.g., "prediction market", "crypto insurance protocol", "crypto-card issuance"). "other" is optional — leave "" when everything fits.
+- In "reasoning", be explicit about any gap: e.g., "Note: the description also mentions <X> which is not in our activity taxonomy — treat as a known gap."
+- If the description is too vague or unrelated to a crypto business, return empty arrays and an empty "other" with reasoning explaining why.
 - Respond ONLY with the JSON — no markdown, no explanation.`;
 
   // Use the same model as the rest of the app (analyzeCompliance / streamSearch).
@@ -118,6 +126,7 @@ Rules:
     const parsed = JSON.parse(jsonText) as {
       activities?: unknown;
       jurisdictions?: unknown;
+      other?: unknown;
       reasoning?: unknown;
     };
     const activities = Array.isArray(parsed.activities)
@@ -126,10 +135,11 @@ Rules:
     const jurisdictions = Array.isArray(parsed.jurisdictions)
       ? parsed.jurisdictions.filter((x): x is string => typeof x === 'string' && allowedJurisdictions.includes(x))
       : [];
+    const other = typeof parsed.other === 'string' ? parsed.other.trim().slice(0, 80) : '';
     const reasoning = typeof parsed.reasoning === 'string' ? parsed.reasoning : '';
-    return { activities, jurisdictions, reasoning };
+    return { activities, jurisdictions, other, reasoning };
   } catch (err) {
     console.error('[classifyStartup] JSON parse failed. Raw text:', text, 'Error:', err);
-    return { activities: [], jurisdictions: [], reasoning: '' };
+    return { activities: [], jurisdictions: [], other: '', reasoning: '' };
   }
 }

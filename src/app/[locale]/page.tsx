@@ -11,6 +11,8 @@ const ACTIVITY_LABELS_EN: Record<string, string> = {
   custody: 'Custody', payment: 'Payment', onramp_offramp: 'On/Off-ramp',
   cross_border_payment: 'Cross-border', token_utility: 'Utility Token',
   token_security: 'Security Token', token_hybrid: 'Hybrid Token',
+  staking: 'Staking', lending: 'Lending', asset_management: 'Asset mgmt',
+  derivatives: 'Derivatives', launchpad: 'Launchpad',
 };
 
 const ACTIVITY_LABELS_FR: Record<string, string> = {
@@ -19,6 +21,8 @@ const ACTIVITY_LABELS_FR: Record<string, string> = {
   custody: 'Custody', payment: 'Paiement', onramp_offramp: 'On/Off-ramp',
   cross_border_payment: 'Transfrontalier', token_utility: 'Utility Token',
   token_security: 'Security Token', token_hybrid: 'Token hybride',
+  staking: 'Staking', lending: 'Prêt', asset_management: 'Gestion d\'actifs',
+  derivatives: 'Dérivés', launchpad: 'Launchpad',
 };
 
 export default function LandingPage() {
