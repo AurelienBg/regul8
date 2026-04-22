@@ -108,6 +108,15 @@ interface Props {
   scrollContainer?: HTMLElement | null;
 }
 
+/**
+ * The 7 foundational meta-concepts — when shown in the glossary they get a
+ * "⭐ Meta-concept" badge with a link to the rich /understand/concepts page.
+ */
+const META_CONCEPT_TERMS = new Set([
+  'Regime', 'Licence', 'Regulator', 'Obligation',
+  'Token type', 'Infrastructure', 'Doctrine',
+]);
+
 export default function GlossaryContent({ compact = false, scrollContainer }: Props) {
   const t = useTranslations('glossary');
   const locale = useLocale();
@@ -115,7 +124,6 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
   const [category, setCategory] = useState<string>('all');
   const [topic, setTopic] = useState<string>('all');
   const [highlighted, setHighlighted] = useState<string | null>(null);
-  const [legendOpen, setLegendOpen] = useState(true);
 
   const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
     locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
@@ -171,95 +179,6 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
 
   return (
     <div>
-      {/* Legend (collapsible, open by default) — hidden in drawer/compact mode */}
-      {!compact && (
-      <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50">
-        <button
-          onClick={() => setLegendOpen(!legendOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-lg transition-colors"
-        >
-          <span className="flex items-center gap-2">
-            <span>💡</span>
-            <span>{t('legend.title')}</span>
-          </span>
-          <span
-            aria-hidden="true"
-            className={`flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white transition-transform ${legendOpen ? 'rotate-180' : ''}`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </span>
-        </button>
-        {legendOpen && (
-          <div className="px-4 pb-4 pt-3 border-t border-[var(--border)] space-y-5">
-            {/* 🎯 Topics — 7-card grid */}
-            <div>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">🎯 {t('legend.topicsTitle')}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.topicsBody')}</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-                {(['licence','regime','obligation','token','regulator','infra','doctrine'] as Topic[]).map((tp) => (
-                  <div
-                    key={tp}
-                    className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
-                  >
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm font-semibold mb-1.5 w-fit ${TOPIC_STYLES[tp]}`}>
-                      <span>{TOPIC_ICONS[tp]}</span>
-                      <span>{t(`topics.${tp}`)}</span>
-                    </span>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug mb-1">
-                      {t(`topicTooltips.${tp}.question`)}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 leading-snug">
-                      {t(`topicTooltips.${tp}.examples`)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 📏 Scopes — 3-card grid */}
-            <div>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">📏 {t('legend.scopesTitle')}</span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">{t('legend.scopesBody')}</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                {(['local', 'extra', 'global'] as Scope[]).map((sc) => (
-                  <div
-                    key={sc}
-                    className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] flex flex-col"
-                  >
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm font-semibold mb-1.5 w-fit ${SCOPE_STYLES[sc]}`}>
-                      <span>{SCOPE_ICONS[sc]}</span>
-                      <span>{t(`scopes.${sc}.label`)}</span>
-                    </span>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug">
-                      {t(`scopes.${sc}.explanation`)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 🏳️ Flags — single compact row */}
-            <div>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">🏳️ {t('legend.flagsTitle')}</span>
-              </div>
-              <div className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)]">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug">
-                  {t('legend.flagsBody')}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-      )}
-
       {/* Search */}
       <div className="mb-3">
         <input
@@ -293,7 +212,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
       </div>
 
       {/* Topic filters */}
-      <div className="mb-6">
+      <div className="mb-3">
         <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">{t('filterByTopic')}</div>
         <div className="flex gap-1 flex-wrap">
           {TOPICS.map((tp) => {
@@ -318,6 +237,20 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
           })}
         </div>
       </div>
+
+      {/* Cross-link to /understand/concepts for pedagogical content */}
+      {!compact && (
+        <div className="mb-6 text-xs text-gray-500 dark:text-gray-400">
+          <a
+            href={`/${locale}/understand/concepts`}
+            className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            ❓ {locale === 'fr'
+              ? 'Que signifient ces topics, drapeaux, et portées ? → Concepts'
+              : 'What do these topics, flags, and scopes mean? → Concepts'}
+          </a>
+        </div>
+      )}
 
       {/* Terms grid */}
       <div className={`grid gap-3 ${compact ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3 gap-4'}`}>
@@ -353,6 +286,18 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                   </span>
                 )}
                 {term.xrplSpecific && <XRPLBadge />}
+                {META_CONCEPT_TERMS.has(term.term) && (
+                  <a
+                    href={`/${locale}/understand/concepts`}
+                    title={locale === 'fr'
+                      ? 'Voir la fiche détaillée sur la page Concepts'
+                      : 'See the full breakdown on the Concepts page'}
+                    className="px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-200 hover:bg-yellow-200 dark:hover:bg-yellow-900/60 transition-colors"
+                  >
+                    <span>⭐</span>
+                    <span>{locale === 'fr' ? 'Méta-concept' : 'Meta-concept'}</span>
+                  </a>
+                )}
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{getDefinition(term)}</p>
               {term.relatedTerms && term.relatedTerms.length > 0 && (

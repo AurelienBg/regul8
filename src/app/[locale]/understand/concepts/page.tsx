@@ -128,6 +128,17 @@ export default function ConceptsPage() {
         allTerms: 'Tous les termes groupés par concept',
         relations: 'Comment les concepts s\'articulent',
         disclaimer: 'Cliquez sur un terme pour ouvrir sa définition dans le glossaire.',
+        lookupHint: 'Vous cherchez un terme précis ?',
+        lookupLink: 'Parcourir le glossaire',
+        reachTitle: 'Portée — jusqu\'où une régulation s\'applique',
+        reachSubtitle: 'Au-delà de ce qu\'une régulation EST, l\'important est de savoir jusqu\'où elle vous atteint. Trois portées typiques :',
+        scopes: [
+          { icon: '📍', label: 'Locale', body: 'Territoriale. S\'applique uniquement si vous êtes incorporés ou opérez physiquement sur place. Ex : la BitLicense ne couvre que les entreprises opérant à New York.' },
+          { icon: '🌐', label: 'Extraterritoriale', body: 'S\'applique dès que vous servez ou ciblez les utilisateurs de cette juridiction, même si votre société est basée ailleurs. Ex : MiCA s\'applique à toute entreprise servant des utilisateurs de l\'UE.' },
+          { icon: '🌍', label: 'Standard global', body: 'Standard international adopté ou transposé par la plupart des juridictions. Ex : Travel Rule du GAFI, principes KYC/AML.' },
+        ],
+        flagsTitle: 'Drapeaux — comment lire les marqueurs de juridiction',
+        flagsBody: 'Chaque terme du glossaire affiche un drapeau (🇪🇺 🇺🇸 🇸🇬 …) indiquant l\'origine de la régulation, du régulateur ou de la licence. 🌐 = organisme international ou règle adoptée globalement.',
       }
     : {
         title: 'Concepts',
@@ -139,6 +150,17 @@ export default function ConceptsPage() {
         allTerms: 'All terms grouped by concept',
         relations: 'How the concepts fit together',
         disclaimer: 'Click any term to open its definition in the glossary.',
+        lookupHint: 'Looking for a specific term?',
+        lookupLink: 'Browse the glossary',
+        reachTitle: 'Reach — how far a regulation applies',
+        reachSubtitle: 'Beyond what a regulation IS, the real question is how far its arm reaches. Three typical scopes:',
+        scopes: [
+          { icon: '📍', label: 'Local', body: 'Territorial. Applies only if you incorporate or operate physically there. Ex: BitLicense only covers businesses operating in New York.' },
+          { icon: '🌐', label: 'Extraterritorial', body: 'Applies whenever you serve or target users of that jurisdiction, even if based elsewhere. Ex: MiCA applies to any business serving EU users.' },
+          { icon: '🌍', label: 'Global standard', body: 'International standard adopted or transposed by most jurisdictions. Ex: FATF Travel Rule, KYC/AML principles.' },
+        ],
+        flagsTitle: 'Flags — how to read jurisdiction markers',
+        flagsBody: 'Every term in the glossary shows a flag (🇪🇺 🇺🇸 🇸🇬 …) indicating where the regulation, regulator or licence originates. 🌐 = international body or rule adopted globally.',
       };
 
   const termsByTopic: Record<Topic, string[]> = {
@@ -151,10 +173,19 @@ export default function ConceptsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <header className="mb-8 text-center">
+      <header className="mb-6 text-center">
         <div className="text-5xl mb-4">🎯</div>
         <h1 className="text-3xl sm:text-4xl font-bold mb-3">{tr.title}</h1>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">{tr.subtitle}</p>
+        <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+          {tr.lookupHint}{' '}
+          <Link
+            href="/understand/glossary"
+            className="underline font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+          >
+            🔍 {tr.lookupLink} &rarr;
+          </Link>
+        </p>
       </header>
 
       {/* Narrative flow — startup-centric */}
@@ -218,6 +249,37 @@ export default function ConceptsPage() {
               })}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      {/* 📏 Reach — how far a regulation applies */}
+      <section className="mb-10">
+        <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
+          <span>📏</span>
+          <span>{tr.reachTitle}</span>
+        </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tr.reachSubtitle}</p>
+        <div className="grid sm:grid-cols-3 gap-3">
+          {tr.scopes.map((sc) => (
+            <div key={sc.label} className="p-4 rounded-lg border border-[var(--border)] bg-[var(--card)]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xl leading-none">{sc.icon}</span>
+                <span className="font-semibold text-sm">{sc.label}</span>
+              </div>
+              <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{sc.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 🏳️ Flags — how to read jurisdiction markers */}
+      <section className="mb-10">
+        <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
+          <span>🏳️</span>
+          <span>{tr.flagsTitle}</span>
+        </h2>
+        <div className="p-4 rounded-lg border border-[var(--border)] bg-[var(--card)]">
+          <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{tr.flagsBody}</p>
         </div>
       </section>
 
