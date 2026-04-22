@@ -258,7 +258,7 @@
     "compare": "Comparer"
   },
   "xrpl": {
-    "title": "Hub Réglementaire XRPL",
+    "title": "XRPL",
     "subtitle": "Tout ce que vous devez savoir sur la conformité XRPL — statut légal du XRP, fonctionnalités natives et implémentations custody.",
     "xrpStatus": "Statut Légal XRP par Juridiction",
     "evmSidechain": "XRPL EVM Sidechain",

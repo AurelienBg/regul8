@@ -2,6 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import XRPLMark from '@/components/ui/XRPLMark';
 
 export default function UnderstandHubPage() {
   const locale = useLocale();
@@ -136,13 +137,12 @@ export default function UnderstandHubPage() {
           className="card hover:border-violet-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
-            <div className="text-4xl">🟣</div>
+            <XRPLMark className="w-10 h-10 text-gray-900 dark:text-gray-100 shrink-0 mt-0.5" />
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h2 className="text-xl font-bold group-hover:text-violet-600 dark:group-hover:text-violet-400">
                   {tr.xrplTitle}
                 </h2>
-                <span className="badge-xrpl">XRPL</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{tr.xrplDesc}</p>
               <span className="text-sm font-medium text-violet-600 dark:text-violet-400">
