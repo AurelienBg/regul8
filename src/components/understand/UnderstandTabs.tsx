@@ -1,18 +1,29 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
+import XRPLMark from '@/components/ui/XRPLMark';
 
-const TABS = [
-  { key: 'all', href: '/understand' as const, match: (p: string) => p === '/understand' || p === '/learn', icon: '🧭', labelEn: 'Overview', labelFr: "Vue d'ensemble" },
-  { key: 'concepts', href: '/understand/concepts' as const, match: (p: string) => p.startsWith('/understand/concepts') || p.startsWith('/understand/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Concepts', labelFr: 'Concepts' },
-  { key: 'usecases', href: '/understand/usecases' as const, match: (p: string) => p.startsWith('/understand/usecases') || p.startsWith('/understand/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: "Cas d'usage" },
-  { key: 'xrpl', href: '/understand/xrpl' as const, match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: '🟣', labelEn: 'XRPL', labelFr: 'XRPL' },
-  { key: 'diagrams', href: '/understand/diagrams' as const, match: (p: string) => p.startsWith('/understand/diagrams') || p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
-  { key: 'guides', href: '/understand/guides' as const, match: (p: string) => p.startsWith('/understand/guides') || p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
-  { key: 'glossary', href: '/understand/glossary' as const, match: (p: string) => p.startsWith('/understand/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '🔤', labelEn: 'Glossary', labelFr: 'Glossaire' },
-  { key: 'faq', href: '/understand/faq' as const, match: (p: string) => p.startsWith('/understand/faq'), icon: '❓', labelEn: 'FAQ', labelFr: 'FAQ' },
+interface TabDef {
+  key: string;
+  href: '/understand' | '/understand/concepts' | '/understand/usecases' | '/understand/xrpl' | '/understand/diagrams' | '/understand/guides' | '/understand/glossary' | '/understand/faq';
+  match: (p: string) => boolean;
+  /** Emoji string OR a React element (e.g. the inline XRPL X mark). */
+  icon: ReactNode;
+  labelEn: string;
+  labelFr: string;
+}
+
+const TABS: TabDef[] = [
+  { key: 'all', href: '/understand', match: (p: string) => p === '/understand' || p === '/learn', icon: '🧭', labelEn: 'Overview', labelFr: "Vue d'ensemble" },
+  { key: 'concepts', href: '/understand/concepts', match: (p: string) => p.startsWith('/understand/concepts') || p.startsWith('/understand/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Concepts', labelFr: 'Concepts' },
+  { key: 'usecases', href: '/understand/usecases', match: (p: string) => p.startsWith('/understand/usecases') || p.startsWith('/understand/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: "Cas d'usage" },
+  { key: 'xrpl', href: '/understand/xrpl', match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: <XRPLMark className="w-4 h-4 text-xrpl" />, labelEn: 'XRPL', labelFr: 'XRPL' },
+  { key: 'diagrams', href: '/understand/diagrams', match: (p: string) => p.startsWith('/understand/diagrams') || p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
+  { key: 'guides', href: '/understand/guides', match: (p: string) => p.startsWith('/understand/guides') || p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
+  { key: 'glossary', href: '/understand/glossary', match: (p: string) => p.startsWith('/understand/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '🔤', labelEn: 'Glossary', labelFr: 'Glossaire' },
+  { key: 'faq', href: '/understand/faq', match: (p: string) => p.startsWith('/understand/faq'), icon: '❓', labelEn: 'FAQ', labelFr: 'FAQ' },
 ];
 
 interface Props {

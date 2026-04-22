@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { XRPL_KNOWLEDGE, XRPL_FEATURES } from '@/data/xrpl';
 import { XRPL_KNOWLEDGE_FR, XRPL_FEATURES_FR } from '@/data/xrpl.fr';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
+import XRPLMark from '@/components/ui/XRPLMark';
 
 type XrplTab = 'legal' | 'tech' | 'custody';
 
@@ -149,9 +150,8 @@ export default function XRPLPage() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <header className="mb-8">
         <div className="flex items-center gap-3 mb-2 flex-wrap">
-          <span className="text-4xl leading-none">🟣</span>
+          <XRPLMark className="w-10 h-10 text-xrpl shrink-0" />
           <h1 className="text-3xl sm:text-4xl font-bold">{t('title')}</h1>
-          <span className="badge-xrpl">XRPL</span>
         </div>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">{t('subtitle')}</p>
       </header>
