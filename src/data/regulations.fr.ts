@@ -1980,6 +1980,97 @@ export const REGULATIONS_FR: RegData = {
       authority: "FSCA + FIC (SARB conditionnel, SARB/NPS si exploitation de rails)",
       xrplNote: "L'Afrique du Sud a été la première juridiction africaine à réguler la crypto (oct. 2022). Luno, VALR, AltCoinTrader proposent l'onramp XRP. Un widget onramp XRPL purement non-custodial (pas de ZAR, pas de custody) peut généralement relever de la Cat 1. La SARB étudie XRPL pour le bridging CBDC transfrontalier."
     },
+    lu: {
+      regime: "MiCA CASP (CSSF) + PI/EMI PSD2 pour la jambe fiat",
+      risk: "med",
+      licenses: ["Agrément CASP CSSF sous MiCA", "Licence EMI (CSSF) pour détention de soldes EUR clients", "Licence PI pour routage pur sous PSD2", "Passeporting UE"],
+      obligations: ["KYC/AML selon la Loi AML luxembourgeoise du 25 mars 2020", "Travel Rule FATF >€1K", "SCA PSD2 sur la jambe fiat", "Cantonnement des fonds clients (EMI/PI)", "Circulaire CSSF 22/806 outsourcing"],
+      time: "12–18 mois (CASP + EMI/PI en parallèle)",
+      cost: "€250K–€700K",
+      alts: ["Lituanie EMI", "Liechtenstein TVTG", "Irlande CBI"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "Cayman VASP Act 2020 — service de conversion (rails fiat locaux limités, généralement fiat off-island)",
+      risk: "med",
+      licenses: ["Enregistrement VASP CIMA — sous-classe conversion", "Partenariat EMI US/UE pour la jambe fiat (pas d'infra fiat retail domiciliée aux Caïmans)"],
+      obligations: ["AML selon AMLR 2020 + MLRO nommé", "Travel Rule FATF", "Ségrégation des actifs clients", "Registre des bénéficiaires effectifs", "Audit annuel + reporting CIMA"],
+      time: "6–12 mois (VASP) + calendrier du partenaire EMI",
+      cost: "$100K–$300K (frais CIMA + juridique) — 0% d'impôt sur les sociétés",
+      alts: ["BVI VASP", "Bermudes DABA"],
+      authority: "CIMA"
+    },
+    ca: {
+      regime: "FINTRAC MSB/FMSB (fédéral) + enregistrement provincial CSA + protection des consommateurs provinciale",
+      risk: "high",
+      licenses: ["Enregistrement FINTRAC MSB ou Foreign MSB", "CSA Pre-Registration Undertaking (PRU) par province", "Enregistrement CSA restricted dealer post-PRU", "Déclarations provinciales de protection des consommateurs"],
+      obligations: ["KYC/AML selon PCMLTFA (amendements mars 2026)", "Travel Rule (C$1K)", "Dépôts FINTRAC STR / LCTR", "Custody clients ségréguée selon CSA Staff Notice 21-332", "Règles de compétence et de conduite"],
+      time: "12–24 mois",
+      cost: "C$300K–C$1M+",
+      alts: ["MTL d'États US (si marché US)", "UE MiCA", "UAE VARA"],
+      authority: "FINTRAC + CSA / OSC / AMF"
+    },
+    vg: {
+      regime: "BVI VASP Act 2022 — service de conversion (rail fiat typiquement off-island)",
+      risk: "med",
+      licenses: ["Enregistrement VASP FSC BVI — sous-classe conversion", "Partenaire EMI/banque pour la jambe fiat", "Incorporation BVI Business Company"],
+      obligations: ["AML selon AMLR + Code of Practice FSC", "MLRO + approbation FSC avant lancement", "Administrateurs fit-and-proper", "Cybersécurité + key-management (Circulaire FSC 43/2025)", "Travel Rule"],
+      time: "4–12 mois (VASP)",
+      cost: "$150K–$400K — 0% d'impôt sur les sociétés",
+      alts: ["Cayman VASP", "Bermudes DABA"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "Enregistrement AUSTRAC DCE + AFSL ASIC + Digital Assets Framework Act 2026",
+      risk: "med",
+      licenses: ["Enregistrement AUSTRAC Digital Currency Exchange (DCE)", "AFSL ASIC — Digital Asset Platform", "Adhésion AFCA pour litiges consommateurs", "Licence équivalent EMI APRA si flottant AUD substantiel"],
+      obligations: ["KYC/AML selon AML/CTF Act 2006 (amendements 2024)", "Travel Rule (en vigueur 31 mars 2026)", "ePayments Code pour retail", "Ségrégation des actifs clients", "Reporting des manquements ASIC"],
+      time: "9–18 mois (AFSL à déposer avant le 30 juin 2026 pour conserver la no-action protection)",
+      cost: "A$300K–A$1M",
+      alts: ["Singapour MAS MPI", "Nouvelle-Zélande FMA"],
+      authority: "AUSTRAC + ASIC + RBA"
+    },
+    mt: {
+      regime: "MiCA CASP (MFSA) + PI/EMI PSD2 — la fenêtre transitoire VFA Act ferme le 1er juillet 2026",
+      risk: "med",
+      licenses: ["Agrément CASP MFSA sous MiCA", "Licence PI/EMI MFSA pour la jambe fiat", "Voie simplifiée Art. 143(6) pour les détenteurs VFA historiques"],
+      obligations: ["KYC/KYB complet", "Travel Rule >€1K", "Capital min. €125K (CASP) + fonds propres EMI", "Dirigeant maltais + officiers résidents", "Gouvernance MFSA Rulebook"],
+      time: "9–15 mois",
+      cost: "€150K–€450K",
+      alts: ["Lituanie MiCA + EMI", "Luxembourg CSSF", "Irlande CBI"],
+      authority: "MFSA"
+    },
+    bm: {
+      regime: "DABA 2018 Class F/M + BMA ; rails fiat typiquement via partenaire bancaire externe",
+      risk: "med",
+      licenses: ["DABA Class F (full) ou Class M (modified/sandbox)", "Approbation BMA", "Partenaire banque/EMI pour la jambe fiat retail"],
+      obligations: ["AML/ATF selon POCA 1997 + régs DABA", "Travel Rule", "Ségrégation des fonds/actifs clients", "BMA Cyber Risk Management Code", "Comptes annuels audités + reporting BMA"],
+      time: "6–12 mois",
+      cost: "BMD 100K–350K",
+      alts: ["Cayman VASP", "BVI VASP"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "MiCA CASP (Lietuvos bankas) + PI/EMI — historiquement le hub EMI UE le plus compétitif",
+      risk: "med",
+      licenses: ["Agrément CASP Lietuvos bankas sous MiCA", "Licence PI (PSD2) pour routage fiat", "Licence EMI pour soldes EUR clients", "Passeporting UE"],
+      obligations: ["KYC/AML selon la Loi AML lituanienne (2022/2024)", "Travel Rule >€1K", "SCA sous PSD2", "Dirigeant local + responsable AML résident", "Capital min. €125K (CASP) + fonds propres EMI"],
+      time: "9–15 mois",
+      cost: "€100K–€350K",
+      alts: ["Irlande CBI", "Luxembourg CSSF", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas"
+    },
+    ie: {
+      regime: "CASP CBI (MiCA) + PI/EMI PSD2 — hub UE anglophone",
+      risk: "med",
+      licenses: ["Agrément CASP CBI sous MiCA", "Payment Institution CBI (PSD2) pour la jambe fiat", "Licence EMI pour soldes EUR clients", "Passeporting UE depuis l'Irlande"],
+      obligations: ["KYC/AML selon Criminal Justice (ML/TF) Act 2010", "Travel Rule FATF >€1K", "SCA sous PSD2", "Régime Fitness & Probity CBI", "Résilience opérationnelle DORA (janv. 2025)", "Code de protection des consommateurs"],
+      time: "12–18 mois",
+      cost: "€250K–€700K",
+      alts: ["Luxembourg CSSF", "Lituanie EMI", "UK FCA"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "Point d'entrée UE anglophone utilisé par Coinbase Ireland, Kraken (Payward Europe), Ripple Labs Ireland. Choix courant pour les firmes US proposant l'onramp XRPL aux utilisateurs UE."
+    },
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2150,6 +2241,97 @@ export const REGULATIONS_FR: RegData = {
       alts: ["UAE VARA (diaspora vers Moyen-Orient/Asie)", "Île Maurice FSC"],
       authority: "FSCA + SARB + FIC",
       xrplNote: "Corridor SA \u2194 SADC (régional) + corridor diaspora SA \u2194 UK via partenaires XRPL. Pilote SARB + IntelliBridge de ZAR tokenisé sur XRPL pour règlement transfrontalier."
+    },
+    lu: {
+      regime: "MiCA CASP (CSSF) + PI/EMI PSD2 pour la jambe fiat + SEPA Instant pour les corridors EUR",
+      risk: "med",
+      licenses: ["Agrément CASP CSSF sous MiCA", "Licence PI ou EMI (PSD2)", "Participation SEPA Instant"],
+      obligations: ["KYC/AML selon Loi AML luxembourgeoise 2020", "Travel Rule FATF >€1K", "Cantonnement des fonds clients", "SCA PSD2", "Filtrage sanctions (UE)"],
+      time: "12–18 mois",
+      cost: "€250K–€700K",
+      alts: ["Irlande CBI", "Lituanie EMI", "Liechtenstein TVTG"],
+      authority: "CSSF"
+    },
+    ky: {
+      regime: "Cayman VASP Act 2020 — classe transfer service (infrastructure corridor international)",
+      risk: "med",
+      licenses: ["Enregistrement VASP CIMA — transfer service", "Partenaire EMI/banque sur chaque extrémité de corridor pour les jambes fiat"],
+      obligations: ["AML selon AMLR + MLRO", "Travel Rule", "Registre des bénéficiaires effectifs", "Audit annuel + reporting CIMA"],
+      time: "6–12 mois",
+      cost: "$100K–$300K — 0% d'impôt sur les sociétés",
+      alts: ["BVI VASP", "Bermudes DABA"],
+      authority: "CIMA"
+    },
+    ca: {
+      regime: "FINTRAC MSB/FMSB + PCMLTFA + protection provinciale des consommateurs",
+      risk: "med",
+      licenses: ["Enregistrement FINTRAC MSB ou Foreign MSB", "Licences provinciales de services monétaires (ex : AMF Québec, FICOM C.-B.)", "Enregistrement CSA si tokens classés titres"],
+      obligations: ["KYC/AML selon PCMLTFA", "Travel Rule (C$1K)", "Rapports LCTR + EFT (≥C$10K)", "Filtrage sanctions", "Divulgations consommateurs"],
+      time: "9–18 mois",
+      cost: "C$250K–C$800K",
+      alts: ["MTL d'États US", "UAE VARA"],
+      authority: "FINTRAC + régulateurs provinciaux"
+    },
+    vg: {
+      regime: "BVI VASP Act 2022 — service de conversion/transfert (infra corridor)",
+      risk: "med",
+      licenses: ["Enregistrement VASP FSC BVI", "Partenaire EMI/banque sur chaque extrémité de corridor"],
+      obligations: ["AML selon AMLR + MLRO", "Administrateurs fit-and-proper", "Travel Rule", "Cybersécurité + key-management"],
+      time: "4–12 mois",
+      cost: "$150K–$400K — 0% d'impôt sur les sociétés",
+      alts: ["Cayman VASP", "Bermudes DABA"],
+      authority: "BVI Financial Services Commission (FSC)"
+    },
+    au: {
+      regime: "AUSTRAC DCE + AUSTRAC Remittance Network Provider + AFSL ASIC",
+      risk: "med",
+      licenses: ["Enregistrement AUSTRAC DCE", "Enregistrement AUSTRAC Remittance Network Provider (RNP)", "AFSL ASIC si produit financier proposé"],
+      obligations: ["KYC/AML selon AML/CTF Act 2006", "Travel Rule (31 mars 2026)", "Rapports IFTI (International Funds Transfer Instruction)", "Filtrage sanctions", "Protection des consommateurs"],
+      time: "9–18 mois",
+      cost: "A$250K–A$800K",
+      alts: ["Singapour MAS MPI (classe cross-border)", "Nouvelle-Zélande FMA"],
+      authority: "AUSTRAC + ASIC"
+    },
+    mt: {
+      regime: "MiCA CASP (MFSA) + PI/EMI PSD2 pour la jambe fiat",
+      risk: "med",
+      licenses: ["Agrément CASP MFSA sous MiCA", "Licence PI/EMI MFSA pour le règlement fiat transfrontalier", "Passeporting UE"],
+      obligations: ["KYC/AML + Travel Rule >€1K", "SCA sous PSD2", "Dirigeant maltais + officiers résidents", "Filtrage sanctions (UE)"],
+      time: "9–15 mois",
+      cost: "€150K–€450K",
+      alts: ["Lituanie EMI", "Luxembourg CSSF", "Irlande CBI"],
+      authority: "MFSA"
+    },
+    bm: {
+      regime: "DABA 2018 Class F/M + BMA (activité de paiement transfrontalier)",
+      risk: "med",
+      licenses: ["DABA Class F (full) ou Class M (modified/sandbox)", "Approbation BMA", "Partenaire banque/EMI sur chaque extrémité de corridor"],
+      obligations: ["AML/ATF selon POCA 1997", "Travel Rule", "Cantonnement des fonds clients", "BMA Cyber Risk Management Code", "Audit annuel"],
+      time: "6–12 mois",
+      cost: "BMD 100K–350K",
+      alts: ["Cayman VASP", "BVI VASP"],
+      authority: "Bermuda Monetary Authority (BMA)"
+    },
+    lt: {
+      regime: "MiCA CASP (Lietuvos bankas) + PI PSD2 — hub EMI UE transfrontalier le moins cher",
+      risk: "med",
+      licenses: ["CASP Lietuvos bankas sous MiCA", "Licence PI/EMI (PSD2)", "Passeporting UE"],
+      obligations: ["KYC/AML selon la Loi AML lituanienne", "Travel Rule >€1K", "SCA sous PSD2", "Dirigeant local + responsable AML", "Filtrage sanctions"],
+      time: "9–15 mois",
+      cost: "€100K–€350K",
+      alts: ["Irlande CBI", "Luxembourg CSSF", "Liechtenstein TVTG"],
+      authority: "Lietuvos bankas"
+    },
+    ie: {
+      regime: "CASP CBI (MiCA) + PI PSD2 — hub UE transfrontalier anglophone",
+      risk: "med",
+      licenses: ["Agrément CASP CBI sous MiCA", "Payment Institution CBI (PSD2) pour les corridors fiat", "Passeporting UE depuis l'Irlande"],
+      obligations: ["KYC/AML selon CJA 2010", "Travel Rule FATF >€1K", "SCA sous PSD2", "Filtrage sanctions", "Résilience opérationnelle DORA (janv. 2025)", "Code de protection des consommateurs"],
+      time: "12–18 mois",
+      cost: "€250K–€700K",
+      alts: ["Luxembourg CSSF", "Lituanie EMI", "UK FCA"],
+      authority: "Central Bank of Ireland (CBI)",
+      xrplNote: "Ripple Labs Ireland Ltd utilise ce stack pour les services corridor RippleNet en UE. Base UE transfrontalière courante pour les fintechs de remittance US."
     },
   },
 
