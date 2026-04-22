@@ -92,8 +92,11 @@ Rules:
 - If the description is too vague or unrelated to a crypto business, return empty arrays with reasoning explaining why.
 - Respond ONLY with the JSON — no markdown, no explanation.`;
 
+  // Use the same model as the rest of the app (analyzeCompliance / streamSearch).
+  // We previously tried a haiku-tier model for cost, but the exact name isn't
+  // reliable to hardcode across SDK versions — stick with the known-good one.
   const message = await client.messages.create({
-    model: 'claude-haiku-4-5',
+    model: 'claude-sonnet-4-6',
     max_tokens: 512,
     system: systemPrompt,
     messages: [{ role: 'user', content: description }],
@@ -102,9 +105,17 @@ Rules:
   const block = message.content[0];
   const text = block.type === 'text' ? block.text : '';
 
+  // Extract JSON robustly — handles markdown fences, leading/trailing prose,
+  // and models that respond with "Here's the classification: {...}".
+  const firstBrace = text.indexOf('{');
+  const lastBrace = text.lastIndexOf('}');
+  const jsonText =
+    firstBrace !== -1 && lastBrace > firstBrace
+      ? text.slice(firstBrace, lastBrace + 1)
+      : text.trim();
+
   try {
-    const cleaned = text.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
-    const parsed = JSON.parse(cleaned) as {
+    const parsed = JSON.parse(jsonText) as {
       activities?: unknown;
       jurisdictions?: unknown;
       reasoning?: unknown;
@@ -117,7 +128,8 @@ Rules:
       : [];
     const reasoning = typeof parsed.reasoning === 'string' ? parsed.reasoning : '';
     return { activities, jurisdictions, reasoning };
-  } catch {
+  } catch (err) {
+    console.error('[classifyStartup] JSON parse failed. Raw text:', text, 'Error:', err);
     return { activities: [], jurisdictions: [], reasoning: '' };
   }
 }

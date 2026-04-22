@@ -30,9 +30,12 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json(result);
-  } catch {
+  } catch (err) {
+    // Surface the real error to server logs so we can debug model / auth issues
+    console.error('[api/classify] Failed to classify startup:', err);
+    const message = err instanceof Error ? err.message : 'Classification failed';
     return NextResponse.json(
-      { activities: [], jurisdictions: [], reasoning: '' },
+      { error: message, activities: [], jurisdictions: [], reasoning: '' },
       { status: 500 },
     );
   }
