@@ -3,7 +3,7 @@ export type Risk = 'high' | 'med' | 'low'
 export type Jurisdiction =
   | 'eu' | 'us' | 'ca'
   | 'uae' | 'sg' | 'uk' | 'hk' | 'au'
-  | 'ch' | 'li' | 'lu' | 'mt' | 'lt'
+  | 'ch' | 'li' | 'lu' | 'mt' | 'lt' | 'ie'
   | 'jp' | 'kr' | 'in' | 'br'
   | 'ky' | 'vg' | 'bm'
   | 'ng' | 'ke' | 'za'
@@ -172,6 +172,7 @@ export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; t
   lu: { name: 'Luxembourg', flag: '🇱🇺', tier: 'emerging' },
   mt: { name: 'Malta', flag: '🇲🇹', tier: 'emerging' },
   lt: { name: 'Lithuania', flag: '🇱🇹', tier: 'emerging' },
+  ie: { name: 'Ireland', flag: '🇮🇪', tier: 'emerging' },
   // Asia / LatAm
   jp: { name: 'Japan', flag: '🇯🇵' },
   kr: { name: 'South Korea', flag: '🇰🇷' },
