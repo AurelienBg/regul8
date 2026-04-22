@@ -1,0 +1,25 @@
+<svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Regul8">
+  <title>Regul8</title>
+  <g transform="translate(10, 43)">
+    <!-- Left 3x3 grid (navy accent at centre) -->
+    <circle cx="0"  cy="0"  r="5" fill="#CBD5E1"/>
+    <circle cx="22" cy="0"  r="5" fill="#CBD5E1"/>
+    <circle cx="44" cy="0"  r="5" fill="#CBD5E1"/>
+    <circle cx="0"  cy="22" r="5" fill="#CBD5E1"/>
+    <circle cx="22" cy="22" r="8" fill="#0F172A"/>
+    <circle cx="44" cy="22" r="5" fill="#CBD5E1"/>
+    <circle cx="0"  cy="44" r="5" fill="#CBD5E1"/>
+    <circle cx="22" cy="44" r="5" fill="#CBD5E1"/>
+    <circle cx="44" cy="44" r="5" fill="#CBD5E1"/>
+    <!-- Right 3x3 grid (blue accents + shifted navy forming the "8") -->
+    <circle cx="66"  cy="0"  r="5" fill="#E2E8F0"/>
+    <circle cx="88"  cy="0"  r="8" fill="#3B82F6"/>
+    <circle cx="110" cy="0"  r="5" fill="#E2E8F0"/>
+    <circle cx="66"  cy="22" r="5" fill="#E2E8F0"/>
+    <circle cx="88"  cy="22" r="8" fill="#3B82F6"/>
+    <circle cx="110" cy="22" r="5" fill="#E2E8F0"/>
+    <circle cx="66"  cy="44" r="8" fill="#0F172A"/>
+    <circle cx="88"  cy="44" r="5" fill="#E2E8F0"/>
+    <circle cx="110" cy="44" r="5" fill="#E2E8F0"/>
+  </g>
+</svg>
