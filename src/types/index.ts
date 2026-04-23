@@ -142,6 +142,10 @@ export interface LearningPath {
   sections: PathSection[]
   relatedTerms: string[]
   relatedTrees?: string[]
+  /** True when the guide meaningfully covers XRPL-specific material (not
+   *  just a passing mention). Powers the 🪙 XRPL filter chip on the
+   *  Guides index page. Rule of thumb: ≥5 XRPL references in the content. */
+  xrpl?: boolean
 }
 
 export interface XRPLCustodyMethod {

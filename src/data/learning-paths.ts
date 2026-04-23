@@ -101,6 +101,7 @@ const MICA: LearningPath = {
 const XRPL_CUSTODY: LearningPath = {
   id: 'xrpl-custody',
   icon: '🔐',
+  xrpl: true,
   title: 'XRPL Custody Deep-Dive',
   subtitle: 'The ten custody methods on XRPL, what regulators call each one, and how to design an architecture that survives review.',
   duration: '10 min read',
@@ -504,6 +505,7 @@ const US_CRYPTO_101: LearningPath = {
 const STABLECOIN_FRAMEWORKS: LearningPath = {
   id: 'stablecoin-frameworks',
   icon: '💵',
+  xrpl: true,
   title: 'Stablecoin Frameworks',
   subtitle: 'MiCA EMT/ART in the EU, the 2025 GENIUS Act in the US, and how MAS, HKMA, FMA and others compare — the first truly global regulatory stack.',
   duration: '9 min read',
@@ -628,6 +630,7 @@ const STABLECOIN_FRAMEWORKS: LearningPath = {
 const TRAVEL_RULE: LearningPath = {
   id: 'fatf-travel-rule',
   icon: '🕸️',
+  xrpl: true,
   title: 'FATF Travel Rule Explained',
   subtitle: 'The global AML/CFT rule that forces VASPs to share sender + receiver data on every transfer. What it is, thresholds per jurisdiction, and how XRPL handles it.',
   duration: '8 min read',
@@ -743,6 +746,7 @@ const TRAVEL_RULE: LearningPath = {
 const TOKENISED_RWA: LearningPath = {
   id: 'tokenised-rwa',
   icon: '🏛️',
+  xrpl: true,
   title: 'Tokenised RWA 101',
   subtitle: 'Real-World Assets on-chain: what counts, who issues them, what regime applies — from BlackRock BUIDL to the EU DLT Pilot and the XRPL RWA stack.',
   duration: '10 min read',
@@ -994,6 +998,7 @@ const DUBAI_VARA: LearningPath = {
 const KYC_AML_STARTUP: LearningPath = {
   id: 'kyc-aml-for-startups',
   icon: '🛂',
+  xrpl: true,
   title: 'KYC / AML for Crypto Startups',
   subtitle: 'The AML compliance stack every licensed crypto startup must build — CIP, tiered KYC, sanctions screening, SAR workflow, and the vendor landscape.',
   duration: '10 min read',

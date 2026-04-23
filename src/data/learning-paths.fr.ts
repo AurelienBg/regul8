@@ -101,6 +101,7 @@ const MICA: LearningPath = {
 const XRPL_CUSTODY: LearningPath = {
   id: 'xrpl-custody',
   icon: '🔐',
+  xrpl: true,
   title: 'Custody XRPL Approfondie',
   subtitle: 'Les dix méthodes de custody sur XRPL, comment les régulateurs qualifient chacune, et comment concevoir une architecture qui résiste à l\'examen.',
   duration: 'Lecture de 10 min',
@@ -504,6 +505,7 @@ const US_CRYPTO_101: LearningPath = {
 const STABLECOIN_FRAMEWORKS: LearningPath = {
   id: 'stablecoin-frameworks',
   icon: '💵',
+  xrpl: true,
   title: 'Cadres pour Stablecoins',
   subtitle: "MiCA EMT/ART dans l'UE, le GENIUS Act de 2025 aux \u00c9tats-Unis, et comment MAS, HKMA, FMA et d'autres se comparent \u2014 la premi\u00e8re pile r\u00e9glementaire vraiment mondiale.",
   duration: 'Lecture de 9 min',
@@ -628,6 +630,7 @@ const STABLECOIN_FRAMEWORKS: LearningPath = {
 const TRAVEL_RULE: LearningPath = {
   id: 'fatf-travel-rule',
   icon: '\ud83d\udd78\ufe0f',
+  xrpl: true,
   title: 'La R\u00e8gle du Voyage GAFI expliqu\u00e9e',
   subtitle: "La r\u00e8gle LCB-FT mondiale qui oblige les VASP \u00e0 partager les donn\u00e9es d'\u00e9metteur et de b\u00e9n\u00e9ficiaire sur chaque transfert. Ce qu'elle est, les seuils par juridiction, et comment XRPL la g\u00e8re.",
   duration: 'Lecture de 8 min',
@@ -743,6 +746,7 @@ const TRAVEL_RULE: LearningPath = {
 const TOKENISED_RWA: LearningPath = {
   id: 'tokenised-rwa',
   icon: '\ud83c\udfdb\ufe0f',
+  xrpl: true,
   title: 'RWA tokenis\u00e9s 101',
   subtitle: "Les Real-World Assets on-chain : ce qui compte, qui les \u00e9met, quel r\u00e9gime s'applique \u2014 de BlackRock BUIDL au DLT Pilot Regime de l'UE et \u00e0 la stack RWA XRPL.",
   duration: 'Lecture de 10 min',
@@ -991,6 +995,7 @@ const DUBAI_VARA: LearningPath = {
 const KYC_AML_STARTUP: LearningPath = {
   id: 'kyc-aml-for-startups',
   icon: '🛂',
+  xrpl: true,
   title: 'KYC / AML pour les startups crypto',
   subtitle: "La stack de conformité AML que toute startup crypto régulée doit construire — CIP, KYC par paliers, screening des sanctions, workflow SAR, et le paysage des vendors.",
   duration: '10 min de lecture',
