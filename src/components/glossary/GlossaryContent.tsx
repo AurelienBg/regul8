@@ -25,6 +25,30 @@ const TOPIC_STYLES: Record<Topic, string> = {
   infra: 'bg-slate-200 text-slate-800 dark:bg-slate-600/60 dark:text-slate-100',
 };
 
+// Inactive state for each topic filter chip — same pastel palette as the
+// card badges so the chip already communicates its topic colour without
+// having to be selected.
+const TOPIC_CHIP_INACTIVE: Record<Topic, string> = {
+  licence: 'bg-violet-50 text-violet-700 dark:bg-violet-900/20 dark:text-violet-200 border-violet-300 dark:border-violet-800 hover:bg-violet-100 dark:hover:bg-violet-900/40',
+  regime: 'bg-sky-50 text-sky-700 dark:bg-sky-900/20 dark:text-sky-200 border-sky-300 dark:border-sky-800 hover:bg-sky-100 dark:hover:bg-sky-900/40',
+  obligation: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/40',
+  token: 'bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-200 border-amber-300 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/40',
+  regulator: 'bg-rose-50 text-rose-700 dark:bg-rose-900/20 dark:text-rose-200 border-rose-300 dark:border-rose-800 hover:bg-rose-100 dark:hover:bg-rose-900/40',
+  doctrine: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-200 border-indigo-300 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/40',
+  infra: 'bg-slate-100 text-slate-700 dark:bg-slate-700/40 dark:text-slate-200 border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700/60',
+};
+
+// Active state — solid version of each topic's brand colour.
+const TOPIC_CHIP_ACTIVE: Record<Topic, string> = {
+  licence: 'bg-violet-500 text-white border-violet-500',
+  regime: 'bg-sky-500 text-white border-sky-500',
+  obligation: 'bg-emerald-500 text-white border-emerald-500',
+  token: 'bg-amber-500 text-white border-amber-500',
+  regulator: 'bg-rose-500 text-white border-rose-500',
+  doctrine: 'bg-indigo-500 text-white border-indigo-500',
+  infra: 'bg-slate-500 text-white border-slate-500',
+};
+
 type Scope = 'local' | 'extra' | 'global';
 const SCOPE_ICONS: Record<Scope, string> = { local: '📍', extra: '🌐', global: '🌍' };
 const SCOPE_STYLES: Record<Scope, string> = {
@@ -244,16 +268,26 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
             const tooltip = tp === 'all'
               ? t('topicTooltips.all')
               : `${t(`topicTooltips.${tp}.question`)}\n\n${t(`topicTooltips.${tp}.examples`)}`;
+            const isActive = topic === tp;
+            // 'all' keeps the neutral palette — it's not a topic, so no
+            // topic colour to echo. Every actual topic chip takes its own
+            // colour (pastel inactive, solid active) so the filter bar
+            // visually matches the card badges below.
+            const chipClass =
+              tp === 'all'
+                ? isActive
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700'
+                : isActive
+                  ? TOPIC_CHIP_ACTIVE[tp as Topic]
+                  : TOPIC_CHIP_INACTIVE[tp as Topic];
             return (
               <button
                 key={tp}
                 onClick={() => setTopic(tp)}
                 title={tooltip}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors flex items-center gap-1 ${
-                  topic === tp
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-                }`}
+                aria-pressed={isActive}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors flex items-center gap-1 border ${chipClass}`}
               >
                 {tp !== 'all' && <span>{TOPIC_ICONS[tp as Topic]}</span>}
                 {t(`topics.${tp}`)}

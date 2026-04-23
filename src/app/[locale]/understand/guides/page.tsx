@@ -14,12 +14,21 @@ const levelStyles: Record<string, string> = {
   advanced: 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-200',
 };
 
-// Small colored dot displayed on each level chip so the level is readable
-// without reading the label. Matches the card-badge palette above.
-const levelDotClass: Record<string, string> = {
-  beginner: 'bg-emerald-500',
-  intermediate: 'bg-blue-500',
-  advanced: 'bg-purple-500',
+// Per-level chip palette — inactive state uses the pastel card-badge
+// colours so the chip already communicates the level visually; active
+// state goes solid for the stronger "selected" affordance.
+const levelChipInactive: Record<string, string> = {
+  beginner:
+    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800 hover:bg-emerald-200 dark:hover:bg-emerald-900/60',
+  intermediate:
+    'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200 border-blue-300 dark:border-blue-800 hover:bg-blue-200 dark:hover:bg-blue-900/60',
+  advanced:
+    'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-200 border-purple-300 dark:border-purple-800 hover:bg-purple-200 dark:hover:bg-purple-900/60',
+};
+const levelChipActive: Record<string, string> = {
+  beginner: 'bg-emerald-500 text-white border-emerald-500',
+  intermediate: 'bg-blue-500 text-white border-blue-500',
+  advanced: 'bg-purple-500 text-white border-purple-500',
 };
 
 const levelLabels: Record<string, { en: string; fr: string }> = {
@@ -236,12 +245,9 @@ export default function LearningPathsListPage() {
                   onClick={() => toggle(k)}
                   aria-pressed={isActive}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-                    isActive
-                      ? 'bg-blue-500 text-white border-blue-500'
-                      : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
+                    isActive ? levelChipActive[lv] : levelChipInactive[lv]
                   }`}
                 >
-                  <span className={`w-2 h-2 rounded-full ${levelDotClass[lv]}`} />
                   {isFr ? levelLabels[lv].fr : levelLabels[lv].en}
                 </button>
               );
