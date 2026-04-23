@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { REGIME_TYPE_META } from '@/lib/regime-parser';
 import type { RegimeItemType } from '@/types';
 
@@ -28,8 +29,9 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         lawDesc: 'Le texte légal qui fonde tout le dispositif. Ex : MiCA (règlement UE 2023/1114), GENIUS Act (loi fédérale US 2025), TVTG (loi Liechtenstein 2020). Peu ou pas de choix côté startup — ça s\'impose.',
         licLabel: 'Cadre de licence',
         licDesc: 'Le type d\'agrément concret que vous devez obtenir. Ex : CASP (sous MiCA), MTL (State par State US), BitLicense (NY uniquement), VASP (GAFI / Dubai).',
-        ruleLabel: 'Décision de justice',
-        ruleDesc: 'Jurisprudence qui interprète ou précise la loi. Ex : Howey Test (1946), SEC v. Ripple (2023).',
+        ruleLabel: 'Doctrine',
+        ruleSubtitle: 'Tests juridiques, jurisprudence, interprétations',
+        ruleDesc: 'Tests juridiques et jurisprudence qui interprètent ou précisent la loi. Ex : Test de Howey (1946), SEC v. Ripple (2023).',
         authLabel: 'Autorité',
         authDesc: 'Le régulateur qui supervise et délivre la licence. Ex : AMF/ESMA (UE), SEC/CFTC/FinCEN (US), VARA (Dubaï), MAS (Singapour).',
       }
@@ -40,8 +42,9 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         lawDesc: "The legal text that grounds the whole framework. E.g. MiCA (EU Regulation 2023/1114), GENIUS Act (US federal law 2025), TVTG (Liechtenstein 2020). Little choice for the startup — it just applies.",
         licLabel: 'Licence framework',
         licDesc: "The concrete authorization you must obtain. E.g. CASP (under MiCA), MTL (state-by-state US), BitLicense (NY only), VASP (FATF / Dubai).",
-        ruleLabel: 'Court ruling',
-        ruleDesc: 'Case law that interprets or clarifies the statute. E.g. Howey Test (1946), SEC v. Ripple (2023).',
+        ruleLabel: 'Doctrine',
+        ruleSubtitle: 'Legal tests, case law, interpretive rulings',
+        ruleDesc: 'Legal tests and case law that interpret or clarify the statute. E.g. Howey Test (1946), SEC v. Ripple (2023).',
         authLabel: 'Authority',
         authDesc: 'The regulator who supervises and issues the licence. E.g. AMF/ESMA (EU), SEC/CFTC/FinCEN (US), VARA (Dubai), MAS (Singapore).',
       };
@@ -78,6 +81,7 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {rows.map((r) => {
               const isAuthority = r.key === 'authority';
+              const isDoctrine = r.key === 'ruling';
               const meta = isAuthority ? null : REGIME_TYPE_META[r.key as RegimeItemType];
               const icon = isAuthority ? '🏛️' : meta!.icon;
               const colorClass = isAuthority
@@ -88,14 +92,30 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
                   key={r.key}
                   className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] h-full flex flex-col"
                 >
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} mb-2 w-fit`}>
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} mb-1 w-fit`}>
                     <span className="text-sm leading-none">{icon}</span>
                     <span>{r.label}</span>
                   </span>
+                  {isDoctrine && (
+                    <p className="text-[10px] text-gray-500 dark:text-gray-400 italic mb-1">
+                      {tr.ruleSubtitle}
+                    </p>
+                  )}
                   <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">{r.desc}</p>
                 </div>
               );
             })}
+          </div>
+          {/* Footer link pointing users to the canonical teaching page */}
+          <div className="mt-3 pt-3 border-t border-[var(--border)] text-xs text-gray-500 dark:text-gray-400">
+            <Link
+              href="/understand/concepts"
+              className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              {isFr
+                ? 'Voir tous les 7 concepts en détail → /understand/concepts'
+                : 'See all 7 concepts in detail → /understand/concepts'}
+            </Link>
           </div>
         </div>
       )}

@@ -141,10 +141,15 @@ export const REGIME_TYPE_META: Record<
     labelFr: 'Cadre de licence',
     colorClass: 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-200 border-violet-300 dark:border-violet-800',
   },
+  // `ruling` is kept as the internal type name for backward compat (data
+  // uses it across regulations.ts / regulations.fr.ts), but the DISPLAYED
+  // label is now 'Doctrine' to match the canonical vocabulary used in
+  // /understand/concepts (the 7 meta-concepts). Covers case law + legal
+  // tests + interpretive guidance.
   ruling: {
-    icon: '⚖️',
-    labelEn: 'Court ruling',
-    labelFr: 'Décision de justice',
+    icon: '💡',
+    labelEn: 'Doctrine',
+    labelFr: 'Doctrine',
     colorClass: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-200 border-indigo-300 dark:border-indigo-800',
   },
   guidance: {
