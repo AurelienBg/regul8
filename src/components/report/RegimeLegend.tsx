@@ -111,13 +111,13 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
                   key={r.key}
                   className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] h-full flex flex-col"
                 >
-                  <div className="flex items-start justify-between gap-2 mb-1 flex-wrap">
+                  <div className="flex flex-col items-start gap-1 mb-1">
                     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} w-fit`}>
                       <span className="text-sm leading-none">{icon}</span>
                       <span>{r.label}</span>
                     </span>
                     <span
-                      className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${zb.class} shrink-0`}
+                      className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${zb.class}`}
                     >
                       {zb.label}
                     </span>
