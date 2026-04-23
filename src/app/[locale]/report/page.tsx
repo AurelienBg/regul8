@@ -355,6 +355,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       return <td key={j} className="p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
                     })}
                   </tr>
+                  {/* 🟢 ZONE B — OUTPUTS (what you must do) */}
+                  <tr className="bg-emerald-50 dark:bg-emerald-900/20 border-b border-[var(--border)]">
+                    <td colSpan={jurisdictions.length + 1} className="p-2">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                        {locale === 'fr' ? 'OUTPUTS — Ce que vous devez faire' : 'OUTPUTS — What you must do'}
+                      </div>
+                    </td>
+                  </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('licenses')}</td>
                     {jurisdictions.map((j) => {
@@ -388,6 +396,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                         </td>
                       );
                     })}
+                  </tr>
+                  {/* 🟠 ZONE C — CONTEXT (timelines, cost, regulator, alternatives) */}
+                  <tr className="bg-amber-50 dark:bg-amber-900/20 border-b border-[var(--border)]">
+                    <td colSpan={jurisdictions.length + 1} className="p-2">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                        {locale === 'fr' ? 'CONTEXT — Quand, combien, auprès de qui' : 'CONTEXT — When, how much, with whom'}
+                      </div>
+                    </td>
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('timeline')}</td>

@@ -323,6 +323,14 @@ export default function ComparePage() {
                         </td>
                       ))}
                     </tr>
+                    {/* 🟢 ZONE B — OUTPUTS */}
+                    <tr className="bg-emerald-50 dark:bg-emerald-900/20 border-b border-[var(--border)]">
+                      <td colSpan={activityRows.length + 1} className="p-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                          {isFr ? 'OUTPUTS — Ce que vous devez faire' : 'OUTPUTS — What you must do'}
+                        </div>
+                      </td>
+                    </tr>
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.licences}</td>
                       {activityRows.map((r) => (
@@ -351,6 +359,14 @@ export default function ComparePage() {
                           </ul>
                         </td>
                       ))}
+                    </tr>
+                    {/* 🟠 ZONE C — CONTEXT */}
+                    <tr className="bg-amber-50 dark:bg-amber-900/20 border-b border-[var(--border)]">
+                      <td colSpan={activityRows.length + 1} className="p-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                          {isFr ? 'CONTEXT — Quand, combien, auprès de qui' : 'CONTEXT — When, how much, with whom'}
+                        </div>
+                      </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.timeline}</td>
@@ -533,6 +549,14 @@ export default function ComparePage() {
                         </td>
                       ))}
                     </tr>
+                    {/* 🟢 ZONE B — OUTPUTS */}
+                    <tr className="bg-emerald-50 dark:bg-emerald-900/20 border-b border-[var(--border)]">
+                      <td colSpan={jurisdictionRows.length + 1} className="p-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                          {isFr ? 'OUTPUTS — Ce que vous devez faire' : 'OUTPUTS — What you must do'}
+                        </div>
+                      </td>
+                    </tr>
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.licences}</td>
                       {jurisdictionRows.map((r) => (
@@ -561,6 +585,14 @@ export default function ComparePage() {
                           </ul>
                         </td>
                       ))}
+                    </tr>
+                    {/* 🟠 ZONE C — CONTEXT */}
+                    <tr className="bg-amber-50 dark:bg-amber-900/20 border-b border-[var(--border)]">
+                      <td colSpan={jurisdictionRows.length + 1} className="p-2">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+                          {isFr ? 'CONTEXT — Quand, combien, auprès de qui' : 'CONTEXT — When, how much, with whom'}
+                        </div>
+                      </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
                       <td className={stickyLabelCls}>{tr.timeline}</td>
