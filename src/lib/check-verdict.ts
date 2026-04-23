@@ -2,8 +2,18 @@
  * Rule-based verdict composer for /check Level 2.
  *
  * Takes funnel answers (multi-select arrays: products, markets, custody) and
- * produces a structured mini-report organised by domain (regimes, licences,
- * custody, jurisdictions). Purely deterministic — no AI call.
+ * produces a structured mini-report organised into 3 zones matching the
+ * user journey:
+ *   - Zone A (INPUTS): token + infra — what the startup is building (upstream)
+ *   - Zone B (OUTPUTS): licence + obligation — what the startup must do (core)
+ *   - Zone C (CONTEXT): regulator + regime + jurisdiction + doctrine
+ *
+ * Cards in A are conditional on what the user picked; cards in B are always
+ * shown; cards in C are always shown (doctrine only when a US-token combo
+ * makes Howey relevant). Not-applicable cards are shown with a muted 'Not
+ * applicable' message rather than hidden, so the user sees the full picture.
+ *
+ * Purely deterministic — no AI call.
  */
 
 import type { FunnelAnswers } from '@/data/check-funnel';
@@ -17,14 +27,32 @@ export interface VerdictItem {
   emphasis: 'primary' | 'secondary' | 'tertiary';
 }
 
+export type VerdictDomain =
+  | 'token'
+  | 'infra'
+  | 'licence'
+  | 'obligation'
+  | 'regulator'
+  | 'regime'
+  | 'jurisdiction'
+  | 'doctrine';
+
+export type VerdictZone = 'A' | 'B' | 'C';
+
 export interface VerdictCard {
-  domain: 'regime' | 'licence' | 'custody' | 'jurisdiction';
+  domain: VerdictDomain;
+  zone: VerdictZone;
   icon: string;
   titleEn: string;
   titleFr: string;
   items: VerdictItem[];
   noteEn?: string;
   noteFr?: string;
+  /** When true, render as 'Not applicable' — keeps layout intent but signals
+   *  the user's answers don't trigger this domain. */
+  notApplicable?: boolean;
+  notApplicableEn?: string;
+  notApplicableFr?: string;
 }
 
 export interface Verdict {
@@ -49,57 +77,143 @@ export function composeVerdict(a: FunnelAnswers): Verdict {
 
   const cards: VerdictCard[] = [];
 
-  // === REGIMES ===
-  const regimes: VerdictItem[] = [];
-  if (isEu || isGlobal || isMarketUnsure) {
-    regimes.push({
-      labelEn: 'MiCA',
-      labelFr: 'MiCA',
-      reasonEn: 'EU Markets in Crypto-Assets regulation — extraterritorial, applies to services targeting EU users.',
-      reasonFr: 'Règlement MiCA de l\'UE — extraterritorial, s\'applique à tout service ciblant des utilisateurs UE.',
-      emphasis: isEu ? 'primary' : 'secondary',
-    });
-  }
-  if (isUs || isGlobal || isMarketUnsure) {
-    regimes.push({
-      labelEn: 'US federal + state patchwork',
-      labelFr: 'Patchwork fédéral + États US',
-      reasonEn: 'BSA / FinCEN at federal level, Money Transmitter Licences state-by-state, BitLicense in NY.',
-      reasonFr: 'BSA / FinCEN au fédéral, MTL état par état, BitLicense à NY.',
-      emphasis: isUs ? 'primary' : 'secondary',
-    });
-    if (has(products, 'token')) {
-      regimes.push({
-        labelEn: 'SEC Howey Test',
-        labelFr: 'Test Howey (SEC)',
-        reasonEn: '4-prong test that decides if your token is a security. Drives your entire US compliance posture.',
-        reasonFr: 'Test en 4 critères qui détermine si votre token est un security. Détermine toute votre posture compliance US.',
+  // ═══════════════════════════════════════════════════════════════
+  // ZONE A — INPUTS (what you're building)
+  // ═══════════════════════════════════════════════════════════════
+
+  // 🪙 TOKEN TYPE — applicable only if user picked 'token' as a product
+  if (has(products, 'token')) {
+    const tokenItems: VerdictItem[] = [];
+    if (isEu || isGlobal) {
+      tokenItems.push({
+        labelEn: 'MiCA token classification',
+        labelFr: 'Classification MiCA',
+        reasonEn: 'EMT (fiat-backed) / ART (asset-referenced) / Utility / S-EMT / S-ART. The bucket drives which authorisation path you follow.',
+        reasonFr: 'EMT (adossé fiat) / ART (asset-referenced) / Utility / S-EMT / S-ART. La catégorie détermine la voie d\'agrément.',
         emphasis: 'primary',
       });
     }
-  }
-  if (isApac || isGlobal) {
-    regimes.push({
-      labelEn: 'MAS Payment Services Act (Singapore)',
-      labelFr: 'MAS Payment Services Act (Singapour)',
-      reasonEn: 'DPT + payment services framework. Common APAC entry point.',
-      reasonFr: 'Cadre DPT + services de paiement. Point d\'entrée APAC courant.',
-      emphasis: isApac ? 'primary' : 'tertiary',
+    if (isUs || isGlobal) {
+      tokenItems.push({
+        labelEn: 'US Howey Test classification',
+        labelFr: 'Classification Test Howey (US)',
+        reasonEn: 'Security / commodity / utility. Misclassifying = SEC enforcement risk (see SEC v. Ripple).',
+        reasonFr: 'Security / commodity / utility. Mauvaise classification = risque enforcement SEC (cf. SEC v. Ripple).',
+        emphasis: 'primary',
+      });
+    }
+    tokenItems.push({
+      labelEn: 'Supply mechanics',
+      labelFr: 'Mécaniques de supply',
+      reasonEn: 'Fixed vs inflationary, pre-mined vs mined, lock-ups — these feed into the classification analysis.',
+      reasonFr: 'Fixe vs inflationniste, pré-miné vs miné, lock-ups — alimentent l\'analyse de classification.',
+      emphasis: 'secondary',
     });
-  }
-  if (regimes.length > 0) {
     cards.push({
-      domain: 'regime',
-      icon: '📜',
-      titleEn: 'Regimes to plan against',
-      titleFr: 'Régimes à anticiper',
-      items: regimes,
-      noteEn: 'These are the legal frameworks your activity will sit under. Licences and obligations flow from them.',
-      noteFr: 'Ce sont les cadres légaux qui s\'appliqueront à votre activité. Les licences et obligations en découlent.',
+      domain: 'token',
+      zone: 'A',
+      icon: '🪙',
+      titleEn: 'Token classification',
+      titleFr: 'Classification du token',
+      items: tokenItems,
+      noteEn: 'Token type is the FIRST question a regulator asks. Get this wrong and everything downstream is wrong.',
+      noteFr: 'Le type de token est la PREMIÈRE question d\'un régulateur. Mauvaise réponse = tout le reste est faux.',
+    });
+  } else {
+    cards.push({
+      domain: 'token',
+      zone: 'A',
+      icon: '🪙',
+      titleEn: 'Token classification',
+      titleFr: 'Classification du token',
+      items: [],
+      notApplicable: true,
+      notApplicableEn: 'Your setup doesn\'t involve issuing a token — classification doesn\'t apply here.',
+      notApplicableFr: 'Votre setup n\'implique pas l\'émission de token — la classification ne s\'applique pas ici.',
     });
   }
 
-  // === LICENCES ===
+  // 🔧 INFRASTRUCTURE / CUSTODY — applicable if product=custody or any custody answer
+  const infraRelevant =
+    has(products, 'custody') ||
+    has(custody, 'custodial') ||
+    has(custody, 'hybrid') ||
+    has(custody, 'non-custodial');
+  if (infraRelevant) {
+    const infraItems: VerdictItem[] = [];
+    if (has(custody, 'custodial')) {
+      infraItems.push({
+        labelEn: 'CUSTODIAL setup',
+        labelFr: 'Setup CUSTODIAL',
+        reasonEn: 'You hold keys — highest compliance tier (CASP custody, BitLicense, DABA…). Capital + insurance + segregation.',
+        reasonFr: 'Vous détenez les clés — tier compliance le plus strict (CASP custody, BitLicense, DABA…). Capital + assurance + ségrégation.',
+        emphasis: 'primary',
+      });
+    }
+    if (has(custody, 'non-custodial')) {
+      infraItems.push({
+        labelEn: 'NON-CUSTODIAL setup',
+        labelFr: 'Setup NON-CUSTODIAL',
+        reasonEn: 'Users hold keys — generally lighter regime (FATF carve-out for pure software). Often no VASP/CASP needed.',
+        reasonFr: 'Les utilisateurs détiennent les clés — régime allégé (carve-out GAFI pour logiciel pur). Souvent pas de VASP/CASP.',
+        emphasis: 'primary',
+      });
+    }
+    if (has(custody, 'hybrid')) {
+      infraItems.push({
+        labelEn: 'HYBRID setup (MPC / multisig / SignerList)',
+        labelFr: 'Setup HYBRIDE (MPC / multisig / SignerList)',
+        reasonEn: 'Grey zone — classification depends on quorum + key material. Requires explicit design analysis.',
+        reasonFr: 'Zone grise — la classification dépend du quorum + du matériel de clés. Analyse de design explicite requise.',
+        emphasis: 'primary',
+      });
+    }
+    if (has(custody, 'not-sure')) {
+      infraItems.push({
+        labelEn: 'Custody TBD',
+        labelFr: 'Custody à déterminer',
+        reasonEn: 'Run the XRPL Custody diagnostic — 10 concrete patterns classified as custodial / non-custodial / grey.',
+        reasonFr: 'Lancez le diagnostic XRPL Custody — 10 patterns concrets classés custodial / non-custodial / gris.',
+        emphasis: 'secondary',
+      });
+    }
+    // Also add infrastructure stack suggestions
+    infraItems.push({
+      labelEn: 'Common custody stacks',
+      labelFr: 'Stacks custody courantes',
+      reasonEn: 'BitGo, Fireblocks, Anchorage (institutional) · Metaco, Palisade (XRPL-native) · SignerList / MPC (on-chain).',
+      reasonFr: 'BitGo, Fireblocks, Anchorage (institutionnels) · Metaco, Palisade (XRPL-natifs) · SignerList / MPC (on-chain).',
+      emphasis: 'tertiary',
+    });
+    cards.push({
+      domain: 'infra',
+      zone: 'A',
+      icon: '🔧',
+      titleEn: 'Infrastructure & custody',
+      titleFr: 'Infrastructure & custody',
+      items: infraItems,
+      noteEn: 'Custody model is one of the biggest determinants of which licence tier applies.',
+      noteFr: 'Le modèle custody est un des plus gros déterminants du tier de licence applicable.',
+    });
+  } else {
+    cards.push({
+      domain: 'infra',
+      zone: 'A',
+      icon: '🔧',
+      titleEn: 'Infrastructure & custody',
+      titleFr: 'Infrastructure & custody',
+      items: [],
+      notApplicable: true,
+      notApplicableEn: 'Your setup doesn\'t specifically involve custody — infrastructure analysis skipped.',
+      notApplicableFr: 'Votre setup n\'implique pas la custody — analyse infrastructure ignorée.',
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // ZONE B — OUTPUTS (what you must do — the core)
+  // ═══════════════════════════════════════════════════════════════
+
+  // 🪪 LICENCES — always shown
   const licences: VerdictItem[] = [];
   const anyCryptoService = has(products, 'token') || has(products, 'platform') || has(products, 'custody');
   if (anyCryptoService && (isEu || isGlobal || isMarketUnsure)) {
@@ -147,99 +261,166 @@ export function composeVerdict(a: FunnelAnswers): Verdict {
       emphasis: isApac ? 'primary' : 'tertiary',
     });
   }
-  if (licences.length > 0) {
-    cards.push({
-      domain: 'licence',
-      icon: '🪪',
-      titleEn: 'Licences to target',
-      titleFr: 'Licences à viser',
-      items: licences,
-    });
-  }
+  cards.push({
+    domain: 'licence',
+    zone: 'B',
+    icon: '🪪',
+    titleEn: 'Licences to target',
+    titleFr: 'Licences à viser',
+    items: licences,
+    noteEn: licences.length === 0 ? undefined : 'Apply in order of market priority. Start with the fastest path to your primary market.',
+    noteFr: licences.length === 0 ? undefined : 'Déposez dans l\'ordre de priorité marché. Commencez par la voie la plus rapide vers votre marché principal.',
+  });
 
-  // === CUSTODY CLASSIFICATION ===
-  const custodyItems: VerdictItem[] = [];
-  if (has(custody, 'custodial')) {
-    custodyItems.push({
-      labelEn: 'CUSTODIAL',
-      labelFr: 'CUSTODIAL',
-      reasonEn: 'You hold customer keys → triggers the highest tier of compliance everywhere (capital, insurance, segregation).',
-      reasonFr: 'Vous détenez les clés → tier de compliance le plus strict partout (capital, assurance, ségrégation).',
+  // ✅ OBLIGATIONS — always shown
+  const obligations: VerdictItem[] = [];
+  obligations.push({
+    labelEn: 'KYC / AML program',
+    labelFr: 'Programme KYC / AML',
+    reasonEn: 'Universal baseline across all regimes. Identity verification, transaction monitoring, sanctions screening.',
+    reasonFr: 'Socle universel dans tous les régimes. Vérification d\'identité, monitoring transactions, filtrage sanctions.',
+    emphasis: 'primary',
+  });
+  obligations.push({
+    labelEn: 'FATF Travel Rule',
+    labelFr: 'Règle du voyage FATF',
+    reasonEn: 'Mandatory for transfers >€1K (EU) / >$3K (US) / >SGD 1.5K (SG). Originator + beneficiary info on-wire.',
+    reasonFr: 'Obligatoire pour transferts >€1K (UE) / >$3K (US) / >SGD 1.5K (SG). Info expéditeur + bénéficiaire en ligne.',
+    emphasis: 'primary',
+  });
+  if (anyCryptoService) {
+    obligations.push({
+      labelEn: 'Transaction / SAR reporting',
+      labelFr: 'Reporting transactions / SAR',
+      reasonEn: 'Suspicious Activity Reports to the FIU on any red flag. CTR >$10K (US), MROS (CH), Tracfin (FR).',
+      reasonFr: 'Suspicious Activity Reports vers la CRF sur tout red flag. CTR >$10K (US), MROS (CH), Tracfin (FR).',
       emphasis: 'primary',
     });
   }
-  if (has(custody, 'non-custodial')) {
-    custodyItems.push({
-      labelEn: 'NON-CUSTODIAL',
-      labelFr: 'NON-CUSTODIAL',
-      reasonEn: 'Users hold their own keys → generally lighter regime (FATF carve-out for pure software).',
-      reasonFr: 'Les utilisateurs détiennent leurs clés → régime allégé (carve-out GAFI pour logiciel pur).',
+  if (has(products, 'custody') || has(custody, 'custodial')) {
+    obligations.push({
+      labelEn: 'Client asset segregation',
+      labelFr: 'Ségrégation actifs clients',
+      reasonEn: 'Customer crypto + fiat held in separate accounts from firm\'s own funds. Daily reconciliation.',
+      reasonFr: 'Crypto + fiat clients détenus en comptes séparés des fonds propres. Réconciliation quotidienne.',
       emphasis: 'primary',
     });
   }
-  if (has(custody, 'hybrid')) {
-    custodyItems.push({
-      labelEn: 'HYBRID / GREY',
-      labelFr: 'HYBRIDE / ZONE GRISE',
-      reasonEn: 'MPC, SignerList, multisig — classification depends on quorum + key material. Needs explicit design analysis.',
-      reasonFr: 'MPC, SignerList, multisig — la classification dépend du quorum + du matériel de clés. Analyse de design requise.',
-      emphasis: 'primary',
-    });
-  }
-  if (has(custody, 'not-sure') && custodyItems.length === 0) {
-    custodyItems.push({
-      labelEn: 'To determine',
-      labelFr: 'À déterminer',
-      reasonEn: 'Run the XRPL Custody diagnostic — 10 concrete patterns classified as custodial / non-custodial / grey.',
-      reasonFr: 'Lancez le diagnostic XRPL Custody — 10 patterns concrets classés custodial / non-custodial / gris.',
+  if (has(products, 'token')) {
+    obligations.push({
+      labelEn: 'Whitepaper + disclosures',
+      labelFr: 'Whitepaper + divulgations',
+      reasonEn: 'Truthful marketing (MiCA Art. 6 / SEC anti-fraud). No return promises, risk warnings mandatory.',
+      reasonFr: 'Marketing véridique (MiCA Art. 6 / SEC anti-fraude). Pas de promesse de rendement, avertissements risques obligatoires.',
       emphasis: 'secondary',
     });
   }
-  if (custodyItems.length > 0) {
-    cards.push({
-      domain: 'custody',
-      icon: '🔐',
-      titleEn: 'Custody classification',
-      titleFr: 'Classification custody',
-      items: custodyItems,
-      noteEn: 'Custody status is one of the biggest determinants of which licences, capital, and insurance you need.',
-      noteFr: 'Le statut custody est un des plus gros déterminants des licences, capital, et assurance nécessaires.',
+  cards.push({
+    domain: 'obligation',
+    zone: 'B',
+    icon: '✅',
+    titleEn: 'Obligations to prepare',
+    titleFr: 'Obligations à préparer',
+    items: obligations,
+    noteEn: 'These are your daily compliance duties — need policies, processes, staff and systems in place from day 1.',
+    noteFr: 'Ce sont vos devoirs de conformité quotidiens — nécessitent politiques, processus, équipe et systèmes dès le jour 1.',
+  });
+
+  // ═══════════════════════════════════════════════════════════════
+  // ZONE C — CONTEXT (where / with whom / under what law)
+  // ═══════════════════════════════════════════════════════════════
+
+  // 🏛️ REGULATOR
+  const regulators: VerdictItem[] = [];
+  if (isEu || isGlobal || isMarketUnsure) {
+    regulators.push({
+      labelEn: 'National Competent Authorities + ESMA',
+      labelFr: 'ANC nationales + ESMA',
+      reasonEn: 'AMF (FR), BaFin (DE), CSSF (LU), CBI (IE), MFSA (MT)… ESMA as pan-EU coordinator.',
+      reasonFr: 'AMF (FR), BaFin (DE), CSSF (LU), CBI (IE), MFSA (MT)… ESMA comme coordinateur pan-UE.',
+      emphasis: isEu ? 'primary' : 'secondary',
     });
   }
+  if (isUs || isGlobal) {
+    regulators.push({
+      labelEn: 'FinCEN + SEC + CFTC + state regulators',
+      labelFr: 'FinCEN + SEC + CFTC + régulateurs d\'États',
+      reasonEn: 'FinCEN for AML/MSB, SEC for securities, CFTC for commodities/derivatives, NYDFS for BitLicense.',
+      reasonFr: 'FinCEN pour AML/MSB, SEC pour titres, CFTC pour matières premières/dérivés, NYDFS pour BitLicense.',
+      emphasis: isUs ? 'primary' : 'secondary',
+    });
+  }
+  if (isApac || isGlobal) {
+    regulators.push({
+      labelEn: 'MAS (SG) + SFC (HK) + FSA (JP) + FSC (KR)',
+      labelFr: 'MAS (SG) + SFC (HK) + FSA (JP) + FSC (KR)',
+      reasonEn: 'Each with its own framework — MAS PSA (Singapore), SFC VATP (Hong Kong), JVCEA (Japan).',
+      reasonFr: 'Chacun avec son cadre — MAS PSA (Singapour), SFC VATP (Hong Kong), JVCEA (Japon).',
+      emphasis: isApac ? 'primary' : 'tertiary',
+    });
+  }
+  cards.push({
+    domain: 'regulator',
+    zone: 'C',
+    icon: '🏛️',
+    titleEn: 'Regulators to apply to',
+    titleFr: 'Régulateurs à solliciter',
+    items: regulators,
+  });
 
-  // === JURISDICTIONS ===
+  // 📜 REGIME
+  const regimes: VerdictItem[] = [];
+  if (isEu || isGlobal || isMarketUnsure) {
+    regimes.push({
+      labelEn: 'MiCA',
+      labelFr: 'MiCA',
+      reasonEn: 'EU Markets in Crypto-Assets regulation — extraterritorial, applies to services targeting EU users.',
+      reasonFr: 'Règlement MiCA de l\'UE — extraterritorial, s\'applique à tout service ciblant des utilisateurs UE.',
+      emphasis: isEu ? 'primary' : 'secondary',
+    });
+  }
+  if (isUs || isGlobal || isMarketUnsure) {
+    regimes.push({
+      labelEn: 'US federal + state patchwork',
+      labelFr: 'Patchwork fédéral + États US',
+      reasonEn: 'BSA / FinCEN at federal level, MTLs state-by-state, BitLicense in NY.',
+      reasonFr: 'BSA / FinCEN au fédéral, MTL état par état, BitLicense à NY.',
+      emphasis: isUs ? 'primary' : 'secondary',
+    });
+  }
+  if (isApac || isGlobal) {
+    regimes.push({
+      labelEn: 'MAS PSA (Singapore)',
+      labelFr: 'MAS PSA (Singapour)',
+      reasonEn: 'DPT + payment services framework. Common APAC entry point.',
+      reasonFr: 'Cadre DPT + services de paiement. Point d\'entrée APAC courant.',
+      emphasis: isApac ? 'primary' : 'tertiary',
+    });
+  }
+  cards.push({
+    domain: 'regime',
+    zone: 'C',
+    icon: '📜',
+    titleEn: 'Regimes in force',
+    titleFr: 'Régimes en vigueur',
+    items: regimes,
+  });
+
+  // 🗺️ JURISDICTIONS
   const juris: VerdictItem[] = [];
   if (isEu || isGlobal) {
     juris.push(
-      {
-        labelEn: '🇱🇺 Luxembourg',
-        labelFr: '🇱🇺 Luxembourg',
-        reasonEn: 'Mature EU fintech hub with CSSF, strong for MiCA CASP + EMI passporting.',
-        reasonFr: 'Hub fintech UE mature avec CSSF, solide pour passporting CASP MiCA + EMI.',
-        emphasis: 'primary',
-      },
-      {
-        labelEn: '🇮🇪 Ireland',
-        labelFr: '🇮🇪 Irlande',
-        reasonEn: 'English-speaking EU entry point — Coinbase, Kraken, Ripple all hold CBI CASP.',
-        reasonFr: 'Point d\'entrée UE anglophone — Coinbase, Kraken, Ripple y détiennent tous un CASP CBI.',
-        emphasis: 'secondary',
-      },
-      {
-        labelEn: '🇱🇮 Liechtenstein',
-        labelFr: '🇱🇮 Liechtenstein',
-        reasonEn: 'TVTG is the most flexible token-issuance regime in the EEA — 3-9 months turnaround.',
-        reasonFr: 'TVTG — régime d\'émission de token le plus flexible de l\'EEE — 3-9 mois.',
-        emphasis: 'tertiary',
-      },
+      { labelEn: '🇱🇺 Luxembourg', labelFr: '🇱🇺 Luxembourg', reasonEn: 'Mature EU fintech hub — CSSF, MiCA CASP + EMI passporting.', reasonFr: 'Hub fintech UE mature — CSSF, CASP MiCA + EMI passporting.', emphasis: 'primary' },
+      { labelEn: '🇮🇪 Ireland', labelFr: '🇮🇪 Irlande', reasonEn: 'English-speaking EU hub — Coinbase, Kraken, Ripple all hold CBI CASP.', reasonFr: 'Hub UE anglophone — Coinbase, Kraken, Ripple y détiennent tous un CASP CBI.', emphasis: 'secondary' },
+      { labelEn: '🇱🇮 Liechtenstein', labelFr: '🇱🇮 Liechtenstein', reasonEn: 'TVTG — fastest EEA token-issuance regime (3-9 months).', reasonFr: 'TVTG — régime d\'émission token le plus rapide EEE (3-9 mois).', emphasis: 'tertiary' },
     );
   }
   if (isUs || isGlobal) {
     juris.push({
       labelEn: '🇺🇸 USA — state-by-state',
       labelFr: '🇺🇸 USA — état par état',
-      reasonEn: 'Start with Wyoming / SD charters (crypto-friendly) + FinCEN MSB. NY is optional but heavy.',
-      reasonFr: 'Commencer par Wyoming / SD (crypto-friendly) + FinCEN MSB. NY est optionnel mais lourd.',
+      reasonEn: 'Start with Wyoming / SD charters (crypto-friendly) + FinCEN MSB. NY is heavy but optional.',
+      reasonFr: 'Commencer par Wyoming / SD (crypto-friendly) + FinCEN MSB. NY lourd mais optionnel.',
       emphasis: isUs ? 'primary' : 'tertiary',
     });
   }
@@ -247,8 +428,8 @@ export function composeVerdict(a: FunnelAnswers): Verdict {
     juris.push({
       labelEn: '🇸🇬 Singapore',
       labelFr: '🇸🇬 Singapour',
-      reasonEn: 'MAS PSA is the APAC crypto gateway — predictable, English-speaking, 9-15 months.',
-      reasonFr: 'MAS PSA — la passerelle crypto APAC — prévisible, anglophone, 9-15 mois.',
+      reasonEn: 'MAS PSA — APAC crypto gateway, predictable, English-speaking, 9-15 months.',
+      reasonFr: 'MAS PSA — passerelle crypto APAC, prévisible, anglophone, 9-15 mois.',
       emphasis: isApac ? 'primary' : 'tertiary',
     });
   }
@@ -256,34 +437,77 @@ export function composeVerdict(a: FunnelAnswers): Verdict {
     juris.push({
       labelEn: '🇰🇾 Cayman',
       labelFr: '🇰🇾 Caïmans',
-      reasonEn: 'Foundation Company is the #1 offshore structure for token issuance + DAO treasuries.',
-      reasonFr: 'Foundation Company — la #1 structure offshore pour émission de token + trésoreries DAO.',
+      reasonEn: 'Foundation Company — #1 offshore structure for token issuance + DAO treasuries.',
+      reasonFr: 'Foundation Company — structure offshore #1 pour émission de token + trésoreries DAO.',
       emphasis: 'tertiary',
     });
   }
-  if (juris.length > 0) {
+  cards.push({
+    domain: 'jurisdiction',
+    zone: 'C',
+    icon: '🗺️',
+    titleEn: 'Jurisdictions to consider',
+    titleFr: 'Juridictions à considérer',
+    items: juris,
+    noteEn: 'Extraterritorial rules apply regardless of incorporation — pick the jurisdiction where your main market lives.',
+    noteFr: 'Les règles extraterritoriales s\'appliquent quelle que soit l\'incorporation — choisissez la juridiction de votre marché principal.',
+  });
+
+  // 💡 DOCTRINE — conditional: only when token issuance hits US market
+  if (has(products, 'token') && (isUs || isGlobal)) {
     cards.push({
-      domain: 'jurisdiction',
-      icon: '🗺️',
-      titleEn: 'Jurisdictions to consider',
-      titleFr: 'Juridictions à considérer',
-      items: juris,
-      noteEn: 'Pick the jurisdiction where your main market is (extraterritorial rules apply regardless of incorporation).',
-      noteFr: 'Choisissez la juridiction de votre marché principal (les règles extraterritoriales s\'appliquent quelle que soit l\'incorporation).',
+      domain: 'doctrine',
+      zone: 'C',
+      icon: '💡',
+      titleEn: 'Doctrine to apply',
+      titleFr: 'Doctrine à appliquer',
+      items: [
+        {
+          labelEn: 'Howey Test (4 prongs)',
+          labelFr: 'Test Howey (4 critères)',
+          reasonEn: 'Investment of money · common enterprise · profit expectation · from others\' efforts. Applied case-by-case by SEC + courts.',
+          reasonFr: 'Investissement · entreprise commune · attente de profit · dépendant des efforts d\'autrui. Appliqué cas par cas par SEC + tribunaux.',
+          emphasis: 'primary',
+        },
+        {
+          labelEn: 'SEC v. Ripple (2023) — XRP not a security on secondary sales',
+          labelFr: 'SEC v. Ripple (2023) — XRP n\'est pas un titre sur ventes secondaires',
+          reasonEn: 'Programmatic exchange sales = not securities. Institutional sales = still securities. Critical precedent.',
+          reasonFr: 'Ventes programmatiques exchange = pas des titres. Ventes institutionnelles = oui. Précédent critique.',
+          emphasis: 'secondary',
+        },
+      ],
+      noteEn: 'Legal tests and case law that interpret the statute. US grey zones live here.',
+      noteFr: 'Tests juridiques et jurisprudence qui interprètent la loi. Les zones grises US se jouent ici.',
+    });
+  } else {
+    cards.push({
+      domain: 'doctrine',
+      zone: 'C',
+      icon: '💡',
+      titleEn: 'Doctrine to apply',
+      titleFr: 'Doctrine à appliquer',
+      items: [],
+      notApplicable: true,
+      notApplicableEn: 'No US token-issuance angle in your setup — Howey/case-law analysis not central here.',
+      notApplicableFr: 'Pas d\'angle émission token US dans votre setup — analyse Howey / jurisprudence non centrale ici.',
     });
   }
 
-  // === SUMMARY ===
+  // ═══════════════════════════════════════════════════════════════
+  // SUMMARY — aggregate one-liner
+  // ═══════════════════════════════════════════════════════════════
   const parts: { en: string; fr: string }[] = [];
   if (products.length) parts.push(productsLabel(products));
   if (markets.length) parts.push(marketsLabel(markets));
   if (custody.length) parts.push(custodyLabelJoined(custody));
 
+  const relevantCards = cards.filter((c) => !c.notApplicable).length;
   const summaryEn = parts.length
-    ? `Profile: ${parts.map((p) => p.en).join(' · ')}. ${cards.length} domain${cards.length > 1 ? 's' : ''} relevant below.`
+    ? `Profile: ${parts.map((p) => p.en).join(' · ')}. ${relevantCards} of ${cards.length} domain${cards.length > 1 ? 's' : ''} relevant below.`
     : `Answer the 3 questions above to get a tailored verdict.`;
   const summaryFr = parts.length
-    ? `Profil : ${parts.map((p) => p.fr).join(' · ')}. ${cards.length} domaine${cards.length > 1 ? 's' : ''} pertinent${cards.length > 1 ? 's' : ''} ci-dessous.`
+    ? `Profil : ${parts.map((p) => p.fr).join(' · ')}. ${relevantCards} des ${cards.length} domaine${cards.length > 1 ? 's' : ''} pertinent${cards.length > 1 ? 's' : ''} ci-dessous.`
     : `Répondez aux 3 questions ci-dessus pour obtenir un verdict sur-mesure.`;
 
   return { cards, summaryEn, summaryFr };

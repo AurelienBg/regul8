@@ -217,14 +217,39 @@ export default function CheckFunnel() {
           {isFr ? verdict.summaryFr : verdict.summaryEn}
         </p>
 
-        {/* Mini-report cards */}
+        {/* Mini-report cards grouped by zone (A: Inputs, B: Outputs, C: Context) */}
         {verdict.cards.length === 0 ? (
           <p className="text-sm italic text-gray-500">{tr.noCards}</p>
         ) : (
-          <div className="grid sm:grid-cols-2 gap-3 mb-6">
-            {verdict.cards.map((card) => (
-              <VerdictCardView key={card.domain} card={card} isFr={isFr} />
-            ))}
+          <div className="space-y-5 mb-6">
+            {(['A', 'B', 'C'] as const).map((zone) => {
+              const zoneCards = verdict.cards.filter((c) => c.zone === zone);
+              if (zoneCards.length === 0) return null;
+              const zoneHeader = isFr
+                ? {
+                    A: { title: 'INPUTS — Ce que vous construisez', subtitle: 'Ce que votre startup émet ou opère. Déterminent toute la suite.', bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' },
+                    B: { title: 'OUTPUTS — Ce que vous devez faire', subtitle: 'Le cœur actionable. Les livrables compliance concrets.', bg: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' },
+                    C: { title: 'CONTEXT — Où, auprès de qui, sous quelle loi', subtitle: 'Le cadre autour des outputs.', bg: 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800' },
+                  }[zone]
+                : {
+                    A: { title: 'INPUTS — What you are building', subtitle: 'What your startup issues or operates. Determines everything downstream.', bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' },
+                    B: { title: 'OUTPUTS — What you must do', subtitle: 'The actionable core. The concrete compliance deliverables.', bg: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' },
+                    C: { title: 'CONTEXT — Where, with whom, under what law', subtitle: 'The framing around the outputs.', bg: 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800' },
+                  }[zone];
+              return (
+                <div key={zone}>
+                  <div className={`mb-2 p-2 rounded-md border ${zoneHeader.bg}`}>
+                    <div className="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">{zoneHeader.title}</div>
+                    <div className="text-[11px] text-gray-600 dark:text-gray-400 mt-0.5">{zoneHeader.subtitle}</div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {zoneCards.map((card) => (
+                      <VerdictCardView key={card.domain} card={card} isFr={isFr} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -428,6 +453,26 @@ function parseList<T extends string>(raw: string | null): T[] | undefined {
 function VerdictCardView({ card, isFr }: { card: VerdictCard; isFr: boolean }) {
   const title = isFr ? card.titleFr : card.titleEn;
   const note = isFr ? card.noteFr : card.noteEn;
+
+  // Not-applicable cards: muted card body with a single 'Not applicable'
+  // message. We keep them visible (user-chosen Option B) so the full
+  // 7-concept picture stays legible.
+  if (card.notApplicable) {
+    const naMessage = isFr ? card.notApplicableFr : card.notApplicableEn;
+    return (
+      <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-900/40 border border-dashed border-[var(--border)] opacity-70">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xl leading-none opacity-50">{card.icon}</span>
+          <h3 className="font-bold text-sm text-gray-600 dark:text-gray-400">{title}</h3>
+          <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+            {isFr ? 'Non applicable' : 'Not applicable'}
+          </span>
+        </div>
+        <p className="text-xs text-gray-500 dark:text-gray-400 italic leading-relaxed">{naMessage}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 rounded-lg bg-white dark:bg-gray-900 border border-[var(--border)]">
       <div className="flex items-center gap-2 mb-2">
