@@ -141,8 +141,8 @@ export default function LearningPathsListPage() {
         more: 'Prochainement : Singapore MAS Deep-Dive, FATF Recommendations primer, Hong Kong SFC VATP.',
         filterByJuri: 'Juridiction',
         filterByLevel: 'Niveau',
-        filterXrpl: 'XRPL',
-        xrplLabel: 'Écosystème XRPL',
+        filterXrpl: 'Écosystème',
+        xrplLabel: 'XRPL',
         all: 'Tous',
         noResults: 'Aucun guide ne correspond à ces filtres.',
       }
@@ -154,8 +154,8 @@ export default function LearningPathsListPage() {
         more: 'Coming soon: Singapore MAS Deep-Dive, FATF Recommendations primer, Hong Kong SFC VATP.',
         filterByJuri: 'Jurisdiction',
         filterByLevel: 'Level',
-        filterXrpl: 'XRPL',
-        xrplLabel: 'XRPL ecosystem',
+        filterXrpl: 'Ecosystem',
+        xrplLabel: 'XRPL',
         all: 'All',
         noResults: 'No guide matches these filters.',
       };
@@ -182,7 +182,7 @@ export default function LearningPathsListPage() {
       <div className="mb-6 space-y-2">
         {/* Row 1 — Jurisdictions, inline */}
         <div className="flex items-start gap-3 flex-wrap">
-          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-28 whitespace-nowrap">
             🌍 {tr.filterByJuri}
           </div>
           <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
@@ -223,7 +223,7 @@ export default function LearningPathsListPage() {
         {/* Row 2 — Level, inline. Dots match the card badge palette
             (emerald for beginner, blue for intermediate). */}
         <div className="flex items-start gap-3 flex-wrap">
-          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-28 whitespace-nowrap">
             📚 {tr.filterByLevel}
           </div>
           <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
@@ -251,7 +251,7 @@ export default function LearningPathsListPage() {
 
         {/* Row 3 — XRPL cross-cut, on its own line per user request */}
         <div className="flex items-start gap-3 flex-wrap">
-          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-28 whitespace-nowrap">
             {tr.filterXrpl}
           </div>
           <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
