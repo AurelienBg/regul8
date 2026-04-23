@@ -362,10 +362,14 @@ export default function AssessPage() {
       <section className="grid lg:grid-cols-2 gap-8 mb-8">
         {/* Activities — 2-col internal grid */}
         <div>
-          <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
-          <div className="flex items-center gap-3 mb-4 flex-wrap">
-            <p className="text-xs text-gray-500">{tr.selectAll}</p>
-            <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+          {/* Header grid matches the activities grid below (1 col mobile, 2 cols sm+) so
+              the XRPL filter sits visually aligned above column 2. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-center mb-4">
+            <div>
+              <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
+              <p className="text-xs text-gray-500">{tr.selectAll}</p>
+            </div>
+            <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none self-center justify-self-start">
               <input
                 type="checkbox"
                 checked={xrplOnlyFilter}
@@ -383,37 +387,40 @@ export default function AssessPage() {
                 <button
                   key={key}
                   onClick={() => toggleActivity(key)}
-                  className={`flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-left transition-all ${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-left transition-all ${
                     active
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
                       : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  <span className="flex items-center gap-2 min-w-0 flex-1">
-                    <span
-                      className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
-                        active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
-                      }`}
-                    >
-                      {active && (
-                        <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </span>
-                    <span className="text-sm font-medium leading-snug">{tw(`activities.${key}`)}</span>
+                  {/* Checkbox — far left */}
+                  <span
+                    className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                      active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                  >
+                    {active && (
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
                   </span>
-                  <span className="flex items-center gap-1 shrink-0">
+
+                  {/* Label + optional AI badge — fills the middle */}
+                  <span className="flex-1 min-w-0 flex items-center gap-1.5 flex-wrap">
+                    <span className="text-sm font-medium leading-snug">{tw(`activities.${key}`)}</span>
                     {aiSuggested && (
                       <span
                         title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
-                        className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300"
+                        className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
                       >
                         ✨ {tr.describe.aiLabel}
                       </span>
                     )}
-                    <ActivityXRPLStatus activity={key} />
                   </span>
+
+                  {/* XRPL mark — pinned to the far right edge of the card */}
+                  <ActivityXRPLStatus activity={key} />
                 </button>
               );
             })}

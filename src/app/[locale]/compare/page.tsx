@@ -269,11 +269,12 @@ export default function ComparePage() {
 
           {/* Activity picker */}
           <section className="mb-8">
-            <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <label className="block text-sm font-semibold">
+            {/* Header grid mirrors the activities grid below so the filter lands above col 2 */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 items-center mb-2">
+              <label className="block text-sm font-semibold col-span-1">
                 {tr.activities} ({selectedActivities.length}/5)
               </label>
-              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none col-span-1 justify-self-start">
                 <input
                   type="checkbox"
                   checked={xrplOnlyFilter}
@@ -455,9 +456,10 @@ export default function ComparePage() {
 
           {/* Activity picker (single select) */}
           <section className="mb-6">
-            <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <label className="block text-sm font-semibold">{tr.activity}</label>
-              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+            {/* Header grid mirrors the activities grid below so the filter lands above col 2 */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 items-center mb-2">
+              <label className="block text-sm font-semibold col-span-1">{tr.activity}</label>
+              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none col-span-1 justify-self-start">
                 <input
                   type="checkbox"
                   checked={xrplOnlyFilter}
