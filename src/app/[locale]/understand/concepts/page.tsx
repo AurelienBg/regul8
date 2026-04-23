@@ -6,7 +6,47 @@ import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
 import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
 
-const TOPIC_ORDER: Topic[] = ['token', 'licence', 'regime', 'regulator', 'obligation', 'infra', 'doctrine'];
+// 7 meta-concepts grouped into 3 zones reflecting the user journey:
+//   A — INPUTS: what the startup is building (determines downstream analysis)
+//   B — OUTPUTS: what the startup must DO (actionable — the core)
+//   C — CONTEXT: where, under what law, to whom, and legal interpretation
+//
+// Order inside each zone is intentional: most upstream / most actionable first.
+const ZONE_A: Topic[] = ['token', 'infra'];
+const ZONE_B: Topic[] = ['licence', 'obligation'];
+const ZONE_C: Topic[] = ['regulator', 'regime', 'doctrine'];
+
+// 8th cross-cut row: Jurisdiction isn't a meta-concept at the Topic level
+// (it doesn't tag glossary terms the way the others do), but it IS displayed
+// in the Concepts table as a cross-cutting dimension for completeness.
+interface JurisdictionCrossCut {
+  icon: string;
+  labelEn: string;
+  labelFr: string;
+  desc: {
+    en: { title: string; what: string; when: string; examples: string };
+    fr: { title: string; what: string; when: string; examples: string };
+  };
+}
+const JURISDICTION_CROSSCUT: JurisdictionCrossCut = {
+  icon: '🗺️',
+  labelEn: 'Jurisdiction',
+  labelFr: 'Juridiction',
+  desc: {
+    en: {
+      title: 'Territorial scope',
+      what: 'A political/legal territory whose regulatory body has authority over your activity. Not a concept like the 7 above — rather a cross-cutting dimension on which every concept above is evaluated.',
+      when: 'Everywhere. Every licence, obligation, regime and regulator is scoped to a jurisdiction. Choosing the right one is often half the compliance strategy.',
+      examples: 'EU/France, USA, Singapore, UAE Dubai, Cayman Islands, Luxembourg, Switzerland, UK, Ireland, Liechtenstein, Malta, Nigeria, South Africa, Kenya…',
+    },
+    fr: {
+      title: 'Périmètre territorial',
+      what: 'Un territoire politique/juridique dont l\'autorité de régulation a compétence sur votre activité. Pas un concept comme les 7 au-dessus — plutôt une dimension transversale selon laquelle chaque concept est évalué.',
+      when: "Partout. Chaque licence, obligation, régime et régulateur s'inscrit dans une juridiction. En choisir la bonne représente souvent la moitié de la stratégie compliance.",
+      examples: 'UE/France, USA, Singapour, EAU Dubaï, Caïmans, Luxembourg, Suisse, UK, Irlande, Liechtenstein, Malte, Nigéria, Afrique du Sud, Kenya…',
+    },
+  },
+};
 
 const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; when: string; examples: string }; fr: { title: string; what: string; when: string; examples: string } }> = {
   regime: {
@@ -130,6 +170,9 @@ export default function ConceptsPage() {
         disclaimer: 'Cliquez sur un terme pour ouvrir sa définition dans le glossaire.',
         lookupHint: 'Vous cherchez un terme précis ?',
         lookupLink: 'Parcourir le glossaire',
+        zoneA: { title: 'INPUTS — Ce que vous construisez', subtitle: 'Ce que votre startup émet ou opère. Ces choix déterminent tout ce qui suit.' },
+        zoneB: { title: 'OUTPUTS — Ce que vous devez faire', subtitle: 'Les actions concrètes et livrables de conformité. Le cœur de l\'analyse pour un founder.' },
+        zoneC: { title: 'CONTEXT — Où, auprès de qui, sous quelle loi', subtitle: 'Le cadre qui entoure les outputs. À comprendre pour naviguer les zones grises.' },
         reachTitle: 'Portée — jusqu\'où une régulation s\'applique',
         reachSubtitle: 'Au-delà de ce qu\'une régulation EST, l\'important est de savoir jusqu\'où elle vous atteint. Trois portées typiques :',
         scopes: [
@@ -152,6 +195,9 @@ export default function ConceptsPage() {
         disclaimer: 'Click any term to open its definition in the glossary.',
         lookupHint: 'Looking for a specific term?',
         lookupLink: 'Browse the glossary',
+        zoneA: { title: 'INPUTS — What you are building', subtitle: 'What your startup issues or operates. These choices determine everything downstream.' },
+        zoneB: { title: 'OUTPUTS — What you must do', subtitle: 'The concrete compliance actions and deliverables. The core for a founder.' },
+        zoneC: { title: 'CONTEXT — Where, with whom, under what law', subtitle: 'The framing around the outputs. Helps you navigate grey zones.' },
         reachTitle: 'Reach — how far a regulation applies',
         reachSubtitle: 'Beyond what a regulation IS, the real question is how far its arm reaches. Three typical scopes:',
         scopes: [
@@ -199,7 +245,8 @@ export default function ConceptsPage() {
         <ConceptsNarrative variant="full" />
       </section>
 
-      {/* The 7 concepts — single unified table */}
+      {/* The 7 concepts grouped into 3 zones (A: Inputs, B: Outputs, C: Context)
+          + Jurisdiction as a cross-cutting 8th row at the bottom. */}
       <section className="mb-10">
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -220,35 +267,76 @@ export default function ConceptsPage() {
               </tr>
             </thead>
             <tbody>
-              {TOPIC_ORDER.map((topic, idx) => {
-                const desc = TOPIC_DESCRIPTIONS[topic][isFr ? 'fr' : 'en'];
-                const meta = TOPIC_META[topic];
-                const isLast = idx === TOPIC_ORDER.length - 1;
-                // Map a topic key → its glossary term slug (for the click-through link)
-                const TOPIC_TO_TERM: Record<Topic, string> = {
-                  regime: 'regime', licence: 'licence', regulator: 'regulator',
-                  obligation: 'obligation', token: 'token-type', infra: 'infrastructure',
-                  doctrine: 'doctrine',
+              {(() => {
+                // Render function for a single topic row — shared across zones
+                const renderTopicRow = (topic: Topic) => {
+                  const desc = TOPIC_DESCRIPTIONS[topic][isFr ? 'fr' : 'en'];
+                  const meta = TOPIC_META[topic];
+                  const TOPIC_TO_TERM: Record<Topic, string> = {
+                    regime: 'regime', licence: 'licence', regulator: 'regulator',
+                    obligation: 'obligation', token: 'token-type', infra: 'infrastructure',
+                    doctrine: 'doctrine',
+                  };
+                  const slug = TOPIC_TO_TERM[topic];
+                  return (
+                    <tr key={topic} className="border-b border-[var(--border)]">
+                      <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
+                        <Link
+                          href={`/understand/glossary#term-${slug}`}
+                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass} hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
+                        >
+                          <span className="text-sm leading-none">{meta.icon}</span>
+                          <span>{isFr ? meta.labelFr : meta.labelEn}</span>
+                        </Link>
+                        <div className="text-sm font-bold mt-1.5">{desc.title}</div>
+                      </td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.what}</td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.when}</td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.examples}</td>
+                    </tr>
+                  );
                 };
-                const slug = TOPIC_TO_TERM[topic];
-                return (
-                  <tr key={topic} className={isLast ? '' : 'border-b border-[var(--border)]'}>
-                    <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
-                      <Link
-                        href={`/understand/glossary#term-${slug}`}
-                        className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass} hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
-                      >
-                        <span className="text-sm leading-none">{meta.icon}</span>
-                        <span>{isFr ? meta.labelFr : meta.labelEn}</span>
-                      </Link>
-                      <div className="text-sm font-bold mt-1.5">{desc.title}</div>
+
+                // Zone header row — spans all 4 columns
+                const zoneHeader = (title: string, subtitle: string, bgClass: string, key: string) => (
+                  <tr key={key} className={`${bgClass} border-b border-[var(--border)]`}>
+                    <td colSpan={4} className="p-3">
+                      <div className="text-xs font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">{title}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{subtitle}</div>
                     </td>
-                    <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.what}</td>
-                    <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.when}</td>
-                    <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.examples}</td>
                   </tr>
                 );
-              })}
+
+                const jurisdictionRow = () => {
+                  const jDesc = JURISDICTION_CROSSCUT.desc[isFr ? 'fr' : 'en'];
+                  return (
+                    <tr key="jurisdiction" className="border-b border-[var(--border)]">
+                      <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+                          <span className="text-sm leading-none">{JURISDICTION_CROSSCUT.icon}</span>
+                          <span>{isFr ? JURISDICTION_CROSSCUT.labelFr : JURISDICTION_CROSSCUT.labelEn}</span>
+                        </span>
+                        <div className="text-sm font-bold mt-1.5">{jDesc.title}</div>
+                      </td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{jDesc.what}</td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{jDesc.when}</td>
+                      <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{jDesc.examples}</td>
+                    </tr>
+                  );
+                };
+
+                return (
+                  <>
+                    {zoneHeader(tr.zoneA.title, tr.zoneA.subtitle, 'bg-blue-50 dark:bg-blue-900/20', 'zoneA')}
+                    {ZONE_A.map(renderTopicRow)}
+                    {zoneHeader(tr.zoneB.title, tr.zoneB.subtitle, 'bg-emerald-50 dark:bg-emerald-900/20', 'zoneB')}
+                    {ZONE_B.map(renderTopicRow)}
+                    {zoneHeader(tr.zoneC.title, tr.zoneC.subtitle, 'bg-amber-50 dark:bg-amber-900/20', 'zoneC')}
+                    {ZONE_C.map(renderTopicRow)}
+                    {jurisdictionRow()}
+                  </>
+                );
+              })()}
             </tbody>
           </table>
         </div>
@@ -289,7 +377,7 @@ export default function ConceptsPage() {
       <section className="mb-10">
         <h2 className="text-lg font-bold mb-4">{tr.allTerms}</h2>
         <div className="grid md:grid-cols-2 gap-4">
-          {TOPIC_ORDER.map((topic) => {
+          {[...ZONE_A, ...ZONE_B, ...ZONE_C].map((topic) => {
             const meta = TOPIC_META[topic];
             const terms = termsByTopic[topic] ?? [];
             if (terms.length === 0) return null;
