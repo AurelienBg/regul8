@@ -87,7 +87,9 @@ export default function ConceptsNarrative({
 
       {linkTo && (
         <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 mt-1 group-hover:translate-x-0.5 transition-transform">
-          {isFr ? 'Voir tous les concepts en détail' : 'See all concepts in detail'} &rarr;
+          {isFr
+            ? 'Voir les 7 concepts groupés en 3 zones'
+            : 'See the 7 concepts organised in 3 zones'} &rarr;
         </p>
       )}
     </>

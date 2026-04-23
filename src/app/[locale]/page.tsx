@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
+import { TOPIC_META, type Topic } from '@/data/term-topics';
 import Image from 'next/image';
 import ReportCardPreview from '@/components/layout/ReportCardPreview';
 import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
@@ -192,6 +193,79 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* How we structure compliance — 3-zone framework (A Inputs, B Outputs, C Context) */}
+      <section className="py-16 px-4 border-t border-[var(--border)]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3">
+              {isFr ? 'Comment on structure la conformité' : 'How we structure compliance'}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+              {isFr
+                ? 'Tous les rapports Regul8 s\'articulent autour de 7 concepts fondamentaux, regroupés en 3 zones reflétant le parcours d\'une startup.'
+                : 'Every Regul8 report is built around 7 foundational concepts, grouped into 3 zones that mirror a startup\'s journey.'}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Zone A — Inputs */}
+            <ZoneCard
+              bgClass="bg-blue-50/60 dark:bg-blue-900/20 border-blue-200 dark:border-blue-900/50"
+              title={isFr ? 'INPUTS' : 'INPUTS'}
+              subtitle={isFr ? 'Ce que vous construisez' : 'What you are building'}
+              desc={
+                isFr
+                  ? "Ce que votre startup émet ou opère. Déterminent toute l'analyse en aval."
+                  : 'What your startup issues or operates. Determines everything downstream.'
+              }
+              concepts={['token', 'infra']}
+              isFr={isFr}
+            />
+            {/* Zone B — Outputs */}
+            <ZoneCard
+              bgClass="bg-emerald-50/60 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-900/50"
+              title="OUTPUTS"
+              subtitle={isFr ? 'Ce que vous devez faire' : 'What you must do'}
+              desc={
+                isFr
+                  ? 'Les actions concrètes et livrables de conformité. Le cœur actionable.'
+                  : 'The concrete compliance actions and deliverables. The actionable core.'
+              }
+              concepts={['licence', 'obligation']}
+              isFr={isFr}
+              emphasis
+            />
+            {/* Zone C — Context */}
+            <ZoneCard
+              bgClass="bg-amber-50/60 dark:bg-amber-900/20 border-amber-200 dark:border-amber-900/50"
+              title={isFr ? 'CONTEXT' : 'CONTEXT'}
+              subtitle={isFr ? 'Où, auprès de qui, sous quelle loi' : 'Where, with whom, under what law'}
+              desc={
+                isFr
+                  ? 'Le cadre qui entoure les outputs. Pour naviguer les zones grises.'
+                  : 'The framing around the outputs. Helps navigate grey zones.'
+              }
+              concepts={['regulator', 'regime', 'doctrine']}
+              extraItem={{
+                icon: '🗺️',
+                labelEn: 'Jurisdiction',
+                labelFr: 'Juridiction',
+              }}
+              isFr={isFr}
+            />
+          </div>
+
+          <div className="text-center mt-8">
+            <Link
+              href="/understand/concepts"
+              className="btn-secondary text-sm inline-flex items-center gap-1"
+            >
+              {isFr ? 'Voir les 7 concepts en détail' : 'Browse all 7 concepts in detail'} &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Start here — 4 persona-oriented cards */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-6xl mx-auto">
@@ -296,6 +370,60 @@ export default function LandingPage() {
       </section>
 
       {/* Disclaimer is rendered globally in <Footer> — no need to duplicate here */}
+    </div>
+  );
+}
+
+// Small presentational helper for the 3-zone framework section on the home.
+// Renders a coloured card with zone title + subtitle + the concept pills.
+function ZoneCard({
+  bgClass,
+  title,
+  subtitle,
+  desc,
+  concepts,
+  extraItem,
+  emphasis = false,
+  isFr,
+}: {
+  bgClass: string;
+  title: string;
+  subtitle: string;
+  desc: string;
+  concepts: Topic[];
+  extraItem?: { icon: string; labelEn: string; labelFr: string };
+  emphasis?: boolean;
+  isFr: boolean;
+}) {
+  return (
+    <div className={`p-5 rounded-xl border-2 ${bgClass} ${emphasis ? 'shadow-md' : ''} h-full flex flex-col`}>
+      <div className="mb-3">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-gray-800 dark:text-gray-100">
+          {title}
+        </div>
+        <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-0.5">{subtitle}</div>
+      </div>
+      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{desc}</p>
+      <div className="flex flex-wrap gap-1.5 mt-auto">
+        {concepts.map((t) => {
+          const meta = TOPIC_META[t];
+          return (
+            <span
+              key={t}
+              className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass}`}
+            >
+              <span>{meta.icon}</span>
+              <span>{isFr ? meta.labelFr : meta.labelEn}</span>
+            </span>
+          );
+        })}
+        {extraItem && (
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+            <span>{extraItem.icon}</span>
+            <span>{isFr ? extraItem.labelFr : extraItem.labelEn}</span>
+          </span>
+        )}
+      </div>
     </div>
   );
 }
