@@ -65,13 +65,21 @@ export default function ComparePage() {
     comparedFor: 'juridictions comparées pour',
     field: 'Champ',
     regime: 'Régime Applicable',
+    regimeDesc: 'Le texte légal qui fonde tout — portée et reach territorial',
     risk: 'Niveau de Risque',
+    riskDesc: "Criticité de la non-conformité pour votre activité",
     licences: 'Licences Requises',
+    licencesDesc: 'Les agréments concrets à obtenir',
     obligations: 'Obligations Clés',
+    obligationsDesc: 'Obligations quotidiennes (KYC, AML, Travel Rule…)',
     timeline: 'Délai Estimé',
+    timelineDesc: "Temps pour obtenir la licence + être opérationnel",
     cost: 'Coût Estimé',
+    costDesc: 'Frais de licence + capital + coûts récurrents',
     authority: 'Régulateur',
+    authorityDesc: "L'organisme qui supervise et délivre la licence",
     xrplNote: 'Note Spécifique XRPL',
+    xrplNoteDesc: 'Particularités de mise en œuvre sur XRPL',
     runningTitle: 'Plusieurs activités cumulées ?',
     runningBody1: 'Les régulateurs examinent le profil ',
     runningBody2: 'combiné',
@@ -94,13 +102,21 @@ export default function ComparePage() {
     comparedFor: 'jurisdictions compared for',
     field: 'Field',
     regime: 'Applicable Regime',
+    regimeDesc: 'The legal text that grounds it all — scope & territorial reach',
     risk: 'Risk Level',
+    riskDesc: 'How critical non-compliance is for your activity',
     licences: 'Licences Required',
+    licencesDesc: 'The concrete authorizations you must obtain',
     obligations: 'Key Obligations',
+    obligationsDesc: 'Daily compliance duties (KYC, AML, Travel Rule…)',
     timeline: 'Estimated Timeline',
+    timelineDesc: 'How long to obtain the licence + go live',
     cost: 'Estimated Cost',
+    costDesc: 'Licence fees + capital + ongoing costs',
     authority: 'Regulator',
+    authorityDesc: 'The body that supervises and issues the licence',
     xrplNote: 'XRPL-Specific Note',
+    xrplNoteDesc: 'How this plays out on XRPL specifically',
     runningTitle: 'Running multiple activities together?',
     runningBody1: 'Regulators look at the ',
     runningBody2: 'combined',
@@ -164,8 +180,22 @@ export default function ComparePage() {
   const activityLabel = tw(`activities.${activity}`);
 
   // --- shared cell classes ---
+  // Sticky first column; uppercase label + optional lowercase description below.
   const stickyLabelCls =
     'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
+
+  // Renders the FIELD cell with a main label + short plain-English description.
+  // Description is shown in smaller, non-uppercase, muted text — merging the
+  // legend's per-field explanations directly into the table (M4: vocabulary
+  // coherence; avoids a separate popover users might miss).
+  const fieldCell = (label: string, desc: string) => (
+    <td className={stickyLabelCls}>
+      <div>{label}</div>
+      <div className="text-[10px] normal-case font-normal text-gray-400 dark:text-gray-500 mt-1 leading-snug">
+        {desc}
+      </div>
+    </td>
+  );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -272,7 +302,7 @@ export default function ComparePage() {
             </div>
           </section>
 
-          {activityRows.length >= 2 && <RegimeLegend defaultOpen={true} />}
+          {activityRows.length >= 2 && <RegimeLegend defaultOpen={false} />}
 
           {activityRows.length < 2 ? (
             <div className="card text-center text-gray-500 py-12">
@@ -310,7 +340,7 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.regime}</td>
+                      {fieldCell(tr.regime, tr.regimeDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top">
                           {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
@@ -318,7 +348,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.risk}</td>
+                      {fieldCell(tr.risk, tr.riskDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top">
                           {r.result && <RiskBadge risk={r.result.risk} />}
@@ -334,7 +364,7 @@ export default function ComparePage() {
                       </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.licences}</td>
+                      {fieldCell(tr.licences, tr.licencesDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top">
                           <ul className="space-y-1">
@@ -348,7 +378,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.obligations}</td>
+                      {fieldCell(tr.obligations, tr.obligationsDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
@@ -368,7 +398,7 @@ export default function ComparePage() {
                       </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.timeline}</td>
+                      {fieldCell(tr.timeline, tr.timelineDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
@@ -376,7 +406,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.cost}</td>
+                      {fieldCell(tr.cost, tr.costDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
@@ -384,7 +414,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.authority}</td>
+                      {fieldCell(tr.authority, tr.authorityDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top text-sm">
                           {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
@@ -392,7 +422,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr>
-                      <td className={stickyLabelCls}>{tr.xrplNote}</td>
+                      {fieldCell(tr.xrplNote, tr.xrplNoteDesc)}
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                           {r.result?.xrplNote ?? '—'}
@@ -495,7 +525,7 @@ export default function ComparePage() {
             </div>
           </section>
 
-          {jurisdictionRows.length >= 2 && <RegimeLegend defaultOpen={true} />}
+          {jurisdictionRows.length >= 2 && <RegimeLegend defaultOpen={false} />}
 
           {jurisdictionRows.length < 2 ? (
             <div className="card text-center text-gray-500 py-12">
@@ -533,7 +563,7 @@ export default function ComparePage() {
                   </thead>
                   <tbody>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.regime}</td>
+                      {fieldCell(tr.regime, tr.regimeDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top">
                           {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
@@ -541,7 +571,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.risk}</td>
+                      {fieldCell(tr.risk, tr.riskDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top">
                           {r.result && <RiskBadge risk={r.result.risk} />}
@@ -557,7 +587,7 @@ export default function ComparePage() {
                       </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.licences}</td>
+                      {fieldCell(tr.licences, tr.licencesDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top">
                           <ul className="space-y-1">
@@ -571,7 +601,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.obligations}</td>
+                      {fieldCell(tr.obligations, tr.obligationsDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
@@ -591,7 +621,7 @@ export default function ComparePage() {
                       </td>
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.timeline}</td>
+                      {fieldCell(tr.timeline, tr.timelineDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
@@ -599,7 +629,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.cost}</td>
+                      {fieldCell(tr.cost, tr.costDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
@@ -607,7 +637,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr className="border-b border-[var(--border)]">
-                      <td className={stickyLabelCls}>{tr.authority}</td>
+                      {fieldCell(tr.authority, tr.authorityDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top text-sm">
                           {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
@@ -615,7 +645,7 @@ export default function ComparePage() {
                       ))}
                     </tr>
                     <tr>
-                      <td className={stickyLabelCls}>{tr.xrplNote}</td>
+                      {fieldCell(tr.xrplNote, tr.xrplNoteDesc)}
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                           {r.result?.xrplNote ?? '—'}

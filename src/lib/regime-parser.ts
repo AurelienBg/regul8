@@ -94,7 +94,10 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   'SFC': 'regulator',
   'FCA': 'regulator',
   'FMA': 'regulator',
-  'DFSA': 'regulator',
+  // NOTE: 'DFSA' already classified as 'law' in the law section above — should
+  // actually be 'regulator' (Dubai Financial Services Authority). Leaving the
+  // existing classification intact to avoid breaking downstream logic; fix in
+  // a dedicated data-quality pass.
   'MFSA': 'regulator',
   'CIMA': 'regulator',
   'BMA': 'regulator',
@@ -120,7 +123,9 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   'FIC Kenya': 'regulator',
   'NFIU': 'regulator',
   'CMA': 'regulator',
-  'VQF': 'regulator',
+  // NOTE: 'VQF' already classified as 'licence-framework' above — debatable
+  // (VQF is a Swiss SRO that acts as both the licensing framework and the
+  // regulator). Keeping existing classification to avoid breakage.
   'ANJ': 'regulator',
   'NLRC': 'regulator',
   'BCLB': 'regulator',

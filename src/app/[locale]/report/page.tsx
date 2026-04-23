@@ -231,6 +231,44 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
   // Wire the ref for the mount-time auto-trigger
   handleAiAnalysisRef.current = handleAiAnalysis;
 
+  // M4 — Merge RegimeLegend "field type" explanations directly into the table.
+  // Each row's FIELD cell shows the label + a short plain-English description
+  // so readers understand what they're looking at without opening a separate
+  // legend/popover.
+  const isFr = locale === 'fr';
+  const fieldDescs = isFr
+    ? {
+        regime: 'Le texte légal qui fonde tout — portée et reach territorial',
+        risk: 'Criticité de la non-conformité pour votre activité',
+        licenses: 'Les agréments concrets à obtenir',
+        obligations: 'Obligations quotidiennes (KYC, AML, Travel Rule…)',
+        timeline: "Temps pour obtenir la licence + être opérationnel",
+        cost: 'Frais de licence + capital + coûts récurrents',
+        authority: "L'organisme qui supervise et délivre la licence",
+        alternatives: 'Autres juridictions à considérer pour la même activité',
+      }
+    : {
+        regime: 'The legal text that grounds it all — scope & territorial reach',
+        risk: 'How critical non-compliance is for your activity',
+        licenses: 'The concrete authorizations you must obtain',
+        obligations: 'Daily compliance duties (KYC, AML, Travel Rule…)',
+        timeline: 'How long to obtain the licence + go live',
+        cost: 'Licence fees + capital + ongoing costs',
+        authority: 'The body that supervises and issues the licence',
+        alternatives: 'Other jurisdictions to consider for the same activity',
+      };
+
+  const stickyLabelCls =
+    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
+  const fieldCell = (label: string, desc: string) => (
+    <td className={stickyLabelCls}>
+      <div>{label}</div>
+      <div className="text-[10px] normal-case font-normal text-gray-400 dark:text-gray-500 mt-1 leading-snug">
+        {desc}
+      </div>
+    </td>
+  );
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 print-container">
       <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
@@ -299,8 +337,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         </div>
       )}
 
-      {/* Legend explaining Regime / Licence / Ruling / Authority — only shown when structured data exists */}
-      {hasStructuredActivities && <RegimeLegend />}
+      {/* Legend explaining Regime / Licence / Ruling / Regulator — collapsed by
+          default since the same descriptions now appear inline under each FIELD
+          label in the table below (M4 vocabulary-coherence). Kept available as
+          a deeper-examples reference. */}
+      {hasStructuredActivities && <RegimeLegend defaultOpen={false} />}
 
       {/* Empty-state when only `other` is present — no structured activity rows to render */}
       {!hasStructuredActivities && hasOtherActivity && (
@@ -343,14 +384,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                 </thead>
                 <tbody>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('regime')}</td>
+                    {fieldCell(t('regime'), fieldDescs.regime)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" excludeTypes={['licence-framework']} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('risk')}</td>
+                    {fieldCell(t('risk'), fieldDescs.risk)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
@@ -365,7 +406,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     </td>
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('licenses')}</td>
+                    {fieldCell(t('licenses'), fieldDescs.licenses)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
@@ -382,7 +423,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('obligations')}</td>
+                    {fieldCell(t('obligations'), fieldDescs.obligations)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
@@ -407,28 +448,28 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     </td>
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('timeline')}</td>
+                    {fieldCell(t('timeline'), fieldDescs.timeline)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('cost')}</td>
+                    {fieldCell(t('cost'), fieldDescs.cost)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t("authority")}</td>
+                    {fieldCell(t('authority'), fieldDescs.authority)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return <td key={j} className="p-3 align-top">{r?.authority ? <LicencePillsDisplay value={r.authority} size="xs" /> : <span className="text-xs text-gray-500">N/A</span>}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
-                    <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('alternatives')}</td>
+                    {fieldCell(t('alternatives'), fieldDescs.alternatives)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
