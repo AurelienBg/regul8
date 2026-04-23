@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ACTIVITIES, type ActivityKey } from '@/types';
-import XRPLBadge from '@/components/ui/XRPLBadge';
+import { type ActivityKey } from '@/types';
+import ActivityXRPLStatus from '@/components/ui/ActivityXRPLStatus';
 
 const ACTIVITY_KEYS: ActivityKey[] = [
   'exchange', 'dapp_fin', 'dapp_util', 'nft', 'mpt', 'rwa',
@@ -36,7 +36,7 @@ export default function StepActivity({
             }`}
           >
             <span className="text-sm font-medium">{t(`activities.${key}`)}</span>
-            {ACTIVITIES[key].xrpl && <XRPLBadge />}
+            <ActivityXRPLStatus activity={key} />
           </button>
         ))}
       </div>

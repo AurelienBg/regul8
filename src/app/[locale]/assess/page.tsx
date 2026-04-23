@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
-import XRPLBadge from '@/components/ui/XRPLBadge';
+import ActivityXRPLStatus from '@/components/ui/ActivityXRPLStatus';
 
 const ACTIVITY_KEYS = Object.keys(ACTIVITIES) as ActivityKey[];
 const JURISDICTION_KEYS = Object.keys(JURISDICTIONS) as Jurisdiction[];
@@ -393,7 +393,7 @@ export default function AssessPage() {
                         ✨ {tr.describe.aiLabel}
                       </span>
                     )}
-                    {ACTIVITIES[key].xrpl && <XRPLBadge />}
+                    <ActivityXRPLStatus activity={key} />
                   </span>
                 </button>
               );
