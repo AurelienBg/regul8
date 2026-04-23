@@ -10,6 +10,11 @@ export const TERM_TOPICS: Record<string, Topic> = {
   // 🪪 Licences
   CASP: 'licence', DASP: 'licence', PSAN: 'licence', EMI: 'licence',
   MSB: 'licence', MTL: 'licence', BitLicense: 'licence', VASP: 'licence',
+  AFSL: 'licence', DCE: 'licence', DABA: 'licence',
+  'DABA Class F': 'licence', 'DABA Class M': 'licence', 'DABA Class T': 'licence',
+  'Trust Charter': 'licence', 'South Dakota Trust Charter': 'licence',
+  DAOP: 'licence', DACS: 'licence', ARIP: 'licence', CAESP: 'licence',
+  MTF: 'licence',
 
   // 📜 Regimes / laws / frameworks
   MiCA: 'regime', 'DLT Pilot Regime': 'regime', JONUM: 'regime',

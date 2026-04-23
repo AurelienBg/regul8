@@ -3,19 +3,24 @@
 import { useState, useMemo } from 'react';
 import { useLocale } from 'next-intl';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
-import { JURISDICTIONS } from '@/types';
 import LinkedText from '@/components/ui/LinkedText';
-import LicencePillsDisplay from '@/components/report/LicencePillsDisplay';
+import LicenceRow from '@/components/report/LicenceRow';
+import XRPLMark from '@/components/ui/XRPLMark';
+
+/** Extended filter key: the existing use-case tags + an 'xrpl' cross-cut
+ *  that isolates XRPL-ecosystem use cases. */
+type FilterKey = UseCaseTag | 'all' | 'xrpl';
 
 export default function UseCasesPage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const [tag, setTag] = useState<UseCaseTag | 'all'>('all');
+  const [filter, setFilter] = useState<FilterKey>('all');
 
-  const filtered = useMemo(
-    () => (tag === 'all' ? USE_CASES : USE_CASES.filter((c) => c.tag === tag)),
-    [tag],
-  );
+  const filtered = useMemo(() => {
+    if (filter === 'all') return USE_CASES;
+    if (filter === 'xrpl') return USE_CASES.filter((c) => c.xrpl);
+    return USE_CASES.filter((c) => c.tag === filter);
+  }, [filter]);
 
   const tr = isFr
     ? {
@@ -27,6 +32,7 @@ export default function UseCasesPage() {
         useCase: "Cas d'usage",
         licences: 'Licences par juridiction',
         since: 'Depuis',
+        xrplLabel: 'Écosystème XRPL',
         disclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas un conseil juridique ni une recommandation d'investissement.",
       }
     : {
@@ -38,6 +44,7 @@ export default function UseCasesPage() {
         useCase: 'Use case',
         licences: 'Licences by jurisdiction',
         since: 'Since',
+        xrplLabel: 'XRPL ecosystem',
         disclaimer: 'Public information compiled for educational purposes. Does not constitute legal advice or an investment recommendation.',
       };
 
@@ -53,16 +60,17 @@ export default function UseCasesPage() {
         </p>
       </header>
 
-      {/* Filter chips */}
+      {/* Filter chips — existing tag filters + XRPL cross-cut (own chip with
+          the XRPL brand mark so the XRPL ecosystem is a first-class filter). */}
       <div className="mb-6">
         <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.filterBy}</div>
         <div className="flex gap-1.5 flex-wrap">
           {USE_CASE_TAGS.map((t) => (
             <button
               key={t.key}
-              onClick={() => setTag(t.key)}
+              onClick={() => setFilter(t.key)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-                tag === t.key
+                filter === t.key
                   ? 'bg-blue-500 text-white border-blue-500'
                   : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
               }`}
@@ -71,6 +79,20 @@ export default function UseCasesPage() {
               {isFr ? t.labelFr : t.labelEn}
             </button>
           ))}
+          {/* XRPL filter chip — separated from the tag chips by styling
+              (XRPL logo instead of emoji) because it's a different axis. */}
+          <button
+            key="xrpl"
+            onClick={() => setFilter('xrpl')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+              filter === 'xrpl'
+                ? 'bg-xrpl text-white border-xrpl'
+                : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-xrpl'
+            }`}
+          >
+            <XRPLMark className="w-3.5 h-3.5" />
+            <span>{tr.xrplLabel}</span>
+          </button>
         </div>
       </div>
 
@@ -88,7 +110,7 @@ export default function UseCasesPage() {
             {filtered.map((c) => (
               <tr key={c.id} className="border-b border-[var(--border)] hover:bg-gray-50 dark:hover:bg-gray-900/30">
                 <td className="p-3 align-top">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     {c.logo && <span className="text-lg">{c.logo}</span>}
                     {c.website ? (
                       <a href={c.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
@@ -97,6 +119,15 @@ export default function UseCasesPage() {
                     ) : (
                       <span className="font-semibold">{c.company}</span>
                     )}
+                    {c.xrpl && (
+                      <span
+                        className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 text-[10px] font-semibold"
+                        title={tr.xrplLabel}
+                      >
+                        <XRPLMark className="w-3 h-3" />
+                        <span>XRPL</span>
+                      </span>
+                    )}
                   </div>
                   {c.since && <div className="text-xs text-gray-500 mt-0.5">{tr.since} {c.since}</div>}
                 </td>
@@ -104,18 +135,12 @@ export default function UseCasesPage() {
                   <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
                 </td>
                 <td className="p-3 align-top">
-                  <ul className="space-y-1.5">
+                  {/* Option C layout: one row per licence, headline pill +
+                      muted metadata sub-line (regulator / regime / note / since). */}
+                  <ul className="space-y-2.5">
                     {c.licences.map((l, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm">
-                        <span className="text-base leading-none flex-shrink-0" title={JURISDICTIONS[l.jur]?.name}>
-                          {JURISDICTIONS[l.jur]?.flag}
-                        </span>
-                        {/* LicencePillsDisplay parses the free-form string and
-                            emits one correctly-coloured pill per recognised
-                            keyword — licence 🪪 violet, regulator 🏛️ rose,
-                            regime 📜 sky, token 🪙 amber, etc. Unrecognised
-                            context falls back to plain LinkedText. */}
-                        <LicencePillsDisplay value={l.name} size="sm" />
+                      <li key={i}>
+                        <LicenceRow entry={l} />
                       </li>
                     ))}
                   </ul>
@@ -130,7 +155,7 @@ export default function UseCasesPage() {
       <div className="md:hidden space-y-4">
         {filtered.map((c) => (
           <div key={c.id} className="card">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
               {c.logo && <span className="text-xl">{c.logo}</span>}
               {c.website ? (
                 <a href={c.website} target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">
@@ -139,19 +164,24 @@ export default function UseCasesPage() {
               ) : (
                 <span className="font-bold">{c.company}</span>
               )}
+              {c.xrpl && (
+                <span
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 text-[10px] font-semibold"
+                  title={tr.xrplLabel}
+                >
+                  <XRPLMark className="w-3 h-3" />
+                  <span>XRPL</span>
+                </span>
+              )}
               {c.since && <span className="text-xs text-gray-500 ml-auto">{tr.since} {c.since}</span>}
             </div>
             <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
               <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
             </p>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2.5">
               {c.licences.map((l, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs">
-                  <span className="text-base leading-none flex-shrink-0">
-                    {JURISDICTIONS[l.jur]?.flag}
-                  </span>
-                  {/* Same coloured-pill treatment as the desktop table. */}
-                  <LicencePillsDisplay value={l.name} size="xs" />
+                <li key={i}>
+                  <LicenceRow entry={l} compact />
                 </li>
               ))}
             </ul>

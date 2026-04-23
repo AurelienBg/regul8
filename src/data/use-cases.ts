@@ -17,10 +17,27 @@ export type UseCaseTag =
   | 'dapp'
   | 'token-issuance';
 
-/** A licence paired with its issuing jurisdiction (1:1). */
+/**
+ * Structured licence entry — replaces the earlier free-form `name: string`
+ * that forced the renderer to parse prose back into semantic pieces.
+ *
+ * Shape expresses the common "licence + regulator + regime" triple so the
+ * UI can render a hierarchical Option-C layout without guesswork:
+ *   🇫🇷  🪪 DASP
+ *         by 🏛️ AMF · under 📜 MiCA · since 2023
+ */
 export interface LicenceRef {
   jur: Jurisdiction;
+  /** Primary licence / framework identifier. Shown as the headline pill. */
   name: string;
+  /** Issuing / supervising body (shown with 🏛️ rose pill prefixed by "by"). */
+  regulator?: string;
+  /** Governing regime or law (shown with 📜 sky pill prefixed by "under"). */
+  regime?: string;
+  /** Free-form context (condition, scope, entity name). Plain muted text. */
+  note?: string;
+  /** Year or month/year the licence was obtained. Muted text. */
+  since?: string;
 }
 
 export interface UseCase {
@@ -36,6 +53,9 @@ export interface UseCase {
   since?: string;
   /** Optional extra context. */
   note?: { en: string; fr: string };
+  /** True when the company / product relies on XRPL — surfaces the XRPL
+   *  logo on the row + powers the "XRPL ecosystem" filter chip. */
+  xrpl?: boolean;
 }
 
 export const USE_CASES: UseCase[] = [
@@ -45,9 +65,10 @@ export const USE_CASES: UseCase[] = [
     logo: '💧',
     website: 'https://ripple.com',
     tag: 'stablecoin',
+    xrpl: true,
     licences: [
-      { jur: 'us', name: 'NYDFS Trust Charter (Standard Custody)' },
-      { jur: 'eu', name: 'MiCA EMT-ready via EU entity' },
+      { jur: 'us', name: 'Trust Charter', regulator: 'NYDFS', note: 'Standard Custody' },
+      { jur: 'eu', name: 'EMT', regime: 'MiCA', note: 'via EU entity (EMT-ready)' },
     ],
     useCase: {
       en: 'USD-backed stablecoin issued on XRPL and Ethereum. Reference implementation of a regulated stablecoin using the XRPL IOU / Trust Line model with on-chain compliance primitives.',
@@ -61,12 +82,14 @@ export const USE_CASES: UseCase[] = [
     logo: '💸',
     website: 'https://ripple.com/solutions/payments/',
     tag: 'payment',
+    xrpl: true,
     licences: [
-      { jur: 'us', name: 'FinCEN MSB + State MTLs (~30 states)' },
-      { jur: 'sg', name: 'MAS Major Payment Institution (MPI, Oct 2023)' },
-      { jur: 'uk', name: 'FCA Electronic Money Institution (Ripple Payments UK Ltd, 2024)' },
-      { jur: 'uae', name: 'DFSA licence (DIFC Dubai, Mar 2024)' },
-      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA path (Ripple Labs Ireland, 2025)' },
+      { jur: 'us', name: 'MSB', regulator: 'FinCEN' },
+      { jur: 'us', name: 'MTL', note: 'State-by-state, ~30 states' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', since: 'Oct 2023' },
+      { jur: 'uk', name: 'EMI', regulator: 'FCA', note: 'Ripple Payments UK Ltd', since: '2024' },
+      { jur: 'uae', name: 'DFSA licence', regulator: 'DFSA', note: 'DIFC Dubai', since: 'Mar 2024' },
+      { jur: 'ie', name: 'CASP', regulator: 'CBI', regime: 'MiCA', note: 'Ripple Labs Ireland', since: '2025' },
     ],
     useCase: {
       en: "Cross-border payments infrastructure using XRPL for settlement (ODL — On-Demand Liquidity). One of the most broadly licensed crypto-payment companies globally: ~30 US state MTLs + APAC via Singapore MPI + UK EMI + UAE DFSA + Ireland CBI CASP for EU coverage under MiCA.",
@@ -81,11 +104,11 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.circle.com',
     tag: 'stablecoin',
     licences: [
-      { jur: 'us', name: 'NYDFS Trust Charter' },
-      { jur: 'eu', name: 'MiCA EMT authorization (Circle Mint Europe, France, Jul 2024)' },
-      { jur: 'sg', name: 'MAS MPI (Circle Singapore)' },
-      { jur: 'bm', name: 'Bermuda Monetary Authority — Digital Asset Business Act Class F (since 2019, historical issuance jurisdiction)' },
-      { jur: 'uae', name: 'ADGM Financial Services (Circle MENA, 2024 RAK DAO pilots)' },
+      { jur: 'us', name: 'Trust Charter', regulator: 'NYDFS' },
+      { jur: 'eu', name: 'EMT', regulator: 'AMF', regime: 'MiCA', note: 'Circle Mint Europe (France)', since: 'Jul 2024' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', note: 'Circle Singapore' },
+      { jur: 'bm', name: 'DABA Class F', regulator: 'BMA', note: 'Historical issuance jurisdiction', since: '2019' },
+      { jur: 'uae', name: 'ADGM Financial Services', note: 'Circle MENA + RAK DAO pilots', since: '2024' },
     ],
     useCase: {
       en: 'USD-pegged stablecoin issued by Circle. One of the first to achieve full MiCA EMT compliance in the EU (July 2024) via Circle Mint Europe (France-based). Historically issued under Bermuda DABA before the MiCA transition.',
@@ -100,12 +123,12 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.coinbase.com',
     tag: 'exchange',
     licences: [
-      { jur: 'us', name: 'NYDFS BitLicense' },
-      { jur: 'us', name: 'State MTLs (~48 states)' },
-      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA (Coinbase Ireland Ltd — EU passporting hub)' },
-      { jur: 'eu', name: 'BaFin Crypto Custody licence (Coinbase Germany GmbH, since Jun 2021 — first in Germany)' },
-      { jur: 'uk', name: 'FCA Cryptoasset registration (Coinbase UK)' },
-      { jur: 'sg', name: 'MAS Major Payment Institution (Coinbase Singapore, 2023)' },
+      { jur: 'us', name: 'BitLicense', regulator: 'NYDFS' },
+      { jur: 'us', name: 'MTL', note: '~48 states' },
+      { jur: 'ie', name: 'CASP', regulator: 'CBI', regime: 'MiCA', note: 'Coinbase Ireland Ltd — EU passporting hub' },
+      { jur: 'eu', name: 'Crypto Custody licence', regulator: 'BaFin', note: 'Coinbase Germany GmbH — first in Germany', since: 'Jun 2021' },
+      { jur: 'uk', name: 'Cryptoasset registration', regulator: 'FCA', note: 'Coinbase UK' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', note: 'Coinbase Singapore', since: '2023' },
     ],
     useCase: {
       en: 'Largest US crypto exchange + institutional custody. Publicly listed (NASDAQ:COIN). Ireland-based EU hub for MiCA passporting; Germany was the first BaFin crypto-custody licensee (Jun 2021). Singapore MAS MPI granted 2023.',
@@ -120,11 +143,13 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.kraken.com',
     tag: 'exchange',
     licences: [
-      { jur: 'us', name: 'FinCEN MSB + State MTLs (~40 states)' },
-      { jur: 'ie', name: 'Central Bank of Ireland CASP / MiCA (Payward Europe, EU entry point)' },
-      { jur: 'uk', name: 'FCA Cryptoasset registration (Payward Ltd)' },
-      { jur: 'au', name: 'AUSTRAC Digital Currency Exchange + ASIC AFSL (Bit Trade Pty, Kraken Australia)' },
-      { jur: 'ca', name: 'CSA Pre-registration Undertaking + IIROC path (Kraken Canada)' },
+      { jur: 'us', name: 'MSB', regulator: 'FinCEN' },
+      { jur: 'us', name: 'MTL', note: '~40 states' },
+      { jur: 'ie', name: 'CASP', regulator: 'CBI', regime: 'MiCA', note: 'Payward Europe — EU entry point' },
+      { jur: 'uk', name: 'Cryptoasset registration', regulator: 'FCA', note: 'Payward Ltd' },
+      { jur: 'au', name: 'DCE', regulator: 'AUSTRAC', note: 'Bit Trade Pty — Kraken Australia' },
+      { jur: 'au', name: 'AFSL', regulator: 'ASIC', note: 'Bit Trade Pty — Kraken Australia' },
+      { jur: 'ca', name: 'Pre-Registration Undertaking', regulator: 'CSA', note: 'IIROC path — Kraken Canada' },
     ],
     useCase: {
       en: 'Top-tier US crypto exchange, founded in 2011. Ireland-based EU hub (Payward Europe) for MiCA CASP passporting. Strong institutional and staking products — settled SEC action on staking in Feb 2023. Broad regulatory footprint across 40+ US states, UK, Canada, Australia.',
@@ -139,11 +164,11 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.bitgo.com',
     tag: 'custody',
     licences: [
-      { jur: 'us', name: 'South Dakota Trust Charter (BitGo Trust Company, since 2018)' },
-      { jur: 'us', name: 'NYDFS licence (BitGo New York Trust Company, 2021)' },
-      { jur: 'eu', name: 'BaFin Crypto Custody registration (BitGo Europe GmbH, Germany)' },
-      { jur: 'sg', name: 'MAS MPI registration (BitGo Singapore Pte Ltd)' },
-      { jur: 'ch', name: 'FINMA — SST / DLT framework (BitGo Swiss)' },
+      { jur: 'us', name: 'South Dakota Trust Charter', note: 'BitGo Trust Company', since: '2018' },
+      { jur: 'us', name: 'NY Trust Charter', regulator: 'NYDFS', note: 'BitGo New York Trust Company', since: '2021' },
+      { jur: 'eu', name: 'Crypto Custody registration', regulator: 'BaFin', note: 'BitGo Europe GmbH (Germany)' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', note: 'BitGo Singapore Pte Ltd' },
+      { jur: 'ch', name: 'DLT framework', regulator: 'FINMA', note: 'BitGo Swiss — SST' },
     ],
     useCase: {
       en: 'Pioneer of multi-signature institutional crypto custody (founded 2013). Holds a South Dakota trust charter (2018) and later a NY trust licence (2021). Custodies for >500 institutions, filed for US IPO in 2025 (S-1). Germany BaFin-registered under the crypto-custody licence.',
@@ -158,10 +183,10 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.binance.com',
     tag: 'exchange',
     licences: [
-      { jur: 'uae', name: 'VARA VASP Class I (Dubai)' },
-      { jur: 'eu', name: 'AMF PSAN (France)' },
-      { jur: 'sg', name: 'MAS MPI (Binance Singapore)' },
-      { jur: 'jp', name: 'FSA Japan (Binance Japan)' },
+      { jur: 'uae', name: 'VASP Class I', regulator: 'VARA', note: 'Dubai' },
+      { jur: 'eu', name: 'PSAN', regulator: 'AMF', note: 'France' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', note: 'Binance Singapore' },
+      { jur: 'jp', name: 'CAESP', regulator: 'FSA', note: 'Binance Japan' },
     ],
     useCase: {
       en: "World's largest crypto exchange by volume. Post-2023 $4.3B US settlement, pivoted to multi-jurisdiction licensed model anchored in Dubai. ~21+ licences globally.",
@@ -176,7 +201,7 @@ export const USE_CASES: UseCase[] = [
     website: 'https://sorare.com',
     tag: 'nft',
     licences: [
-      { jur: 'eu', name: 'ANJ JONUM authorization (France, SREN Law 2024)' },
+      { jur: 'eu', name: 'JONUM authorization', regulator: 'ANJ', regime: 'SREN', note: 'France', since: 'May 2024' },
     ],
     useCase: {
       en: 'NFT fantasy football game. First company to operate under the French JONUM regime (May 2024), created specifically after the ANJ investigation in 2022.',
@@ -191,8 +216,8 @@ export const USE_CASES: UseCase[] = [
     website: 'https://paxos.com',
     tag: 'stablecoin',
     licences: [
-      { jur: 'us', name: 'NYDFS Trust Charter' },
-      { jur: 'sg', name: 'MAS MPI (Singapore)' },
+      { jur: 'us', name: 'Trust Charter', regulator: 'NYDFS' },
+      { jur: 'sg', name: 'MPI', regulator: 'MAS', note: 'Singapore' },
     ],
     useCase: {
       en: 'Regulated stablecoin infrastructure. Issues PYUSD (PayPal USD), BUSD (formerly Binance USD), and USDP. NYDFS-chartered trust company.',
@@ -207,7 +232,7 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.anchorage.com',
     tag: 'custody',
     licences: [
-      { jur: 'us', name: 'OCC National Trust Bank charter (first federally chartered crypto bank, 2021)' },
+      { jur: 'us', name: 'OCC charter', regulator: 'OCC', note: 'First federally chartered crypto bank (National Trust Bank)', since: '2021' },
     ],
     useCase: {
       en: 'Institutional-grade digital asset custody. First crypto company to receive an OCC national trust bank charter in January 2021. Serves hedge funds, PE, family offices.',
@@ -222,10 +247,10 @@ export const USE_CASES: UseCase[] = [
     website: 'https://securitize.io',
     tag: 'rwa',
     licences: [
-      { jur: 'us', name: 'SEC Transfer Agent' },
-      { jur: 'us', name: 'SEC Broker-Dealer (Securitize Markets)' },
+      { jur: 'us', name: 'Transfer Agent', regulator: 'SEC' },
+      { jur: 'us', name: 'Broker-Dealer', regulator: 'SEC', note: 'Securitize Markets' },
       { jur: 'us', name: 'ATS operator' },
-      { jur: 'eu', name: 'MiCA DLT Pilot Regime eligibility' },
+      { jur: 'eu', name: 'DLT Pilot Regime', regime: 'MiCA', note: 'eligibility' },
     ],
     useCase: {
       en: 'Tokenisation platform for regulated securities (RWA). Runs the BlackRock BUIDL fund on Ethereum (2024), the largest tokenised treasury fund. SEC-regulated end-to-end.',
@@ -240,8 +265,8 @@ export const USE_CASES: UseCase[] = [
     website: 'https://shuman.financial',
     tag: 'rwa',
     licences: [
-      { jur: 'ch', name: 'FINMA DLT framework' },
-      { jur: 'li', name: 'TVTG Token Issuer (Liechtenstein)' },
+      { jur: 'ch', name: 'DLT framework', regulator: 'FINMA' },
+      { jur: 'li', name: 'TVTG Token Issuer', regulator: 'FMA', regime: 'TVTG', note: 'Liechtenstein' },
     ],
     useCase: {
       en: 'Swiss/Liechtenstein-based RWA tokenisation platform bridging traditional capital markets with blockchain infrastructure. Focus on institutional-grade private debt and structured products.',
@@ -256,10 +281,10 @@ export const USE_CASES: UseCase[] = [
     website: 'https://www.gemini.com',
     tag: 'exchange',
     licences: [
-      { jur: 'us', name: 'NYDFS Trust Charter' },
-      { jur: 'us', name: 'NYDFS BitLicense' },
-      { jur: 'uk', name: 'FCA Cryptoasset registration' },
-      { jur: 'ie', name: 'Central Bank of Ireland E-Money Institution (Gemini Payments Europe, EU passporting)' },
+      { jur: 'us', name: 'Trust Charter', regulator: 'NYDFS' },
+      { jur: 'us', name: 'BitLicense', regulator: 'NYDFS' },
+      { jur: 'uk', name: 'Cryptoasset registration', regulator: 'FCA' },
+      { jur: 'ie', name: 'EMI', regulator: 'CBI', note: 'Gemini Payments Europe — EU passporting' },
     ],
     useCase: {
       en: 'Regulated US crypto exchange + custody. Issued GUSD stablecoin. NYDFS-chartered trust company; operates in US, UK, and EU. Focus on institutional and compliance-first.',
@@ -274,11 +299,13 @@ export const USE_CASES: UseCase[] = [
     logo: '🔼',
     website: 'https://uphold.com',
     tag: 'exchange',
+    xrpl: true,
     licences: [
-      { jur: 'us', name: 'FinCEN MSB + State MTLs' },
-      { jur: 'uk', name: 'FCA Cryptoasset registration' },
-      { jur: 'lt', name: 'Lithuania VASP (Uphold Europe) — pre-MiCA base, transitioning to MiCA CASP' },
-      { jur: 'au', name: 'AUSTRAC Digital Currency Exchange registration' },
+      { jur: 'us', name: 'MSB', regulator: 'FinCEN' },
+      { jur: 'us', name: 'MTL', note: 'State-by-state' },
+      { jur: 'uk', name: 'Cryptoasset registration', regulator: 'FCA' },
+      { jur: 'lt', name: 'VASP', regulator: 'Lietuvos bankas', note: 'Uphold Europe — pre-MiCA base, transitioning to MiCA CASP' },
+      { jur: 'au', name: 'DCE', regulator: 'AUSTRAC' },
     ],
     useCase: {
       en: 'Multi-asset trading platform. XRPL-native since launch (2015) and a long-standing ODL corridor partner of Ripple. Regulated across US, UK, Lithuania (EU), and Australia, with mid-2020s transition to full MiCA CASP authorisation.',
@@ -292,10 +319,13 @@ export const USE_CASES: UseCase[] = [
     logo: '🟢',
     website: 'https://www.bitstamp.net',
     tag: 'exchange',
+    xrpl: true,
     licences: [
-      { jur: 'eu', name: 'Luxembourg CSSF PFS + MiCA CASP (Bitstamp Europe)' },
-      { jur: 'uk', name: 'FCA Cryptoasset registration' },
-      { jur: 'us', name: 'FinCEN MSB + NY BitLicense' },
+      { jur: 'eu', name: 'PFS', regulator: 'CSSF', note: 'Luxembourg — Bitstamp Europe' },
+      { jur: 'eu', name: 'CASP', regulator: 'CSSF', regime: 'MiCA', note: 'Bitstamp Europe' },
+      { jur: 'uk', name: 'Cryptoasset registration', regulator: 'FCA' },
+      { jur: 'us', name: 'MSB', regulator: 'FinCEN' },
+      { jur: 'us', name: 'BitLicense', regulator: 'NYDFS' },
     ],
     useCase: {
       en: 'One of the oldest crypto exchanges (since 2011). XRPL-native BTC/XRP trading pair and a historic Ripple ODL settlement partner. Acquired by Robinhood in 2024 (€200M deal) to anchor its EU MiCA presence.',
@@ -309,8 +339,9 @@ export const USE_CASES: UseCase[] = [
     logo: '🚪',
     website: 'https://gatehub.net',
     tag: 'custody',
+    xrpl: true,
     licences: [
-      { jur: 'eu', name: 'Slovenia VASP (Office for Money Laundering Prevention)' },
+      { jur: 'eu', name: 'VASP', note: 'Slovenia — Office for Money Laundering Prevention' },
     ],
     useCase: {
       en: 'XRPL-native wallet and exchange since 2014. One of the earliest implementers of the XRPL IOU / Trust Line model for issuing stablecoins and fiat-backed tokens. Slovenia-based; rebuilt KYC/AML stack after the 2019 breach.',
@@ -324,8 +355,9 @@ export const USE_CASES: UseCase[] = [
     logo: '📈',
     website: 'https://archax.com',
     tag: 'rwa',
+    xrpl: true,
     licences: [
-      { jur: 'uk', name: 'FCA Authorised MTF + Custodian + Brokerage (first UK regulated digital securities exchange, 2020)' },
+      { jur: 'uk', name: 'MTF', regulator: 'FCA', note: 'Authorised MTF + Custodian + Brokerage — first UK regulated digital securities exchange', since: '2020' },
     ],
     useCase: {
       en: 'First UK FCA-authorised digital securities exchange (2020) — fully regulated under the MiFID-style regime, not just the crypto register. Tokenises traditional funds and uses XRPL for RWA settlement. Major Ripple partner targeting $1B+ in tokenised assets on XRPL by mid-2026.',
@@ -339,9 +371,10 @@ export const USE_CASES: UseCase[] = [
     logo: '🔐',
     website: 'https://ripple.com/solutions/custody/',
     tag: 'custody',
+    xrpl: true,
     licences: [
-      { jur: 'ch', name: 'FINMA DLT framework (via Metaco, acquired May 2023, $250M)' },
-      { jur: 'eu', name: 'France PSAN / MiCA CASP path (via Palisade, acquired Nov 2025)' },
+      { jur: 'ch', name: 'DLT framework', regulator: 'FINMA', note: 'via Metaco — acquired $250M', since: 'May 2023' },
+      { jur: 'eu', name: 'PSAN', regulator: 'AMF', regime: 'MiCA', note: 'via Palisade acquisition — France-licensed', since: 'Nov 2025' },
     ],
     useCase: {
       en: "Ripple's institutional custody stack, built from two acquisitions. Metaco (Swiss-based, acquired 2023) provides bank-grade custody technology used by Citi, BNP Paribas and Société Générale Forge. Palisade (acquired Nov 2025) adds a France-licensed MPC wallet-as-a-service with native XRPL, Ethereum and Solana support — targeted at fintechs and crypto-native firms.",
@@ -355,8 +388,9 @@ export const USE_CASES: UseCase[] = [
     logo: '🎮',
     website: 'https://www.futureverse.com',
     tag: 'dapp',
+    xrpl: true,
     licences: [
-      { jur: 'us', name: 'Operating entity — Delaware C-corp, consumer-facing gaming (no regulated financial activity)' },
+      { jur: 'us', name: 'Delaware C-corp', note: 'Consumer-facing gaming — no regulated financial activity' },
     ],
     useCase: {
       en: "AI + metaverse infrastructure company behind The Root Network, an XRPL-EVM-sidechain-style chain optimised for gaming and metaverse experiences. $54M Series A in 2023 led by 10T Holdings with Ripple participation. Not a regulated financial entity — pure tech/gaming play.",
@@ -370,8 +404,9 @@ export const USE_CASES: UseCase[] = [
     logo: '✨',
     website: 'https://xaman.app',
     tag: 'custody',
+    xrpl: true,
     licences: [
-      { jur: 'eu', name: 'Netherlands (XRPL Labs B.V.) — non-custodial wallet software, no VASP registration required (FATF R.15 / AMLD6 carve-out for pure software)' },
+      { jur: 'eu', name: 'Non-custodial wallet', note: 'Netherlands (XRPL Labs B.V.) — FATF R.15 / AMLD6 carve-out, no VASP registration required' },
     ],
     useCase: {
       en: "Reference XRPL mobile wallet (formerly XUMM, renamed Xaman in 2024). Strictly non-custodial — users hold their own keys and XRPL Labs has no access to funds. xApps ecosystem for embedded dApps, Tangem hardware-wallet integration, biometric signing. Operates under the FATF carve-out for non-custodial wallet software providers — no VASP / CASP licence required.",
@@ -385,9 +420,10 @@ export const USE_CASES: UseCase[] = [
     logo: '🪙',
     website: 'https://tx.network',
     tag: 'rwa',
+    xrpl: true,
     licences: [
-      { jur: 'uae', name: 'DMCC Free Zone (TX Network foundation) + VARA application pathway for VA services' },
-      { jur: 'ch', name: 'Sologenic AG — Swiss subsidiary positioning for FINMA DLT framework and tokenised securities pilots' },
+      { jur: 'uae', name: 'DMCC Free Zone', note: 'TX Network foundation + VARA application pathway for VA services' },
+      { jur: 'ch', name: 'DLT framework', regulator: 'FINMA', note: 'Sologenic AG — Swiss subsidiary for tokenised securities pilots' },
     ],
     useCase: {
       en: "XRPL-native tokenisation platform for equities, ETFs and RWAs. Launched as Sologenic in 2020, rebranded and expanded to TX Network in 2025 as unified RWA + cross-chain bridge infrastructure. One of the largest XRPL-native projects by on-chain TVL; pioneered the on-chain stock / ETF model on XRPL.",
@@ -401,8 +437,9 @@ export const USE_CASES: UseCase[] = [
     logo: '🧩',
     website: 'https://evernode.org',
     tag: 'dapp',
+    xrpl: true,
     licences: [
-      { jur: 'uae', name: 'Evernode Foundation — open-source L1 protocol (Xahau). No regulated operator entity. FATF VASP obligations apply only to service providers interacting with end-users, not the protocol itself.' },
+      { jur: 'uae', name: 'Open-source L1 protocol', note: 'Evernode Foundation — Xahau. No regulated operator entity; FATF VASP obligations apply at the service-provider layer, not the protocol.' },
     ],
     useCase: {
       en: "Decentralised dApp hosting on Xahau — an XRPL fork with native smart-contract Hooks. Each dApp runs as its own mini-blockchain on Xahau Mainnet, paid in EVR tokens. Open-source protocol with no central operator; registration and AML obligations sit at the dApp-operator layer, not at the protocol.",
