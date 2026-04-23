@@ -60,7 +60,7 @@ export default function UseCasesPage() {
         licences: '🪪 Licences',
         regulator: '🏛️ Régulateur / Régime',
         since: 'Depuis',
-        xrplLabel: 'Écosystème XRPL',
+        xrplLabel: 'XRPL',
         disclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas un conseil juridique ni une recommandation d'investissement.",
       }
     : {
@@ -73,7 +73,7 @@ export default function UseCasesPage() {
         licences: '🪪 Licences',
         regulator: '🏛️ Regulator / Regime',
         since: 'Since',
-        xrplLabel: 'XRPL ecosystem',
+        xrplLabel: 'XRPL',
         disclaimer: 'Public information compiled for educational purposes. Does not constitute legal advice or an investment recommendation.',
       };
 

@@ -551,6 +551,23 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     definitionFr: "Betting Control and Licensing Board (Kenya). Autorité kényane des jeux d'argent. Agrée les paris, casinos et jeux en ligne — pertinent pour les projets NFT/GameFi opérant au Kenya.",
     relatedTerms: ["Gaming", "NFT"], category: "intl" },
 
+  // ── Regulatory reach (scope attributes applied to regimes) ──
+  // Not standalone concepts — these describe HOW a regime applies to you.
+  // Surfaced as clickable pills on every glossary term card via the scope
+  // chips (📍 local / 🌐 extraterritorial / 🌍 global standard).
+  { term: "Local",
+    definition: "Territorial scope — a regime or licence that applies only if you incorporate or physically operate in that jurisdiction. Example: the BitLicense only covers businesses operating in New York.",
+    definitionFr: "Portée territoriale — un régime ou une licence qui ne s'applique que si vous êtes incorporés ou opérez physiquement dans la juridiction. Exemple : la BitLicense ne couvre que les entreprises opérant à New York.",
+    relatedTerms: ["Extraterritorial", "Global standard", "BitLicense"], category: "intl" },
+  { term: "Extraterritorial",
+    definition: "Scope attribute — a regime that applies whenever you serve or target users of that jurisdiction, even if your company is incorporated elsewhere. Example: MiCA applies to any business serving EU users, no matter where it's based.",
+    definitionFr: "Attribut de portée — un régime qui s'applique dès que vous servez ou ciblez les utilisateurs d'une juridiction, même si votre société est basée ailleurs. Exemple : MiCA s'applique à toute entreprise servant des utilisateurs de l'UE, peu importe le pays d'incorporation.",
+    relatedTerms: ["Local", "Global standard", "MiCA"], category: "intl" },
+  { term: "Global standard",
+    definition: "Scope attribute — an international standard adopted or transposed by most jurisdictions worldwide. Example: the FATF Travel Rule and KYC/AML principles are applied almost universally.",
+    definitionFr: "Attribut de portée — un standard international adopté ou transposé par la plupart des juridictions. Exemple : la Travel Rule du GAFI et les principes KYC/AML sont appliqués quasi universellement.",
+    relatedTerms: ["Local", "Extraterritorial", "FATF", "Travel Rule"], category: "intl" },
+
   // ── General Concepts ──
   { term: "TradFi",
     definition: "Traditional Finance. Conventional financial system (banks, stock exchanges, insurers). Fully regulated, centralized infrastructure. High barriers to entry but established compliance frameworks.",

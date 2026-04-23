@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import XRPLBadge from '@/components/ui/XRPLBadge';
@@ -55,6 +55,27 @@ const SCOPE_STYLES: Record<Scope, string> = {
   local: 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200',
   extra: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200',
   global: 'bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-200',
+};
+
+// Maps a topic → the glossary term that holds its meta-concept definition.
+// Used when the user clicks the small topic badge on a term card — we
+// jump to the meta-concept's own entry in the glossary.
+const TOPIC_TO_META: Record<Topic, string> = {
+  licence: 'Licence',
+  regime: 'Regime',
+  obligation: 'Obligation',
+  token: 'Token type',
+  regulator: 'Regulator',
+  doctrine: 'Doctrine',
+  infra: 'Infrastructure',
+};
+
+// Maps a scope → its glossary entry. Enables clicking on 📍/🌐/🌍 pills
+// on each term card to jump to the scope's definition.
+const SCOPE_TO_TERM: Record<Scope, string> = {
+  local: 'Local',
+  extra: 'Extraterritorial',
+  global: 'Global standard',
 };
 
 const TERM_SCOPES: Record<string, Scope> = {
@@ -145,35 +166,64 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
   const t = useTranslations('glossary');
   const locale = useLocale();
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState<string>('all');
-  const [topic, setTopic] = useState<string>('all');
+  // Multi-select filters — each as a Set so reclicking a chip toggles it
+  // out (same UX pattern as /usecases and /guides). Empty set = no filter
+  // applied on that axis (shows everything). Multiple entries across the
+  // same axis are OR-combined (match-any). The two axes are combined
+  // with AND: a term must match at least one category AND at least one
+  // topic (when non-empty sets are set).
+  const [categories, setCategories] = useState<Set<string>>(() => new Set());
+  const [topics, setTopics] = useState<Set<string>>(() => new Set());
   const [highlighted, setHighlighted] = useState<string | null>(null);
+
+  const toggleCategory = useCallback((cat: string) => {
+    if (cat === 'all') { setCategories(new Set()); return; }
+    setCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat); else next.add(cat);
+      return next;
+    });
+  }, []);
+
+  const toggleTopic = useCallback((tp: string) => {
+    if (tp === 'all') { setTopics(new Set()); return; }
+    setTopics((prev) => {
+      const next = new Set(prev);
+      if (next.has(tp)) next.delete(tp); else next.add(tp);
+      return next;
+    });
+  }, []);
 
   const getDefinition = (term: typeof GLOSSARY_TERMS[number]) =>
     locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
 
   const filtered = useMemo(() => {
+    const catKeys = Array.from(categories);
+    const topKeys = Array.from(topics);
     return GLOSSARY_TERMS.filter((term) => {
       const def = locale === 'fr' && term.definitionFr ? term.definitionFr : term.definition;
       const matchSearch = !search ||
         term.term.toLowerCase().includes(search.toLowerCase()) ||
         def.toLowerCase().includes(search.toLowerCase());
-      const matchCategory = category === 'all' || term.category === category;
+      const matchCategory =
+        catKeys.length === 0 || (term.category ? catKeys.includes(term.category) : false);
       const matchTopic =
-        topic === 'all' ||
-        (topic === 'meta' && META_CONCEPT_TERMS.has(term.term)) ||
-        TERM_TOPICS[term.term] === topic;
+        topKeys.length === 0 ||
+        topKeys.some((tp) => {
+          if (tp === 'meta') return META_CONCEPT_TERMS.has(term.term);
+          return TERM_TOPICS[term.term] === tp;
+        });
       return matchSearch && matchCategory && matchTopic;
     });
-  }, [search, category, topic, locale]);
+  }, [search, categories, topics, locale]);
 
   const termExists = (name: string) =>
     GLOSSARY_TERMS.some((g) => g.term.toLowerCase() === name.toLowerCase());
 
   const jumpToTerm = (name: string) => {
     setSearch('');
-    setCategory('all');
-    setTopic('all');
+    setCategories(new Set());
+    setTopics(new Set());
     const slug = slugify(name);
     setTimeout(() => {
       const el = document.getElementById(`term-${slug}`);
@@ -218,33 +268,39 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
         />
       </div>
 
-      {/* Category filters */}
+      {/* Category filters — multi-select + toggle-on-reclick. 'All' chip
+          is active when the set is empty and clears any selection. */}
       <div className="mb-2">
         <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">{t('filterByGeography')}</div>
         <div className="flex gap-1 flex-wrap">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setCategory(cat)}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
-                category === cat
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              {t(`categories.${cat}`)}
-            </button>
-          ))}
+          {CATEGORIES.map((cat) => {
+            const isActive = cat === 'all' ? categories.size === 0 : categories.has(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => toggleCategory(cat)}
+                aria-pressed={isActive}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors ${
+                  isActive
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+              >
+                {t(`categories.${cat}`)}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Topic filters */}
+      {/* Topic filters — multi-select + toggle-on-reclick. */}
       <div className="mb-3">
         <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">{t('filterByTopic')}</div>
         <div className="flex gap-1 flex-wrap">
           {TOPICS.map((tp) => {
             // The 'meta' filter is a special virtual topic that shows only the 7 meta-concepts.
             if (tp === 'meta') {
+              const isActive = topics.has(tp);
               const label = locale === 'fr' ? 'Méta-concept' : 'Meta-concept';
               const tooltip = locale === 'fr'
                 ? 'Les 7 méta-concepts fondamentaux — ouvrir leur fiche détaillée sur /understand/concepts.'
@@ -252,10 +308,11 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
               return (
                 <button
                   key={tp}
-                  onClick={() => setTopic(tp)}
+                  onClick={() => toggleTopic(tp)}
+                  aria-pressed={isActive}
                   title={tooltip}
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors flex items-center gap-1 border ${
-                    topic === tp
+                    isActive
                       ? 'bg-yellow-500 text-white border-yellow-500'
                       : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 border-yellow-300 dark:border-yellow-800 hover:bg-yellow-100 dark:hover:bg-yellow-900/40'
                   }`}
@@ -268,11 +325,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
             const tooltip = tp === 'all'
               ? t('topicTooltips.all')
               : `${t(`topicTooltips.${tp}.question`)}\n\n${t(`topicTooltips.${tp}.examples`)}`;
-            const isActive = topic === tp;
-            // 'all' keeps the neutral palette — it's not a topic, so no
-            // topic colour to echo. Every actual topic chip takes its own
-            // colour (pastel inactive, solid active) so the filter bar
-            // visually matches the card badges below.
+            const isActive = tp === 'all' ? topics.size === 0 : topics.has(tp);
             const chipClass =
               tp === 'all'
                 ? isActive
@@ -284,7 +337,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
             return (
               <button
                 key={tp}
-                onClick={() => setTopic(tp)}
+                onClick={() => toggleTopic(tp)}
                 title={tooltip}
                 aria-pressed={isActive}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors flex items-center gap-1 border ${chipClass}`}
@@ -317,21 +370,52 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                   <span className="text-lg leading-none" aria-hidden="true">{flagForTerm(term)}</span>
                 )}
                 <h3 className="font-semibold text-blue-600 dark:text-blue-400">{term.term}</h3>
-                {termTopic && (
-                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[termTopic]}`}>
-                    <span>{TOPIC_ICONS[termTopic]}</span>
-                    <span>{t(`topics.${termTopic}`)}</span>
-                  </span>
-                )}
-                {termScope && (
-                  <span
-                    className={`px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${SCOPE_STYLES[termScope]}`}
-                    title={t(`scopes.${termScope}.tooltip`)}
-                  >
-                    <span>{SCOPE_ICONS[termScope]}</span>
-                    <span>{t(`scopes.${termScope}.label`)}</span>
-                  </span>
-                )}
+                {termTopic && (() => {
+                  const metaTerm = TOPIC_TO_META[termTopic];
+                  const metaExists = termExists(metaTerm);
+                  const baseClass = `px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${TOPIC_STYLES[termTopic]}`;
+                  if (!metaExists) {
+                    return (
+                      <span className={baseClass}>
+                        <span>{TOPIC_ICONS[termTopic]}</span>
+                        <span>{t(`topics.${termTopic}`)}</span>
+                      </span>
+                    );
+                  }
+                  return (
+                    <button
+                      onClick={() => jumpToTerm(metaTerm)}
+                      title={locale === 'fr' ? `Voir la définition de ${metaTerm}` : `See the ${metaTerm} definition`}
+                      className={`${baseClass} cursor-pointer hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
+                    >
+                      <span>{TOPIC_ICONS[termTopic]}</span>
+                      <span>{t(`topics.${termTopic}`)}</span>
+                    </button>
+                  );
+                })()}
+                {termScope && (() => {
+                  const scopeTerm = SCOPE_TO_TERM[termScope];
+                  const scopeExists = termExists(scopeTerm);
+                  const baseClass = `px-1.5 py-0.5 rounded text-[10px] font-semibold flex items-center gap-0.5 ${SCOPE_STYLES[termScope]}`;
+                  if (!scopeExists) {
+                    return (
+                      <span className={baseClass} title={t(`scopes.${termScope}.tooltip`)}>
+                        <span>{SCOPE_ICONS[termScope]}</span>
+                        <span>{t(`scopes.${termScope}.label`)}</span>
+                      </span>
+                    );
+                  }
+                  return (
+                    <button
+                      onClick={() => jumpToTerm(scopeTerm)}
+                      title={locale === 'fr' ? `Voir la définition de ${scopeTerm}` : `See the ${scopeTerm} definition`}
+                      className={`${baseClass} cursor-pointer hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
+                    >
+                      <span>{SCOPE_ICONS[termScope]}</span>
+                      <span>{t(`scopes.${termScope}.label`)}</span>
+                    </button>
+                  );
+                })()}
                 {term.xrplSpecific && <XRPLBadge />}
                 {META_CONCEPT_TERMS.has(term.term) && (
                   <a

@@ -34,7 +34,7 @@ export default function UnderstandHubPage() {
         seeAllPaths: 'Voir tous les guides',
         // Glossary
         glossaryTitle: 'Glossaire',
-        glossaryDesc: "~60 termes réglementaires crypto définis et groupés par concept. Accessible aussi via la touche ⌘K depuis n'importe quelle page.",
+        glossaryDesc: "~155 termes réglementaires crypto définis et groupés par concept. Accessible aussi via la touche ⌘K depuis n'importe quelle page.",
         openGlossary: 'Ouvrir le glossaire',
         // FAQ
         faqTitle: 'FAQ',
@@ -69,7 +69,7 @@ export default function UnderstandHubPage() {
         seeAllPaths: 'See all guides',
         // Glossary
         glossaryTitle: 'Glossary',
-        glossaryDesc: '~60 crypto regulatory terms, defined and grouped by concept. Also reachable with ⌘K from any page.',
+        glossaryDesc: '~155 crypto regulatory terms, defined and grouped by concept. Also reachable with ⌘K from any page.',
         openGlossary: 'Open glossary',
         // FAQ
         faqTitle: 'FAQ',

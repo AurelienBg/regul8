@@ -19,8 +19,8 @@ export default function GlossaryPage() {
         </div>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
           {isFr
-            ? 'Cherchez n\'importe quel terme — 120+ acronymes, lois, régulateurs et primitives.'
-            : 'Look up any term — 120+ acronyms, laws, regulators, and primitives.'}
+            ? 'Cherchez n\'importe quel terme — 150+ acronymes, lois, régulateurs et primitives.'
+            : 'Look up any term — 150+ acronyms, laws, regulators, and primitives.'}
         </p>
         <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
           <a
