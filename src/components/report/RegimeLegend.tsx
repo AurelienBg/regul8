@@ -53,24 +53,28 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
   //   Zone A (INPUTS) — not shown here (none of these 4 fields are inputs)
   //   Zone B (OUTPUTS) — Licence framework (the actionable one)
   //   Zone C (CONTEXT) — Law, Doctrine, Authority
+  // Rows are ordered A → B → C (so Zone B shows first, then all Zone C items).
   const rows: Array<{ key: RegimeItemType | 'authority'; label: string; desc: string; zone: 'B' | 'C' }> = [
-    { key: 'law', label: tr.lawLabel, desc: tr.lawDesc, zone: 'C' },
     { key: 'licence-framework', label: tr.licLabel, desc: tr.licDesc, zone: 'B' },
+    { key: 'law', label: tr.lawLabel, desc: tr.lawDesc, zone: 'C' },
     { key: 'ruling', label: tr.ruleLabel, desc: tr.ruleDesc, zone: 'C' },
     { key: 'authority', label: tr.authLabel, desc: tr.authDesc, zone: 'C' },
   ];
 
-  // Zone badge styling + label (matches the home page 3-zone section)
+  // Zone badge styling — same palette as the home-page 3-zone section.
+  // Two-line pill displayed top-right of each card: 'Zone B' / 'OUTPUT' etc.
   const zoneBadge = (zone: 'B' | 'C') => {
     if (zone === 'B') {
       return {
         class: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
-        label: isFr ? 'Zone B · OUTPUT' : 'Zone B · OUTPUT',
+        lineA: 'Zone B',
+        lineB: 'OUTPUT',
       };
     }
     return {
       class: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
-      label: isFr ? 'Zone C · CONTEXT' : 'Zone C · CONTEXT',
+      lineA: 'Zone C',
+      lineB: 'CONTEXT',
     };
   };
 
@@ -109,19 +113,21 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
               return (
                 <div
                   key={r.key}
-                  className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] h-full flex flex-col"
+                  className="relative p-3 pr-16 rounded-lg border border-[var(--border)] bg-[var(--card)] h-full flex flex-col"
                 >
-                  <div className="flex flex-col items-start gap-1 mb-1">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} w-fit`}>
-                      <span className="text-sm leading-none">{icon}</span>
-                      <span>{r.label}</span>
-                    </span>
-                    <span
-                      className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${zb.class}`}
-                    >
-                      {zb.label}
-                    </span>
-                  </div>
+                  {/* Zone badge pinned top-right, 2 lines: 'Zone X' / 'KIND' */}
+                  <span
+                    className={`absolute top-2 right-2 inline-flex flex-col items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider leading-tight ${zb.class}`}
+                  >
+                    <span>{zb.lineA}</span>
+                    <span>{zb.lineB}</span>
+                  </span>
+
+                  {/* Concept pill on its own line */}
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} w-fit mb-1`}>
+                    <span className="text-sm leading-none">{icon}</span>
+                    <span>{r.label}</span>
+                  </span>
                   {isDoctrine && (
                     <p className="text-[10px] text-gray-500 dark:text-gray-400 italic mb-1">
                       {tr.ruleSubtitle}
