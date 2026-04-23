@@ -14,10 +14,50 @@ const levelStyles: Record<string, string> = {
   advanced: 'bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-200',
 };
 
+// Small colored dot displayed on each level chip so the level is readable
+// without reading the label. Matches the card-badge palette above.
+const levelDotClass: Record<string, string> = {
+  beginner: 'bg-emerald-500',
+  intermediate: 'bg-blue-500',
+  advanced: 'bg-purple-500',
+};
+
 const levelLabels: Record<string, { en: string; fr: string }> = {
   beginner: { en: 'Beginner', fr: 'Débutant' },
   intermediate: { en: 'Intermediate', fr: 'Intermédiaire' },
   advanced: { en: 'Advanced', fr: 'Avancé' },
+};
+
+/**
+ * Short 2-3 char labels used on the compact jurisdiction chips. Full
+ * localised name is still available via the chip's `title` attribute so
+ * the meaning is never lost.
+ */
+const JUR_SHORT: Record<string, string> = {
+  eu: 'EU/FR',
+  us: 'US',
+  uk: 'UK',
+  uae: 'UAE',
+  sg: 'SG',
+  hk: 'HK',
+  ch: 'CH',
+  li: 'LI',
+  jp: 'JP',
+  kr: 'KR',
+  in: 'IN',
+  br: 'BR',
+  ca: 'CA',
+  au: 'AU',
+  lu: 'LU',
+  mt: 'MT',
+  lt: 'LT',
+  ie: 'IE',
+  ky: 'KY',
+  vg: 'VG',
+  bm: 'BM',
+  ng: 'NG',
+  ke: 'KE',
+  za: 'ZA',
 };
 
 /**
@@ -132,14 +172,20 @@ export default function LearningPathsListPage() {
         </p>
       </header>
 
-      {/* Filters — 3 axes on one block, multi-select + toggle-on-reclick. */}
-      <div className="mb-6 space-y-3">
-        {/* Row 1 — Jurisdictions */}
-        <div>
-          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
+      {/* Filters — each axis on its own line. Label is inline with its
+          chips on large screens (flex-wrap keeps things readable on mobile).
+          Multi-select + toggle-on-reclick throughout.
+          Layout:
+            Row 1  🌍 Jurisdiction  [All] [🇪🇺 EU/FR] [🇺🇸 US] [🇬🇧 UK] …
+            Row 2  📚 Level         [🟢 Beginner] [🔵 Intermediate]
+            Row 3  🪙 XRPL          [XRPL ecosystem] */}
+      <div className="mb-6 space-y-2">
+        {/* Row 1 — Jurisdictions, inline */}
+        <div className="flex items-start gap-3 flex-wrap">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
             🌍 {tr.filterByJuri}
           </div>
-          <div className="flex gap-1.5 flex-wrap">
+          <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
             <button
               onClick={() => toggle('all')}
               aria-pressed={active.size === 0}
@@ -159,6 +205,7 @@ export default function LearningPathsListPage() {
                   key={k}
                   onClick={() => toggle(k)}
                   aria-pressed={isActive}
+                  title={JURISDICTIONS[j].name}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
                     isActive
                       ? 'bg-blue-500 text-white border-blue-500'
@@ -166,60 +213,60 @@ export default function LearningPathsListPage() {
                   }`}
                 >
                   <span>{JURISDICTIONS[j].flag}</span>
-                  <span>{JURISDICTIONS[j].name}</span>
+                  <span>{JUR_SHORT[j] ?? JURISDICTIONS[j].name}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Row 2 — Level + XRPL cross-cut (same row for compactness) */}
-        <div className="flex gap-6 flex-wrap">
-          <div>
-            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              📚 {tr.filterByLevel}
-            </div>
-            <div className="flex gap-1.5 flex-wrap">
-              {levelChipsInUse.map((lv) => {
-                const k: ActiveKey = `level:${lv}`;
-                const isActive = active.has(k);
-                return (
-                  <button
-                    key={k}
-                    onClick={() => toggle(k)}
-                    aria-pressed={isActive}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-                      isActive
-                        ? 'bg-blue-500 text-white border-blue-500'
-                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
-                    }`}
-                  >
-                    <span className={`w-2 h-2 rounded-full ${levelStyles[lv].split(' ')[0].replace('bg-', 'bg-')}`} />
-                    {isFr ? levelLabels[lv].fr : levelLabels[lv].en}
-                  </button>
-                );
-              })}
-            </div>
+        {/* Row 2 — Level, inline. Dots match the card badge palette
+            (emerald for beginner, blue for intermediate). */}
+        <div className="flex items-start gap-3 flex-wrap">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
+            📚 {tr.filterByLevel}
           </div>
+          <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
+            {levelChipsInUse.map((lv) => {
+              const k: ActiveKey = `level:${lv}`;
+              const isActive = active.has(k);
+              return (
+                <button
+                  key={k}
+                  onClick={() => toggle(k)}
+                  aria-pressed={isActive}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+                    isActive
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
+                  }`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${levelDotClass[lv]}`} />
+                  {isFr ? levelLabels[lv].fr : levelLabels[lv].en}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-          <div>
-            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              {tr.filterXrpl}
-            </div>
-            <div className="flex gap-1.5 flex-wrap">
-              <button
-                onClick={() => toggle('xrpl')}
-                aria-pressed={active.has('xrpl')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-                  active.has('xrpl')
-                    ? 'bg-xrpl text-white border-xrpl'
-                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-xrpl'
-                }`}
-              >
-                <XRPLMark className="w-3.5 h-3.5" />
-                <span>{tr.xrplLabel}</span>
-              </button>
-            </div>
+        {/* Row 3 — XRPL cross-cut, on its own line per user request */}
+        <div className="flex items-start gap-3 flex-wrap">
+          <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider pt-1.5 shrink-0 w-24">
+            {tr.filterXrpl}
+          </div>
+          <div className="flex gap-1.5 flex-wrap flex-1 min-w-0">
+            <button
+              onClick={() => toggle('xrpl')}
+              aria-pressed={active.has('xrpl')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+                active.has('xrpl')
+                  ? 'bg-xrpl text-white border-xrpl'
+                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-xrpl'
+              }`}
+            >
+              <XRPLMark className="w-3.5 h-3.5" />
+              <span>{tr.xrplLabel}</span>
+            </button>
           </div>
         </div>
       </div>
