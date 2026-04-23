@@ -30,6 +30,20 @@ function Pill({ topic, label }: { topic: Topic; label: string }) {
   );
 }
 
+/**
+ * Neutral-grey pill for the 'Jurisdiction' cross-cut dimension. Not a Topic
+ * (doesn't tag glossary terms) but conceptually sits alongside the 7 —
+ * every licence/regime/regulator is scoped to a jurisdiction.
+ */
+function JurisdictionPill({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+      <span>🗺️</span>
+      <span>{label}</span>
+    </span>
+  );
+}
+
 export default function ConceptsNarrative({
   variant = 'full',
   linkTo,
@@ -46,7 +60,8 @@ export default function ConceptsNarrative({
       <p className="text-sm sm:text-base text-gray-800 dark:text-gray-200 leading-relaxed">
         {isFr ? (
           <>
-            Pour émettre ou manipuler un <Pill topic="token" label="Type de token" />,{' '}
+            Pour émettre ou manipuler un <Pill topic="token" label="Type de token" />{' '}
+            dans une <JurisdictionPill label="Juridiction" /> donnée,{' '}
             une <span className="font-semibold">🏢 startup</span> doit obtenir des{' '}
             <Pill topic="licence" label="Licences" /> définies par des{' '}
             <Pill topic="regime" label="Régimes" /> et délivrées par des{' '}
@@ -55,7 +70,8 @@ export default function ConceptsNarrative({
           </>
         ) : (
           <>
-            To issue or handle a <Pill topic="token" label="Token type" />,{' '}
+            To issue or handle a <Pill topic="token" label="Token type" /> in a given{' '}
+            <JurisdictionPill label="Jurisdiction" />,{' '}
             a <span className="font-semibold">🏢 startup</span> must obtain{' '}
             <Pill topic="licence" label="Licences" /> defined by{' '}
             <Pill topic="regime" label="Regimes" /> and granted by{' '}

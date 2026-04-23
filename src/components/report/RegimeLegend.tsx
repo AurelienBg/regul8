@@ -23,8 +23,8 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
 
   const tr = isFr
     ? {
-        trigger: 'Comprendre le rapport — Régime vs Licence vs Autorité',
-        intro: 'Chaque rapport distingue clairement 4 natures différentes :',
+        trigger: 'Comprendre le rapport — types de champs',
+        intro: 'Chaque rapport distingue clairement 4 types de champs, issus du framework à 3 zones :',
         lawLabel: 'Loi / Régulation',
         lawDesc: 'Le texte légal qui fonde tout le dispositif. Ex : MiCA (règlement UE 2023/1114), GENIUS Act (loi fédérale US 2025), TVTG (loi Liechtenstein 2020). Peu ou pas de choix côté startup — ça s\'impose.',
         licLabel: 'Cadre de licence',
@@ -36,8 +36,8 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         authDesc: 'Le régulateur qui supervise et délivre la licence. Ex : AMF/ESMA (UE), SEC/CFTC/FinCEN (US), VARA (Dubaï), MAS (Singapour).',
       }
     : {
-        trigger: 'Understand the report — Regime vs Licence vs Authority',
-        intro: 'Every report clearly separates 4 distinct concepts:',
+        trigger: 'Understand the report — field types',
+        intro: 'Every report clearly separates 4 field types, from our 3-zone framework:',
         lawLabel: 'Law / Regulation',
         lawDesc: "The legal text that grounds the whole framework. E.g. MiCA (EU Regulation 2023/1114), GENIUS Act (US federal law 2025), TVTG (Liechtenstein 2020). Little choice for the startup — it just applies.",
         licLabel: 'Licence framework',
@@ -49,12 +49,30 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         authDesc: 'The regulator who supervises and issues the licence. E.g. AMF/ESMA (EU), SEC/CFTC/FinCEN (US), VARA (Dubai), MAS (Singapore).',
       };
 
-  const rows: Array<{ key: RegimeItemType | 'authority'; label: string; desc: string }> = [
-    { key: 'law', label: tr.lawLabel, desc: tr.lawDesc },
-    { key: 'licence-framework', label: tr.licLabel, desc: tr.licDesc },
-    { key: 'ruling', label: tr.ruleLabel, desc: tr.ruleDesc },
-    { key: 'authority', label: tr.authLabel, desc: tr.authDesc },
+  // Each field maps to a zone in our 3-zone framework:
+  //   Zone A (INPUTS) — not shown here (none of these 4 fields are inputs)
+  //   Zone B (OUTPUTS) — Licence framework (the actionable one)
+  //   Zone C (CONTEXT) — Law, Doctrine, Authority
+  const rows: Array<{ key: RegimeItemType | 'authority'; label: string; desc: string; zone: 'B' | 'C' }> = [
+    { key: 'law', label: tr.lawLabel, desc: tr.lawDesc, zone: 'C' },
+    { key: 'licence-framework', label: tr.licLabel, desc: tr.licDesc, zone: 'B' },
+    { key: 'ruling', label: tr.ruleLabel, desc: tr.ruleDesc, zone: 'C' },
+    { key: 'authority', label: tr.authLabel, desc: tr.authDesc, zone: 'C' },
   ];
+
+  // Zone badge styling + label (matches the home page 3-zone section)
+  const zoneBadge = (zone: 'B' | 'C') => {
+    if (zone === 'B') {
+      return {
+        class: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+        label: isFr ? 'Zone B · OUTPUT' : 'Zone B · OUTPUT',
+      };
+    }
+    return {
+      class: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200',
+      label: isFr ? 'Zone C · CONTEXT' : 'Zone C · CONTEXT',
+    };
+  };
 
   return (
     <div className="mb-6 rounded-lg border border-[var(--border)] bg-gray-50 dark:bg-gray-900/50 no-print">
@@ -87,15 +105,23 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
               const colorClass = isAuthority
                 ? 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 border-rose-300 dark:border-rose-800'
                 : meta!.colorClass;
+              const zb = zoneBadge(r.zone);
               return (
                 <div
                   key={r.key}
                   className="p-3 rounded-lg border border-[var(--border)] bg-[var(--card)] h-full flex flex-col"
                 >
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} mb-1 w-fit`}>
-                    <span className="text-sm leading-none">{icon}</span>
-                    <span>{r.label}</span>
-                  </span>
+                  <div className="flex items-start justify-between gap-2 mb-1 flex-wrap">
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md border text-xs font-semibold ${colorClass} w-fit`}>
+                      <span className="text-sm leading-none">{icon}</span>
+                      <span>{r.label}</span>
+                    </span>
+                    <span
+                      className={`inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${zb.class} shrink-0`}
+                    >
+                      {zb.label}
+                    </span>
+                  </div>
                   {isDoctrine && (
                     <p className="text-[10px] text-gray-500 dark:text-gray-400 italic mb-1">
                       {tr.ruleSubtitle}
