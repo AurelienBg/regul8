@@ -69,6 +69,61 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   'SEC Staff': 'guidance',
   'OCC Interpretive': 'guidance',
   'MAS guideline': 'guidance',
+
+  // ── Regulators / authorities (🏛️) ──
+  // Used when a licence string mentions its issuing regulator (e.g.,
+  // 'CASP authorization (ESMA/NCA)' → splits into licence CASP + regulators ESMA + NCA).
+  // Listed here in addition to / longer-first order so multi-char acronyms like
+  // 'NYDFS' are matched before 'SEC' when both appear.
+  'NYDFS': 'regulator',
+  'FinCEN': 'regulator',
+  'FINMA': 'regulator',
+  'BaFin': 'regulator',
+  'FINTRAC': 'regulator',
+  'AUSTRAC': 'regulator',
+  'Lietuvos bankas': 'regulator',
+  'HKMA': 'regulator',
+  'CSSF': 'regulator',
+  'AMF': 'regulator',
+  'ESMA': 'regulator',
+  'NCA': 'regulator',
+  'CFTC': 'regulator',
+  'SEC': 'regulator',
+  'OCC': 'regulator',
+  'MAS': 'regulator',
+  'SFC': 'regulator',
+  'FCA': 'regulator',
+  'FMA': 'regulator',
+  'DFSA': 'regulator',
+  'MFSA': 'regulator',
+  'CIMA': 'regulator',
+  'BMA': 'regulator',
+  'CBI': 'regulator',
+  'CBK': 'regulator',
+  'CBN': 'regulator',
+  'FSCA': 'regulator',
+  'FIC': 'regulator',
+  'FIU-IND': 'regulator',
+  'CSA': 'regulator',
+  'OSC': 'regulator',
+  'IIROC': 'regulator',
+  'ASIC': 'regulator',
+  'APRA': 'regulator',
+  'FSA': 'regulator',
+  'JVCEA': 'regulator',
+  'KoFIU': 'regulator',
+  'FSC': 'regulator',
+  'BCB': 'regulator',
+  'CMN': 'regulator',
+  'CVM': 'regulator',
+  'SARB': 'regulator',
+  'FIC Kenya': 'regulator',
+  'NFIU': 'regulator',
+  'CMA': 'regulator',
+  'VQF': 'regulator',
+  'ANJ': 'regulator',
+  'NLRC': 'regulator',
+  'BCLB': 'regulator',
 };
 
 const SORTED_KEYS = Object.keys(CLASSIFICATION).sort((a, b) => b.length - a.length);
@@ -104,6 +159,25 @@ function findAllMatches(haystack: string): Array<{ key: string; type: RegimeItem
     for (let i = idx; i < idx + key.length; i++) claimed.add(i);
   }
   return hits;
+}
+
+/**
+ * Parses an arbitrary regulatory string (licence, authority, or mixed) into
+ * semantic items — one pill per recognised keyword. Use this for the
+ * 'Licences Required' and 'Authority' rows on /report + /compare, where a
+ * string like 'CASP authorization (ESMA/NCA)' should render as 3 pills:
+ *   🪪 CASP · 🏛️ ESMA · 🏛️ NCA
+ *
+ * If no keyword is recognised in the string, returns a single 'other' item
+ * with the full string as its name (preserving readability).
+ */
+export function parseMixedString(raw: string): RegimeItem[] {
+  if (!raw || typeof raw !== 'string') return [];
+  const hits = findAllMatches(raw);
+  if (hits.length === 0) {
+    return [{ name: raw.trim(), type: 'other' }];
+  }
+  return hits.map((h) => ({ name: h.key, type: h.type }));
 }
 
 export function parseRegimeString(raw: string): RegimeItem[] {
@@ -198,6 +272,13 @@ export const REGIME_TYPE_META: Record<
     labelEn: 'Guidance',
     labelFr: 'Guidance',
     colorClass: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 border-emerald-300 dark:border-emerald-800',
+  },
+  // Regulator (authority) — rose/red matches the 🏛️ concept colour in /concepts.
+  regulator: {
+    icon: '🏛️',
+    labelEn: 'Regulator',
+    labelFr: 'Régulateur',
+    colorClass: 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 border-rose-300 dark:border-rose-800',
   },
   other: {
     icon: '•',

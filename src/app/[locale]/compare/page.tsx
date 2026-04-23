@@ -10,6 +10,7 @@ import EmergingBadge from '@/components/ui/EmergingBadge';
 import ActivityXRPLStatus from '@/components/ui/ActivityXRPLStatus';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
+import LicencePillsDisplay from '@/components/report/LicencePillsDisplay';
 import LinkedText from '@/components/ui/LinkedText';
 
 // Activity labels are sourced from messages/{en,fr}.json `wizard.activities.*`
@@ -69,7 +70,7 @@ export default function ComparePage() {
     obligations: 'Obligations Clés',
     timeline: 'Délai Estimé',
     cost: 'Coût Estimé',
-    authority: 'Autorité',
+    authority: 'Régulateur',
     xrplNote: 'Note Spécifique XRPL',
     runningTitle: 'Plusieurs activités cumulées ?',
     runningBody1: 'Les régulateurs examinent le profil ',
@@ -98,7 +99,7 @@ export default function ComparePage() {
     obligations: 'Key Obligations',
     timeline: 'Estimated Timeline',
     cost: 'Estimated Cost',
-    authority: 'Authority',
+    authority: 'Regulator',
     xrplNote: 'XRPL-Specific Note',
     runningTitle: 'Running multiple activities together?',
     runningBody1: 'Regulators look at the ',
@@ -338,11 +339,8 @@ export default function ComparePage() {
                         <td key={r.activity} className="p-3 align-top">
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
-                              <li
-                                key={i}
-                                className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
-                              >
-                                <LinkedText>{l}</LinkedText>
+                              <li key={i} className="block mb-1">
+                                <LicencePillsDisplay value={l} size="xs" />
                               </li>
                             ))}
                           </ul>
@@ -389,7 +387,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.authority}</td>
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top text-sm">
-                          <LinkedText>{r.result?.authority ?? ''}</LinkedText>
+                          {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
                         </td>
                       ))}
                     </tr>
@@ -564,11 +562,8 @@ export default function ComparePage() {
                         <td key={r.jurisdiction} className="p-3 align-top">
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
-                              <li
-                                key={i}
-                                className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
-                              >
-                                <LinkedText>{l}</LinkedText>
+                              <li key={i} className="block mb-1">
+                                <LicencePillsDisplay value={l} size="xs" />
                               </li>
                             ))}
                           </ul>
@@ -615,7 +610,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.authority}</td>
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top text-sm">
-                          <LinkedText>{r.result?.authority ?? ''}</LinkedText>
+                          {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
                         </td>
                       ))}
                     </tr>

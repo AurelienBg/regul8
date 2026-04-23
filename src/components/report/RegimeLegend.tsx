@@ -32,8 +32,8 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         ruleLabel: 'Doctrine',
         ruleSubtitle: 'Tests juridiques, jurisprudence, interprétations',
         ruleDesc: 'Tests juridiques et jurisprudence qui interprètent ou précisent la loi. Ex : Test de Howey (1946), SEC v. Ripple (2023).',
-        authLabel: 'Autorité',
-        authDesc: 'Le régulateur qui supervise et délivre la licence. Ex : AMF/ESMA (UE), SEC/CFTC/FinCEN (US), VARA (Dubaï), MAS (Singapour).',
+        authLabel: 'Régulateur',
+        authDesc: 'L\'organisme qui supervise et délivre la licence. Ex : AMF/ESMA (UE), SEC/CFTC/FinCEN (US), VARA (Dubaï), MAS (Singapour).',
       }
     : {
         trigger: 'Understand the report — field types',
@@ -45,8 +45,8 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
         ruleLabel: 'Doctrine',
         ruleSubtitle: 'Legal tests, case law, interpretive rulings',
         ruleDesc: 'Legal tests and case law that interpret or clarify the statute. E.g. Howey Test (1946), SEC v. Ripple (2023).',
-        authLabel: 'Authority',
-        authDesc: 'The regulator who supervises and issues the licence. E.g. AMF/ESMA (EU), SEC/CFTC/FinCEN (US), VARA (Dubai), MAS (Singapore).',
+        authLabel: 'Regulator',
+        authDesc: 'The body that supervises and issues the licence. E.g. AMF/ESMA (EU), SEC/CFTC/FinCEN (US), VARA (Dubai), MAS (Singapore).',
       };
 
   // Each field maps to a zone in our 3-zone framework:

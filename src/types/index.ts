@@ -33,7 +33,7 @@ export type ActivityKey =
   | 'derivatives'
   | 'launchpad'
 
-export type RegimeItemType = 'law' | 'licence-framework' | 'ruling' | 'guidance' | 'other'
+export type RegimeItemType = 'law' | 'licence-framework' | 'ruling' | 'guidance' | 'regulator' | 'other'
 
 export interface RegimeItem {
   name: string

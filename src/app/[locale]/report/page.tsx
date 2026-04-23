@@ -14,6 +14,7 @@ import CustodyImplementations from '@/components/report/CustodyImplementations';
 import SourcesList from '@/components/report/SourcesList';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
+import LicencePillsDisplay from '@/components/report/LicencePillsDisplay';
 import ExtendedInfo from '@/components/report/ExtendedInfo';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -372,7 +373,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                           {r ? (
                             <ul className="space-y-1">
                               {r.licenses.map((l, i) => (
-                                <li key={i} className="text-xs"><span className="badge-license"><LinkedText>{l}</LinkedText></span></li>
+                                <li key={i} className="text-xs"><LicencePillsDisplay value={l} size="xs" /></li>
                               ))}
                             </ul>
                           ) : 'N/A'}
@@ -423,7 +424,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t("authority")}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">{r?.authority ?? 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top">{r?.authority ? <LicencePillsDisplay value={r.authority} size="xs" /> : <span className="text-xs text-gray-500">N/A</span>}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -495,7 +496,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">{t('licenses')}</p>
                       <div className="space-y-1">
                         {r.licenses.map((l, i) => (
-                          <div key={i}><span className="badge-license"><LinkedText>{l}</LinkedText></span></div>
+                          <div key={i}><LicencePillsDisplay value={l} size="sm" /></div>
                         ))}
                       </div>
                     </div>
@@ -520,7 +521,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     </div>
                     <div className="col-span-2">
                       <p className="text-xs text-gray-500">{t("authority")}</p>
-                      <p className="text-sm"><LinkedText>{r.authority}</LinkedText></p>
+                      <div className="text-sm"><LicencePillsDisplay value={r.authority} size="sm" /></div>
                     </div>
                   </div>
 
