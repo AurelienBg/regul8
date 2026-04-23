@@ -83,6 +83,29 @@ const SORTED_KEYS = Object.keys(CLASSIFICATION).sort((a, b) => b.length - a.leng
  *  - For each segment, extract (optional) parenthetical note
  *  - Classify by the first matching CLASSIFICATION keyword found
  */
+/**
+ * Find all keyword matches in a haystack string, ordered by length (desc).
+ * Returns [{ key, type, index }] so callers can see which keywords matched
+ * AND where (for splitting concerns).
+ */
+function findAllMatches(haystack: string): Array<{ key: string; type: RegimeItemType }> {
+  const hits: Array<{ key: string; type: RegimeItemType }> = [];
+  const claimed = new Set<number>(); // char indices already used — avoids double-matching (e.g., 'MiCA' inside 'MiCA framework')
+  for (const key of SORTED_KEYS) {
+    const idx = haystack.indexOf(key);
+    if (idx === -1) continue;
+    // Skip if this position was claimed by a longer keyword
+    let overlap = false;
+    for (let i = idx; i < idx + key.length; i++) {
+      if (claimed.has(i)) { overlap = true; break; }
+    }
+    if (overlap) continue;
+    hits.push({ key, type: CLASSIFICATION[key] });
+    for (let i = idx; i < idx + key.length; i++) claimed.add(i);
+  }
+  return hits;
+}
+
 export function parseRegimeString(raw: string): RegimeItem[] {
   if (!raw || typeof raw !== 'string') return [];
 
@@ -109,15 +132,33 @@ export function parseRegimeString(raw: string): RegimeItem[] {
       if (!note) note = emDashMatch[2].trim();
     }
 
-    // Classify: look for the first matching keyword in the full segment
-    let type: RegimeItemType = 'other';
-    const haystack = seg;
-    for (const key of SORTED_KEYS) {
-      if (haystack.includes(key)) {
-        type = CLASSIFICATION[key];
-        break;
-      }
+    // Find ALL type keywords in both name and note (may surface multiple types
+    // per segment, e.g., 'CASP (MiCA)' has licence-framework + law).
+    const nameHits = findAllMatches(name);
+    const noteHits = note ? findAllMatches(note) : [];
+
+    const licenceHit = [...nameHits, ...noteHits].find((h) => h.type === 'licence-framework');
+    const lawHit = [...nameHits, ...noteHits].find((h) => h.type === 'law');
+    const rulingHit = [...nameHits, ...noteHits].find((h) => h.type === 'ruling');
+    const guidanceHit = [...nameHits, ...noteHits].find((h) => h.type === 'guidance');
+
+    // Case A: segment contains BOTH a licence-framework keyword AND a law keyword
+    // → emit 2 items so the regime row can filter out the licence and keep the law.
+    if (licenceHit && lawHit) {
+      // Primary licence item uses the original full name + note (preserves detail like 'CASP Art. 75 MiCA')
+      items.push({ name, type: 'licence-framework', note });
+      // Secondary law item extracted from whichever field contained it
+      items.push({ name: lawHit.key, type: 'law' });
+      continue;
     }
+
+    // Case B: single-type segment — pick the most specific match
+    // Priority when multiple types coexist: licence-framework > ruling > law > guidance > other
+    let type: RegimeItemType = 'other';
+    if (licenceHit) type = 'licence-framework';
+    else if (rulingHit) type = 'ruling';
+    else if (lawHit) type = 'law';
+    else if (guidanceHit) type = 'guidance';
 
     items.push({ name, type, note });
   }

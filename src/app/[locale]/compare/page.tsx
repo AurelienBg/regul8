@@ -311,7 +311,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.regime}</td>
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top">
-                          {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : tr.noData}
+                          {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
                         </td>
                       ))}
                     </tr>
@@ -537,7 +537,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.regime}</td>
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top">
-                          {r.result ? <RegimeDisplay result={r.result} variant="inline" /> : tr.noData}
+                          {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
                         </td>
                       ))}
                     </tr>

@@ -345,7 +345,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <td className="sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]">{t('regime')}</td>
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" /> : 'N/A'}</td>;
+                      return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" excludeTypes={['licence-framework']} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -480,7 +480,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                         <span className="font-semibold">{JURISDICTIONS[j]?.name}</span>
                         <EmergingBadge code={j} />
                       </div>
-                      <div className="mt-2"><RegimeDisplay result={r} variant="block" /></div>
+                      <div className="mt-2"><RegimeDisplay result={r} variant="block" excludeTypes={['licence-framework']} /></div>
                     </div>
                     <div className="text-right shrink-0">
                       <div className="text-[10px] uppercase tracking-wide text-gray-400 dark:text-gray-500 font-normal mb-1">

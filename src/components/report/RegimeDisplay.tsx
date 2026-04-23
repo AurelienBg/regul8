@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { parseRegimeString, REGIME_TYPE_META } from '@/lib/regime-parser';
-import type { RegResult } from '@/types';
+import type { RegResult, RegimeItemType } from '@/types';
 import LinkedText from '@/components/ui/LinkedText';
 
 interface Props {
@@ -10,20 +10,35 @@ interface Props {
   result: Pick<RegResult, 'regime' | 'regimeItems'>;
   /** Layout variant: "inline" for tight contexts (table cell), "block" for card view. */
   variant?: 'inline' | 'block';
+  /**
+   * Types to hide from the rendered output. Use `['licence-framework']` on the
+   * 'Applicable Regime' row of /report and /compare — licences are already
+   * surfaced on the 'Licences Required' row below, so we don't want them
+   * duplicated here. Defaults to empty = show everything.
+   */
+  excludeTypes?: RegimeItemType[];
 }
 
 /**
  * Renders the regime field with semantic badges per item type
- * (📜 Law / 🪪 Licence framework / ⚖️ Ruling / 📋 Guidance).
+ * (📜 Law / 🪪 Licence framework / 💡 Doctrine / 📋 Guidance).
  *
  * Prefers `regimeItems` if present; falls back to parsing `regime` string.
+ * When `excludeTypes` is set, items matching those types are filtered out.
  */
-export default function RegimeDisplay({ result, variant = 'block' }: Props) {
+export default function RegimeDisplay({ result, variant = 'block', excludeTypes }: Props) {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const items = result.regimeItems ?? parseRegimeString(result.regime);
+  const rawItems = result.regimeItems ?? parseRegimeString(result.regime);
+  const items = excludeTypes && excludeTypes.length > 0
+    ? rawItems.filter((it) => !excludeTypes.includes(it.type))
+    : rawItems;
 
   if (items.length === 0) {
+    // Fallback: if every item was filtered out and the raw list was non-empty,
+    // we still want to show SOMETHING meaningful. If the original raw list was
+    // empty we fall back to the regime string as before.
+    if (rawItems.length > 0) return null; // all filtered — nothing to show in this row
     return <span className="font-semibold"><LinkedText>{result.regime}</LinkedText></span>;
   }
 
