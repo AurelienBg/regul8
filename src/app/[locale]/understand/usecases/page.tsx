@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
 import { JURISDICTIONS } from '@/types';
 import LinkedText from '@/components/ui/LinkedText';
+import LicencePillsDisplay from '@/components/report/LicencePillsDisplay';
 
 export default function UseCasesPage() {
   const locale = useLocale();
@@ -109,9 +110,12 @@ export default function UseCasesPage() {
                         <span className="text-base leading-none flex-shrink-0" title={JURISDICTIONS[l.jur]?.name}>
                           {JURISDICTIONS[l.jur]?.flag}
                         </span>
-                        <span className="inline-block px-2 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
-                          <LinkedText>{l.name}</LinkedText>
-                        </span>
+                        {/* LicencePillsDisplay parses the free-form string and
+                            emits one correctly-coloured pill per recognised
+                            keyword — licence 🪪 violet, regulator 🏛️ rose,
+                            regime 📜 sky, token 🪙 amber, etc. Unrecognised
+                            context falls back to plain LinkedText. */}
+                        <LicencePillsDisplay value={l.name} size="sm" />
                       </li>
                     ))}
                   </ul>
@@ -146,9 +150,8 @@ export default function UseCasesPage() {
                   <span className="text-base leading-none flex-shrink-0">
                     {JURISDICTIONS[l.jur]?.flag}
                   </span>
-                  <span className="inline-block px-1.5 py-0.5 rounded bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200">
-                    <LinkedText>{l.name}</LinkedText>
-                  </span>
+                  {/* Same coloured-pill treatment as the desktop table. */}
+                  <LicencePillsDisplay value={l.name} size="xs" />
                 </li>
               ))}
             </ul>
