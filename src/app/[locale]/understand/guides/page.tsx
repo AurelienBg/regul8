@@ -244,7 +244,11 @@ export default function LearningPathsListPage() {
                   key={k}
                   onClick={() => toggle(k)}
                   aria-pressed={isActive}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+                  // Sizing + case matches the level badge on each guide
+                  // card (px-2 py-0.5 rounded-md text-[10px] font-semibold
+                  // uppercase tracking-wide) so the filter chip and the
+                  // card badge are visually identical shapes.
+                  className={`px-2 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wide transition-colors border ${
                     isActive ? levelChipActive[lv] : levelChipInactive[lv]
                   }`}
                 >
@@ -264,13 +268,16 @@ export default function LearningPathsListPage() {
             <button
               onClick={() => toggle('xrpl')}
               aria-pressed={active.has('xrpl')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+              // Sizing + palette matches the XRPL badge on each guide
+              // card (bg-xrpl-50 text-xrpl-700 + logo, text-[10px]) so
+              // the filter chip and the card badge are identical shapes.
+              className={`px-1.5 py-0.5 rounded text-[10px] font-semibold transition-colors flex items-center gap-1 border ${
                 active.has('xrpl')
                   ? 'bg-xrpl text-white border-xrpl'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-xrpl'
+                  : 'bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 border-xrpl-100 dark:border-xrpl/40 hover:bg-xrpl-100 dark:hover:bg-xrpl/40'
               }`}
             >
-              <XRPLMark className="w-3.5 h-3.5" />
+              <XRPLMark className="w-3 h-3" />
               <span>{tr.xrplLabel}</span>
             </button>
           </div>
