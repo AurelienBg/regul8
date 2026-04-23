@@ -81,6 +81,14 @@ export default function ComparePage() {
     [locale],
   );
 
+  // Filter: show only XRPL-compatible activities (9/20). Off by default.
+  // Applied in both compare modes (activities-in-juri + juri-for-activity).
+  const [xrplOnlyFilter, setXrplOnlyFilter] = useState(false);
+  const displayedActivityKeys = useMemo(
+    () => (xrplOnlyFilter ? activityKeysSorted.filter((k) => ACTIVITIES[k].xrpl) : activityKeysSorted),
+    [activityKeysSorted, xrplOnlyFilter],
+  );
+
   const tr = isFr ? {
     title: 'Comparateur',
     subtitle: 'Deux modes : plusieurs activités dans une juridiction, ou plusieurs juridictions pour une activité.',
@@ -261,11 +269,22 @@ export default function ComparePage() {
 
           {/* Activity picker */}
           <section className="mb-8">
-            <label className="block text-sm font-semibold mb-2">
-              {tr.activities} ({selectedActivities.length}/5)
-            </label>
+            <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+              <label className="block text-sm font-semibold">
+                {tr.activities} ({selectedActivities.length}/5)
+              </label>
+              <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+                <input
+                  type="checkbox"
+                  checked={xrplOnlyFilter}
+                  onChange={(e) => setXrplOnlyFilter(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                />
+                <span>{isFr ? 'Uniquement XRPL-compatibles' : 'Only XRPL-compatible'}</span>
+              </label>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {activityKeysSorted.map((a) => {
+              {displayedActivityKeys.map((a) => {
                 const isSel = selectedActivities.includes(a);
                 const disabled = !isSel && selectedActivities.length >= 5;
                 return (
@@ -436,9 +455,20 @@ export default function ComparePage() {
 
           {/* Activity picker (single select) */}
           <section className="mb-6">
-            <label className="block text-sm font-semibold mb-2">{tr.activity}</label>
+            <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+              <label className="block text-sm font-semibold">{tr.activity}</label>
+              <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+                <input
+                  type="checkbox"
+                  checked={xrplOnlyFilter}
+                  onChange={(e) => setXrplOnlyFilter(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                />
+                <span>{isFr ? 'Uniquement XRPL-compatibles' : 'Only XRPL-compatible'}</span>
+              </label>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              {activityKeysSorted.map((a) => (
+              {displayedActivityKeys.map((a) => (
                 <button
                   key={a}
                   onClick={() => setActivity(a)}
