@@ -418,9 +418,9 @@ function ZoneCard({
           );
         })}
         {extraItem && (
-          // Jurisdiction cross-cut — warm stone palette so it reads clearly
-          // distinct from the slate/grey used for Infrastructure pills.
-          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-stone-200 text-stone-900 dark:bg-stone-700 dark:text-stone-100">
+          // Jurisdiction cross-cut — teal palette, clearly distinct from all
+          // 7 topic palettes and from the slate used for Infrastructure.
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-200">
             <span>{extraItem.icon}</span>
             <span>{isFr ? extraItem.labelFr : extraItem.labelEn}</span>
           </span>
