@@ -14,7 +14,7 @@ export default function UnderstandHubPage() {
         subtitle: 'Comprendre et référencer la régulation crypto. Concepts fondamentaux, cas d\'usage, XRPL, diagrammes visuels, guides approfondis, glossaire et FAQ.',
         // Concepts
         conceptsTitle: 'Concepts réglementaires',
-        conceptsDesc: "Les 7 concepts fondamentaux de la conformité crypto : Loi, Licence, Régulateur, Obligation, Type de token, Infrastructure, Doctrine. La carte mentale pour s'orienter.",
+        conceptsDesc: "Les 8 concepts fondamentaux de la conformité crypto : Loi, Licence, Régulateur, Obligation, Type de token, Infrastructure, Doctrine + Juridiction. La carte mentale pour s'orienter.",
         conceptsCta: 'Voir les concepts',
         // Use cases
         useCasesTitle: "Cas d'usage",
@@ -49,7 +49,7 @@ export default function UnderstandHubPage() {
         subtitle: 'Understand and reference crypto regulation. Core concepts, use cases, XRPL, visual diagrams, in-depth guides, glossary and FAQ.',
         // Concepts
         conceptsTitle: 'Regulatory Concepts',
-        conceptsDesc: 'The 7 core concepts of crypto compliance: Law, Licence, Regulator, Obligation, Token type, Infrastructure, Doctrine. The mental map to orient yourself.',
+        conceptsDesc: 'The 8 core concepts of crypto compliance: Law, Licence, Regulator, Obligation, Token type, Infrastructure, Doctrine + Jurisdiction. The mental map to orient yourself.',
         conceptsCta: 'Browse concepts',
         // Use cases
         useCasesTitle: 'Use Cases',

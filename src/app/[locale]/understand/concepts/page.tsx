@@ -160,7 +160,7 @@ export default function ConceptsPage() {
   const tr = isFr
     ? {
         title: 'Concepts',
-        subtitle: "Les 7 concepts fondamentaux qu'on trouve dans un rapport réglementaire. Comprendre la différence entre loi, licence et régulateur vous évite bien des confusions.",
+        subtitle: "Les 8 concepts fondamentaux qu'on trouve dans un rapport réglementaire. Comprendre la différence entre loi, licence et régulateur vous évite bien des confusions.",
         concept: 'Concept',
         whatIs: 'Qu\'est-ce que c\'est ?',
         whenApplies: 'Quand ça s\'applique',
@@ -185,7 +185,7 @@ export default function ConceptsPage() {
       }
     : {
         title: 'Concepts',
-        subtitle: 'The 7 core concepts you find in a regulatory report. Knowing the difference between a law, a licence and a regulator saves you a lot of confusion.',
+        subtitle: 'The 8 core concepts you find in a regulatory report. Knowing the difference between a law, a licence and a regulator saves you a lot of confusion.',
         concept: 'Concept',
         whatIs: 'What it is',
         whenApplies: 'When it applies',
@@ -245,8 +245,8 @@ export default function ConceptsPage() {
         <ConceptsNarrative variant="full" />
       </section>
 
-      {/* The 7 concepts grouped into 3 zones (A: Inputs, B: Outputs, C: Context)
-          + Jurisdiction as a cross-cutting 8th row at the bottom. */}
+      {/* The 8 concepts grouped into 3 zones (A: Inputs, B: Outputs, C: Context)
+          + Jurisdiction as a cross-cutting row at the bottom. */}
       <section className="mb-10">
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">

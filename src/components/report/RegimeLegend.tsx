@@ -145,8 +145,8 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
               className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               {isFr
-                ? 'Voir tous les 7 concepts en détail → /understand/concepts'
-                : 'See all 7 concepts in detail → /understand/concepts'}
+                ? 'Voir tous les 8 concepts en détail → /understand/concepts'
+                : 'See all 8 concepts in detail → /understand/concepts'}
             </Link>
           </div>
         </div>

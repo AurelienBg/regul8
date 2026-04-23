@@ -202,8 +202,8 @@ export default function LandingPage() {
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
               {isFr
-                ? 'Tous les rapports Regul8 s\'articulent autour de 7 concepts fondamentaux, regroupés en 3 zones reflétant le parcours d\'une startup.'
-                : 'Every Regul8 report is built around 7 foundational concepts, grouped into 3 zones that mirror a startup\'s journey.'}
+                ? 'Tous les rapports Regul8 s\'articulent autour de 8 concepts fondamentaux, regroupés en 3 zones reflétant le parcours d\'une société.'
+                : 'Every Regul8 report is built around 8 foundational concepts, grouped into 3 zones that mirror a company\'s journey.'}
             </p>
           </div>
 
@@ -260,7 +260,7 @@ export default function LandingPage() {
               href="/understand/concepts"
               className="btn-secondary text-sm inline-flex items-center gap-1"
             >
-              {isFr ? 'Voir les 7 concepts en détail' : 'Browse all 7 concepts in detail'} &rarr;
+              {isFr ? 'Voir les 8 concepts en détail' : 'Browse all 8 concepts in detail'} &rarr;
             </Link>
           </div>
         </div>
