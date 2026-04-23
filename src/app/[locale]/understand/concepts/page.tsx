@@ -52,15 +52,15 @@ const TOPIC_DESCRIPTIONS: Record<Topic, { en: { title: string; what: string; whe
   regime: {
     en: {
       title: 'Law / Regulation',
-      what: 'The legal text itself — the statute, regulation, directive or act passed by a legislature. Grounds everything else.',
-      when: 'Applies whenever in force. Little to no choice for your startup — it just applies based on jurisdiction and activity.',
-      examples: 'MiCA (EU 2023/1114), GENIUS Act (US federal 2025), TVTG (Liechtenstein 2020), DLT Act (Switzerland), BSA, PSD2.',
+      what: 'The legal text itself — the statute, regulation, directive or act passed by a legislature. Grounds everything else. Each regime has a scope: 📍 local (only if you operate physically there), 🌐 extraterritorial (applies when you serve users, even if based elsewhere), or 🌍 global standard (adopted or transposed by most jurisdictions).',
+      when: 'Applies whenever in force. Little to no choice for your startup — it just applies based on jurisdiction, activity, and scope.',
+      examples: 'MiCA (EU 2023/1114, 🌐 extraterritorial), GENIUS Act (US federal 2025, 📍 local), BitLicense (NY, 📍 local), TVTG (Liechtenstein 2020), FATF Travel Rule (🌍 global standard), BSA, PSD2.',
     },
     fr: {
       title: 'Loi / Régulation',
-      what: "Le texte légal lui-même — statut, règlement, directive ou loi adopté par un législateur. Il fonde tout le reste.",
-      when: "Dès que la régulation est en vigueur. Peu ou pas de choix côté startup — ça s'impose selon la juridiction et l'activité.",
-      examples: 'MiCA (UE 2023/1114), GENIUS Act (US 2025), TVTG (Liechtenstein 2020), DLT Act (Suisse), BSA, PSD2.',
+      what: "Le texte légal lui-même — statut, règlement, directive ou loi adopté par un législateur. Il fonde tout le reste. Chaque régime a une portée : 📍 locale (uniquement si opération physique sur place), 🌐 extraterritoriale (s'applique dès que vous servez des utilisateurs, même basé ailleurs), ou 🌍 standard global (adopté ou transposé par la plupart des juridictions).",
+      when: "Dès que la régulation est en vigueur. Peu ou pas de choix côté startup — ça s'impose selon la juridiction, l'activité et la portée.",
+      examples: 'MiCA (UE 2023/1114, 🌐 extraterritoriale), GENIUS Act (US 2025, 📍 locale), BitLicense (NY, 📍 locale), TVTG (Liechtenstein 2020), Travel Rule GAFI (🌍 standard global), BSA, PSD2.',
     },
   },
   licence: {
@@ -173,8 +173,8 @@ export default function ConceptsPage() {
         zoneA: { title: 'INPUTS — Ce que vous construisez', subtitle: 'Ce que votre startup émet ou opère. Ces choix déterminent tout ce qui suit.' },
         zoneB: { title: 'OUTPUTS — Ce que vous devez faire', subtitle: 'Les actions concrètes et livrables de conformité. Le cœur de l\'analyse pour un founder.' },
         zoneC: { title: 'CONTEXT — Où, auprès de qui, sous quelle loi', subtitle: 'Le cadre qui entoure les outputs. À comprendre pour naviguer les zones grises.' },
-        reachTitle: 'Portée — jusqu\'où une régulation s\'applique',
-        reachSubtitle: 'Au-delà de ce qu\'une régulation EST, l\'important est de savoir jusqu\'où elle vous atteint. Trois portées typiques :',
+        reachTitle: 'Scope des régimes — attribut transverse',
+        reachSubtitle: 'Chaque régime (voir 📜 Regime ci-dessus) a une portée qui décrit comment il vous atteint. Ce n\'est pas un 9e concept séparé, mais un attribut appliqué aux régimes. Trois portées typiques :',
         scopes: [
           { icon: '📍', label: 'Locale', body: 'Territoriale. S\'applique uniquement si vous êtes incorporés ou opérez physiquement sur place. Ex : la BitLicense ne couvre que les entreprises opérant à New York.' },
           { icon: '🌐', label: 'Extraterritoriale', body: 'S\'applique dès que vous servez ou ciblez les utilisateurs de cette juridiction, même si votre société est basée ailleurs. Ex : MiCA s\'applique à toute entreprise servant des utilisateurs de l\'UE.' },
@@ -198,8 +198,8 @@ export default function ConceptsPage() {
         zoneA: { title: 'INPUTS — What you are building', subtitle: 'What your startup issues or operates. These choices determine everything downstream.' },
         zoneB: { title: 'OUTPUTS — What you must do', subtitle: 'The concrete compliance actions and deliverables. The core for a founder.' },
         zoneC: { title: 'CONTEXT — Where, with whom, under what law', subtitle: 'The framing around the outputs. Helps you navigate grey zones.' },
-        reachTitle: 'Reach — how far a regulation applies',
-        reachSubtitle: 'Beyond what a regulation IS, the real question is how far its arm reaches. Three typical scopes:',
+        reachTitle: 'Scope of regimes — a cross-cutting attribute',
+        reachSubtitle: 'Every regime (see 📜 Regime above) has a scope that describes how it reaches you. Not a 9th standalone concept — just an attribute applied to regimes. Three typical scopes:',
         scopes: [
           { icon: '📍', label: 'Local', body: 'Territorial. Applies only if you incorporate or operate physically there. Ex: BitLicense only covers businesses operating in New York.' },
           { icon: '🌐', label: 'Extraterritorial', body: 'Applies whenever you serve or target users of that jurisdiction, even if based elsewhere. Ex: MiCA applies to any business serving EU users.' },
@@ -362,16 +362,12 @@ export default function ConceptsPage() {
         </div>
       </section>
 
-      {/* 🏳️ Flags — how to read jurisdiction markers */}
-      <section className="mb-10">
-        <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
-          <span>🏳️</span>
-          <span>{tr.flagsTitle}</span>
-        </h2>
-        <div className="p-4 rounded-lg border border-[var(--border)] bg-[var(--card)]">
-          <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{tr.flagsBody}</p>
-        </div>
-      </section>
+      {/* Small print: UI flag markers (not a regulatory concept — just a display convention) */}
+      <aside className="mb-10 p-3 rounded-md border border-dashed border-[var(--border)] bg-gray-50/60 dark:bg-gray-900/40">
+        <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+          <span className="font-semibold">🏳️ {tr.flagsTitle}</span> — {tr.flagsBody}
+        </p>
+      </aside>
 
       {/* All terms, grouped by concept */}
       <section className="mb-10">
