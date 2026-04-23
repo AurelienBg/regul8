@@ -269,16 +269,16 @@ export default function ComparePage() {
 
           {/* Activity picker */}
           <section className="mb-8">
-            <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+            <div className="flex items-center gap-3 mb-2 flex-wrap">
               <label className="block text-sm font-semibold">
                 {tr.activities} ({selectedActivities.length}/5)
               </label>
-              <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
                 <input
                   type="checkbox"
                   checked={xrplOnlyFilter}
                   onChange={(e) => setXrplOnlyFilter(e.target.checked)}
-                  className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
                 />
                 <span>{isFr ? 'Uniquement XRPL-compatibles' : 'Only XRPL-compatible'}</span>
               </label>
@@ -455,14 +455,14 @@ export default function ComparePage() {
 
           {/* Activity picker (single select) */}
           <section className="mb-6">
-            <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+            <div className="flex items-center gap-3 mb-2 flex-wrap">
               <label className="block text-sm font-semibold">{tr.activity}</label>
-              <label className="inline-flex items-center gap-2 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
+              <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
                 <input
                   type="checkbox"
                   checked={xrplOnlyFilter}
                   onChange={(e) => setXrplOnlyFilter(e.target.checked)}
-                  className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
                 />
                 <span>{isFr ? 'Uniquement XRPL-compatibles' : 'Only XRPL-compatible'}</span>
               </label>

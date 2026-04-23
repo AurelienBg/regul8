@@ -362,22 +362,20 @@ export default function AssessPage() {
       <section className="grid lg:grid-cols-2 gap-8 mb-8">
         {/* Activities — 2-col internal grid */}
         <div>
-          <div className="flex items-start justify-between gap-3 mb-1 flex-wrap">
-            <div>
-              <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
-              <p className="text-xs text-gray-500">{tr.selectAll}</p>
-            </div>
-            <label className="inline-flex items-center gap-2 cursor-pointer shrink-0 text-xs text-gray-600 dark:text-gray-400 select-none">
+          <h2 className="text-lg font-semibold mb-1">{tr.activitiesTitle}</h2>
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <p className="text-xs text-gray-500">{tr.selectAll}</p>
+            <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs text-gray-600 dark:text-gray-400 select-none">
               <input
                 type="checkbox"
                 checked={xrplOnlyFilter}
                 onChange={(e) => setXrplOnlyFilter(e.target.checked)}
-                className="w-4 h-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                className="w-3.5 h-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
               />
               <span>{isFr ? 'Uniquement XRPL-compatibles' : 'Only XRPL-compatible'}</span>
             </label>
           </div>
-          <div className="grid sm:grid-cols-2 gap-2 mt-4">
+          <div className="grid sm:grid-cols-2 gap-2">
             {displayedActivityKeys.map((key) => {
               const active = selectedActivities.includes(key);
               const aiSuggested = aiActivities.has(key);
@@ -391,7 +389,7 @@ export default function AssessPage() {
                       : 'border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
-                  <span className="flex items-center gap-2 min-w-0">
+                  <span className="flex items-center gap-2 min-w-0 flex-1">
                     <span
                       className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
                         active ? 'bg-blue-500 border-blue-500' : 'border-gray-300 dark:border-gray-600'
