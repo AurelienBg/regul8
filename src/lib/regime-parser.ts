@@ -79,6 +79,21 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   'DLT Trading Facility': 'licence-framework',
   'DLT framework': 'licence-framework',
   'MTF': 'licence-framework',
+  // Added from use-cases.ts comprehensive glossary audit (April 2026).
+  // 'VATP' is already declared at the top of this section (line 46).
+  'Broker-Dealer': 'licence-framework',
+  'Transfer Agent': 'licence-framework',
+  'ATS': 'licence-framework',
+  // 'OCC charter' is declared earlier in the US section; do not redeclare.
+  'Cryptoasset registration': 'licence-framework',
+  'Crypto Custody licence': 'licence-framework',
+  'Crypto Custody registration': 'licence-framework',
+  'TVTG Token Issuer': 'licence-framework',
+  'JONUM authorization': 'licence-framework',
+  'VASP Class I': 'licence-framework',
+  'DFSA licence': 'licence-framework',
+  'ADGM Financial Services': 'licence-framework',
+  'Pre-Registration Undertaking': 'licence-framework',
 
   // ── Case law / rulings (⚖️) ──
   'Howey Test': 'ruling',

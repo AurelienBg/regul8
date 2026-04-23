@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useLocale } from 'next-intl';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
 import LinkedText from '@/components/ui/LinkedText';
@@ -8,20 +8,46 @@ import LicenceRow from '@/components/report/LicenceRow';
 import LicencePair from '@/components/report/LicencePair';
 import XRPLMark from '@/components/ui/XRPLMark';
 
-/** Extended filter key: the existing use-case tags + an 'xrpl' cross-cut
- *  that isolates XRPL-ecosystem use cases. */
-type FilterKey = UseCaseTag | 'all' | 'xrpl';
+/** Keys that can be toggled ON in the active-filters set. 'all' is NOT a
+ *  member — it's just the implicit default state (empty set). */
+type ActiveKey = UseCaseTag | 'xrpl';
 
 export default function UseCasesPage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const [filter, setFilter] = useState<FilterKey>('all');
+
+  // Multi-select filters + toggle-on-reclick. Semantics:
+  //   · Empty set         → show everything (same as old 'all')
+  //   · Non-empty set     → OR across all keys (union)
+  //   · 'all' button      → clears the set (reset)
+  //   · Other button      → toggles its key in/out of the set
+  // XRPL coexists with tag keys — it's OR'd in too, not an AND intersection,
+  // so the behaviour matches a classic tag filter: "give me exchanges or
+  // stablecoins or XRPL-related".
+  const [active, setActive] = useState<Set<ActiveKey>>(() => new Set());
+
+  const toggle = useCallback((key: UseCaseTag | 'all' | 'xrpl') => {
+    if (key === 'all') {
+      setActive(new Set());
+      return;
+    }
+    setActive((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  }, []);
 
   const filtered = useMemo(() => {
-    if (filter === 'all') return USE_CASES;
-    if (filter === 'xrpl') return USE_CASES.filter((c) => c.xrpl);
-    return USE_CASES.filter((c) => c.tag === filter);
-  }, [filter]);
+    if (active.size === 0) return USE_CASES;
+    // Array.from avoids the --downlevelIteration requirement on the Set
+    // iterator. Matches tsconfig target es5.
+    const keys = Array.from(active);
+    return USE_CASES.filter((c) =>
+      keys.some((f) => (f === 'xrpl' ? Boolean(c.xrpl) : c.tag === f)),
+    );
+  }, [active]);
 
   const tr = isFr
     ? {
@@ -63,32 +89,39 @@ export default function UseCasesPage() {
         </p>
       </header>
 
-      {/* Filter chips — existing tag filters + XRPL cross-cut (own chip with
-          the XRPL brand mark so the XRPL ecosystem is a first-class filter). */}
+      {/* Filter chips — multi-select + toggle-on-reclick. The 'All' chip is
+          active when no other filter is on; other chips toggle their key
+          in / out of the active set. XRPL is a separate chip with its own
+          brand colour because it's a cross-cut, not a tag. */}
       <div className="mb-6">
         <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">{tr.filterBy}</div>
         <div className="flex gap-1.5 flex-wrap">
-          {USE_CASE_TAGS.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setFilter(t.key)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-                filter === t.key
-                  ? 'bg-blue-500 text-white border-blue-500'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
-              }`}
-            >
-              {t.icon && <span>{t.icon}</span>}
-              {isFr ? t.labelFr : t.labelEn}
-            </button>
-          ))}
+          {USE_CASE_TAGS.map((t) => {
+            const isActive = t.key === 'all' ? active.size === 0 : active.has(t.key);
+            return (
+              <button
+                key={t.key}
+                onClick={() => toggle(t.key)}
+                aria-pressed={isActive}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
+                  isActive
+                    ? 'bg-blue-500 text-white border-blue-500'
+                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
+                }`}
+              >
+                {t.icon && <span>{t.icon}</span>}
+                {isFr ? t.labelFr : t.labelEn}
+              </button>
+            );
+          })}
           {/* XRPL filter chip — separated from the tag chips by styling
               (XRPL logo instead of emoji) because it's a different axis. */}
           <button
             key="xrpl"
-            onClick={() => setFilter('xrpl')}
+            onClick={() => toggle('xrpl')}
+            aria-pressed={active.has('xrpl')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 border ${
-              filter === 'xrpl'
+              active.has('xrpl')
                 ? 'bg-xrpl text-white border-xrpl'
                 : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-xrpl'
             }`}
