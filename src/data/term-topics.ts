@@ -27,11 +27,34 @@ export const TERM_TOPICS: Record<string, Topic> = {
   DPT: 'token', RLUSD: 'token', MPT: 'token',
 
   // 🏛️ Regulators / supervisory bodies
+  // EU
   AMF: 'regulator', ESMA: 'regulator', NCA: 'regulator', ANJ: 'regulator',
-  FinCEN: 'regulator', OFAC: 'regulator',
+  BaFin: 'regulator', CSSF: 'regulator', MFSA: 'regulator', CBI: 'regulator',
+  'Lietuvos bankas': 'regulator', FMA: 'regulator',
+  // US
+  FinCEN: 'regulator', OFAC: 'regulator', SEC: 'regulator', CFTC: 'regulator',
+  OCC: 'regulator', NYDFS: 'regulator',
+  // International & Switzerland
   FATF: 'regulator', FINMA: 'regulator', VQF: 'regulator', SRO: 'regulator',
+  // Asia-Pacific
   MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
-  FCA: 'regulator', VARA: 'regulator',
+  FSA: 'regulator', JVCEA: 'regulator', FSC: 'regulator', KoFIU: 'regulator',
+  ASIC: 'regulator', APRA: 'regulator', AUSTRAC: 'regulator',
+  'FIU-IND': 'regulator',
+  // UK
+  FCA: 'regulator',
+  // Middle East & Offshore
+  VARA: 'regulator', DFSA: 'regulator', CIMA: 'regulator', BMA: 'regulator',
+  // Canada
+  FINTRAC: 'regulator', CSA: 'regulator', OSC: 'regulator', IIROC: 'regulator',
+  // Latin America
+  BCB: 'regulator', CVM: 'regulator', CMN: 'regulator',
+  // Africa
+  'SEC Nigeria': 'regulator', CBN: 'regulator', NFIU: 'regulator',
+  CBK: 'regulator', CMA: 'regulator', FSCA: 'regulator', SARB: 'regulator',
+  FIC: 'regulator',
+  // Gaming
+  NLRC: 'regulator', BCLB: 'regulator',
 
   // 💡 Doctrine / legal tests / rulings
   'Howey Test': 'doctrine',

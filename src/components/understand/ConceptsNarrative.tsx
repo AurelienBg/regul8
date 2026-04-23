@@ -37,8 +37,10 @@ function Pill({ topic, label }: { topic: Topic; label: string }) {
  * every licence/regime/regulator is scoped to a jurisdiction.
  */
 function JurisdictionPill({ label }: { label: string }) {
+  // Warm stone palette — visually distinct from the slate/grey used for
+  // Infrastructure pills. 🗺️ is the cross-cut, not a topic.
   return (
-    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded font-semibold bg-stone-200 text-stone-900 dark:bg-stone-700 dark:text-stone-100">
       <span>🗺️</span>
       <span>{label}</span>
     </span>

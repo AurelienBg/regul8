@@ -259,11 +259,18 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
       };
 
   const stickyLabelCls =
-    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
+    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top border-r border-[var(--border)]';
+  // Header class for the "Field" column — peer weight to the
+  // per-jurisdiction headers (bold, normal case) instead of tiny grey.
+  const stickyHeaderCls =
+    'sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-28 sm:w-40 font-bold leading-snug';
+  const fieldLabel = isFr ? 'Champ' : 'Field';
   const fieldCell = (label: string, desc: string) => (
     <td className={stickyLabelCls}>
-      <div>{label}</div>
-      <div className="text-[10px] normal-case font-normal text-gray-400 dark:text-gray-500 mt-1 leading-snug">
+      <div className="font-bold text-gray-800 dark:text-gray-100 text-xs uppercase tracking-wide">
+        {label}
+      </div>
+      <div className="text-[10px] normal-case font-normal text-gray-500 dark:text-gray-400 mt-1 leading-snug">
         {desc}
       </div>
     </td>
@@ -370,7 +377,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               <table className="w-full text-sm border-collapse">
                 <thead>
                   <tr>
-                    <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-28 sm:w-40" />
+                    <th className={stickyHeaderCls}>{fieldLabel}</th>
                     {jurisdictions.map((j) => (
                       <th key={j} className="text-left p-3 border-b border-[var(--border)] min-w-[160px] sm:min-w-[200px]">
                         <div className="flex items-center gap-1.5 flex-wrap">
@@ -414,7 +421,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                           {r ? (
                             <ul className="space-y-1">
                               {r.licenses.map((l, i) => (
-                                <li key={i} className="text-xs"><LicencePillsDisplay value={l} size="xs" /></li>
+                                <li key={i} className="text-xs"><LicencePillsDisplay value={l} size="xs" filterTypes={['licence-framework']} /></li>
                               ))}
                             </ul>
                           ) : 'N/A'}
@@ -537,7 +544,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                       <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">{t('licenses')}</p>
                       <div className="space-y-1">
                         {r.licenses.map((l, i) => (
-                          <div key={i}><LicencePillsDisplay value={l} size="sm" /></div>
+                          <div key={i}><LicencePillsDisplay value={l} size="sm" filterTypes={['licence-framework']} /></div>
                         ))}
                       </div>
                     </div>

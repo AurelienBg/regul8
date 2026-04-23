@@ -180,18 +180,27 @@ export default function ComparePage() {
   const activityLabel = tw(`activities.${activity}`);
 
   // --- shared cell classes ---
-  // Sticky first column; uppercase label + optional lowercase description below.
+  // Sticky first column; bold dark label + optional muted description below.
   const stickyLabelCls =
-    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top font-medium text-gray-500 text-xs uppercase border-r border-[var(--border)]';
+    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top border-r border-[var(--border)]';
 
-  // Renders the FIELD cell with a main label + short plain-English description.
-  // Description is shown in smaller, non-uppercase, muted text — merging the
-  // legend's per-field explanations directly into the table (M4: vocabulary
-  // coherence; avoids a separate popover users might miss).
+  // Header cell class for the "Field" column header — same visual weight as
+  // the per-activity / per-jurisdiction headers (bold, normal case) rather
+  // than the old tiny-uppercase-grey treatment, so the column reads as a
+  // peer of the other columns.
+  const stickyHeaderCls =
+    'sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 font-bold leading-snug';
+
+  // Renders the FIELD row cell with a bold main label + short plain-English
+  // description. Description is muted + smaller — merging the legend's
+  // per-field explanations directly into the table (M4: vocabulary coherence;
+  // avoids a separate popover users might miss).
   const fieldCell = (label: string, desc: string) => (
     <td className={stickyLabelCls}>
-      <div>{label}</div>
-      <div className="text-[10px] normal-case font-normal text-gray-400 dark:text-gray-500 mt-1 leading-snug">
+      <div className="font-bold text-gray-800 dark:text-gray-100 text-xs uppercase tracking-wide">
+        {label}
+      </div>
+      <div className="text-[10px] normal-case font-normal text-gray-500 dark:text-gray-400 mt-1 leading-snug">
         {desc}
       </div>
     </td>
@@ -322,7 +331,7 @@ export default function ComparePage() {
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr>
-                      <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
+                      <th className={stickyHeaderCls}>
                         {tr.field}
                       </th>
                       {activityRows.map((r) => (
@@ -370,7 +379,7 @@ export default function ComparePage() {
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
                               <li key={i} className="block mb-1">
-                                <LicencePillsDisplay value={l} size="xs" />
+                                <LicencePillsDisplay value={l} size="xs" filterTypes={['licence-framework']} />
                               </li>
                             ))}
                           </ul>
@@ -544,7 +553,7 @@ export default function ComparePage() {
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr>
-                      <th className="sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-32 sm:w-44 text-xs uppercase text-gray-500">
+                      <th className={stickyHeaderCls}>
                         {tr.field}
                       </th>
                       {jurisdictionRows.map((r) => (
@@ -593,7 +602,7 @@ export default function ComparePage() {
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
                               <li key={i} className="block mb-1">
-                                <LicencePillsDisplay value={l} size="xs" />
+                                <LicencePillsDisplay value={l} size="xs" filterTypes={['licence-framework']} />
                               </li>
                             ))}
                           </ul>

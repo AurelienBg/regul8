@@ -312,7 +312,8 @@ export default function ConceptsPage() {
                   return (
                     <tr key="jurisdiction" className="border-b border-[var(--border)]">
                       <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
-                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+                        {/* Warm stone palette — distinct from Infra slate/grey. */}
+                        <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-stone-200 text-stone-900 dark:bg-stone-700 dark:text-stone-100">
                           <span className="text-sm leading-none">{JURISDICTION_CROSSCUT.icon}</span>
                           <span>{isFr ? JURISDICTION_CROSSCUT.labelFr : JURISDICTION_CROSSCUT.labelEn}</span>
                         </span>

@@ -418,7 +418,9 @@ function ZoneCard({
           );
         })}
         {extraItem && (
-          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+          // Jurisdiction cross-cut — warm stone palette so it reads clearly
+          // distinct from the slate/grey used for Infrastructure pills.
+          <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold bg-stone-200 text-stone-900 dark:bg-stone-700 dark:text-stone-100">
             <span>{extraItem.icon}</span>
             <span>{isFr ? extraItem.labelFr : extraItem.labelEn}</span>
           </span>
