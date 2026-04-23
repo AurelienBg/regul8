@@ -10,7 +10,11 @@ export default function JurisdictionArbitrageMapPage() {
   const tr = isFr ? {
     back: 'Cartes visuelles',
     title: "Carte d'arbitrage des juridictions",
-    subtitle: 'Scatter plot délai vs coût. Couleur du point = niveau de risque. Taille du point = accès marché. Trouvez votre sweet spot.',
+    // Split into 2 parts so "Trouvez votre sweet spot" / "Find your sweet spot"
+    // can be force-nowrap'd in the JSX — keeps the closing punch line on a
+    // single line regardless of viewport width.
+    subtitleMain: 'Scatter plot délai vs coût. Couleur du point = niveau de risque. Taille du point = accès marché.',
+    subtitleTail: 'Trouvez votre sweet spot.',
     q1Title: '⭐ Quadrant rapide & abordable',
     q1Body: "Liechtenstein TVTG, Brésil, Suisse. Points de départ idéaux quand le budget et le délai sont les contraintes principales. Le Liechtenstein ajoute le passeport EEE en bonus.",
     q2Title: '🚀 Rapide & structuré',
@@ -23,7 +27,8 @@ export default function JurisdictionArbitrageMapPage() {
   } : {
     back: 'Visual Maps',
     title: 'Jurisdiction Arbitrage Map',
-    subtitle: 'Speed vs cost scatter plot. Dot color = risk level. Dot size = market access. Find your sweet spot.',
+    subtitleMain: 'Speed vs cost scatter plot. Dot color = risk level. Dot size = market access.',
+    subtitleTail: 'Find your sweet spot.',
     q1Title: '⭐ Fast & cheap quadrant',
     q1Body: 'Liechtenstein TVTG, Brazil, Switzerland. Ideal starting points when budget and time are the top constraints. Liechtenstein adds EEA passporting as a bonus.',
     q2Title: '🚀 Fast & structured',
@@ -43,7 +48,8 @@ export default function JurisdictionArbitrageMapPage() {
           <h1 className="text-3xl sm:text-4xl font-bold">{tr.title}</h1>
         </div>
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-          {tr.subtitle}
+          {tr.subtitleMain}{' '}
+          <span className="whitespace-nowrap">{tr.subtitleTail}</span>
         </p>
       </header>
 
