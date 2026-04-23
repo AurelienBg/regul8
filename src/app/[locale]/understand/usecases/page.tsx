@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
 import LinkedText from '@/components/ui/LinkedText';
 import LicenceRow from '@/components/report/LicenceRow';
+import LicencePair from '@/components/report/LicencePair';
 import XRPLMark from '@/components/ui/XRPLMark';
 
 /** Extended filter key: the existing use-case tags + an 'xrpl' cross-cut
@@ -30,7 +31,8 @@ export default function UseCasesPage() {
         filterBy: 'Filtrer par type',
         company: 'Entreprise',
         useCase: "Cas d'usage",
-        licences: 'Licences par juridiction',
+        licences: '🪪 Licences',
+        regulator: '🏛️ Régulateur / Régime',
         since: 'Depuis',
         xrplLabel: 'Écosystème XRPL',
         disclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas un conseil juridique ni une recommandation d'investissement.",
@@ -42,7 +44,8 @@ export default function UseCasesPage() {
         filterBy: 'Filter by type',
         company: 'Company',
         useCase: 'Use case',
-        licences: 'Licences by jurisdiction',
+        licences: '🪪 Licences',
+        regulator: '🏛️ Regulator / Regime',
         since: 'Since',
         xrplLabel: 'XRPL ecosystem',
         disclaimer: 'Public information compiled for educational purposes. Does not constitute legal advice or an investment recommendation.',
@@ -96,14 +99,24 @@ export default function UseCasesPage() {
         </div>
       </div>
 
-      {/* Desktop table */}
+      {/* Desktop table — 4 columns: Company | Use case | 🪪 Licences |
+          🏛️ Regulator / Regime. The last two are a single colSpan={2} cell
+          that hosts a 2-column sub-grid (LicencePair) so the licence and
+          its paired regulator/regime are always on the same sub-row. */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="w-full text-sm border-collapse">
+        <table className="w-full text-sm border-collapse" style={{ tableLayout: 'fixed' }}>
+          <colgroup>
+            <col className="w-[18%]" />
+            <col className="w-[34%]" />
+            <col className="w-[21%]" />
+            <col className="w-[27%]" />
+          </colgroup>
           <thead>
             <tr className="bg-gray-50 dark:bg-gray-900/50">
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.company}</th>
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.useCase}</th>
               <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.licences}</th>
+              <th className="text-left p-3 border-b border-[var(--border)] font-semibold">{tr.regulator}</th>
             </tr>
           </thead>
           <tbody>
@@ -131,19 +144,15 @@ export default function UseCasesPage() {
                   </div>
                   {c.since && <div className="text-xs text-gray-500 mt-0.5">{tr.since} {c.since}</div>}
                 </td>
-                <td className="p-3 align-top text-sm text-gray-700 dark:text-gray-300 max-w-md leading-relaxed">
+                <td className="p-3 align-top text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                   <LinkedText>{isFr ? c.useCase.fr : c.useCase.en}</LinkedText>
                 </td>
-                <td className="p-3 align-top">
-                  {/* Option C layout: one row per licence, headline pill +
-                      muted metadata sub-line (regulator / regime / note / since). */}
-                  <ul className="space-y-2.5">
-                    {c.licences.map((l, i) => (
-                      <li key={i}>
-                        <LicenceRow entry={l} />
-                      </li>
-                    ))}
-                  </ul>
+                {/* Licence + Regulator cells rendered together via colSpan={2}
+                    so CSS grid can row-align the licence and its meta. The
+                    sub-grid's column boundary visually matches the header
+                    boundary because both use the same 21/27 ≈ 1/1.3 ratio. */}
+                <td colSpan={2} className="p-0 align-top">
+                  <LicencePair licences={c.licences} />
                 </td>
               </tr>
             ))}
