@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
 import { lookupRegulation } from '@/lib/regulations-lookup';
@@ -11,67 +11,26 @@ import ActivityXRPLStatus from '@/components/ui/ActivityXRPLStatus';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
 
-const ACTIVITY_LABELS_EN: Record<ActivityKey, string> = {
-  exchange: 'Exchange / Trading',
-  dapp_fin: 'DeFi DApp',
-  dapp_util: 'Utility DApp',
-  nft: 'NFT marketplace',
-  mpt: 'MPT (XLS-33)',
-  rwa: 'RWA tokenisation',
-  stablecoin: 'Stablecoin',
-  gaming: 'Gaming / GameFi',
-  custody: 'Custody / Wallet',
-  payment: 'Payment / Remittance',
-  onramp_offramp: 'Onramp / Offramp',
-  cross_border_payment: 'Cross-border payment',
-  token_utility: 'Utility token',
-  token_security: 'Security token',
-  token_hybrid: 'Hybrid token',
-  staking: 'Staking service',
-  lending: 'Lending / Borrowing',
-  asset_management: 'Asset management',
-  derivatives: 'Derivatives',
-  launchpad: 'Launchpad',
-};
-
-const ACTIVITY_LABELS_FR: Record<ActivityKey, string> = {
-  exchange: 'Exchange / Trading',
-  dapp_fin: 'DApp DeFi',
-  dapp_util: 'DApp utilitaire',
-  nft: 'Marketplace NFT',
-  mpt: 'MPT (XLS-33)',
-  rwa: 'Tokenisation RWA',
-  stablecoin: 'Stablecoin',
-  gaming: 'Gaming / GameFi',
-  custody: 'Custody / Wallet',
-  payment: 'Paiement / Remise',
-  onramp_offramp: 'Onramp / Offramp',
-  cross_border_payment: 'Paiement transfrontalier',
-  token_utility: 'Utility token',
-  token_security: 'Security token',
-  token_hybrid: 'Token hybride',
-  staking: 'Service de staking',
-  lending: 'Prêt / Emprunt',
-  asset_management: 'Gestion d\'actifs',
-  derivatives: 'Dérivés',
-  launchpad: 'Launchpad',
-};
+// Activity labels are sourced from messages/{en,fr}.json `wizard.activities.*`
+// — same source as /assess. Previously /compare had its own shorter inline
+// mapping which created drift ('Utility DApp' vs 'DApp — Utility (Social,
+// Identity, DAO)'). Unified on the verbose version for clarity.
 
 type CompareMode = 'activities' | 'jurisdictions';
 
 export default function ComparePage() {
   const locale = useLocale();
   const isFr = locale === 'fr';
-  const ACTIVITY_LABELS = isFr ? ACTIVITY_LABELS_FR : ACTIVITY_LABELS_EN;
+  const tw = useTranslations('wizard');
 
   // Alphabetical ordering for both lists — matches /assess. Memoised since
   // label mappings are locale-dependent.
   const activityKeysSorted = useMemo(
     () =>
       (Object.keys(ACTIVITIES) as ActivityKey[]).sort((a, b) =>
-        ACTIVITY_LABELS[a].localeCompare(ACTIVITY_LABELS[b], locale),
+        tw(`activities.${a}`).localeCompare(tw(`activities.${b}`), locale),
       ),
-    [ACTIVITY_LABELS, locale],
+    [tw, locale],
   );
   const jurisdictionKeysSorted = useMemo(
     () =>
@@ -200,7 +159,7 @@ export default function ComparePage() {
   );
 
   const jurisdictionMeta = JURISDICTIONS[jurisdiction];
-  const activityLabel = ACTIVITY_LABELS[activity];
+  const activityLabel = tw(`activities.${activity}`);
 
   // --- shared cell classes ---
   const stickyLabelCls =
@@ -302,7 +261,7 @@ export default function ComparePage() {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <span>{ACTIVITY_LABELS[a]}</span>
+                      <span className="flex-1 leading-snug">{tw(`activities.${a}`)}</span>
                       <ActivityXRPLStatus activity={a} />
                     </div>
                   </button>
@@ -339,8 +298,10 @@ export default function ComparePage() {
                           key={r.activity}
                           className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
                         >
-                          <div className="font-bold">{ACTIVITY_LABELS[r.activity]}</div>
-                          <ActivityXRPLStatus activity={r.activity} />
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="font-bold leading-snug">{tw(`activities.${r.activity}`)}</div>
+                            <ActivityXRPLStatus activity={r.activity} />
+                          </div>
                         </th>
                       ))}
                     </tr>
@@ -481,7 +442,7 @@ export default function ComparePage() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <span>{ACTIVITY_LABELS[a]}</span>
+                    <span className="flex-1 leading-snug">{tw(`activities.${a}`)}</span>
                     <ActivityXRPLStatus activity={a} />
                   </div>
                 </button>
