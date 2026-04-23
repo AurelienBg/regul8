@@ -10,6 +10,7 @@ import EmergingBadge from '@/components/ui/EmergingBadge';
 import ActivityXRPLStatus from '@/components/ui/ActivityXRPLStatus';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
+import LinkedText from '@/components/ui/LinkedText';
 
 // Activity labels are sourced from messages/{en,fr}.json `wizard.activities.*`
 // — same source as /assess. Previously /compare had its own shorter inline
@@ -341,7 +342,7 @@ export default function ComparePage() {
                                 key={i}
                                 className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
                               >
-                                {l}
+                                <LinkedText>{l}</LinkedText>
                               </li>
                             ))}
                           </ul>
@@ -354,7 +355,7 @@ export default function ComparePage() {
                         <td key={r.activity} className="p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
                             {r.result?.obligations.map((o, i) => (
-                              <li key={i}>{o}</li>
+                              <li key={i}><LinkedText>{o}</LinkedText></li>
                             ))}
                           </ul>
                         </td>
@@ -388,7 +389,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.authority}</td>
                       {activityRows.map((r) => (
                         <td key={r.activity} className="p-3 align-top text-sm">
-                          {r.result?.authority}
+                          <LinkedText>{r.result?.authority ?? ''}</LinkedText>
                         </td>
                       ))}
                     </tr>
@@ -567,7 +568,7 @@ export default function ComparePage() {
                                 key={i}
                                 className="inline-block mr-1 mb-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs"
                               >
-                                {l}
+                                <LinkedText>{l}</LinkedText>
                               </li>
                             ))}
                           </ul>
@@ -580,7 +581,7 @@ export default function ComparePage() {
                         <td key={r.jurisdiction} className="p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
                             {r.result?.obligations.map((o, i) => (
-                              <li key={i}>{o}</li>
+                              <li key={i}><LinkedText>{o}</LinkedText></li>
                             ))}
                           </ul>
                         </td>
@@ -614,7 +615,7 @@ export default function ComparePage() {
                       <td className={stickyLabelCls}>{tr.authority}</td>
                       {jurisdictionRows.map((r) => (
                         <td key={r.jurisdiction} className="p-3 align-top text-sm">
-                          {r.result?.authority}
+                          <LinkedText>{r.result?.authority ?? ''}</LinkedText>
                         </td>
                       ))}
                     </tr>
