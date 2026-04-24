@@ -11,7 +11,7 @@ import CustodyImplementations from '@/components/report/CustodyImplementations';
 import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
 import XRPLMark from '@/components/ui/XRPLMark';
 
-type XrplTab = 'legal' | 'tech' | 'custody';
+type XrplTab = 'legal' | 'tech' | 'custody' | 'companies';
 
 export default function XRPLPage() {
   const t = useTranslations('xrpl');
@@ -27,7 +27,7 @@ export default function XRPLPage() {
   // Honour ?tab=legal|tech|custody on mount (deep link from elsewhere)
   useEffect(() => {
     const t = searchParams.get('tab');
-    if (t === 'legal' || t === 'tech' || t === 'custody') setTab(t);
+    if (t === 'legal' || t === 'tech' || t === 'custody' || t === 'companies') setTab(t);
   }, [searchParams]);
 
   const statusEntries = Object.entries(knowledge.xrp_legal_status.jurisdiction_notes);
@@ -46,6 +46,7 @@ export default function XRPLPage() {
         legal: '🌍 Statut légal',
         tech: '⚡ Technologie',
         custody: '🔐 Custody',
+        companies: '🏢 Entreprises',
         providersTitle: 'Fournisseurs avec support XRPL',
         providersDesc: "Les principaux fournisseurs qui supportent XRPL en custody institutionnelle. Cette liste n'est pas exhaustive — vérifiez la conformité et les licences à jour avant toute intégration.",
         providersDisclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas une recommandation. Vérifiez les licences et le support XRPL à jour auprès de chaque fournisseur avant intégration.",
@@ -59,6 +60,7 @@ export default function XRPLPage() {
         legal: '🌍 Legal status',
         tech: '⚡ Technology',
         custody: '🔐 Custody',
+        companies: '🏢 Companies',
         providersTitle: 'Providers with XRPL support',
         providersDesc: 'Leading providers with XRPL support in institutional custody. List is not exhaustive — verify compliance and current licences before any integration.',
         providersDisclaimer: 'Public information compiled for educational purposes. Not a recommendation. Verify current licences and XRPL support with each provider before integration.',
@@ -156,6 +158,7 @@ export default function XRPLPage() {
     { key: 'legal', label: tabLabels.legal },
     { key: 'tech', label: tabLabels.tech },
     { key: 'custody', label: tabLabels.custody },
+    { key: 'companies', label: tabLabels.companies },
   ];
 
   return (
@@ -316,20 +319,20 @@ export default function XRPLPage() {
         </>
       )}
 
-      {/* Companies — XRPL-flagged use cases surfaced here so the ecosystem
-          is visible at a glance. Deep-links to the full /learn/usecases
-          list with the XRPL filter pre-applied. Shown on every tab. */}
-      {(() => {
+      {/* ── Tab: Companies (XRPL ecosystem use cases) ─────────────────
+          Promoted from a bottom always-visible section to its own tab so
+          it sits as a first-class reference alongside Legal / Tech /
+          Custody. Deep-links to the full /learn/usecases list with the
+          XRPL filter pre-applied for the power users who want more. */}
+      {tab === 'companies' && (() => {
         const xrplCases = USE_CASES.filter((c) => c.xrpl);
-        const featured = xrplCases.slice(0, 6);
         return (
-          <section className="mt-12">
-            <h2 className="text-xl font-bold mb-2">{tabLabels.companiesTitle}</h2>
+          <section>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-5 max-w-3xl">
               {tabLabels.companiesDesc}
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {featured.map((c) => {
+              {xrplCases.map((c) => {
                 const primaryJurs = Array.from(
                   new Set(c.licences.map((l) => l.jur)),
                 ).slice(0, 6);
