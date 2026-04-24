@@ -8,6 +8,7 @@ import { XRPL_KNOWLEDGE, XRPL_FEATURES } from '@/data/xrpl';
 import { XRPL_KNOWLEDGE_FR, XRPL_FEATURES_FR } from '@/data/xrpl.fr';
 import { USE_CASES } from '@/data/use-cases';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
+import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
 import XRPLMark from '@/components/ui/XRPLMark';
 
 type XrplTab = 'legal' | 'tech' | 'custody';
@@ -253,18 +254,19 @@ export default function XRPLPage() {
       {/* ── Tab: Custody (Matrix + Providers) ── */}
       {tab === 'custody' && (
         <>
-          <div className="mb-6 p-3 rounded-lg border border-violet-200 dark:border-violet-900/50 bg-violet-50/40 dark:bg-violet-900/10 flex items-center justify-between gap-3 flex-wrap">
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              🔐{' '}
-              {isFr
-                ? 'Vue diagramme : matrice des 10 méthodes de custody XRPL classées par classification réglementaire.'
-                : 'Diagram view: matrix of the 10 XRPL custody methods grouped by regulatory classification.'}
-            </span>
+          {/* Custody matrix — rendered inline rather than behind a link-out.
+              The visual diagram sits right above the detailed list so users
+              see the 10 custody methods classified by regulatory posture
+              (custodial / non-custodial / grey zone) at a glance. */}
+          <section className="mb-6">
+            <XrplCustodyMatrix />
+          </section>
+          <div className="mb-6 text-center">
             <Link
               href="/learn/diagrams/xrpl-custody"
-              className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline whitespace-nowrap"
+              className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline"
             >
-              {isFr ? 'Ouvrir le diagramme' : 'Open the diagram'} &rarr;
+              {isFr ? 'Ouvrir le diagramme en page dédiée' : 'Open the standalone diagram page'} &rarr;
             </Link>
           </div>
 

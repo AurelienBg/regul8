@@ -6,6 +6,8 @@ import { getDecisionTree } from '@/data/decision-trees';
 import { getDecisionTreeFr } from '@/data/decision-trees.fr';
 import { JURISDICTIONS } from '@/types';
 import PathBlockRenderer from '@/components/learn/PathBlockRenderer';
+import MicaTaxonomy from '@/components/learn/diagrams/MicaTaxonomy';
+import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
 
 type Params = { id: string; locale: string };
 
@@ -87,6 +89,46 @@ export default function LearningPathPage({ params }: { params: Params }) {
           ))}
         </ol>
       </aside>
+
+      {/* Inline diagram — per-guide visual lede. Rendered only for guides
+          where a diagram exists and provides at-a-glance context on the
+          guide's central framework (MiCA token taxonomy, XRPL custody
+          matrix, etc.). The standalone diagram page remains accessible
+          for power users via the link below. */}
+      {params.id === 'mica-essentials' && (
+        <section className="mb-10">
+          <div className="card">
+            <MicaTaxonomy />
+          </div>
+          <div className="text-center mt-3">
+            <Link
+              href="/learn/diagrams/mica-taxonomy"
+              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+            >
+              {isFr
+                ? 'Ouvrir le diagramme MiCA en page dédiée'
+                : 'Open the MiCA taxonomy on its dedicated page'} &rarr;
+            </Link>
+          </div>
+        </section>
+      )}
+      {params.id === 'xrpl-custody' && (
+        <section className="mb-10">
+          <div className="card">
+            <XrplCustodyMatrix />
+          </div>
+          <div className="text-center mt-3">
+            <Link
+              href="/learn/diagrams/xrpl-custody"
+              className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline"
+            >
+              {isFr
+                ? 'Ouvrir la matrice custody XRPL en page dédiée'
+                : 'Open the XRPL custody matrix on its dedicated page'} &rarr;
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Sections */}
       {p.sections.map((s) => (

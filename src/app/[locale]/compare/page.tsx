@@ -12,6 +12,7 @@ import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
 import LicencePillsDisplay from '@/components/report/LicencePillsDisplay';
 import LinkedText from '@/components/ui/LinkedText';
+import JurisdictionArbitrage from '@/components/learn/diagrams/JurisdictionArbitrage';
 
 // Activity labels are sourced from messages/{en,fr}.json `wizard.activities.*`
 // — same source as /assess. Previously /compare had its own shorter inline
@@ -664,6 +665,41 @@ export default function ComparePage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Jurisdiction arbitrage diagram — rendered under the table so
+                  users who just compared N juri for one activity can also see
+                  the big-picture speed-vs-cost positioning of every juri we
+                  cover. Inline in /compare because it's a decision-support
+                  asset that belongs next to the comparison, not buried on a
+                  standalone diagram page. */}
+              <section className="mt-10">
+                <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
+                  <span>🗺️</span>
+                  <span>
+                    {isFr
+                      ? "Carte d'arbitrage — délai vs coût"
+                      : 'Arbitrage map — speed vs cost'}
+                  </span>
+                </h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 max-w-3xl">
+                  {isFr
+                    ? 'Où se situe chaque juridiction sur l\'axe délai × coût ? Taille du point = accès marché, couleur = risque.'
+                    : 'Where does each jurisdiction sit on the speed × cost axis? Dot size = market access, colour = risk.'}
+                </p>
+                <div className="card">
+                  <JurisdictionArbitrage />
+                </div>
+                <div className="text-center mt-3">
+                  <Link
+                    href="/learn/diagrams/jurisdiction-arbitrage"
+                    className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {isFr
+                      ? 'Ouvrir la page dédiée (analyse quadrants)'
+                      : 'Open the dedicated page (quadrant analysis)'} &rarr;
+                  </Link>
+                </div>
+              </section>
             </>
           )}
         </>
