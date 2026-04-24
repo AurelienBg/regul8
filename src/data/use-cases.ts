@@ -264,13 +264,14 @@ export const USE_CASES: UseCase[] = [
     logo: '🏦',
     website: 'https://shuman.financial',
     tag: 'rwa',
+    xrpl: true,
     licences: [
       { jur: 'ch', name: 'DLT framework', regulator: 'FINMA' },
       { jur: 'li', name: 'TVTG Token Issuer', regulator: 'FMA', regime: 'TVTG', note: 'Liechtenstein' },
     ],
     useCase: {
-      en: 'Swiss/Liechtenstein-based RWA tokenisation platform bridging traditional capital markets with blockchain infrastructure. Focus on institutional-grade private debt and structured products.',
-      fr: "Plateforme de tokenisation RWA basée en Suisse/Liechtenstein reliant les marchés de capitaux traditionnels à l'infrastructure blockchain. Focus sur la dette privée institutionnelle et les produits structurés.",
+      en: 'Swiss/Liechtenstein-based RWA tokenisation platform bridging traditional capital markets with blockchain infrastructure. Uses XRPL for tokenised private debt issuance. Focus on institutional-grade private debt and structured products.',
+      fr: "Plateforme de tokenisation RWA basée en Suisse/Liechtenstein reliant les marchés de capitaux traditionnels à l'infrastructure blockchain. Utilise XRPL pour l'émission de dette privée tokenisée. Focus sur la dette privée institutionnelle et les produits structurés.",
     },
     since: '2023',
   },

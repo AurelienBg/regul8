@@ -53,7 +53,7 @@ export default function ComparePage() {
   );
 
   const tr = isFr ? {
-    title: 'Comparateur',
+    title: 'Comparer',
     subtitle: 'Deux modes : plusieurs activités dans une juridiction, ou plusieurs juridictions pour une activité.',
     modeActivities: "Comparer activités",
     modeJurisdictions: "Comparer juridictions",
@@ -90,7 +90,7 @@ export default function ComparePage() {
     disclaimer: "Information générale uniquement. Pour votre situation spécifique, consultez un avocat qualifié.",
     noData: 'Pas de données',
   } : {
-    title: 'Comparator',
+    title: 'Compare',
     subtitle: 'Two modes: multiple activities in one jurisdiction, or multiple jurisdictions for one activity.',
     modeActivities: 'Compare activities',
     modeJurisdictions: 'Compare jurisdictions',

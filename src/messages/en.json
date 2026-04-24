@@ -59,8 +59,8 @@
     },
     "xrplSection": "Deep XRPL Coverage",
     "xrplDesc": "Native support for XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow, and 10 custody implementations.",
-    "jurisdictions": "24 Jurisdictions Covered",
-    "activities": "All Activity Types"
+    "jurisdictions": "Jurisdictions Covered",
+    "activities": "Activity Types Covered"
   },
   "wizard": {
     "title": "Compliance Check",

@@ -47,10 +47,18 @@ export default function LandingPage() {
             href: '/assess',
             icon: '🧙',
             title: 'Évaluer',
-            desc: 'Rapport complet multi-activités × multi-juridictions avec analyse IA contextuelle. ~5 min.',
+            desc: 'Deux portes : diagnostic éclair sur UNE question précise (~2 min) ou profil réglementaire complet multi-activités × multi-juridictions avec analyse IA (~5-10 min).',
             cta: 'Lancer une évaluation',
             accent: 'violet',
             badge: '👇 Le plus utile pour valider vite',
+          },
+          {
+            href: '/compare',
+            icon: '📊',
+            title: 'Comparer',
+            desc: 'Empilez 2 à 5 activités dans une juridiction — ou 2 à 5 juridictions pour une activité. Tableau côte-à-côte.',
+            cta: 'Ouvrir le comparateur',
+            accent: 'emerald',
           },
           {
             href: '/learn',
@@ -59,22 +67,6 @@ export default function LandingPage() {
             desc: "Concepts, guides, diagrammes, cas d'usage, glossaire, FAQ, XRPL Hub — la référence complète.",
             cta: 'Explorer',
             accent: 'blue',
-          },
-          {
-            href: '/compare',
-            icon: '📊',
-            title: 'Comparer',
-            desc: 'Empilez 2 à 5 activités dans une juridiction — ou 2 à 5 juridictions pour une activité.',
-            cta: 'Ouvrir le comparateur',
-            accent: 'emerald',
-          },
-          {
-            href: '/assess/quick',
-            icon: '🩺',
-            title: 'Vérifier',
-            desc: 'Diagnostic rapide : security token ? CASP requis ? Custody custodial ? Juridiction ? ~2 min.',
-            cta: 'Lancer un diagnostic',
-            accent: 'amber',
           },
         ],
       }
@@ -91,10 +83,18 @@ export default function LandingPage() {
             href: '/assess',
             icon: '🧙',
             title: 'Assess',
-            desc: 'Comprehensive multi-activity × multi-jurisdiction report with contextual AI analysis. ~5 min.',
+            desc: 'Two doors: quick diagnostic on ONE specific question (~2 min) or full regulatory profile across multi-activity × multi-jurisdiction with contextual AI analysis (~5-10 min).',
             cta: 'Start assessment',
             accent: 'violet',
             badge: '👇 Most useful to validate fast',
+          },
+          {
+            href: '/compare',
+            icon: '📊',
+            title: 'Compare',
+            desc: 'Stack 2-5 activities in one jurisdiction — or 2-5 jurisdictions for one activity. Side-by-side table.',
+            cta: 'Open comparator',
+            accent: 'emerald',
           },
           {
             href: '/learn',
@@ -103,22 +103,6 @@ export default function LandingPage() {
             desc: 'Concepts, guides, diagrams, use cases, glossary, FAQ, XRPL Hub — the full reference.',
             cta: 'Browse library',
             accent: 'blue',
-          },
-          {
-            href: '/compare',
-            icon: '📊',
-            title: 'Compare',
-            desc: 'Stack 2-5 activities in one jurisdiction — or 2-5 jurisdictions for one activity.',
-            cta: 'Open comparator',
-            accent: 'emerald',
-          },
-          {
-            href: '/assess/quick',
-            icon: '🩺',
-            title: 'Check',
-            desc: 'Quick diagnostic: security token? CASP required? Custody custodial? Which jurisdiction? ~2 min.',
-            cta: 'Run a diagnostic',
-            accent: 'amber',
           },
         ],
       };
@@ -331,10 +315,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Jurisdictions */}
+      {/* Jurisdictions — count is derived from the data so it auto-updates
+          whenever we add a jurisdiction (e.g. Ghana, Cameroon, Israel, …). */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-8">{t('jurisdictions')}</h2>
+          <h2 className="text-2xl font-bold mb-8">
+            {Object.keys(JURISDICTIONS).length} {t('jurisdictions')}
+          </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 justify-center">
             {Object.entries(JURISDICTIONS).map(([code, j]) => (
               <div
@@ -351,10 +338,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Activities */}
+      {/* Activities — same dynamic-count pattern. */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-8">{t('activities')}</h2>
+          <h2 className="text-2xl font-bold mb-8">
+            {Object.keys(ACTIVITIES).length} {t('activities')}
+          </h2>
           <div className="flex flex-wrap gap-2 justify-center">
             {Object.entries(ACTIVITIES).map(([key, meta]) => (
               <span
