@@ -13,26 +13,16 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   /**
-   * Primary nav = 4 tabs organized by user intent.
+   * Primary nav = 3 tabs organized by user intent.
    * Ask AI is surfaced via the floating FAB (⌘K) — no navbar tab.
    *
-   * Assess = full comprehensive compliance report (wizard → /report).
-   * Check  = quick 2-min diagnostics (4 decision trees).
+   * /assess = hub landing with 2 doors inside:
+   *   · /assess/full   = comprehensive wizard → /report (~5-10 min)
+   *   · /assess/quick  = 4 pocket diagnostics (~2 min each)
+   * /compare = multi-activity × multi-juri comparator
+   * /learn   = reference library (concepts, guides, glossary, xrpl, diagrams, usecases)
    */
   const links = [
-    {
-      href: '/learn',
-      label: t('learn'),
-      isActive: (p: string) =>
-        p === '/learn' || p.startsWith('/learn/') ||
-        p === '/glossary' || p.startsWith('/glossary/') ||
-        p.startsWith('/xrpl'),
-    },
-    {
-      href: '/compare',
-      label: t('compare'),
-      isActive: (p: string) => p.startsWith('/compare'),
-    },
     {
       href: '/assess',
       label: t('assess'),
@@ -43,11 +33,17 @@ export default function Header() {
         p.startsWith('/report'),
     },
     {
-      href: '/check',
-      label: t('check'),
+      href: '/compare',
+      label: t('compare'),
+      isActive: (p: string) => p.startsWith('/compare'),
+    },
+    {
+      href: '/learn',
+      label: t('learn'),
       isActive: (p: string) =>
-        p === '/check' ||
-        p.startsWith('/check/'),
+        p === '/learn' || p.startsWith('/learn/') ||
+        p === '/glossary' || p.startsWith('/glossary/') ||
+        p.startsWith('/xrpl'),
     },
   ] as const;
 

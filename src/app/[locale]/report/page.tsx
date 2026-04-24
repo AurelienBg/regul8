@@ -119,7 +119,7 @@ export default function ReportPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500 mb-4">{t('noSelection')}</p>
-        <Link href="/assess" className="btn-primary">{t('newCheck')}</Link>
+        <Link href="/assess/full" className="btn-primary">{t('newCheck')}</Link>
       </div>
     );
   }
@@ -311,7 +311,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               </>
             )}
           </button>
-          <Link href="/assess" className="btn-secondary text-sm">{t('newCheck')}</Link>
+          <Link href="/assess/full" className="btn-secondary text-sm">{t('newCheck')}</Link>
         </div>
       </div>
 
@@ -358,7 +358,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               ? "Pas de table de régulations à afficher (pas d'activité structurée sélectionnée). Vous pouvez lancer l'analyse IA ci-dessous ou retourner sur Assess pour ajouter une activité de notre liste."
               : 'No regulation tables to show (no structured activity selected). You can run the AI analysis below, or go back to Assess to add an activity from our list.'}
           </p>
-          <Link href="/assess" className="btn-secondary text-sm">
+          <Link href="/assess/full" className="btn-secondary text-sm">
             ← Assess
           </Link>
         </div>

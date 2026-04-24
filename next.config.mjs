@@ -20,27 +20,52 @@ const nextConfig = {
         permanent: true,
       },
 
+      // ── /check → /assess/quick (Option B fusion, April 2026) ────────────
+      // The 4 quick diagnostics used to live at /check/*. After merging the
+      // Check + Assess nav items under a single /assess hub, they moved to
+      // /assess/quick/*. Preserve all old inbound links.
+      {
+        source: '/:locale(en|fr)/check',
+        destination: '/:locale/assess/quick',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/check/diagnostics',
+        destination: '/:locale/assess/quick',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/check/diagnostics/:path*',
+        destination: '/:locale/assess/quick/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/check/:path*',
+        destination: '/:locale/assess/quick/:path*',
+        permanent: true,
+      },
+
       // ── Legacy pre-rename paths, now pointing to /learn/* ───────────────
-      // /learn/decision-trees/* → /check/diagnostics/*
+      // /learn/decision-trees/* → /assess/quick/*
       {
         source: '/:locale(en|fr)/learn/decision-trees',
-        destination: '/:locale/check/diagnostics',
+        destination: '/:locale/assess/quick',
         permanent: true,
       },
       {
         source: '/:locale(en|fr)/learn/decision-trees/:path*',
-        destination: '/:locale/check/diagnostics/:path*',
+        destination: '/:locale/assess/quick/:path*',
         permanent: true,
       },
-      // /assess/diagnostics/* → /check/diagnostics/* (split Assess/Check April 2026)
+      // /assess/diagnostics/* → /assess/quick/* (Option B fusion)
       {
         source: '/:locale(en|fr)/assess/diagnostics',
-        destination: '/:locale/check/diagnostics',
+        destination: '/:locale/assess/quick',
         permanent: true,
       },
       {
         source: '/:locale(en|fr)/assess/diagnostics/:path*',
-        destination: '/:locale/check/diagnostics/:path*',
+        destination: '/:locale/assess/quick/:path*',
         permanent: true,
       },
       // /glossary → /learn/glossary (moved into Learn hub)

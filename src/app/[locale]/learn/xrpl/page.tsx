@@ -380,7 +380,7 @@ export default function XRPLPage() {
 
       {/* CTA — always visible across all tabs */}
       <div className="text-center mt-12">
-        <Link href="/assess" className="btn-xrpl text-lg px-8 py-4">
+        <Link href="/assess/full" className="btn-xrpl text-lg px-8 py-4">
           {t('startWizard')} &rarr;
         </Link>
       </div>

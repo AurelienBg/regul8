@@ -450,7 +450,7 @@ export default function ComparePage() {
                 <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
                   {tr.runningBody1}<strong>{tr.runningBody2}</strong>{tr.runningBody3}
                 </p>
-                <Link href="/assess" className="btn-primary text-sm inline-block">
+                <Link href="/assess/full" className="btn-primary text-sm inline-block">
                   {tr.fullWizard} &rarr;
                 </Link>
               </section>

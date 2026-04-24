@@ -150,7 +150,7 @@ export default function XrplCustodyMapPage() {
       <section className="mt-6 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
         <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">{tr.setupTitle}</div>
         <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">{tr.setupBody}</p>
-        <Link href="/check/diagnostics/xrpl-custody" className="btn-primary text-sm inline-block">
+        <Link href="/assess/quick/xrpl-custody" className="btn-primary text-sm inline-block">
           {tr.setupLink} &rarr;
         </Link>
       </section>

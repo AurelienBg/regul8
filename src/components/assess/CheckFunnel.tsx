@@ -92,7 +92,7 @@ export default function CheckFunnel() {
       /* ignore */
     }
     setBannerDismissed(false); // re-show banner after a full reset if assess state still exists
-    router.push('/check?step=1');
+    router.push('/assess/quick?step=1');
   }, [router]);
 
   const applyAssessPrefill = useCallback(() => {
@@ -268,7 +268,7 @@ export default function CheckFunnel() {
                 return (
                   <Link
                     key={rec.treeId}
-                    href={`/check/diagnostics/${rec.treeId}`}
+                    href={`/assess/quick/${rec.treeId}`}
                     className="group block p-3 rounded-lg bg-white dark:bg-gray-900 border border-[var(--border)] hover:border-blue-500 hover:shadow-md transition-all"
                   >
                     <div className="flex items-start gap-3">

@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { DECISION_TREES } from '@/data/decision-trees';
 import { DECISION_TREES_FR } from '@/data/decision-trees.fr';
-import CheckFunnel from '@/components/check/CheckFunnel';
+import CheckFunnel from '@/components/assess/CheckFunnel';
 
 /** Per-diagnostic accent — makes each card visually distinct */
 const ACCENTS: Record<
@@ -109,7 +109,7 @@ export default function CheckHubPage() {
           return (
             <Link
               key={d.id}
-              href={`/check/diagnostics/${d.id}`}
+              href={`/assess/quick/${d.id}`}
               className={`group relative block p-6 rounded-xl border-2 ${accent.border} ${accent.bg} ${accent.hover} transition-all duration-200`}
             >
               {/* Duration badge top-right */}

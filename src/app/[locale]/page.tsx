@@ -69,7 +69,7 @@ export default function LandingPage() {
             accent: 'emerald',
           },
           {
-            href: '/check',
+            href: '/assess/quick',
             icon: '🩺',
             title: 'Vérifier',
             desc: 'Diagnostic rapide : security token ? CASP requis ? Custody custodial ? Juridiction ? ~2 min.',
@@ -113,7 +113,7 @@ export default function LandingPage() {
             accent: 'emerald',
           },
           {
-            href: '/check',
+            href: '/assess/quick',
             icon: '🩺',
             title: 'Check',
             desc: 'Quick diagnostic: security token? CASP required? Custody custodial? Which jurisdiction? ~2 min.',
