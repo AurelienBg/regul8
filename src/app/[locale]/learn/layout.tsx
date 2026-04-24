@@ -1,4 +1,4 @@
-import UnderstandTabs from '@/components/understand/UnderstandTabs';
+import LearnTabs from '@/components/learn/LearnTabs';
 
 export default function UnderstandLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +9,7 @@ export default function UnderstandLayout({ children }: { children: React.ReactNo
           <div className="px-3 pb-3 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
             Understand
           </div>
-          <UnderstandTabs variant="sidebar" />
+          <LearnTabs variant="sidebar" />
         </aside>
 
         {/* Content column with mobile topbar */}
@@ -17,7 +17,7 @@ export default function UnderstandLayout({ children }: { children: React.ReactNo
           {/* Mobile: horizontal sticky topbar */}
           <div className="lg:hidden sticky top-16 z-40 bg-[var(--background)]/95 backdrop-blur-md border-b border-[var(--border)]">
             <div className="px-4">
-              <UnderstandTabs variant="topbar" />
+              <LearnTabs variant="topbar" />
             </div>
           </div>
           {children}

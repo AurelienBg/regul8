@@ -8,25 +8,27 @@ const nextConfig = {
     // Permanent redirects for path renames (April 2026). next-intl routes need
     // the [locale] prefix; all redirects below match /:locale/old → /:locale/new.
     return [
-      // /learn/* → /understand/*
+      // ── /understand → /learn (rename April 2026) ────────────────────────
       {
-        source: '/:locale(en|fr)/learn',
-        destination: '/:locale/understand',
+        source: '/:locale(en|fr)/understand',
+        destination: '/:locale/learn',
         permanent: true,
       },
       {
-        source: '/:locale(en|fr)/learn/:path*',
-        destination: '/:locale/understand/:path*',
+        source: '/:locale(en|fr)/understand/:path*',
+        destination: '/:locale/learn/:path*',
         permanent: true,
       },
-      // /understand/decision-trees/* → /check/diagnostics/*
+
+      // ── Legacy pre-rename paths, now pointing to /learn/* ───────────────
+      // /learn/decision-trees/* → /check/diagnostics/*
       {
-        source: '/:locale(en|fr)/understand/decision-trees',
+        source: '/:locale(en|fr)/learn/decision-trees',
         destination: '/:locale/check/diagnostics',
         permanent: true,
       },
       {
-        source: '/:locale(en|fr)/understand/decision-trees/:path*',
+        source: '/:locale(en|fr)/learn/decision-trees/:path*',
         destination: '/:locale/check/diagnostics/:path*',
         permanent: true,
       },
@@ -41,10 +43,10 @@ const nextConfig = {
         destination: '/:locale/check/diagnostics/:path*',
         permanent: true,
       },
-      // /glossary → /understand/glossary (moved into Understand hub)
+      // /glossary → /learn/glossary (moved into Learn hub)
       {
         source: '/:locale(en|fr)/glossary',
-        destination: '/:locale/understand/glossary',
+        destination: '/:locale/learn/glossary',
         permanent: true,
       },
       // /wizard → /assess (merged April 2026 — pickers live on /assess directly)
@@ -53,37 +55,37 @@ const nextConfig = {
         destination: '/:locale/assess',
         permanent: true,
       },
-      // /understand/paths/* → /understand/guides/* (label + URL renamed April 2026)
+      // /learn/paths/* → /learn/guides/* (label + URL renamed April 2026)
       {
-        source: '/:locale(en|fr)/understand/paths',
-        destination: '/:locale/understand/guides',
+        source: '/:locale(en|fr)/learn/paths',
+        destination: '/:locale/learn/guides',
         permanent: true,
       },
       {
-        source: '/:locale(en|fr)/understand/paths/:path*',
-        destination: '/:locale/understand/guides/:path*',
+        source: '/:locale(en|fr)/learn/paths/:path*',
+        destination: '/:locale/learn/guides/:path*',
         permanent: true,
       },
-      // /understand/maps/* → /understand/diagrams/* (label + URL alignment)
+      // /learn/maps/* → /learn/diagrams/* (label + URL alignment)
       {
-        source: '/:locale(en|fr)/understand/maps',
-        destination: '/:locale/understand/diagrams',
-        permanent: true,
-      },
-      {
-        source: '/:locale(en|fr)/understand/maps/:path*',
-        destination: '/:locale/understand/diagrams/:path*',
-        permanent: true,
-      },
-      // /understand/categories → /understand/concepts (label + URL alignment)
-      {
-        source: '/:locale(en|fr)/understand/categories',
-        destination: '/:locale/understand/concepts',
+        source: '/:locale(en|fr)/learn/maps',
+        destination: '/:locale/learn/diagrams',
         permanent: true,
       },
       {
-        source: '/:locale(en|fr)/understand/categories/:path*',
-        destination: '/:locale/understand/concepts/:path*',
+        source: '/:locale(en|fr)/learn/maps/:path*',
+        destination: '/:locale/learn/diagrams/:path*',
+        permanent: true,
+      },
+      // /learn/categories → /learn/concepts (label + URL alignment)
+      {
+        source: '/:locale(en|fr)/learn/categories',
+        destination: '/:locale/learn/concepts',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/learn/categories/:path*',
+        destination: '/:locale/learn/concepts/:path*',
         permanent: true,
       },
     ];

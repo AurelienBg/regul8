@@ -4,7 +4,7 @@ import { JURISDICTIONS, ACTIVITIES } from '@/types';
 import { TOPIC_META, type Topic } from '@/data/term-topics';
 import Image from 'next/image';
 import ReportCardPreview from '@/components/layout/ReportCardPreview';
-import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
+import ConceptsNarrative from '@/components/learn/ConceptsNarrative';
 
 const ACTIVITY_LABELS_EN: Record<string, string> = {
   exchange: 'Exchange', dapp_fin: 'DeFi', dapp_util: 'Utility DApp', nft: 'NFT',
@@ -53,9 +53,9 @@ export default function LandingPage() {
             badge: '👇 Le plus utile pour valider vite',
           },
           {
-            href: '/understand',
+            href: '/learn',
             icon: '📚',
-            title: 'Comprendre',
+            title: 'Apprendre',
             desc: "Concepts, guides, diagrammes, cas d'usage, glossaire, FAQ, XRPL Hub — la référence complète.",
             cta: 'Explorer',
             accent: 'blue',
@@ -97,9 +97,9 @@ export default function LandingPage() {
             badge: '👇 Most useful to validate fast',
           },
           {
-            href: '/understand',
+            href: '/learn',
             icon: '📚',
-            title: 'Understand',
+            title: 'Learn',
             desc: 'Concepts, guides, diagrams, use cases, glossary, FAQ, XRPL Hub — the full reference.',
             cta: 'Browse library',
             accent: 'blue',
@@ -162,7 +162,7 @@ export default function LandingPage() {
               {t('hero')}
             </h1>
             <div className="mt-5 text-base sm:text-lg">
-              <ConceptsNarrative variant="short" linkTo="/understand/concepts" />
+              <ConceptsNarrative variant="short" linkTo="/learn/concepts" />
             </div>
             <p className="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400">
               {t('subtitle')}
@@ -175,7 +175,7 @@ export default function LandingPage() {
                 {t('ctaWizard')} &rarr;
               </Link>
               <Link
-                href="/understand"
+                href="/learn"
                 className="btn-secondary text-base px-6 py-3 w-full sm:w-72 justify-center whitespace-nowrap"
               >
                 {isFr ? 'Explorer la régulation' : 'Explore regulation'} &rarr;
@@ -257,7 +257,7 @@ export default function LandingPage() {
 
           <div className="text-center mt-8">
             <Link
-              href="/understand/concepts"
+              href="/learn/concepts"
               className="btn-secondary text-sm inline-flex items-center gap-1"
             >
               {isFr ? 'Voir les 8 concepts en détail' : 'Browse all 8 concepts in detail'} &rarr;
@@ -324,7 +324,7 @@ export default function LandingPage() {
             {t('xrplDesc')}
           </p>
           <div className="mt-6">
-            <Link href="/understand/xrpl" className="btn-xrpl">
+            <Link href="/learn/xrpl" className="btn-xrpl">
               {tc('learnMore')} &rarr;
             </Link>
           </div>

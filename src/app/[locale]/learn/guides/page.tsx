@@ -83,7 +83,7 @@ export default function LearningPathsListPage() {
   const isFr = locale === 'fr';
   const paths = isFr ? LEARNING_PATHS_FR : LEARNING_PATHS;
 
-  // Multi-select + toggle-on-reclick, same pattern as /understand/usecases.
+  // Multi-select + toggle-on-reclick, same pattern as /learn/usecases.
   // Semantics: empty set = show everything; non-empty set = OR across keys
   // (match-any). Three filter axes coexist in the same set — a guide is
   // shown if at least one active key matches it.
@@ -292,7 +292,7 @@ export default function LearningPathsListPage() {
           {filtered.map((p) => (
             <Link
               key={p.id}
-              href={`/understand/guides/${p.id}`}
+              href={`/learn/guides/${p.id}`}
               className="card hover:border-blue-500 transition-colors group"
             >
               <div className="flex items-start justify-between mb-3">

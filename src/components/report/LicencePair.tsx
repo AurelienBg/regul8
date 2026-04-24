@@ -8,7 +8,7 @@ import { TOPIC_META } from '@/data/term-topics';
 import type { LicenceRef } from '@/data/use-cases';
 
 /**
- * Desktop layout for /understand/usecases — paired 2-column grid:
+ * Desktop layout for /learn/usecases — paired 2-column grid:
  *
  *   🪪 LICENCES         | 🏛️ REGULATOR / REGIME
  *   🇫🇷 🪪 DASP         | 🏛️ AMF · 📜 MiCA · since 2023

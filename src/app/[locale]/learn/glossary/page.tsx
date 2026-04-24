@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import GlossaryContent from '@/components/glossary/GlossaryContent';
-import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
+import ConceptsNarrative from '@/components/learn/ConceptsNarrative';
 
 export default function GlossaryPage() {
   const t = useTranslations('glossary');
@@ -24,7 +24,7 @@ export default function GlossaryPage() {
         </p>
         <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
           <a
-            href={`/${locale}/understand/concepts`}
+            href={`/${locale}/learn/concepts`}
             className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             ❓ {isFr
@@ -34,9 +34,9 @@ export default function GlossaryPage() {
         </p>
       </header>
 
-      {/* Narrative intro — clickable card linking to /understand/concepts */}
+      {/* Narrative intro — clickable card linking to /learn/concepts */}
       <section className="mb-6 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900">
-        <ConceptsNarrative variant="full" linkTo="/understand/concepts" />
+        <ConceptsNarrative variant="full" linkTo="/learn/concepts" />
       </section>
 
       <GlossaryContent />

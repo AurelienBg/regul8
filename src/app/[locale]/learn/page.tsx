@@ -91,7 +91,7 @@ export default function UnderstandHubPage() {
       {/* 1. Concepts */}
       <section className="mb-6">
         <Link
-          href="/understand/concepts"
+          href="/learn/concepts"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -112,7 +112,7 @@ export default function UnderstandHubPage() {
       {/* 2. Use Cases */}
       <section className="mb-6">
         <Link
-          href="/understand/usecases"
+          href="/learn/usecases"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -133,7 +133,7 @@ export default function UnderstandHubPage() {
       {/* 3. XRPL — accented with violet */}
       <section className="mb-10">
         <Link
-          href="/understand/xrpl"
+          href="/learn/xrpl"
           className="card hover:border-violet-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -156,7 +156,7 @@ export default function UnderstandHubPage() {
       {/* 4. Diagrams — big card (summary only) */}
       <section className="mb-6">
         <Link
-          href="/understand/diagrams"
+          href="/learn/diagrams"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -177,7 +177,7 @@ export default function UnderstandHubPage() {
       {/* 5. Guides — big card (summary only) */}
       <section className="mb-6">
         <Link
-          href="/understand/guides"
+          href="/learn/guides"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -198,7 +198,7 @@ export default function UnderstandHubPage() {
       {/* 6. Glossary */}
       <section className="mb-6">
         <Link
-          href="/understand/glossary"
+          href="/learn/glossary"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">
@@ -219,7 +219,7 @@ export default function UnderstandHubPage() {
       {/* 7. FAQ */}
       <section className="mb-6">
         <Link
-          href="/understand/faq"
+          href="/learn/faq"
           className="card hover:border-blue-500 transition-colors group block p-6 border-2"
         >
           <div className="flex items-start gap-4">

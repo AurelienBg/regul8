@@ -2,7 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import XrplCustodyMatrix from '@/components/understand/diagrams/XrplCustodyMatrix';
+import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
 
 export default function XrplCustodyMapPage() {
   const locale = useLocale();
@@ -47,7 +47,7 @@ export default function XrplCustodyMapPage() {
 
       <XrplCustodyMatrix />
 
-      {/* Institutional custody providers — mini list with cross-link to /understand/xrpl */}
+      {/* Institutional custody providers — mini list with cross-link to /learn/xrpl */}
       <section className="mt-10">
         <h2 className="text-lg font-bold mb-2">{tr.providersTitle}</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tr.providersIntro}</p>
@@ -132,7 +132,7 @@ export default function XrplCustodyMapPage() {
         </div>
         <div className="mt-5 text-right">
           <Link
-            href={{ pathname: '/understand/xrpl', query: { tab: 'custody' } }}
+            href={{ pathname: '/learn/xrpl', query: { tab: 'custody' } }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-sm transition-colors"
           >
             {tr.seeFullList} &rarr;

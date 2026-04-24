@@ -155,7 +155,7 @@ interface Props {
 
 /**
  * The 7 foundational meta-concepts — when shown in the glossary they get a
- * "⭐ Meta-concept" badge with a link to the rich /understand/concepts page.
+ * "⭐ Meta-concept" badge with a link to the rich /learn/concepts page.
  */
 const META_CONCEPT_TERMS = new Set([
   'Regime', 'Licence', 'Regulator', 'Obligation',
@@ -303,8 +303,8 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
               const isActive = topics.has(tp);
               const label = locale === 'fr' ? 'Méta-concept' : 'Meta-concept';
               const tooltip = locale === 'fr'
-                ? 'Les 7 méta-concepts fondamentaux — ouvrir leur fiche détaillée sur /understand/concepts.'
-                : 'The 7 foundational meta-concepts — open the full breakdown on /understand/concepts.';
+                ? 'Les 7 méta-concepts fondamentaux — ouvrir leur fiche détaillée sur /learn/concepts.'
+                : 'The 7 foundational meta-concepts — open the full breakdown on /learn/concepts.';
               return (
                 <button
                   key={tp}
@@ -419,7 +419,7 @@ export default function GlossaryContent({ compact = false, scrollContainer }: Pr
                 {term.xrplSpecific && <XRPLBadge />}
                 {META_CONCEPT_TERMS.has(term.term) && (
                   <a
-                    href={`/${locale}/understand/concepts`}
+                    href={`/${locale}/learn/concepts`}
                     title={locale === 'fr'
                       ? 'Voir la fiche détaillée sur la page Concepts'
                       : 'See the full breakdown on the Concepts page'}

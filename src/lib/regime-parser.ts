@@ -300,7 +300,7 @@ export const REGIME_TYPE_META: Record<
   // `ruling` is kept as the internal type name for backward compat (data
   // uses it across regulations.ts / regulations.fr.ts), but the DISPLAYED
   // label is now 'Doctrine' to match the canonical vocabulary used in
-  // /understand/concepts (the 7 meta-concepts). Covers case law + legal
+  // /learn/concepts (the 7 meta-concepts). Covers case law + legal
   // tests + interpretive guidance.
   ruling: {
     icon: '💡',

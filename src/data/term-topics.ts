@@ -84,7 +84,7 @@ export const TERM_TOPICS: Record<string, Topic> = {
   RequireAuth: 'infra', lsfLocked: 'infra',
 
   // The 7 meta-concepts themselves, self-tagged with their own topic so
-  // the colored pill matches the page they live on (/understand/concepts).
+  // the colored pill matches the page they live on (/learn/concepts).
   Regime: 'regime',
   Licence: 'licence',
   Regulator: 'regulator',

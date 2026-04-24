@@ -4,7 +4,7 @@ import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { GLOSSARY_TERMS } from '@/data/glossary';
 import { TERM_TOPICS, TOPIC_META, type Topic } from '@/data/term-topics';
-import ConceptsNarrative from '@/components/understand/ConceptsNarrative';
+import ConceptsNarrative from '@/components/learn/ConceptsNarrative';
 
 // 7 meta-concepts grouped into 3 zones reflecting the user journey:
 //   A — INPUTS: what the startup is building (determines downstream analysis)
@@ -249,7 +249,7 @@ export default function ConceptsPage() {
         <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
           {tr.lookupHint}{' '}
           <Link
-            href="/understand/glossary"
+            href="/learn/glossary"
             className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
           >
             🔍 {tr.lookupLink} &rarr;
@@ -303,7 +303,7 @@ export default function ConceptsPage() {
                     <tr key={topic} className="border-b border-[var(--border)]">
                       <td className="sticky left-0 z-[1] bg-[var(--background)] p-3 align-top border-r border-[var(--border)]">
                         <Link
-                          href={`/understand/glossary#term-${slug}`}
+                          href={`/learn/glossary#term-${slug}`}
                           className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold ${meta.pillClass} hover:ring-2 hover:ring-offset-1 hover:ring-current transition-all`}
                         >
                           <span className="text-sm leading-none">{meta.icon}</span>
@@ -437,7 +437,7 @@ export default function ConceptsPage() {
                       </span>
                     );
                     return hasGlossary ? (
-                      <Link key={term} href={`/understand/glossary#term-${slug}`}>
+                      <Link key={term} href={`/learn/glossary#term-${slug}`}>
                         {content}
                       </Link>
                     ) : (

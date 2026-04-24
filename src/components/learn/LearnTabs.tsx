@@ -7,7 +7,7 @@ import XRPLMark from '@/components/ui/XRPLMark';
 
 interface TabDef {
   key: string;
-  href: '/understand' | '/understand/concepts' | '/understand/usecases' | '/understand/xrpl' | '/understand/diagrams' | '/understand/guides' | '/understand/glossary' | '/understand/faq';
+  href: '/learn' | '/learn/concepts' | '/learn/usecases' | '/learn/xrpl' | '/learn/diagrams' | '/learn/guides' | '/learn/glossary' | '/learn/faq';
   match: (p: string) => boolean;
   /** Emoji string OR a React element (e.g. the inline XRPL X mark). */
   icon: ReactNode;
@@ -16,21 +16,21 @@ interface TabDef {
 }
 
 const TABS: TabDef[] = [
-  { key: 'all', href: '/understand', match: (p: string) => p === '/understand' || p === '/learn', icon: '🧭', labelEn: 'Overview', labelFr: "Vue d'ensemble" },
-  { key: 'concepts', href: '/understand/concepts', match: (p: string) => p.startsWith('/understand/concepts') || p.startsWith('/understand/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Concepts', labelFr: 'Concepts' },
-  { key: 'usecases', href: '/understand/usecases', match: (p: string) => p.startsWith('/understand/usecases') || p.startsWith('/understand/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: "Cas d'usage" },
-  { key: 'xrpl', href: '/understand/xrpl', match: (p: string) => p.startsWith('/understand/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: <XRPLMark className="w-4 h-4 text-gray-900 dark:text-gray-100" />, labelEn: 'XRPL', labelFr: 'XRPL' },
-  { key: 'diagrams', href: '/understand/diagrams', match: (p: string) => p.startsWith('/understand/diagrams') || p.startsWith('/understand/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
-  { key: 'guides', href: '/understand/guides', match: (p: string) => p.startsWith('/understand/guides') || p.startsWith('/understand/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
-  { key: 'glossary', href: '/understand/glossary', match: (p: string) => p.startsWith('/understand/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '🔤', labelEn: 'Glossary', labelFr: 'Glossaire' },
-  { key: 'faq', href: '/understand/faq', match: (p: string) => p.startsWith('/understand/faq'), icon: '❓', labelEn: 'FAQ', labelFr: 'FAQ' },
+  { key: 'all', href: '/learn', match: (p: string) => p === '/learn' || p === '/learn', icon: '🧭', labelEn: 'Overview', labelFr: "Vue d'ensemble" },
+  { key: 'concepts', href: '/learn/concepts', match: (p: string) => p.startsWith('/learn/concepts') || p.startsWith('/learn/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Concepts', labelFr: 'Concepts' },
+  { key: 'usecases', href: '/learn/usecases', match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: "Cas d'usage" },
+  { key: 'xrpl', href: '/learn/xrpl', match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: <XRPLMark className="w-4 h-4 text-gray-900 dark:text-gray-100" />, labelEn: 'XRPL', labelFr: 'XRPL' },
+  { key: 'diagrams', href: '/learn/diagrams', match: (p: string) => p.startsWith('/learn/diagrams') || p.startsWith('/learn/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },
+  { key: 'guides', href: '/learn/guides', match: (p: string) => p.startsWith('/learn/guides') || p.startsWith('/learn/paths') || p.startsWith('/learn/paths'), icon: '📚', labelEn: 'Guides', labelFr: 'Guides' },
+  { key: 'glossary', href: '/learn/glossary', match: (p: string) => p.startsWith('/learn/glossary') || p === '/glossary' || p.startsWith('/glossary/'), icon: '🔤', labelEn: 'Glossary', labelFr: 'Glossaire' },
+  { key: 'faq', href: '/learn/faq', match: (p: string) => p.startsWith('/learn/faq'), icon: '❓', labelEn: 'FAQ', labelFr: 'FAQ' },
 ];
 
 interface Props {
   variant?: 'sidebar' | 'topbar';
 }
 
-export default function UnderstandTabs({ variant = 'sidebar' }: Props) {
+export default function LearnTabs({ variant = 'sidebar' }: Props) {
   const pathname = usePathname();
   const locale = useLocale();
   const isFr = locale === 'fr';

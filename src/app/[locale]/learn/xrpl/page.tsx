@@ -250,7 +250,7 @@ export default function XRPLPage() {
                 : 'Diagram view: matrix of the 10 XRPL custody methods grouped by regulatory classification.'}
             </span>
             <Link
-              href="/understand/diagrams/xrpl-custody"
+              href="/learn/diagrams/xrpl-custody"
               className="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline whitespace-nowrap"
             >
               {isFr ? 'Ouvrir le diagramme' : 'Open the diagram'} &rarr;

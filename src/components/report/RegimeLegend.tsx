@@ -141,12 +141,12 @@ export default function RegimeLegend({ defaultOpen = true }: RegimeLegendProps) 
           {/* Footer link pointing users to the canonical teaching page */}
           <div className="mt-3 pt-3 border-t border-[var(--border)] text-xs text-gray-500 dark:text-gray-400">
             <Link
-              href="/understand/concepts"
+              href="/learn/concepts"
               className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               {isFr
-                ? 'Voir tous les 8 concepts en détail → /understand/concepts'
-                : 'See all 8 concepts in detail → /understand/concepts'}
+                ? 'Voir tous les 8 concepts en détail → /learn/concepts'
+                : 'See all 8 concepts in detail → /learn/concepts'}
             </Link>
           </div>
         </div>

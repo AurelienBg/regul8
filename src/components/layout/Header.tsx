@@ -21,10 +21,9 @@ export default function Header() {
    */
   const links = [
     {
-      href: '/understand',
+      href: '/learn',
       label: t('learn'),
       isActive: (p: string) =>
-        p === '/understand' || p.startsWith('/understand/') ||
         p === '/learn' || p.startsWith('/learn/') ||
         p === '/glossary' || p.startsWith('/glossary/') ||
         p.startsWith('/xrpl'),

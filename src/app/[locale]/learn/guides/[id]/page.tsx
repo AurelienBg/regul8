@@ -5,7 +5,7 @@ import { getLearningPathFr } from '@/data/learning-paths.fr';
 import { getDecisionTree } from '@/data/decision-trees';
 import { getDecisionTreeFr } from '@/data/decision-trees.fr';
 import { JURISDICTIONS } from '@/types';
-import PathBlockRenderer from '@/components/understand/PathBlockRenderer';
+import PathBlockRenderer from '@/components/learn/PathBlockRenderer';
 
 type Params = { id: string; locale: string };
 
@@ -44,7 +44,7 @@ export default function LearningPathPage({ params }: { params: Params }) {
   return (
     <article className="max-w-3xl mx-auto px-4 py-12">
       <div className="mb-4">
-        <Link href="/understand/guides" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+        <Link href="/learn/guides" className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
           &larr; {tr.backAll}
         </Link>
       </div>

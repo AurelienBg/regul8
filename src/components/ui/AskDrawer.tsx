@@ -385,7 +385,7 @@ export default function AskDrawer({ open, onClose }: Props) {
                       </div>
                     )}
                     <Link
-                      href={`/understand/glossary#term-${slug}`}
+                      href={`/learn/glossary#term-${slug}`}
                       onClick={onClose}
                       className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
                     >

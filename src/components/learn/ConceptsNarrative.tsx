@@ -8,12 +8,12 @@
  *
  * The colored pills are DECORATIVE (plain spans). When `linkTo` is provided
  * the entire block becomes a single clickable <Link> — preferred on home +
- * glossary (one clear action → /understand/concepts for the full breakdown)
+ * glossary (one clear action → /learn/concepts for the full breakdown)
  * rather than 8 mini-jumps into glossary entries.
  *
- * Used on: homepage hero (variant="short", linkTo="/understand/concepts")
- *          /understand/glossary (variant="full", linkTo="/understand/concepts")
- *          /understand/concepts (variant="full", no linkTo — on the page itself)
+ * Used on: homepage hero (variant="short", linkTo="/learn/concepts")
+ *          /learn/glossary (variant="full", linkTo="/learn/concepts")
+ *          /learn/concepts (variant="full", no linkTo — on the page itself)
  */
 import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
