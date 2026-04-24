@@ -167,10 +167,14 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Direct-to-wizard shortcut. The CTA reads 'Generate your report',
+              which is clearly the full assessment action — skip the /assess
+              hub (quick vs full chooser) and land the user straight into the
+              wizard. */}
           <Link
-            href="/assess"
+            href="/assess/full"
             className="group block w-full max-w-sm mx-auto lg:max-w-md lg:ml-auto"
-            aria-label={isFr ? 'Lancer une évaluation' : 'Start an assessment'}
+            aria-label={isFr ? 'Lancer une évaluation complète' : 'Start full assessment'}
           >
             <ReportCardPreview />
           </Link>

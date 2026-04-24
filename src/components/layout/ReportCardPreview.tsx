@@ -1,8 +1,9 @@
 /**
  * Hero visual on the homepage: a **real slice of the product** using the same
  * components (cards, badges, regime pills) and class language as the actual
- * /assess report — just with mock data. The wrapper on the homepage wraps this
- * in a <Link href="/assess"> so the whole card is clickable.
+ * /assess/full report — just with mock data. The wrapper on the homepage
+ * wraps this in a <Link href="/assess/full"> so the whole card is clickable
+ * and lands the user straight into the wizard (skipping the /assess hub).
  */
 export default function ReportCardPreview() {
   return (
