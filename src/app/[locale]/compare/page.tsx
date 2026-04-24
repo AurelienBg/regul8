@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES, type ActivityKey, type Jurisdiction } from '@/types';
@@ -127,7 +128,37 @@ export default function ComparePage() {
     noData: 'No data',
   };
 
-  const [mode, setMode] = useState<CompareMode>('activities');
+  // Mode is URL-backed (?mode=activities|jurisdictions) so the user lands
+  // back on the tab they left when navigating away and back, and so the
+  // tab choice is shareable + deep-linkable. Uses router.replace rather
+  // than push to avoid polluting the back-stack on tab toggles.
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const modeFromUrl: CompareMode =
+    searchParams.get('mode') === 'jurisdictions' ? 'jurisdictions' : 'activities';
+  const [mode, setModeState] = useState<CompareMode>(modeFromUrl);
+
+  // Keep local state in sync when the URL changes externally (back/forward,
+  // direct paste, /compare?mode=… deep-link).
+  useEffect(() => {
+    setModeState(modeFromUrl);
+  }, [modeFromUrl]);
+
+  const setMode = useCallback(
+    (next: CompareMode) => {
+      setModeState(next);
+      const params = new URLSearchParams(searchParams.toString());
+      if (next === 'activities') {
+        params.delete('mode'); // keep URL clean on the default
+      } else {
+        params.set('mode', next);
+      }
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [pathname, router, searchParams],
+  );
 
   // State for mode 1: activities × 1 jurisdiction
   const [jurisdiction, setJurisdiction] = useState<Jurisdiction>('eu');
