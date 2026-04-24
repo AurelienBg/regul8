@@ -253,14 +253,18 @@ export default function LandingPage() {
       {/* Start here — 3 persona-oriented cards (post Check+Assess fusion) */}
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-6xl mx-auto">
-          {/* Left-aligned header — less "landing-page-shouty", matches the
-              section headers elsewhere on /learn, /glossary, etc. */}
-          <div className="mb-10">
+          {/* Centered header — matches the 'How we structure compliance'
+              section above for consistent landing-page rhythm. */}
+          <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3">{startHere.title}</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-3xl">{startHere.subtitle}</p>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{startHere.subtitle}</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Grid mirrors the 3-zone cards above (md:grid-cols-3 gap-4) so
+              the Start-here cards sit at the same width + rhythm as the
+              Inputs / Outputs / Context cards — consistent landing-page
+              visual rhythm instead of 2 different card widths. */}
+          <div className="grid md:grid-cols-3 gap-4">
             {startHere.cards.map((card, i) => {
               const a = accentClasses[card.accent];
               const badge = 'badge' in card ? (card as { badge?: string }).badge : undefined;
@@ -295,7 +299,7 @@ export default function LandingPage() {
             })}
           </div>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-8 max-w-3xl">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-8 max-w-2xl mx-auto">
             {startHere.askHint}
           </p>
         </div>
