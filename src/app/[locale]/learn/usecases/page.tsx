@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { USE_CASES, USE_CASE_TAGS, type UseCaseTag } from '@/data/use-cases';
 import LinkedText from '@/components/ui/LinkedText';
@@ -25,6 +26,19 @@ export default function UseCasesPage() {
   // so the behaviour matches a classic tag filter: "give me exchanges or
   // stablecoins or XRPL-related".
   const [active, setActive] = useState<Set<ActiveKey>>(() => new Set());
+  const searchParams = useSearchParams();
+
+  // Apply ?filter=<key> on mount so deep-links from other pages (e.g. the
+  // XRPL hub Companies section linking to ?filter=xrpl) land with the
+  // filter already active. Accepts 'xrpl' and any valid UseCaseTag.
+  useEffect(() => {
+    const param = searchParams.get('filter');
+    if (!param) return;
+    const isValid = param === 'xrpl' || (USE_CASE_TAGS.some((t) => t.key === param) && param !== 'all');
+    if (isValid) {
+      setActive(new Set([param as ActiveKey]));
+    }
+  }, [searchParams]);
 
   const toggle = useCallback((key: UseCaseTag | 'all' | 'xrpl') => {
     if (key === 'all') {

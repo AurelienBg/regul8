@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { XRPL_KNOWLEDGE, XRPL_FEATURES } from '@/data/xrpl';
 import { XRPL_KNOWLEDGE_FR, XRPL_FEATURES_FR } from '@/data/xrpl.fr';
+import { USE_CASES } from '@/data/use-cases';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import XRPLMark from '@/components/ui/XRPLMark';
 
@@ -47,6 +48,11 @@ export default function XRPLPage() {
         providersTitle: 'Fournisseurs avec support XRPL',
         providersDesc: "Les principaux fournisseurs qui supportent XRPL en custody institutionnelle. Cette liste n'est pas exhaustive — vérifiez la conformité et les licences à jour avant toute intégration.",
         providersDisclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas une recommandation. Vérifiez les licences et le support XRPL à jour auprès de chaque fournisseur avant intégration.",
+        companiesTitle: '🏢 Entreprises',
+        companiesDesc: 'Sélection d’entreprises régulées qui utilisent XRPL en production — stablecoins, paiements, exchanges, custody, RWA, dApps. Chaque entrée montre le nom + l’année + les juridictions où elles sont licenciées.',
+        companiesSince: 'depuis',
+        companiesAll: 'Voir les',
+        companiesAll2: 'cas d’usage XRPL',
       }
     : {
         legal: '🌍 Legal status',
@@ -55,6 +61,11 @@ export default function XRPLPage() {
         providersTitle: 'Providers with XRPL support',
         providersDesc: 'Leading providers with XRPL support in institutional custody. List is not exhaustive — verify compliance and current licences before any integration.',
         providersDisclaimer: 'Public information compiled for educational purposes. Not a recommendation. Verify current licences and XRPL support with each provider before integration.',
+        companiesTitle: '🏢 Companies',
+        companiesDesc: 'Selected regulated companies using XRPL in production — stablecoins, payments, exchanges, custody, RWA, dApps. Each entry shows name + year + licensed jurisdictions.',
+        companiesSince: 'since',
+        companiesAll: 'See all',
+        companiesAll2: 'XRPL use cases',
       };
 
   const providers = [
@@ -302,6 +313,68 @@ export default function XRPLPage() {
           </section>
         </>
       )}
+
+      {/* Companies — XRPL-flagged use cases surfaced here so the ecosystem
+          is visible at a glance. Deep-links to the full /learn/usecases
+          list with the XRPL filter pre-applied. Shown on every tab. */}
+      {(() => {
+        const xrplCases = USE_CASES.filter((c) => c.xrpl);
+        const featured = xrplCases.slice(0, 6);
+        return (
+          <section className="mt-12">
+            <h2 className="text-xl font-bold mb-2">{tabLabels.companiesTitle}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-5 max-w-3xl">
+              {tabLabels.companiesDesc}
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {featured.map((c) => {
+                const primaryJurs = Array.from(
+                  new Set(c.licences.map((l) => l.jur)),
+                ).slice(0, 6);
+                return (
+                  <a
+                    key={c.id}
+                    href={c.website ?? `/${locale}/learn/usecases?filter=xrpl`}
+                    target={c.website ? '_blank' : undefined}
+                    rel={c.website ? 'noopener noreferrer' : undefined}
+                    className="block p-4 rounded-lg border border-[var(--border)] bg-[var(--card)] hover:border-xrpl transition-colors"
+                  >
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                      {c.logo && <span className="text-lg">{c.logo}</span>}
+                      <span className="font-semibold text-sm">{c.company}</span>
+                      {c.since && (
+                        <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                          {tabLabels.companiesSince} {c.since}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
+                      {isFr ? c.useCase.fr : c.useCase.en}
+                    </p>
+                    {primaryJurs.length > 0 && (
+                      <div className="flex items-center gap-1 flex-wrap">
+                        {primaryJurs.map((j) => (
+                          <span key={j} className="text-base leading-none" title={j}>
+                            {flagMap[j] ?? j}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
+            <div className="text-center mt-5">
+              <Link
+                href="/learn/usecases?filter=xrpl"
+                className="inline-flex items-center gap-2 text-sm font-medium text-xrpl hover:text-xrpl-700 transition-colors"
+              >
+                {tabLabels.companiesAll} {xrplCases.length} {tabLabels.companiesAll2} &rarr;
+              </Link>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* CTA — always visible across all tabs */}
       <div className="text-center mt-12">
