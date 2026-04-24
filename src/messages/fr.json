@@ -57,8 +57,8 @@
         "cta": "Ouvrir la recherche IA"
       }
     },
-    "xrplSection": "Couverture XRPL Complète",
-    "xrplDesc": "Support natif pour XRP, AMM (XLS-30), NFT (XLS-20), MPT (XLS-33), RLUSD, Payment Channels, Escrow et 10 implémentations custody.",
+    "xrplSection": "L’Atlas Réglementaire XRPL",
+    "xrplDesc": "Le seul atlas réglementaire dédié à XRPL. Quatre onglets, un hub : statut légal de XRP dans 15 juridictions · matrice des fonctionnalités natives (AMM, NFT, MPT, RLUSD, Escrow, Payment Channels, DEX) · 10 modèles de custody mappés à leur classification régulatoire · 11 entreprises régulées qui construisent sur XRPL avec leurs licences.",
     "jurisdictions": "Juridictions Couvertes",
     "activities": "Types d'Activité Couverts"
   },

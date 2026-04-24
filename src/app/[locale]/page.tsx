@@ -305,14 +305,42 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* XRPL Section */}
+      {/* XRPL Section — the single biggest differentiator of the app.
+          4 pillar chips under the desc match the 4 tabs on /learn/xrpl
+          (Legal · Tech · Custody · Companies) so the user gets a
+          preview of what they'll find behind the CTA. */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <span className="badge-xrpl text-sm px-3 py-1">XRPL</span>
           <h2 className="mt-4 text-2xl sm:text-3xl font-bold">{t('xrplSection')}</h2>
-          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             {t('xrplDesc')}
           </p>
+          {/* 4 pillar chips mirroring /learn/xrpl tabs */}
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {(isFr
+              ? [
+                  { icon: '🌍', label: 'Statut légal' },
+                  { icon: '⚡', label: 'Technologie' },
+                  { icon: '🔐', label: 'Custody' },
+                  { icon: '🏢', label: 'Entreprises' },
+                ]
+              : [
+                  { icon: '🌍', label: 'Legal status' },
+                  { icon: '⚡', label: 'Technology' },
+                  { icon: '🔐', label: 'Custody' },
+                  { icon: '🏢', label: 'Companies' },
+                ]
+            ).map((pillar) => (
+              <span
+                key={pillar.label}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 border border-xrpl-100 dark:border-xrpl/40"
+              >
+                <span>{pillar.icon}</span>
+                <span>{pillar.label}</span>
+              </span>
+            ))}
+          </div>
           <div className="mt-6">
             <Link href="/learn/xrpl" className="btn-xrpl">
               {tc('learnMore')} &rarr;
