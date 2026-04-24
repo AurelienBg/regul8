@@ -320,29 +320,33 @@ export default function LandingPage() {
           <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             {t('xrplDesc')}
           </p>
-          {/* 4 pillar chips mirroring /learn/xrpl tabs */}
+          {/* 4 pillar chips = direct deep-links to the matching /learn/xrpl
+              tab (?tab=legal|tech|custody|companies). Each chip is an
+              interactive Link so a user skips the hub's default (Legal)
+              and lands on the exact tab they clicked. */}
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {(isFr
               ? [
-                  { icon: '🌍', label: 'Statut légal' },
-                  { icon: '⚡', label: 'Technologie' },
-                  { icon: '🔐', label: 'Custody' },
-                  { icon: '🏢', label: 'Entreprises' },
+                  { icon: '🌍', label: 'Statut légal', tab: 'legal' },
+                  { icon: '⚡', label: 'Technologie', tab: 'tech' },
+                  { icon: '🔐', label: 'Custody', tab: 'custody' },
+                  { icon: '🏢', label: 'Entreprises', tab: 'companies' },
                 ]
               : [
-                  { icon: '🌍', label: 'Legal status' },
-                  { icon: '⚡', label: 'Technology' },
-                  { icon: '🔐', label: 'Custody' },
-                  { icon: '🏢', label: 'Companies' },
+                  { icon: '🌍', label: 'Legal status', tab: 'legal' },
+                  { icon: '⚡', label: 'Technology', tab: 'tech' },
+                  { icon: '🔐', label: 'Custody', tab: 'custody' },
+                  { icon: '🏢', label: 'Companies', tab: 'companies' },
                 ]
             ).map((pillar) => (
-              <span
+              <Link
                 key={pillar.label}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 border border-xrpl-100 dark:border-xrpl/40"
+                href={`/learn/xrpl?tab=${pillar.tab}`}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 border border-xrpl-100 dark:border-xrpl/40 hover:bg-xrpl-100 dark:hover:bg-xrpl/40 transition-colors"
               >
                 <span>{pillar.icon}</span>
                 <span>{pillar.label}</span>
-              </span>
+              </Link>
             ))}
           </div>
           <div className="mt-6">

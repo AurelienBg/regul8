@@ -171,9 +171,9 @@ export default function XRPLPage() {
         <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl">{t('subtitle')}</p>
       </header>
 
-      {/* Sub-tabs — 3 full-width segments */}
+      {/* Sub-tabs — 4 full-width segments (Legal · Tech · Custody · Companies) */}
       <div className="mb-8 border-b border-[var(--border)]">
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-4">
           {tabs.map((t) => {
             const active = tab === t.key;
             return (
