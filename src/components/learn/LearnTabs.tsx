@@ -38,7 +38,7 @@ export default function LearnTabs({ variant = 'sidebar' }: Props) {
   // --- Desktop: vertical sidebar with bold active section ---
   if (variant === 'sidebar') {
     return (
-      <nav className="space-y-0.5" aria-label="Understand navigation">
+      <nav className="space-y-0.5" aria-label="Learn navigation">
         {TABS.map((t) => {
           const active = t.match(pathname);
           return (
@@ -69,11 +69,11 @@ export default function LearnTabs({ variant = 'sidebar' }: Props) {
   }
 
   // --- Mobile: horizontal scrollable topbar ---
-  return <UnderstandTopbar pathname={pathname} isFr={isFr} />;
+  return <LearnTopbar pathname={pathname} isFr={isFr} />;
 }
 
 /** Mobile topbar — auto-scrolls the active tab into view on each navigation */
-function UnderstandTopbar({ pathname, isFr }: { pathname: string; isFr: boolean }) {
+function LearnTopbar({ pathname, isFr }: { pathname: string; isFr: boolean }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLAnchorElement>(null);
 
@@ -91,7 +91,7 @@ function UnderstandTopbar({ pathname, isFr }: { pathname: string; isFr: boolean 
 
   return (
     <div ref={scrollerRef} className="overflow-x-auto -mx-4 px-4">
-      <nav className="flex gap-1 min-w-max" aria-label="Understand navigation">
+      <nav className="flex gap-1 min-w-max" aria-label="Learn navigation">
         {TABS.map((t) => {
           const active = t.match(pathname);
           return (
