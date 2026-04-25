@@ -276,7 +276,10 @@ export default function LandingPage() {
                 <Link
                   key={card.href}
                   href={card.href}
-                  className={`group relative flex flex-col h-full p-6 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
+                  // p-5 matches the zone cards above (line 430) — gains
+                  // ~16px horizontal text room per card vs the previous p-6
+                  // so the 1-line descriptions fit without wrapping.
+                  className={`group relative flex flex-col h-full p-5 rounded-xl border-2 ${a.border} ${a.bg} ${a.hover} transition-all duration-200`}
                 >
                   {badge && (
                     <span className={`absolute -top-3 left-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold shadow-sm bg-violet-600 text-white dark:bg-violet-500`}>
