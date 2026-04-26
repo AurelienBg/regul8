@@ -21,7 +21,6 @@ import remarkGfm from 'remark-gfm';
 
 export default function ReportPage() {
   const t = useTranslations('report');
-  const tc = useTranslations('common');
   const tw = useTranslations('wizard');
   const locale = useLocale();
   const params = useSearchParams();
@@ -697,10 +696,8 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         )}
       </section>
 
-      {/* Disclaimer */}
-      <div className="mt-8 p-4 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800">
-        <p className="text-xs text-amber-800 dark:text-amber-200">{tc('disclaimer')}</p>
-      </div>
+      {/* Disclaimer is already shown in the global Footer — keeping a duplicate
+          here was creating a double-warning at the bottom of the report page. */}
     </div>
   );
 }

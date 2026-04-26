@@ -1,16 +1,23 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n/routing';
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const switchTo = (target: 'en' | 'fr') => {
     if (target !== locale) {
-      router.replace(pathname, { locale: target });
+      // Preserve searchParams so URL-backed state (e.g. /report?activities=...&jurisdictions=...)
+      // survives language switching. Without this, switching FR↔EN on /report
+      // wipes the selection and shows "No activities or jurisdictions selected."
+      const qs = searchParams?.toString();
+      const target_path = qs ? `${pathname}?${qs}` : pathname;
+      router.replace(target_path, { locale: target });
     }
   };
 

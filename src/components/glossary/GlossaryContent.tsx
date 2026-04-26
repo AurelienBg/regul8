@@ -3,6 +3,7 @@
 import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { GLOSSARY_TERMS } from '@/data/glossary';
+import { TERM_TOPICS } from '@/data/term-topics';
 import XRPLBadge from '@/components/ui/XRPLBadge';
 
 const CATEGORIES = ['all', 'eu', 'us', 'intl', 'general', 'xrpl'] as const;
@@ -98,32 +99,9 @@ const TERM_SCOPES: Record<string, Scope> = {
   VASP: 'global',
 };
 
-const TERM_TOPICS: Record<string, Topic> = {
-  CASP: 'licence', DASP: 'licence', PSAN: 'licence', EMI: 'licence',
-  MSB: 'licence', MTL: 'licence', BitLicense: 'licence', VASP: 'licence',
-  MiCA: 'regime', 'DLT Pilot Regime': 'regime', JONUM: 'regime',
-  'Prospectus Regulation': 'regime', 'MiFID II': 'regime', PSD2: 'regime', PSD3: 'regime',
-  BSA: 'regime', TVTG: 'regime', AMLO: 'regime', CASS: 'regime', AMLA: 'regime',
-  AML: 'obligation', CFT: 'obligation', KYC: 'obligation', KYB: 'obligation',
-  'Travel Rule': 'obligation', SAR: 'obligation',
-  EMT: 'token', ART: 'token', 'S-EMT': 'token', 'S-ART': 'token',
-  STO: 'token', ICO: 'token', ITO: 'token', RWA: 'token', NFT: 'token',
-  DPT: 'token', RLUSD: 'token', MPT: 'token',
-  AMF: 'regulator', ESMA: 'regulator', NCA: 'regulator', ANJ: 'regulator',
-  SREN: 'regime',
-  FinCEN: 'regulator', OFAC: 'regulator',
-  FATF: 'regulator', FINMA: 'regulator', VQF: 'regulator', SRO: 'regulator',
-  MAS: 'regulator', SFC: 'regulator', HKMA: 'regulator',
-  FCA: 'regulator', VARA: 'regulator',
-  'Howey Test': 'doctrine',
-  TradFi: 'infra', CeFi: 'infra', DeFi: 'infra', DAO: 'infra',
-  'Smart Contract': 'infra', DLT: 'infra',
-  'Trust Line': 'infra', IOU: 'infra', Escrow: 'infra', 'Payment Channel': 'infra',
-  'XLS-20': 'infra', 'XLS-33': 'infra', AMM: 'infra', SignerList: 'infra',
-  'Regular Key': 'infra', MPC: 'infra', TSS: 'infra',
-  rippling: 'infra', freeze: 'infra', globalFreeze: 'infra',
-  RequireAuth: 'infra', lsfLocked: 'infra',
-};
+// NOTE: TERM_TOPICS is now imported from `@/data/term-topics` — single
+// source of truth shared with LinkedText + the glossary filter so that
+// adding a new term in one place automatically lights up everywhere.
 
 const TERM_FLAGS: Record<string, string> = {
   FINMA: '🇨🇭', VQF: '🇨🇭', SRO: '🇨🇭', AMLA: '🇨🇭',
