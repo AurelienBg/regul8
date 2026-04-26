@@ -103,15 +103,73 @@ const TERM_SCOPES: Record<string, Scope> = {
 // source of truth shared with LinkedText + the glossary filter so that
 // adding a new term in one place automatically lights up everywhere.
 
+// Per-term flag overrides. The `flagForTerm` fallback below uses `category`
+// (eu/us → 🇪🇺/🇺🇸) for everything not explicitly listed here; this map fills
+// in country-specific regulators / licences whose `category` is too coarse
+// (most non-EU/non-US regulators sit under `intl`).
 const TERM_FLAGS: Record<string, string> = {
+  // 🇫🇷 France
+  AMF: '🇫🇷', ANJ: '🇫🇷', PSAN: '🇫🇷', DASP: '🇫🇷', 'JONUM authorization': '🇫🇷',
+  // 🇩🇪 Germany
+  BaFin: '🇩🇪',
+  // 🇱🇺 Luxembourg
+  CSSF: '🇱🇺',
+  // 🇲🇹 Malta
+  MFSA: '🇲🇹',
+  // 🇮🇪 Ireland
+  CBI: '🇮🇪', 'Pre-Registration Undertaking': '🇮🇪',
+  // 🇱🇹 Lithuania
+  'Lietuvos bankas': '🇱🇹',
+  // 🇦🇹 Austria
+  FMA: '🇦🇹',
+  // 🇨🇭 Switzerland
   FINMA: '🇨🇭', VQF: '🇨🇭', SRO: '🇨🇭', AMLA: '🇨🇭',
-  MAS: '🇸🇬', DPT: '🇸🇬',
-  SFC: '🇭🇰', HKMA: '🇭🇰', AMLO: '🇭🇰',
+  // 🇱🇮 Liechtenstein
+  TVTG: '🇱🇮', 'TVTG Token Issuer': '🇱🇮', 'DLT framework': '🇱🇮',
+  // 🇬🇧 UK
   FCA: '🇬🇧', CASS: '🇬🇧',
-  VARA: '🇦🇪',
-  TVTG: '🇱🇮',
+  'Cryptoasset registration': '🇬🇧',
+  'Crypto Custody licence': '🇬🇧', 'Crypto Custody registration': '🇬🇧',
+  // 🇺🇸 USA (overrides for terms whose `category` is `intl` or otherwise)
+  NYDFS: '🇺🇸', BitLicense: '🇺🇸',
+  'NY Trust Charter': '🇺🇸', 'South Dakota Trust Charter': '🇺🇸',
+  // 🇸🇬 Singapore
+  MAS: '🇸🇬', DPT: '🇸🇬', MPI: '🇸🇬', SPI: '🇸🇬',
+  // 🇭🇰 Hong Kong
+  SFC: '🇭🇰', HKMA: '🇭🇰', AMLO: '🇭🇰', VATP: '🇭🇰',
+  // 🇯🇵 Japan
+  FSA: '🇯🇵', JVCEA: '🇯🇵',
+  // 🇰🇷 South Korea
+  FSC: '🇰🇷', KoFIU: '🇰🇷',
+  // 🇦🇺 Australia
+  ASIC: '🇦🇺', APRA: '🇦🇺', AUSTRAC: '🇦🇺', AFSL: '🇦🇺', DCE: '🇦🇺',
+  // 🇮🇳 India
+  'FIU-IND': '🇮🇳',
+  // 🇦🇪 UAE
+  VARA: '🇦🇪', DFSA: '🇦🇪',
+  'DFSA licence': '🇦🇪', 'ADGM Financial Services': '🇦🇪',
+  // 🇰🇾 Cayman / 🇧🇲 Bermuda
+  CIMA: '🇰🇾',
+  BMA: '🇧🇲',
+  DABA: '🇧🇲', 'DABA Class F': '🇧🇲', 'DABA Class M': '🇧🇲', 'DABA Class T': '🇧🇲',
+  // 🇨🇦 Canada
+  FINTRAC: '🇨🇦', CSA: '🇨🇦', OSC: '🇨🇦', IIROC: '🇨🇦',
+  // 🇧🇷 Brazil
+  BCB: '🇧🇷', CVM: '🇧🇷', CMN: '🇧🇷',
+  // 🇮🇱 Israel
+  ISA: '🇮🇱', BoI: '🇮🇱', IMPA: '🇮🇱', CMISA: '🇮🇱',
+  // 🇮🇩 Indonesia
+  Bappebti: '🇮🇩', OJK: '🇮🇩', BI: '🇮🇩', PFAK: '🇮🇩',
+  // 🇳🇬 Nigeria
+  'SEC Nigeria': '🇳🇬', CBN: '🇳🇬', NFIU: '🇳🇬',
+  DAOP: '🇳🇬', DACS: '🇳🇬', ARIP: '🇳🇬', NLRC: '🇳🇬',
+  // 🇰🇪 Kenya
+  CBK: '🇰🇪', CMA: '🇰🇪', BCLB: '🇰🇪',
+  // 🇿🇦 South Africa
+  FSCA: '🇿🇦', SARB: '🇿🇦', FIC: '🇿🇦',
+  // 🌐 Global / FATF
   VASP: '🌐', FATF: '🌐', 'Travel Rule': '🌐',
-  AML: '🌐', CFT: '🌐', KYC: '🌐', KYB: '🌐',
+  AML: '🌐', CFT: '🌐', KYC: '🌐', KYB: '🌐', SAR: '🌐',
 };
 
 function flagForTerm(term: { term: string; category?: string }): string | null {

@@ -30,7 +30,8 @@ Given the startup profile provided, generate:
 3. A practical checklist of immediate actions
 
 Be specific, actionable, and honest about grey zones.
-Always end with: "This is general information only. Consult a qualified lawyer for advice specific to your situation."
+
+Do NOT append a generic "this is not legal advice / consult a lawyer" disclaimer at the end of your answer — the application already shows that disclaimer once in the global footer, so adding another one creates a duplicate. Stay focused on the actual answer.
 
 Respond in the same language as the request (FR or EN).`;
 

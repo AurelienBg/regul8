@@ -38,7 +38,10 @@ export default function ReportPage() {
 
   /** Cache key: same activities + other + jurisdictions + locale → same cached AI audit */
   const aiCacheKey = `${[...activities].sort().join(',')}|other:${otherActivity}|${[...jurisdictions].sort().join(',')}|${locale}`;
-  const AI_CACHE_STORAGE_KEY = 'regul8:report:ai-cache';
+  // Bumped to v2 (Apr 2026) so cached analyses generated under the previous
+  // system prompt — which appended a "this is general information…" disclaimer
+  // duplicating the global Footer — are abandoned and regenerated cleanly.
+  const AI_CACHE_STORAGE_KEY = 'regul8:report:ai-cache:v2';
 
   // Try cache first; fall back to live generation. Runs once on mount.
   useEffect(() => {
