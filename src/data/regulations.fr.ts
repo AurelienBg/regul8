@@ -274,6 +274,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$6M libéré + $200K–$500K juridique",
       alts: ["Singapour MAS", "Dubaï VARA", "Australie AUSTRAC"],
       authority: "Bappebti (transition vers OJK en 2025)"
+    },
+    gh: {
+      regime: "Pas de loi crypto exhaustive — programme sandbox Bank of Ghana / SEC Ghana + Virtual Asset Providers Act (VAPA, 2024 attendu) en projet. Les exchanges crypto opèrent en zone grise réglementaire, l'exposition bancaire étant restreinte.",
+      risk: "high",
+      licenses: ["Admission au sandbox BoG/SEC (cas par cas)", "Future licence VAPA une fois la loi votée", "Enregistrement LBA FIC Ghana"],
+      obligations: ["LBA selon Loi 1044 (Anti-Money Laundering Act 2020)", "Déclarations STR/SAR au FIC Ghana", "Reporting sandbox-spécifique à la BoG", "Pas de rail bancaire pour on/off-ramp crypto avant VAPA"],
+      time: "6–12 mois (sandbox) · 12–24+ mois (VAPA, en attente)",
+      cost: "$50K–$200K (sandbox + juridique)",
+      alts: ["Afrique du Sud FSCA", "Maurice VASP", "Dubaï VARA"],
+      authority: "Bank of Ghana + SEC Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "La directive BEAC de mai 2022 prohibe l'usage du crypto comme moyen de paiement dans la zone CEMAC. Aucune licence d'exchange domestique disponible ; les banques camerounaises ne peuvent pas servir les entreprises crypto.",
+      risk: "high",
+      licenses: ["Aucune licence d'exchange disponible", "Opérer depuis le Cameroun effectivement bloqué"],
+      obligations: ["Conformité à l'interdiction BEAC — pas de rail bancaire crypto/fiat", "Mises en garde ANTIC sur la fraude crypto", "Opérer hors CEMAC pour cibler d'autres marchés"],
+      time: "n/a (pas de voie de licensing)",
+      cost: "Revue juridique + restructuration offshore $50K–$200K",
+      alts: ["Nigeria SEC + CBN (post-réouverture 2023)", "Sandbox BoG Ghana", "Sénégal/Côte d'Ivoire — zone UEMOA"],
+      authority: "BEAC + COBAC (interdiction bancaire) + ANTIC (TIC)"
+    },
+    ar: {
+      regime: "La loi 27.739 (mars 2024) a créé le registre PSAV (Proveedor de Servicios de Activos Virtuales) sous CNV — obligatoire pour tout exchange crypto offrant des services aux résidents argentins. Aligné sur la Recommandation 15 du GAFI.",
+      risk: "med",
+      licenses: ["Enregistrement CNV PSAV", "Enregistrement LBA UIF (Résolution 49/2024)", "Enregistrement fiscal AFIP"],
+      obligations: ["Société locale OU enregistrement d'entité étrangère", "KYC/LBA selon UIF Rés. 49/2024", "Ségrégation des actifs", "Reporting AFIP des transactions (contrôles de change BCRA)", "Reporting trimestriel CNV"],
+      time: "6–12 mois",
+      cost: "$50K–$200K (juridique + setup conformité)",
+      alts: ["Brésil BCB VASP", "Uruguay (régime plus léger)", "UE MiCA via Espagne (onboarding hispanophone)"],
+      authority: "CNV + UIF + BCRA"
+    },
+    sv: {
+      regime: "Digital Assets Issuance Law (LEAD, janv. 2023) — cadre PSAD supervisé par la CNAD pour les exchanges hors Bitcoin. Les exchanges Bitcoin-only relèvent de la Bitcoin Law de 2021 (licence BSP). Position pro-crypto.",
+      risk: "med",
+      licenses: ["Licence CNAD PSAD (actifs hors Bitcoin)", "Licence BSP (services Bitcoin uniquement)", "Société locale"],
+      obligations: ["KYC/LBA selon règles CNAD", "Dirigeant local + effectif minimum", "Comptes annuels", "Capital libellé en USD (pas de SVC)"],
+      time: "6–12 mois",
+      cost: "$200K–$700K (capital + juridique + setup)",
+      alts: ["Panama (pas de licence crypto spécifique)", "Bahamas DARE Act", "UE MiCA via Espagne"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -563,6 +603,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "Capital + setup IDR-onshore, $1M–$3M",
       alts: ["Singapour MAS SCS", "Hong Kong HKMA", "UE MiCA EMT"],
       authority: "Bank Indonesia + OJK"
+    },
+    gh: {
+      regime: "Pas de cadre stablecoin. La BoG a averti (2018+) que les crypto-actifs y compris stablecoins ne sont pas régulés ; la VAPA en projet pourrait inclure des dispositions style EMT. Le projet eCedi (CBDC) est le focus officiel de la BoG.",
+      risk: "high",
+      licenses: ["Pas de voie de licensing stablecoin aujourd'hui", "Sandbox BoG potentiellement ouverte aux pilotes", "Future licence VAPA équivalent EMT"],
+      obligations: ["LBA selon Loi 1044 si custody/distribution", "Filtrage sanctions", "Stablecoins étrangers non distribuables par les banques au Ghana"],
+      time: "12–24+ mois (clarification réglementaire en attente)",
+      cost: "$200K–$800K (sandbox + juridique)",
+      alts: ["UE MiCA EMT", "Travaux FSCA Afrique du Sud sur stablecoins", "Bermudes DABA"],
+      authority: "Bank of Ghana (chef de file)"
+    },
+    cm: {
+      regime: "L'interdiction BEAC prohibe l'émission et la circulation de stablecoins comme moyen de paiement dans la zone CEMAC. Les règles de convertibilité du franc CFA + les contrôles des changes ajoutent une seconde couche de contrainte.",
+      risk: "high",
+      licenses: ["Pas de voie d'émission stablecoin"],
+      obligations: ["Conformité à l'interdiction BEAC", "Contrôles BEAC sur la convertibilité du CFA", "Mises en garde ANTIC"],
+      time: "n/a",
+      cost: "Structuration offshore $50K–$200K",
+      alts: ["Nigeria post-réouverture 2023", "Maurice VASP", "UE MiCA"],
+      authority: "BEAC + COBAC"
+    },
+    ar: {
+      regime: "Pas de licence stablecoin dédiée — la loi 27.739 fait entrer les émetteurs sous le scope PSAV lorsqu'ils distribuent à des résidents argentins. Les stablecoins indexés ARS subissent des contrôles BCRA stricts ; les stablecoins en devise étrangère (USDC/USDT) sont largement utilisés comme couverture inflation.",
+      risk: "med",
+      licenses: ["Enregistrement CNV PSAV si distributeur", "Notification BCRA (impact change)", "LBA UIF"],
+      obligations: ["Réserves 1:1 pour toute claim de peg", "LBA selon UIF Rés. 49/2024", "Communication BCRA 'A' 7506 — restrictions bancaires", "Reporting fiscal (AFIP) sur émission + remboursement"],
+      time: "9–18 mois",
+      cost: "$300K–$1M (capital + juridique)",
+      alts: ["UE MiCA EMT", "Bermudes DABA", "Brésil BCB"],
+      authority: "CNV + BCRA + UIF"
+    },
+    sv: {
+      regime: "LEAD (janv. 2023) — les émetteurs de stablecoins hors Bitcoin s'enregistrent comme émetteurs d'actifs numériques sous CNAD. Le Bitcoin a un statut légal-tender dual ; l'USD est la devise locale, ce qui simplifie la distribution de stablecoins indexés USD.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper (LEAD Art. 9)", "BSP si indexé Bitcoin"],
+      obligations: ["Disclosure réserves 1:1 (LEAD Art. 11)", "Attestation des réserves + audit", "Émetteur local ou succursale enregistrée", "LBA selon règles CNAD"],
+      time: "6–12 mois",
+      cost: "$200K–$800K",
+      alts: ["Bahamas DARE Act", "Bermudes DABA", "UE MiCA EMT"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -841,6 +921,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "Inclus dans le setup PFAK ($6M libéré + infra custody)",
       alts: ["Singapour MAS DPT custody", "Dubaï VARA", "Australie ASIC"],
       authority: "Bappebti + PPATK (transition vers OJK)"
+    },
+    gh: {
+      regime: "Pas de licence custody dédiée aujourd'hui. Admission au sandbox requise pour les pilotes custody en production ; les banques sont interdites de détenir du crypto pour le compte de clients. La VAPA (projet) devrait introduire une catégorie custody alignée sur la R.15 GAFI.",
+      risk: "high",
+      licenses: ["Pilote custody sandbox BoG/SEC", "Enregistrement LBA FIC Ghana", "Future licence custody VAPA"],
+      obligations: ["Ségrégation des actifs (best practice, non statutaire)", "Exigences cold-storage (sandbox-spécifique)", "Assurance recommandée", "LBA selon Loi 1044"],
+      time: "6–12 mois (sandbox) · 18+ mois (VAPA)",
+      cost: "$200K–$800K",
+      alts: ["Afrique du Sud FSCA Crypto Custody", "Maurice VASP", "Suisse FINMA DLT"],
+      authority: "Bank of Ghana + SEC Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "Aucune licence custody disponible — l'interdiction BEAC empêche les banques et institutions agréées de détenir des crypto-actifs. La self-custody est légale mais l'activité de custody commerciale est effectivement bloquée.",
+      risk: "high",
+      licenses: ["Pas de voie de licensing custody"],
+      obligations: ["Pas d'interaction bancaire avec custody crypto", "Scrutiny ANTIC sur les offres commerciales", "Self-custody uniquement"],
+      time: "n/a",
+      cost: "Restructuration offshore $50K–$200K",
+      alts: ["Nigeria DACS régulé CBN", "Afrique du Sud FSCA", "Suisse FINMA"],
+      authority: "BEAC + COBAC"
+    },
+    ar: {
+      regime: "La custody entre dans le scope PSAV sous la loi 27.739 — les conservateurs enregistrés CNV doivent ségréger les actifs clients et respecter des standards de capital et opérationnels.",
+      risk: "med",
+      licenses: ["CNV PSAV (scope custody)", "LBA UIF", "Société locale OU succursale enregistrée"],
+      obligations: ["Ségrégation actifs clients/propres", "Audit annuel (PCGA)", "Polices d'assurance / risque opérationnel", "Reporting BCRA sur les flux custody crypto liés au change"],
+      time: "6–12 mois",
+      cost: "$200K–$700K",
+      alts: ["Brésil BCB", "Uruguay", "UE MiCA via Espagne"],
+      authority: "CNV + BCRA"
+    },
+    sv: {
+      regime: "LEAD (janv. 2023) — la custody est un des services agréables sous PSAD (hors Bitcoin) ou BSP (Bitcoin). La CNAD fixe les standards de ségrégation, réserves et opérations.",
+      risk: "med",
+      licenses: ["CNAD PSAD scope custody", "BSP si custody Bitcoin uniquement"],
+      obligations: ["Ségrégation des actifs (LEAD Art. 14)", "Politique cold-storage", "Assurance / proof-of-reserves", "Reporting libellé en USD"],
+      time: "6–12 mois",
+      cost: "$200K–$700K",
+      alts: ["Bahamas DARE", "Bermudes DABA", "Suisse FINMA"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -1110,6 +1230,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$200K–$1M selon la structure",
       alts: ["Singapour MAS", "Cayman", "Dubaï VARA"],
       authority: "Bappebti / OJK"
+    },
+    gh: {
+      regime: "Pas de cadre DeFi-spécifique. La SEC Ghana traiterait les services financiers tokenisés comme securities ; la BoG est préoccupée par le risque systémique + protection consommateur. Les projets en phase précoce gravitent vers le sandbox.",
+      risk: "high",
+      licenses: ["Sandbox BoG/SEC si opérateur centralisé identifiable", "LBA FIC Ghana"],
+      obligations: ["Restrictions sandbox sur nombre d'utilisateurs + flux", "LBA selon Loi 1044 si on/off-ramp fiat", "Disclosures protection-consommateur"],
+      time: "9–15 mois",
+      cost: "$100K–$500K",
+      alts: ["Afrique du Sud FSCA", "Suisse FINMA DLT", "Singapour MAS"],
+      authority: "BoG + SEC Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "Les front-ends DeFi tombent dans le scope de l'interdiction BEAC dès qu'une fonctionnalité de paiement transite par les rails bancaires CEMAC. L'infra véritablement décentralisée reste en zone grise lourde — exposition juridique domestique persistante.",
+      risk: "high",
+      licenses: ["Pas de voie d'autorisation DeFi"],
+      obligations: ["Conformité interdiction BEAC", "Scrutiny ANTIC sur front-ends user-facing", "Géo-blocage recommandé"],
+      time: "n/a",
+      cost: "Structuration offshore $100K–$400K",
+      alts: ["Singapour MAS", "Suisse FINMA", "Cayman + foundation offshore"],
+      authority: "BEAC + ANTIC"
+    },
+    ar: {
+      regime: "Les opérateurs DeFi centralisés servant des résidents argentins tombent probablement sous PSAV — la loi 27.739 attrape tout prestataire 'organisant' des transactions crypto pour des utilisateurs argentins. Les front-ends décentralisés en zone grise mais le reach CNV est défini largement.",
+      risk: "med",
+      licenses: ["CNV PSAV si opérateur identifiable", "LBA UIF", "Structure offshore courante"],
+      obligations: ["KYC/LBA si contrôle des fonds utilisateurs", "Géo-blocage parfois utilisé", "Disclosures consommateur en espagnol"],
+      time: "6–12 mois",
+      cost: "$100K–$400K",
+      alts: ["Uruguay", "Suisse FINMA", "Cayman"],
+      authority: "CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD applique une approche 'service-based' — quiconque offre des services financiers sur actifs numériques aux résidents salvadoriens nécessite une autorisation CNAD. Les protocoles décentralisés bénéficient d'une posture CNAD plus pragmatique qu'en Argentine.",
+      risk: "med",
+      licenses: ["CNAD PSAD si opérateur identifiable", "BSP si DeFi Bitcoin"],
+      obligations: ["KYC/LBA si contrôle des fonds", "Whitepaper pour les offres de tokens", "Disclosures localisées (espagnol)"],
+      time: "6–12 mois",
+      cost: "$100K–$400K",
+      alts: ["Panama", "Bahamas DARE", "Suisse FINMA"],
+      authority: "CNAD"
     }
   },
 
@@ -1269,6 +1429,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "IDR 100M–500M ($6K–$30K)",
       alts: ["Singapour (pas de licence pour utilitaire)", "UAE DMCC"],
       authority: "Kominfo (Ministère des Communications) — uniquement si app/service"
+    },
+    gh: {
+      regime: "Les DApps purement utilitaires sans élément crypto-actif sont hors scope BoG / SEC Ghana. Le Data Protection Act 2012 + le Cybersecurity Act 2020 s'appliquent toujours ; sandbox optionnel pour les pilotes early-stage.",
+      risk: "low",
+      licenses: ["Pas de licence crypto-spécifique", "Certification Cybersecurity Authority (cas par cas)"],
+      obligations: ["Conformité Data Protection Act 2012", "Reporting incidents Cybersecurity Act 2020", "Droit de la consommation"],
+      time: "1–3 mois",
+      cost: "$10K–$50K",
+      alts: ["Afrique du Sud", "Maurice", "Cadre UE aligné RGPD"],
+      authority: "Cybersecurity Authority + Data Protection Commission"
+    },
+    cm: {
+      regime: "Les DApps utilitaires uniquement ne sont pas dans le scope de l'interdiction BEAC. La Loi sur la cybersécurité 2010 + la Loi sur la protection des données personnelles 2024 s'appliquent. L'ANTIC supervise la conformité TIC.",
+      risk: "low",
+      licenses: ["Pas de licence crypto", "Enregistrement TIC ANTIC si telecom-adjacent"],
+      obligations: ["Loi protection données personnelles 2024", "Notification ANTIC si domaine .cm ou hébergement local"],
+      time: "1–3 mois",
+      cost: "$10K–$30K",
+      alts: ["Sénégal/Côte d'Ivoire", "Maurice"],
+      authority: "ANTIC"
+    },
+    ar: {
+      regime: "Les DApps utilitaires pures sont hors scope financier crypto. La Loi 25.326 (protection des données, alignée RGPD) + la Loi 24.240 de Défense du Consommateur s'appliquent. Pas d'enregistrement CNV sauf si tokens impliqués.",
+      risk: "low",
+      licenses: ["Pas de licence crypto requise"],
+      obligations: ["Loi 25.326 protection des données", "Loi 24.240 Défense du Consommateur", "CGU en espagnol"],
+      time: "1–3 mois",
+      cost: "$10K–$50K",
+      alts: ["Uruguay", "Espagne (UE)", "Mexique"],
+      authority: "AAIP (protection des données) + Secrétariat Défense du Consommateur"
+    },
+    sv: {
+      regime: "DApps utilitaires uniquement hors scope LEAD. La loi salvadorienne sur la protection des données personnelles (2021) + la loi de défense du consommateur s'appliquent. Environnement globalement crypto-friendly.",
+      risk: "low",
+      licenses: ["Pas de licence crypto requise"],
+      obligations: ["Loi protection données personnelles", "Loi défense du consommateur", "Enregistrement local si commercial"],
+      time: "1–3 mois",
+      cost: "$10K–$30K",
+      alts: ["Panama", "Costa Rica", "Bahamas"],
+      authority: "Defensoría del Consumidor"
     }
   },
 
@@ -1536,6 +1736,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$50K–$300K",
       alts: ["Singapour MAS", "Dubaï VARA", "UE exemption MiCA"],
       authority: "Kominfo + Bappebti / OJK"
+    },
+    gh: {
+      regime: "Pas de cadre NFT-spécifique. Les pures collectibles sont probablement hors scope SEC Ghana ; les NFT financiers / fractionnés seraient des securities. Sandbox disponible pour pilotes marketplace.",
+      risk: "med",
+      licenses: ["Pas de licence pour collectibles purs", "Sandbox BoG/SEC pour NFT fractionné / financier", "LBA FIC Ghana si marketplace"],
+      obligations: ["Copyright Act 2005", "LBA si la marketplace gère du fiat", "Disclosures protection-consommateur"],
+      time: "3–9 mois",
+      cost: "$30K–$200K",
+      alts: ["Afrique du Sud", "UE exemption MiCA", "Singapour MAS"],
+      authority: "SEC Ghana + Bureau du Copyright"
+    },
+    cm: {
+      regime: "Les NFT purs (collectibles) hors scope interdiction BEAC quand non utilisés comme moyen de paiement. Les NFT financiers / fractionnés sont en conflit avec l'interdiction ; les marketplaces commerciales bloquées du système bancaire CEMAC.",
+      risk: "high",
+      licenses: ["Pas de licence marketplace disponible"],
+      obligations: ["Droit du copyright + PI", "Supervision ANTIC", "Pas de rail bancaire fiat"],
+      time: "n/a (voie commerciale bloquée)",
+      cost: "Structuration offshore $50K–$200K",
+      alts: ["Nigeria", "Sénégal", "UE exemption MiCA"],
+      authority: "ANTIC + BEAC"
+    },
+    ar: {
+      regime: "Classification CNV au cas par cas. Les NFT purs sont typiquement hors scope PSAV ; les NFT fractionnés / yield-bearing sont probablement des securities sous la loi 26.831 (Loi des Marchés de Capitaux).",
+      risk: "med",
+      licenses: ["Pas de PSAV pour collectibles purs", "CNV PSAV si NFT fractionné / financier", "LBA UIF"],
+      obligations: ["Loi 11.723 Copyright", "LBA si on/off-ramp fiat", "Reporting fiscal AFIP (impôt + TVA)"],
+      time: "3–9 mois",
+      cost: "$30K–$200K",
+      alts: ["Brésil BCB", "Uruguay", "UE exemption MiCA"],
+      authority: "CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD couvre tous les actifs numériques y compris les NFT en commerce. Les pures collectibles bénéficient d'un scrutiny CNAD light-touch ; les marketplaces gérant des fonds utilisateurs nécessitent un PSAD.",
+      risk: "med",
+      licenses: ["Pas de PSAD pour collectibles purs", "CNAD PSAD si la marketplace contrôle les fonds"],
+      obligations: ["Droit PI", "LBA selon CNAD si marketplace", "Whitepaper si NFT utilitaire/financier"],
+      time: "3–9 mois",
+      cost: "$30K–$200K",
+      alts: ["Panama", "Bahamas DARE", "UE exemption MiCA"],
+      authority: "CNAD"
     }
   },
 
@@ -1695,6 +1935,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$100K–$500K",
       alts: ["Singapour MAS", "Dubaï VARA", "UE MiCA"],
       authority: "Bappebti / OJK"
+    },
+    gh: {
+      regime: "Pas de cadre MPT spécifique — relèvera de la VAPA en projet. La SEC Ghana classifierait au cas par cas selon les termes programmables (utility vs investissement).",
+      risk: "high",
+      licenses: ["Sandbox BoG/SEC pour pilotes MPT en production", "Future licence VAPA", "LBA FIC Ghana"],
+      obligations: ["Whitepaper + disclosure use-case", "LBA selon Loi 1044", "Reporting sandbox-spécifique"],
+      time: "9–18 mois",
+      cost: "$100K–$500K",
+      alts: ["Afrique du Sud FSCA", "Singapour MAS", "Suisse FINMA"],
+      authority: "SEC Ghana + BoG"
+    },
+    cm: {
+      regime: "Usage MPT comme moyen de paiement tombe sous l'interdiction BEAC ; MPT utilitaire pur en zone grise lourde sans voie de licensing. Émission aux résidents camerounais non autorisée.",
+      risk: "high",
+      licenses: ["Pas de voie d'émission MPT"],
+      obligations: ["Conformité interdiction BEAC", "Scrutiny ANTIC"],
+      time: "n/a",
+      cost: "Structuration offshore",
+      alts: ["Maurice VASP", "Singapour MAS", "UE MiCA"],
+      authority: "BEAC + ANTIC"
+    },
+    ar: {
+      regime: "CNV au cas par cas sous loi 27.739 + Loi des Marchés de Capitaux 26.831 — les tokens programmables avec caractéristiques d'investissement sont traités comme securities. Le MPT utilitaire pur nécessite probablement un enregistrement PSAV.",
+      risk: "med",
+      licenses: ["CNV PSAV (scope émetteur)", "Autorisation Loi des Marchés de Capitaux si security-like", "LBA UIF"],
+      obligations: ["Whitepaper + disclosure de risque", "Transparence des réserves si asset-backed", "LBA selon UIF Rés. 49/2024"],
+      time: "9–15 mois",
+      cost: "$100K–$500K",
+      alts: ["Brésil BCB", "Uruguay", "UE MiCA Other crypto-asset"],
+      authority: "CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD traite le MPT comme un actif numérique — l'émission nécessite un enregistrement CNAD avec whitepaper. Les fonctionnalités programmables sont généralement accommodées en raison de la posture pragmatique d'El Salvador.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper"],
+      obligations: ["Whitepaper (LEAD Art. 9)", "Disclosure des fonctionnalités programmables", "LBA selon CNAD"],
+      time: "6–12 mois",
+      cost: "$100K–$400K",
+      alts: ["Bahamas DARE", "Bermudes DABA", "UE MiCA"],
+      authority: "CNAD"
     }
   },
 
@@ -1963,6 +2243,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$500K–$2M",
       alts: ["Singapour MAS DLT pilot", "Suisse FINMA DLT", "UE DLT Pilot Regime"],
       authority: "OJK (à partir de 2025) + Bank Indonesia"
+    },
+    gh: {
+      regime: "Tokenisation d'actifs réels non testée — la SEC Ghana traiterait comme une offre de securities sous le Securities Industry Act 2016 (Loi 929). Le sandbox est la seule on-ramp réaliste avant VAPA.",
+      risk: "high",
+      licenses: ["Dépôt prospectus SEC Ghana OU exemption placement privé", "Sandbox BoG/SEC", "Arrangement custodian local"],
+      obligations: ["Disclosure prospectus", "Valorisation + custody de l'actif sous-jacent", "Règles de protection investisseur (SIA 2016)", "Reporting annuel"],
+      time: "12–24 mois",
+      cost: "$300K–$1.5M",
+      alts: ["Afrique du Sud FSCA", "Maurice VASP", "Suisse FINMA DLT"],
+      authority: "SEC Ghana + BoG"
+    },
+    cm: {
+      regime: "La tokenisation RWA croise interdiction BEAC + régime des securities CEMAC (supervision CMAC). Pas de voie domestique ; structuration offshore uniquement.",
+      risk: "high",
+      licenses: ["Pas de licence RWA domestique"],
+      obligations: ["Conformité interdiction BEAC", "Scrutiny securities CMAC si investisseur CEMAC"],
+      time: "n/a",
+      cost: "Structuration offshore $300K–$1M",
+      alts: ["Maurice VASP", "Suisse FINMA DLT", "Liechtenstein TVTG"],
+      authority: "BEAC + CMAC"
+    },
+    ar: {
+      regime: "CNV sous Loi des Marchés de Capitaux 26.831 + loi 27.739 — les tokens RWA sont des securities exigeant prospectus complet ou exemption investisseurs accrédités. Les contrôles change BCRA ajoutent de la complexité pour les RWA libellés en devise étrangère.",
+      risk: "high",
+      licenses: ["Prospectus CNV + enregistrement émetteur securities", "Autorisation BCRA change", "LBA UIF"],
+      obligations: ["Disclosure prospectus complet", "Audit + custody de l'actif sous-jacent", "Reporting fiscal AFIP", "Conformité contrôles capital BCRA"],
+      time: "12–24 mois",
+      cost: "$300K–$1.5M",
+      alts: ["Brésil BCB DLT pilot", "Uruguay", "UE DLT Pilot Regime"],
+      authority: "CNV + BCRA + UIF"
+    },
+    sv: {
+      regime: "LEAD contemple explicitement l'émission RWA. Les émetteurs enregistrés CNAD peuvent tokeniser des actifs réels avec dépôt de whitepaper — significativement plus rapide que l'Argentine ou le Ghana. Les Volcano Bonds Bitcoin ont posé le précédent.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper (LEAD Art. 9)", "Custodian local ou succursale enregistrée"],
+      obligations: ["Whitepaper + audit de l'actif", "Transparence des réserves", "Filings annuels à la CNAD", "Reporting libellé en USD"],
+      time: "6–12 mois",
+      cost: "$200K–$800K",
+      alts: ["Suisse FINMA DLT", "Liechtenstein TVTG", "Bermudes DABA"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -2122,6 +2442,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "Revue juridique $30K–$150K",
       alts: ["Philippines PAGCOR", "Malta MGA", "Sandbox Singapour MAS"],
       authority: "Kominfo + Police nationale indonésienne"
+    },
+    gh: {
+      regime: "Gaming Act 2006 (Loi 721) — la Gaming Commission of Ghana délivre les licences gambling. Les jeux NFT/Web3 avec monétisation basée sur le hasard exigent probablement une licence gaming ; le jeu de pure compétence ou non-monétisé est exempté.",
+      risk: "high",
+      licenses: ["Licence Gaming Commission of Ghana (chance-based)", "Pas de catégorie Web3-gaming spécifique"],
+      obligations: ["Mesures anti-addiction", "Vérification d'âge", "LBA selon Loi 1044", "Impôt sur les gains (Withholding Tax 10%)"],
+      time: "9–15 mois",
+      cost: "$100K–$400K",
+      alts: ["Malta MGA", "Curaçao", "UK Gambling Commission"],
+      authority: "Gaming Commission of Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "Le gambling est régulé par la Loi 2017-022 + le Décret Casino. Le gaming crypto/NFT avec items monétisables effectivement bloqué — à la fois licensing gambling et interdiction BEAC s'appliquent.",
+      risk: "high",
+      licenses: ["Pas de licence Web3 gaming disponible"],
+      obligations: ["Géo-bloquer le Cameroun", "Conformité interdiction BEAC", "Code pénal §326-bis (restrictions gambling)"],
+      time: "n/a",
+      cost: "Revue juridique $30K–$150K",
+      alts: ["Malta MGA", "Curaçao", "Philippines PAGCOR"],
+      authority: "Ministère des Finances + BEAC + ANTIC"
+    },
+    ar: {
+      regime: "Le gambling est régulé au niveau provincial (chaque province argentine a son cadre — ex. Buenos Aires LOTBA, Mendoza). Les jeux NFT/Web3 avec hasard nécessitent des licences provinciales ; PSAV s'applique si la monétisation passe par crypto.",
+      risk: "high",
+      licenses: ["Licence gambling provinciale (par province opérée)", "CNV PSAV si rails crypto", "LBA UIF"],
+      obligations: ["Règles gambling provinciales (par juridiction)", "LBA si crypto", "Loi de protection consommateur"],
+      time: "12–18 mois (par province)",
+      cost: "$200K–$800K (multi-provinces agrégées)",
+      alts: ["Malta MGA", "Curaçao", "Mexique SEGOB"],
+      authority: "Commissions gambling provinciales + CNV (jambe crypto)"
+    },
+    sv: {
+      regime: "Le gambling est régulé par la Casino Law (1996) + Lotteries Act. Posture pragmatique sur le gaming crypto — gaming Bitcoin/USD acceptable sous condition de licence gambling + économie token conforme LEAD.",
+      risk: "med",
+      licenses: ["Licence gambling salvadorienne (Ministerio de Hacienda)", "CNAD PSAD si économie NFT"],
+      obligations: ["Taxe gambling + LBA selon CNAD", "Vérification d'âge", "Enregistrement local"],
+      time: "9–15 mois",
+      cost: "$200K–$700K",
+      alts: ["Panama", "Bahamas", "Costa Rica"],
+      authority: "Ministerio de Hacienda + CNAD"
     }
   },
 
@@ -2390,6 +2750,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "IDR 50B–100B (~$3–6M) + setup",
       alts: ["Singapour MAS MPI", "Philippines BSP", "Australie AUSTRAC"],
       authority: "Bank Indonesia + Bappebti / OJK"
+    },
+    gh: {
+      regime: "BoG Payment Systems and Services Act 2019 (Loi 987) — les prestataires de services de paiement sont agréés sous un schéma à paliers. Pas d'intégration paiement-crypto au niveau retail avant VAPA ; sandbox ouvert aux pilotes.",
+      risk: "high",
+      licenses: ["Licence BoG PSP (Tier 1/2/3)", "Sandbox BoG/SEC pour la jambe crypto", "LBA FIC Ghana"],
+      obligations: ["Settlement GHS-onshore", "Reporting BoG", "LBA selon Loi 1044", "Pas de rail bancaire pour crypto avant VAPA"],
+      time: "9–18 mois",
+      cost: "GHS 5M–20M (~$330K–$1.3M, dépend du tier)",
+      alts: ["Nigeria CBN PSP + VASP", "Afrique du Sud FSCA", "Maurice VASP"],
+      authority: "Bank of Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "Le Règlement BEAC 02/18 régit les systèmes de paiement CEMAC. La fourniture de paiement crypto est bloquée par la directive BEAC de mai 2022. Le mobile money (MoMo) est le rail dominant.",
+      risk: "high",
+      licenses: ["Pas de licence paiement crypto", "BEAC EME (Établissement de Monnaie Électronique) pour fiat-only"],
+      obligations: ["Interdiction BEAC", "Contrôles change sur convertibilité CFA"],
+      time: "n/a",
+      cost: "Setup EME $200K–$500K (fiat-only)",
+      alts: ["Nigeria post-2023", "Sénégal/Côte d'Ivoire — zone UEMOA", "Sandbox Ghana"],
+      authority: "BEAC + COBAC"
+    },
+    ar: {
+      regime: "Régime PSP régulé BCRA (Proveedores de Servicios de Pago). Intersection paiement-crypto avec PSAV (loi 27.739) — les deux requis pour un prestataire fiat-crypto.",
+      risk: "med",
+      licenses: ["Licence BCRA PSP (Communication 'A' 7641)", "CNV PSAV", "LBA UIF"],
+      obligations: ["Settlement ARS-onshore", "Communication BCRA 'A' 7506 — restrictions bancaires", "Reporting transactions AFIP", "Reporting quotidien BCRA sur change"],
+      time: "9–15 mois",
+      cost: "$200K–$700K",
+      alts: ["Uruguay", "Brésil BCB", "UE MiCA via Espagne"],
+      authority: "BCRA + CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD + Bitcoin Law combinés rendent la fourniture de paiement crypto relativement directe. Licence PSAD ou BSP selon l'actif ; supervision BCR sur les aspects settlement.",
+      risk: "med",
+      licenses: ["CNAD PSAD scope paiement (hors Bitcoin)", "BSP si paiement Bitcoin", "Société locale"],
+      obligations: ["KYC/LBA selon CNAD", "Reporting libellé en USD", "Dirigeant local"],
+      time: "6–12 mois",
+      cost: "$200K–$700K",
+      alts: ["Panama", "Bahamas DARE", "UE MiCA EMI"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -2687,6 +3087,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$8M+ (capital combiné PFAK + PJP + setup)",
       alts: ["Singapour MAS MPI", "Philippines BSP VASP", "Australie AUSTRAC"],
       authority: "Bank Indonesia + Bappebti / OJK"
+    },
+    gh: {
+      regime: "Les banques ghanéennes restreintes du on/off-ramp crypto avant VAPA. Le rail mobile money (MTN MoMo, AirtelTigo Money) est le canal de facto via plateformes P2P ; le sandbox BoG est la seule voie de pilote formel.",
+      risk: "high",
+      licenses: ["Sandbox BoG pour opération en production", "Partenariat agent mobile-money", "LBA FIC Ghana"],
+      obligations: ["Plafonds de flux sandbox", "KYC strict + vérification carte d'identité (Ghana Card)", "LBA selon Loi 1044", "Filtrage sanctions"],
+      time: "9–15 mois (sandbox)",
+      cost: "$200K–$700K",
+      alts: ["Nigeria DASP+VASP régulé CBN", "Afrique du Sud FSCA", "Maurice VASP"],
+      authority: "Bank of Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "On/off-ramp bloqué par interdiction BEAC — pas de rail fiat-crypto conforme. Mobile money + P2P opèrent informellement ; la fourniture commerciale expose à la fois l'opérateur et la banque-partenaire.",
+      risk: "high",
+      licenses: ["Pas de licence on/off-ramp disponible"],
+      obligations: ["Conformité interdiction BEAC", "Scrutiny ANTIC"],
+      time: "n/a",
+      cost: "Restructuration offshore $50K–$200K",
+      alts: ["Nigeria", "Sandbox Ghana", "Sénégal/Côte d'Ivoire — zone UEMOA"],
+      authority: "BEAC + COBAC + ANTIC"
+    },
+    ar: {
+      regime: "PSAV (loi 27.739) couvre on/off-ramp. La Communication BCRA 'A' 7506 limite l'exposition bancaire directe au crypto ; les ramps s'associent typiquement à des PSP non-bancaires ou utilisent des rails stablecoin.",
+      risk: "med",
+      licenses: ["CNV PSAV (scope on/off-ramp)", "BCRA PSP si jambe fiat", "LBA UIF"],
+      obligations: ["Settlement ARS-onshore", "KYC strict (vérification DNI)", "Reporting contrôle-change BCRA", "Reporting quotidien AFIP"],
+      time: "9–15 mois",
+      cost: "$300K–$900K",
+      alts: ["Uruguay", "Brésil BCB", "UE via Espagne"],
+      authority: "CNV + BCRA + UIF"
+    },
+    sv: {
+      regime: "LEAD + Bitcoin Law rendent l'on/off-ramp direct — le statut légal-tender du Bitcoin supprime une friction majeure ; l'USD est la devise locale. PSAD couvre les actifs hors Bitcoin, BSP le Bitcoin.",
+      risk: "med",
+      licenses: ["CNAD PSAD scope on/off-ramp", "BSP si Bitcoin uniquement", "Partenariat banque locale"],
+      obligations: ["KYC selon CNAD", "Reporting libellé en USD", "LBA"],
+      time: "6–12 mois",
+      cost: "$200K–$600K",
+      alts: ["Panama", "Bahamas DARE", "Mexique CNBV"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -2969,6 +3409,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$5M+ (tier capital cross-border)",
       alts: ["Singapour MAS MPI", "Hong Kong HKMA", "Australie AUSTRAC"],
       authority: "Bank Indonesia + PPATK"
+    },
+    gh: {
+      regime: "BoG Foreign Exchange Act 2006 + Payment Systems Act 2019. Le paiement crypto cross-border est bloqué au niveau bancaire avant VAPA ; le sandbox est la seule voie de pilote.",
+      risk: "high",
+      licenses: ["Sandbox BoG pour opération en production", "LBA FIC Ghana", "Licence PSP cross-border BoG (fiat-only)"],
+      obligations: ["Travel Rule (FATF R.16)", "Reporting contrôle-change BoG", "Filtrage sanctions", "LBA selon Loi 1044"],
+      time: "12–18 mois",
+      cost: "$300K–$900K",
+      alts: ["Nigeria régulé CBN", "Maurice VASP", "Afrique du Sud SARB"],
+      authority: "Bank of Ghana + FIC Ghana"
+    },
+    cm: {
+      regime: "Paiement crypto cross-border fondamentalement incompatible avec interdiction BEAC + contrôles change CFA. Le mobile money cross-border (ex. Cameroun ↔ Nigeria) opère uniquement dans les rails fiat.",
+      risk: "high",
+      licenses: ["Pas de licence cross-border crypto"],
+      obligations: ["Interdiction BEAC", "Contrôles change sur convertibilité CFA", "Scrutiny ANTIC"],
+      time: "n/a",
+      cost: "Structuration offshore requise",
+      alts: ["Zone UEMOA (Sénégal, Côte d'Ivoire)", "Maurice VASP", "Nigeria post-2023"],
+      authority: "BEAC + COBAC"
+    },
+    ar: {
+      regime: "Contrôles change BCRA stricts (cepo cambiario) + PSAV loi 27.739. Les rails crypto cross-border soumis à scrutiny élevée ; les flux corridor heurtent souvent l'impôt AFIP + cap BCRA sur achats USD.",
+      risk: "high",
+      licenses: ["CNV PSAV scope cross-border", "BCRA PSP", "LBA UIF"],
+      obligations: ["Reporting contrôle-change BCRA (quotidien)", "Travel Rule (FATF R.16)", "Impôt AFIP (taxe PAIS 30% sur change)", "Filtrage sanctions"],
+      time: "12–18 mois",
+      cost: "$500K–$1.5M",
+      alts: ["Uruguay (change plus léger)", "Brésil BCB", "UE via Espagne"],
+      authority: "BCRA + CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD + Bitcoin Law font du paiement crypto cross-border un cas d'usage phare — El Salvador se positionne comme hub remittance. Chivo Wallet a pionnier les remittances Bitcoin. Supervision CNAD sur les actifs hors Bitcoin.",
+      risk: "med",
+      licenses: ["CNAD PSAD cross-border", "BSP si Bitcoin", "Société locale"],
+      obligations: ["Travel Rule (FATF R.16)", "Reporting libellé en USD à la BCR", "LBA selon CNAD"],
+      time: "6–12 mois",
+      cost: "$200K–$700K",
+      alts: ["Panama", "Bahamas DARE", "Mexique CNBV"],
+      authority: "CNAD + BCR"
     }
   },
 
@@ -3235,6 +3715,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$50K–$200K",
       alts: ["Singapour MAS", "Dubaï VARA", "Suisse FINMA"],
       authority: "Bappebti / OJK"
+    },
+    gh: {
+      regime: "Pas de cadre utility-token spécifique. La SEC Ghana classifierait au cas par cas ; l'utility pur probablement hors scope Securities Industry Act 2016. Sandbox disponible pour offres en production.",
+      risk: "med",
+      licenses: ["Sandbox BoG/SEC pour l'offre", "LBA FIC Ghana si tradé", "Future notification VAPA"],
+      obligations: ["Whitepaper", "Restrictions marketing (pas de langage investissement)", "LBA si tradé"],
+      time: "3–9 mois (sandbox) · 12+ mois (voie complète)",
+      cost: "$50K–$300K",
+      alts: ["Suisse FINMA (catégorie utility)", "Maurice VASP", "UE MiCA Other crypto-asset"],
+      authority: "SEC Ghana + BoG"
+    },
+    cm: {
+      regime: "Émission utility-token aux résidents camerounais non autorisée sous interdiction BEAC dès que le token a une fonction de paiement. Les tokens utility purs sans fonction de paiement en zone grise lourde — pas de route d'autorisation formelle.",
+      risk: "high",
+      licenses: ["Pas de voie d'émission utility-token"],
+      obligations: ["Conformité interdiction BEAC", "Scrutiny ANTIC sur marketing"],
+      time: "n/a",
+      cost: "Structuration offshore",
+      alts: ["Maurice VASP", "Suisse FINMA", "UE MiCA"],
+      authority: "BEAC + ANTIC"
+    },
+    ar: {
+      regime: "CNV au cas par cas sous loi 27.739 + Loi des Marchés de Capitaux 26.831. Les utility tokens purs nécessitent probablement un enregistrement PSAV quand offerts aux résidents argentins ; les tokens spéculatifs ou yield-bearing traités comme securities.",
+      risk: "med",
+      licenses: ["CNV PSAV (scope émetteur)", "Exemption Loi des Marchés de Capitaux si privé", "LBA UIF"],
+      obligations: ["Whitepaper + disclosure de caractère non-investissement", "Restrictions marketing", "LBA si tradé"],
+      time: "6–12 mois",
+      cost: "$100K–$400K",
+      alts: ["Uruguay", "Brésil BCB", "Mexique"],
+      authority: "CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD light-touch sur les utility tokens — dépôt de whitepaper CNAD plutôt que prospectus complet. Posture pragmatique, plus rapide qu'Argentine ou Ghana.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper (LEAD Art. 9)"],
+      obligations: ["Whitepaper", "Restrictions marketing (pas de promesse d'investissement)", "LBA selon CNAD"],
+      time: "3–9 mois",
+      cost: "$50K–$300K",
+      alts: ["Bahamas DARE", "Bermudes DABA", "UE MiCA Other crypto-asset"],
+      authority: "CNAD"
     }
   },
 
@@ -3501,6 +4021,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$500K–$2M",
       alts: ["Singapour MAS", "Suisse FINMA", "UE Prospectus Regulation"],
       authority: "OJK (à partir de 2025)"
+    },
+    gh: {
+      regime: "Le Securities Industry Act 2016 (Loi 929) s'applique pleinement — les offres de tokens sont des offres de securities. Prospectus SEC Ghana ou exemption investisseurs accrédités requis.",
+      risk: "high",
+      licenses: ["Dépôt prospectus SEC Ghana", "OU exemption placement privé (investisseurs sophistiqués uniquement)", "Sandbox BoG/SEC optionnel pour test en production"],
+      obligations: ["Disclosure prospectus complet", "Audit + reporting continu", "Règles d'insider trading", "Rapport annuel"],
+      time: "12–24 mois",
+      cost: "$300K–$1.5M",
+      alts: ["Afrique du Sud FSCA", "Maurice", "Suisse FINMA"],
+      authority: "SEC Ghana"
+    },
+    cm: {
+      regime: "La CMAC (Commission de Surveillance du Marché Financier de l'Afrique Centrale) régule les securities CEMAC. Les securities tokenisées subissent la scrutiny combinée CMAC + BEAC — pratiquement bloquées.",
+      risk: "high",
+      licenses: ["Pas de voie security-token domestique"],
+      obligations: ["Interdiction BEAC + CMAC", "Structuration offshore requise"],
+      time: "n/a",
+      cost: "Offshore $300K–$1M",
+      alts: ["Maurice", "Suisse FINMA", "UE Prospectus Regulation"],
+      authority: "BEAC + CMAC"
+    },
+    ar: {
+      regime: "CNV sous Loi des Marchés de Capitaux 26.831 + loi 27.739 — les offres de security tokens sont des offres de securities. Prospectus complet ou exemption investisseurs accrédités (équivalent Reg. S).",
+      risk: "high",
+      licenses: ["Prospectus CNV + enregistrement émetteur securities", "Exemption investisseurs accrédités (Reg. S)", "Underwriter (agréé CNV)", "Listing BYMA si marché public"],
+      obligations: ["Disclosure prospectus complet", "Audit + reporting continu", "Règles d'insider trading + disclosure", "Rapport annuel (form CNV)"],
+      time: "12–24 mois",
+      cost: "$300K–$1.5M",
+      alts: ["Brésil B3 + BCB", "Uruguay", "UE Prospectus Regulation"],
+      authority: "CNV + BYMA"
+    },
+    sv: {
+      regime: "LEAD couvre les securities tokenisées — voie supervisée CNAD avec dépôt de whitepaper plutôt que prospectus complet. Les Volcano Bonds (obligations souveraines BTC-backed) ont démontré le cadre en pratique.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper (LEAD Art. 9)", "Custodian local"],
+      obligations: ["Whitepaper + audit", "Reporting annuel à la CNAD", "Disclosures protection investisseur"],
+      time: "6–12 mois",
+      cost: "$200K–$800K",
+      alts: ["Suisse FINMA", "Liechtenstein TVTG", "Bermudes DABA"],
+      authority: "CNAD"
     }
   },
 
@@ -3767,6 +4327,46 @@ export const REGULATIONS_FR: RegData = {
       cost: "$500K–$1.5M",
       alts: ["UAE VARA", "Suisse FINMA", "UE MiCA"],
       authority: "Bappebti + OJK"
+    },
+    gh: {
+      regime: "Pas de cadre hybrid-token. Lecture stricte de la SEC Ghana — toute caractéristique d'investissement déclenche probablement la classification securities sous Securities Industry Act 2016.",
+      risk: "high",
+      licenses: ["Prospectus SEC Ghana + sandbox (parallèle)", "LBA FIC Ghana"],
+      obligations: ["Disclosure complet", "Pas de framing 'utility' si la SEC classifie comme security", "Rapports annuels + intérimaires"],
+      time: "15–24 mois",
+      cost: "$500K–$1.5M",
+      alts: ["Afrique du Sud FSCA", "Suisse FINMA (plus flexible)", "Maurice"],
+      authority: "SEC Ghana"
+    },
+    cm: {
+      regime: "Les tokens hybrides subissent la scrutiny combinée interdiction BEAC + securities CMAC. Pas de voie ; structuration offshore + géo-blocage requis.",
+      risk: "high",
+      licenses: ["Pas de voie domestique"],
+      obligations: ["Interdiction BEAC + scrutiny CMAC", "Géo-blocage recommandé"],
+      time: "n/a",
+      cost: "Offshore $500K–$1M",
+      alts: ["Maurice", "Suisse FINMA", "UE MiCA"],
+      authority: "BEAC + CMAC"
+    },
+    ar: {
+      regime: "CNV + UIF appliquent la lecture la plus stricte — les tokens hybrides avec une caractéristique d'investissement classifiés comme securities. Stack multi-licence typiquement requis.",
+      risk: "high",
+      licenses: ["Prospectus CNV + PSAV", "Exemption Loi des Marchés de Capitaux si privé", "LBA UIF"],
+      obligations: ["Disclosure complet", "Pas de framing utility si caractéristiques security", "Reporting trimestriel + annuel"],
+      time: "15–24 mois",
+      cost: "$500K–$1.5M",
+      alts: ["Uruguay", "Brésil BCB", "UE MiCA"],
+      authority: "CNV + UIF"
+    },
+    sv: {
+      regime: "LEAD pragmatique sur les tokens hybrides — le whitepaper CNAD accommode les tokens multi-features avec disclosures de risque. Significativement plus rapide qu'Argentine ou Ghana pour le même produit.",
+      risk: "med",
+      licenses: ["Enregistrement émetteur d'actif numérique CNAD", "Dépôt de whitepaper (LEAD Art. 9)"],
+      obligations: ["Whitepaper avec disclosure des fonctionnalités hybrides", "Reporting annuel à la CNAD", "Libellé en USD"],
+      time: "6–12 mois",
+      cost: "$200K–$800K",
+      alts: ["Bahamas DARE", "Bermudes DABA", "Suisse FINMA"],
+      authority: "CNAD"
     }
   },
 };

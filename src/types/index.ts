@@ -7,6 +7,7 @@ export type Jurisdiction =
   | 'jp' | 'kr' | 'in' | 'br' | 'id'
   | 'ky' | 'vg' | 'bm'
   | 'ng' | 'ke' | 'za' | 'il'
+  | 'gh' | 'cm' | 'ar' | 'sv'
 
 /** Visual tier for the /report + /compare UI. "emerging" = evolving framework, less data depth. */
 export type JurisdictionTier = 'established' | 'emerging'
@@ -193,6 +194,11 @@ export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; t
   ng: { name: 'Nigeria', flag: '🇳🇬', tier: 'emerging' },
   ke: { name: 'Kenya', flag: '🇰🇪', tier: 'emerging' },
   za: { name: 'South Africa', flag: '🇿🇦', tier: 'emerging' },
+  gh: { name: 'Ghana', flag: '🇬🇭', tier: 'emerging' },
+  cm: { name: 'Cameroon', flag: '🇨🇲', tier: 'emerging' },
+  // Latin America emerging
+  ar: { name: 'Argentina', flag: '🇦🇷', tier: 'emerging' },
+  sv: { name: 'El Salvador', flag: '🇸🇻', tier: 'emerging' },
 }
 
 export const ACTIVITIES: Record<ActivityKey, { xrpl: boolean }> = {

@@ -176,6 +176,24 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   // match inside many other tokens) — handled at glossary-only level.
   'PFAK': 'licence-framework',
   'CFX': 'licence-framework',
+  // Ghana / Cameroon / Argentina / El Salvador regulators (added Apr 2026)
+  'BoG': 'regulator',
+  'SEC Ghana': 'regulator',
+  'FIC Ghana': 'regulator',
+  'BEAC': 'regulator',
+  'COBAC': 'regulator',
+  'ANTIC': 'regulator',
+  'CNV': 'regulator',
+  'BCRA': 'regulator',
+  'UIF': 'regulator',
+  'CNAD': 'regulator',
+  'BCR': 'regulator',
+  // Salvador + Argentina licence frameworks
+  'PSAV': 'licence-framework',
+  'PSAD': 'licence-framework',
+  'BSP': 'licence-framework',
+  // Note: 'BCR' is short but specific enough; 'UIF' could collide with
+  // generic French/Spanish text but the glossary scope keeps it safe.
 };
 
 const SORTED_KEYS = Object.keys(CLASSIFICATION).sort((a, b) => b.length - a.length);

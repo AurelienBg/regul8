@@ -72,6 +72,14 @@ export const TERM_TOPICS: Record<string, Topic> = {
   'SEC Nigeria': 'regulator', CBN: 'regulator', NFIU: 'regulator',
   CBK: 'regulator', CMA: 'regulator', FSCA: 'regulator', SARB: 'regulator',
   FIC: 'regulator',
+  // Ghana
+  BoG: 'regulator', 'SEC Ghana': 'regulator', 'FIC Ghana': 'regulator',
+  // Cameroon / CEMAC
+  BEAC: 'regulator', COBAC: 'regulator', ANTIC: 'regulator',
+  // Argentina
+  CNV: 'regulator', BCRA: 'regulator', UIF: 'regulator', PSAV: 'licence',
+  // El Salvador
+  CNAD: 'regulator', BCR: 'regulator', BSP: 'licence', PSAD: 'licence',
   // Gaming
   NLRC: 'regulator', BCLB: 'regulator',
 
