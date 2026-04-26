@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 import { TOPICS, TOPIC_ORDER, type ConceptKey } from '@/data/topics';
 import { getLearningPath } from '@/data/learning-paths';
 import { getLearningPathFr } from '@/data/learning-paths.fr';
@@ -13,8 +14,15 @@ import { GLOSSARY_TERMS } from '@/data/glossary';
 const isConceptKey = (s: string): s is ConceptKey =>
   TOPIC_ORDER.includes(s as ConceptKey);
 
+// Pre-render every (locale, concept) pair. Earlier we returned only `concept`
+// — Next 14 marked the route ● SSG and pre-rendered with `params.locale ===
+// undefined`, which broke the runtime page (500 on /en/topics/jurisdiction
+// and friends in production). Cross-binding both segments lets Next generate
+// 8 concepts × 2 locales = 16 valid static pages and removes the 500.
 export function generateStaticParams() {
-  return TOPIC_ORDER.map((concept) => ({ concept }));
+  return TOPIC_ORDER.flatMap((concept) =>
+    routing.locales.map((locale) => ({ locale, concept })),
+  );
 }
 
 export async function generateMetadata({
