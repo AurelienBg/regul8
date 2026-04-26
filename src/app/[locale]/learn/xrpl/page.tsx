@@ -15,7 +15,6 @@ type XrplTab = 'legal' | 'tech' | 'custody' | 'companies';
 
 export default function XRPLPage() {
   const t = useTranslations('xrpl');
-  const tc = useTranslations('common');
   const locale = useLocale();
   const isFr = locale === 'fr';
   const knowledge = isFr ? XRPL_KNOWLEDGE_FR : XRPL_KNOWLEDGE;
@@ -269,6 +268,29 @@ export default function XRPLPage() {
           <section className="mb-6">
             <XrplCustodyMatrix showProviders />
           </section>
+
+          {/* Grey-zone warning — the matrix's amber column is NOT a 'do
+              whatever you want' label. Regulators haven't issued
+              definitive guidance on Regular Key, SignerList minority
+              thresholds or MPC/TSS under MiCA/FCA — a written legal
+              opinion is essential before launch. Sits visually
+              connected to the matrix's amber column. */}
+          <div className="mb-6 rounded-lg border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl leading-none shrink-0">⚠️</span>
+              <div>
+                <div className="font-bold text-sm text-amber-900 dark:text-amber-100 mb-1">
+                  {isFr ? "La zone grise n'est pas un blanc-seing" : "Grey zone isn't a free pass"}
+                </div>
+                <p className="text-xs text-amber-900/90 dark:text-amber-100/90 leading-relaxed">
+                  {isFr
+                    ? "Les régulateurs n'ont pas publié de guidance définitive sur les Regular Key, les seuils de SignerList en minorité ou MPC/TSS sous MiCA. Un avis juridique écrit est essentiel avant tout lancement. La classification peut évoluer au gré des mises à jour ESMA/FCA."
+                    : "Regulators haven't issued definitive guidance on Regular Key, SignerList minority thresholds, or MPC/TSS under MiCA. A written legal opinion is essential before launch. The classification can shift with ESMA/FCA updates."}
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="mb-6 text-center">
             <Link
               href="/learn/diagrams/xrpl-custody"
@@ -293,10 +315,14 @@ export default function XRPLPage() {
               {providers.map((p) => (
                 <a
                   key={p.name}
+                  // Anchor id matches the chips' href in XrplCustodyMatrix
+                  // (slug = lowercase + hyphen-joined), so chips above
+                  // smooth-scroll the user down to this card on click.
+                  id={`provider-${p.name.toLowerCase().replace(/\s+/g, '-')}`}
                   href={p.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="card hover:border-violet-500 transition-colors block"
+                  className="card hover:border-violet-500 transition-colors block scroll-mt-24"
                 >
                   <div className="flex items-start gap-3 mb-2">
                     <span className="text-2xl">{p.logo}</span>
@@ -390,14 +416,14 @@ export default function XRPLPage() {
         );
       })()}
 
-      {/* CTA — always visible across all tabs */}
+      {/* CTA — always visible across all tabs. The page-level disclaimer
+          was removed (it duplicated the global Footer disclaimer that
+          renders on every page). */}
       <div className="text-center mt-12">
         <Link href="/assess/full" className="btn-xrpl text-lg px-8 py-4">
           {t('startWizard')} &rarr;
         </Link>
       </div>
-
-      <p className="mt-8 text-xs text-gray-500 text-center">{tc('disclaimer')}</p>
     </div>
   );
 }

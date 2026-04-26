@@ -11,18 +11,26 @@ type Provider = {
    *  (e.g. 'Metaco' for the custodial Ripple Custody, 'Palisade' for the
    *  grey-zone variant). Some providers can appear in two columns. */
   variant?: string;
+  /** Where the chip links to. Either an in-page anchor like
+   *  '#provider-anchorage-digital' (for institutional providers detailed
+   *  in the cards section below the matrix) or an external `https://` URL
+   *  (for non-custodial wallets which have no card on the page). */
+  href?: string;
 };
 
 /**
  * XRPL Custody Matrix — 3-column visual grouping the 10+ XRPL custody
  * methods by their regulatory posture (custodial / grey / non-custodial),
- * with the ability to render the 8 ecosystem providers below their
- * matching column.
+ * with the ability to render the ecosystem providers below their matching
+ * column.
  *
  * The standalone /learn/diagrams/xrpl-custody page keeps the simple
  * methods-only view (useful as a pure pedagogy diagram). The /learn/xrpl
  * page passes `showProviders` so the same matrix doubles as a decision
- * tool ("here's the custody model, here's who implements it").
+ * tool ("here's the custody model, here's who implements it"). Provider
+ * chips on /learn/xrpl link in two ways:
+ *   · institutional providers → in-page anchor to the card detail below
+ *   · non-custodial wallets → external link to the wallet's site
  */
 
 const COPY = {
@@ -35,6 +43,7 @@ const COPY = {
     euNonCustodial: 'No CASP for the custody itself',
     methodsLabel: 'XRPL methods',
     providersLabel: 'Providers',
+    nonCustodialNote: 'User holds their own keys — wallet software, not custody. Examples:',
     custodialItems: [
       { name: 'Single Key', detail: 'Master key held by service' },
       { name: 'IOU / Trust Lines', detail: 'Gateway holds off-chain assets' },
@@ -62,6 +71,7 @@ const COPY = {
     euNonCustodial: 'Pas de CASP pour la custody elle-même',
     methodsLabel: 'Méthodes XRPL',
     providersLabel: 'Fournisseurs',
+    nonCustodialNote: "L'utilisateur détient ses propres clés — logiciel wallet, pas de la custody. Exemples :",
     custodialItems: [
       { name: 'Single Key', detail: 'Master key détenue par le service' },
       { name: 'IOU / Trust Lines', detail: 'Gateway détient les actifs off-chain' },
@@ -84,28 +94,40 @@ const COPY = {
 
 // Provider classification per regulatory posture. Some entities span
 // multiple columns (e.g. Ripple Custody — Metaco vs Palisade variants).
-// Ordering within each list is roughly by recognisability.
+// Hrefs starting with '#' anchor to the institutional provider cards
+// rendered below the matrix on /learn/xrpl. External hrefs (https://)
+// for wallets which have no detail card on the page.
 const CUSTODIAL_PROVIDERS: Provider[] = [
-  { name: 'Anchorage', logo: '⚓' },
-  { name: 'Fireblocks', logo: '🧱' },
-  { name: 'Taurus', logo: '♉' },
-  { name: 'Copper', logo: '🟠' },
-  { name: 'GateHub', logo: '🚪' },
-  { name: 'Ripple Custody', logo: '🔐', variant: 'Metaco' },
+  { name: 'Anchorage', logo: '⚓', href: '#provider-anchorage-digital' },
+  { name: 'Fireblocks', logo: '🧱', href: '#provider-fireblocks' },
+  { name: 'Taurus', logo: '♉', href: '#provider-taurus' },
+  { name: 'Copper', logo: '🟠', href: '#provider-copper' },
+  { name: 'GateHub', logo: '🚪', href: '#provider-gatehub' },
+  { name: 'Ripple Custody', logo: '🔐', variant: 'Metaco', href: '#provider-ripple-custody' },
 ];
 const GREY_PROVIDERS: Provider[] = [
-  { name: 'BitGo', logo: '🛡️', variant: 'multi-sig 2-of-3' },
-  { name: 'Dfns', logo: '🔑', variant: 'MPC WaaS' },
-  { name: 'Ripple Custody', logo: '🔐', variant: 'Palisade — MPC' },
+  { name: 'BitGo', logo: '🛡️', variant: 'multi-sig 2-of-3', href: '#provider-bitgo' },
+  { name: 'Dfns', logo: '🔑', variant: 'MPC WaaS', href: '#provider-dfns' },
+  { name: 'Ripple Custody', logo: '🔐', variant: 'Palisade — MPC', href: '#provider-ripple-custody' },
 ];
-const NON_CUSTODIAL_PROVIDERS: Provider[] = [];
+// Non-custodial wallets — user holds keys, no custody at all. Curated
+// from the XRPL ecosystem wallet list at xrpl.org/about/uses.
+const NON_CUSTODIAL_PROVIDERS: Provider[] = [
+  { name: 'Xaman', logo: '✨', variant: 'XRPL Labs', href: 'https://xaman.app' },
+  { name: 'Lobstr', logo: '🦞', href: 'https://lobstr.co' },
+  { name: 'Crossmark', logo: '❎', href: 'https://crossmark.io' },
+  { name: 'Edge', logo: '🟢', href: 'https://edge.app' },
+  { name: 'Bifrost', logo: '🌉', href: 'https://bifrostwallet.com' },
+  { name: 'Bitget Wallet', logo: '▶️', href: 'https://web3.bitget.com' },
+  { name: 'GemWallet', logo: '💎', href: 'https://gemwallet.app' },
+];
 
 function ProviderChip({ p }: { p: Provider }) {
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/80 dark:bg-gray-900/40 border border-black/10 dark:border-white/10 text-xs"
-      title={p.variant ?? p.name}
-    >
+  const isExternal = p.href?.startsWith('http');
+  const className =
+    'inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-white/80 dark:bg-gray-900/40 border border-black/10 dark:border-white/10 text-xs hover:border-current hover:ring-1 hover:ring-current/30 transition-all';
+  const inner = (
+    <>
       {p.logo && <span className="text-sm leading-none">{p.logo}</span>}
       <span className="font-semibold">{p.name}</span>
       {p.variant && (
@@ -113,7 +135,22 @@ function ProviderChip({ p }: { p: Provider }) {
           {p.variant}
         </span>
       )}
-    </span>
+    </>
+  );
+
+  if (!p.href) {
+    return <span className={className} title={p.variant ?? p.name}>{inner}</span>;
+  }
+  return (
+    <a
+      href={p.href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      title={p.variant ?? p.name}
+      className={className}
+    >
+      {inner}
+    </a>
   );
 }
 
@@ -126,6 +163,7 @@ function Column({
   providers,
   methodsLabel,
   providersLabel,
+  providersNote,
   showProviders,
 }: {
   title: string;
@@ -136,6 +174,9 @@ function Column({
   providers: Provider[];
   methodsLabel: string;
   providersLabel: string;
+  /** Optional explainer line above the chips — used on the
+   *  non-custodial column to clarify these are wallets, not custody. */
+  providersNote?: string;
   showProviders: boolean;
 }) {
   const tones: Record<string, string> = {
@@ -181,6 +222,11 @@ function Column({
           <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mt-5 mb-2 pt-3 border-t border-black/10 dark:border-white/10">
             {providersLabel}
           </div>
+          {providersNote && (
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 mb-2 leading-snug italic">
+              {providersNote}
+            </p>
+          )}
           <div className="flex flex-wrap gap-1.5">
             {providers.map((p, i) => (
               <ProviderChip key={`${p.name}-${i}`} p={p} />
@@ -195,7 +241,7 @@ function Column({
 export default function XrplCustodyMatrix({
   showProviders = false,
 }: {
-  /** When true, renders the 8 XRPL ecosystem providers under each column
+  /** When true, renders the XRPL ecosystem providers under each column
    *  matching their regulatory classification. Default false keeps the
    *  diagram methods-only — appropriate for the standalone diagram page. */
   showProviders?: boolean;
@@ -236,6 +282,7 @@ export default function XrplCustodyMatrix({
         providers={NON_CUSTODIAL_PROVIDERS}
         methodsLabel={c.methodsLabel}
         providersLabel={c.providersLabel}
+        providersNote={c.nonCustodialNote}
         showProviders={showProviders}
       />
     </div>
