@@ -51,7 +51,7 @@ export default async function TopicsHubPage() {
           return (
             <Link
               key={key}
-              href={`/topics/${key}` as `/topics/${typeof key}`}
+              href={`/learn/topics/${key}` as `/learn/topics/${typeof key}`}
               className={`group block p-5 rounded-xl border-2 ${t.accentBorder} ${t.accentBg} hover:shadow-md transition-all`}
             >
               <span

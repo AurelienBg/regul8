@@ -351,12 +351,15 @@ export default function ComparePage() {
             </div>
           ) : (
             <>
-              <div className="mb-4 flex items-center gap-3 flex-wrap">
-                <span className="text-2xl">{jurisdictionMeta.flag}</span>
-                <h2 className="text-xl font-bold">
-                  {activityRows.length} {tr.comparedIn} {jurisdictionMeta.name}
-                </h2>
-                <EmergingBadge code={jurisdiction} />
+              <div className="mb-4">
+                {/* Stacked: title row, then ⚠️ Emerging market on its own line below */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-2xl">{jurisdictionMeta.flag}</span>
+                  <h2 className="text-xl font-bold">
+                    {activityRows.length} {tr.comparedIn} {jurisdictionMeta.name}
+                  </h2>
+                </div>
+                <div className="mt-2"><EmergingBadge code={jurisdiction} /></div>
               </div>
 
               <div className="overflow-x-auto">
@@ -593,11 +596,12 @@ export default function ComparePage() {
                           key={r.jurisdiction}
                           className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
                         >
-                          <div className="flex items-center gap-2 flex-wrap">
+                          {/* Stacked: flag+name on one line, ⚠️ Emerging market on its own line below */}
+                          <div className="flex items-center gap-2">
                             <span className="text-lg">{JURISDICTIONS[r.jurisdiction].flag}</span>
                             <span className="font-bold">{JURISDICTIONS[r.jurisdiction].name}</span>
-                            <EmergingBadge code={r.jurisdiction} />
                           </div>
+                          <div className="mt-1"><EmergingBadge code={r.jurisdiction} /></div>
                         </th>
                       ))}
                     </tr>

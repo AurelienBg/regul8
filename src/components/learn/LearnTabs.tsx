@@ -10,13 +10,13 @@ interface TabDef {
   href:
     | '/learn'
     | '/learn/concepts'
+    | '/learn/topics'
     | '/learn/usecases'
     | '/learn/xrpl'
     | '/learn/diagrams'
     | '/learn/guides'
     | '/learn/glossary'
-    | '/learn/faq'
-    | '/topics';
+    | '/learn/faq';
   match: (p: string) => boolean;
   /** Emoji string OR a React element (e.g. the inline XRPL X mark). */
   icon: ReactNode;
@@ -28,9 +28,10 @@ const TABS: TabDef[] = [
   { key: 'all', href: '/learn', match: (p: string) => p === '/learn' || p === '/learn', icon: '🧭', labelEn: 'Overview', labelFr: "Vue d'ensemble" },
   { key: 'concepts', href: '/learn/concepts', match: (p: string) => p.startsWith('/learn/concepts') || p.startsWith('/learn/categories') || p.startsWith('/learn/categories'), icon: '🎯', labelEn: 'Concepts', labelFr: 'Concepts' },
   // Concept-led parallel surface — sits next to /learn/concepts (which is
-  // the didactic explainer table). /topics is a navigation-by-concept hub
-  // with 8 landing pages cross-linking to guides / quick checks / glossary.
-  { key: 'topics', href: '/topics', match: (p: string) => p === '/topics' || p.startsWith('/topics/'), icon: '🗂️', labelEn: 'By concept', labelFr: 'Par concept' },
+  // the didactic explainer table). /learn/topics is a navigation-by-concept
+  // hub with 8 landing pages cross-linking to guides / quick checks /
+  // glossary. (Lives under /learn so the sidebar persists.)
+  { key: 'topics', href: '/learn/topics', match: (p: string) => p === '/learn/topics' || p.startsWith('/learn/topics/') || p === '/topics' || p.startsWith('/topics/'), icon: '🗂️', labelEn: 'Topics', labelFr: 'Topics' },
   { key: 'usecases', href: '/learn/usecases', match: (p: string) => p.startsWith('/learn/usecases') || p.startsWith('/learn/cases') || p.startsWith('/learn/usecases') || p.startsWith('/learn/cases'), icon: '🏢', labelEn: 'Use cases', labelFr: "Cas d'usage" },
   { key: 'xrpl', href: '/learn/xrpl', match: (p: string) => p.startsWith('/learn/xrpl') || p.startsWith('/learn/xrpl') || p.startsWith('/xrpl'), icon: <XRPLMark className="w-4 h-4 text-gray-900 dark:text-gray-100" />, labelEn: 'XRPL', labelFr: 'XRPL' },
   { key: 'diagrams', href: '/learn/diagrams', match: (p: string) => p.startsWith('/learn/diagrams') || p.startsWith('/learn/maps') || p.startsWith('/learn/maps'), icon: '🗺️', labelEn: 'Diagrams', labelFr: 'Diagrammes' },

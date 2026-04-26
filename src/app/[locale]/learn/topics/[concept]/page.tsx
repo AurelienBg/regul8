@@ -14,11 +14,10 @@ import { GLOSSARY_TERMS } from '@/data/glossary';
 const isConceptKey = (s: string): s is ConceptKey =>
   TOPIC_ORDER.includes(s as ConceptKey);
 
-// Pre-render every (locale, concept) pair. Earlier we returned only `concept`
-// — Next 14 marked the route ● SSG and pre-rendered with `params.locale ===
-// undefined`, which broke the runtime page (500 on /en/topics/jurisdiction
-// and friends in production). Cross-binding both segments lets Next generate
-// 8 concepts × 2 locales = 16 valid static pages and removes the 500.
+// Pre-render every (locale, concept) pair — 8 concepts × 2 locales = 16
+// valid static pages. Both segments must be bound; without locale binding
+// Next 14 pre-renders with `params.locale === undefined` and the route
+// 500s in production.
 export function generateStaticParams() {
   return TOPIC_ORDER.flatMap((concept) =>
     routing.locales.map((locale) => ({ locale, concept })),
@@ -111,7 +110,7 @@ export default async function TopicPage({
       {/* Back to hub */}
       <div className="mb-4">
         <Link
-          href="/topics"
+          href="/learn/topics"
           className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
         >
           &larr; {tr.backHub}

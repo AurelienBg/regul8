@@ -322,7 +322,7 @@ export default function ConceptsPage() {
                             this concept (guides + quick checks + glossary +
                             use cases). */}
                         <Link
-                          href={`/topics/${topic}` as `/topics/${string}`}
+                          href={`/learn/topics/${topic}` as `/learn/topics/${string}`}
                           className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
                         >
                           {isFr ? 'Page sujet' : 'Topic page'} &rarr;
@@ -361,7 +361,7 @@ export default function ConceptsPage() {
                           {jDesc.short}
                         </div>
                         <Link
-                          href="/topics/jurisdiction"
+                          href="/learn/topics/jurisdiction"
                           className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
                         >
                           {isFr ? 'Page sujet' : 'Topic page'} &rarr;

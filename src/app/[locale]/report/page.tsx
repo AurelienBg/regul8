@@ -382,9 +382,12 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     <th className={stickyHeaderCls}>{fieldLabel}</th>
                     {jurisdictions.map((j) => (
                       <th key={j} className="text-left p-3 border-b border-[var(--border)] min-w-[160px] sm:min-w-[200px]">
-                        <div className="flex items-center gap-1.5 flex-wrap">
+                        {/* Stacked: flag+name on one line, ⚠️ Emerging market on its own line below */}
+                        <div className="flex items-center gap-1.5">
                           <span className="text-lg">{JURISDICTIONS[j]?.flag}</span>
                           <span>{JURISDICTIONS[j]?.name}</span>
+                        </div>
+                        <div className="mt-1">
                           <EmergingBadge code={j} />
                         </div>
                       </th>
@@ -526,11 +529,12 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                 <div key={j} className="card mb-4">
                   <div className="flex items-start justify-between gap-3 mb-4">
                     <div>
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      {/* Stacked: flag+name on one line, ⚠️ Emerging market on its own line below */}
+                      <div className="flex items-center gap-2 mb-1">
                         <span className="text-xl">{JURISDICTIONS[j]?.flag}</span>
                         <span className="font-semibold">{JURISDICTIONS[j]?.name}</span>
-                        <EmergingBadge code={j} />
                       </div>
+                      <div className="mb-2"><EmergingBadge code={j} /></div>
                       <div className="mt-2"><RegimeDisplay result={r} variant="block" excludeTypes={['licence-framework']} /></div>
                     </div>
                     <div className="text-right shrink-0">

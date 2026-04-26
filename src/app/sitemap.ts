@@ -26,16 +26,17 @@ const ROUTES = [
   '/learn/xrpl/companies',
   '/learn/usecases',
   '/learn/concepts',
-  // Concept-led topic landing pages — 1 hub + 8 concept pages
-  '/topics',
-  '/topics/jurisdiction',
-  '/topics/licence',
-  '/topics/regime',
-  '/topics/regulator',
-  '/topics/obligation',
-  '/topics/token',
-  '/topics/infra',
-  '/topics/doctrine',
+  // Concept-led topic landing pages — 1 hub + 8 concept pages.
+  // Moved from /topics to /learn/topics so they share the Learn sidebar.
+  '/learn/topics',
+  '/learn/topics/jurisdiction',
+  '/learn/topics/licence',
+  '/learn/topics/regime',
+  '/learn/topics/regulator',
+  '/learn/topics/obligation',
+  '/learn/topics/token',
+  '/learn/topics/infra',
+  '/learn/topics/doctrine',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

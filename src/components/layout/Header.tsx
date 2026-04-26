@@ -44,8 +44,8 @@ export default function Header() {
         p === '/learn' || p.startsWith('/learn/') ||
         p === '/glossary' || p.startsWith('/glossary/') ||
         p.startsWith('/xrpl') ||
-        // /topics is a parallel concept-led surface that lives under
-        // the Learn umbrella semantically (sidebar entry + reference role).
+        // Legacy /topics — kept for inbound links; redirected to /learn/topics
+        // by next.config redirects, but the path may briefly appear in URL.
         p === '/topics' || p.startsWith('/topics/'),
     },
   ] as const;

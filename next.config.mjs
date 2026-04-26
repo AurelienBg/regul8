@@ -113,6 +113,18 @@ const nextConfig = {
         destination: '/:locale/learn/concepts/:path*',
         permanent: true,
       },
+      // /topics → /learn/topics (April 2026 — moved under Learn so the
+      // Learn sidebar persists when the user clicks "Topics").
+      {
+        source: '/:locale(en|fr)/topics',
+        destination: '/:locale/learn/topics',
+        permanent: true,
+      },
+      {
+        source: '/:locale(en|fr)/topics/:path*',
+        destination: '/:locale/learn/topics/:path*',
+        permanent: true,
+      },
     ];
   },
 };
