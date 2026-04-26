@@ -47,6 +47,8 @@ export default function XRPLPage() {
         tech: '⚡ Technologie',
         custody: '🔐 Custody',
         companies: '🏢 Entreprises',
+        providersTitle: 'Fournisseurs custody compatibles XRPL',
+        providersDesc: "Détails des 8 fournisseurs institutionnels de custody supportant XRPL — modèle, juridictions licenciées, support XRPL spécifique. La matrice ci-dessus les classe par posture réglementaire ; les cartes ci-dessous donnent les détails opérationnels.",
         providersDisclaimer: "Informations publiques compilées à titre pédagogique. Ne constitue pas une recommandation. Vérifiez les licences et le support XRPL à jour auprès de chaque fournisseur avant intégration.",
         companiesTitle: '🏢 Entreprises',
         companiesDesc: 'Sélection d’entreprises régulées qui utilisent XRPL en production — stablecoins, paiements, exchanges, custody, RWA, dApps. Chaque entrée montre le nom + l’année + les juridictions où elles sont licenciées.',
@@ -59,6 +61,8 @@ export default function XRPLPage() {
         tech: '⚡ Technology',
         custody: '🔐 Custody',
         companies: '🏢 Companies',
+        providersTitle: 'XRPL-compatible custody providers',
+        providersDesc: 'Details on the 8 institutional custody providers with XRPL support — model, licensed jurisdictions, specific XRPL support. The matrix above classifies them by regulatory posture; the cards below give the operational detail.',
         providersDisclaimer: 'Public information compiled for educational purposes. Not a recommendation. Verify current licences and XRPL support with each provider before integration.',
         companiesTitle: '🏢 Companies',
         companiesDesc: 'Selected regulated companies using XRPL in production — stablecoins, payments, exchanges, custody, RWA, dApps. Each entry shows name + year + licensed jurisdictions.',
@@ -67,14 +71,93 @@ export default function XRPLPage() {
         companiesAll2: 'XRPL use cases',
       };
 
-  // Note: the 8-provider details (logos, websites, focus, juri flags)
-  // were previously rendered as a flat grid below the matrix. As of the
-  // April 2026 IA refactor, providers are integrated directly into
-  // XrplCustodyMatrix (showProviders prop) classified by regulatory
-  // posture. The rich descriptions are no longer surfaced inline —
-  // readers click through to the provider's website if they want more.
-  // If we want to surface deeper provider details again, consider
-  // promoting them to /learn/usecases as full XRPL-flagged use cases.
+  // 8 institutional XRPL custody providers — each card shows the provider
+  // name + logo, its primary licensed jurisdictions (flag emojis), a
+  // short focus description, and a specific XRPL-support note. The matrix
+  // above classifies the same 8 by regulatory posture; the cards below
+  // give the operational detail (which the matrix chips can't fit).
+  const providers = [
+    {
+      name: 'Ripple Custody',
+      logo: '🔐',
+      website: 'https://ripple.com/solutions/custody/',
+      focusEn: 'Metaco (Swiss bank-grade tech) + Palisade (France-licensed MPC WaaS)',
+      focusFr: 'Metaco (techno niveau bancaire Suisse) + Palisade (WaaS MPC licencié France)',
+      jurs: ['🇨🇭', '🇪🇺'],
+      xrplEn: 'XRPL-native — deepest integration (signer lists, Regular Key, trust lines)',
+      xrplFr: 'Natif XRPL — intégration la plus profonde (signer lists, Regular Key, trust lines)',
+    },
+    {
+      name: 'Fireblocks',
+      logo: '🧱',
+      website: 'https://www.fireblocks.com',
+      focusEn: 'MPC custody for exchanges, banks, fintechs. ~2 000 institutional clients.',
+      focusFr: 'Custody MPC pour exchanges, banques, fintechs. ~2 000 clients institutionnels.',
+      jurs: ['🇮🇱', '🇺🇸', '🇪🇺'],
+      xrplEn: 'XRPL supported since 2021, XRP + issued tokens + trust lines.',
+      xrplFr: 'XRPL supporté depuis 2021, XRP + tokens émis + trust lines.',
+    },
+    {
+      name: 'Anchorage Digital',
+      logo: '⚓',
+      website: 'https://www.anchorage.com',
+      focusEn: 'Federally chartered crypto bank (OCC National Trust, 2021). HSM + cold storage.',
+      focusFr: 'Banque crypto à charte fédérale (OCC National Trust, 2021). HSM + cold storage.',
+      jurs: ['🇺🇸'],
+      xrplEn: 'XRP supported for qualified custody + staking workflows (where applicable).',
+      xrplFr: 'XRP supporté en qualified custody + workflows staking (selon le cas).',
+    },
+    {
+      name: 'BitGo',
+      logo: '🛡️',
+      website: 'https://www.bitgo.com',
+      focusEn: 'Multi-sig + MPC custody. SD state trust (South Dakota) + NY trust. Settlement provider.',
+      focusFr: 'Custody multi-sig + MPC. Trust SD (South Dakota) + NY trust. Provider de règlement.',
+      jurs: ['🇺🇸', '🇪🇺'],
+      xrplEn: 'XRP supported in multi-sig cold wallet + institutional qualified custody.',
+      xrplFr: 'XRP supporté en cold wallet multi-sig + qualified custody institutionnelle.',
+    },
+    {
+      name: 'Taurus',
+      logo: '♉',
+      website: 'https://www.taurushq.com',
+      focusEn: 'Swiss bank-grade custody (FINMA DLT framework). Used by Deutsche Bank, State Street.',
+      focusFr: 'Custody niveau bancaire suisse (cadre DLT FINMA). Utilisée par Deutsche Bank, State Street.',
+      jurs: ['🇨🇭', '🇪🇺'],
+      xrplEn: 'XRPL supported for tokenised assets + RWAs via T-PROTECT platform.',
+      xrplFr: 'XRPL supporté pour actifs tokenisés + RWAs via la plateforme T-PROTECT.',
+    },
+    {
+      name: 'Copper',
+      logo: '🟠',
+      website: 'https://copper.co',
+      focusEn: 'MPC custody for hedge funds + institutions. ClearLoop settlement network.',
+      focusFr: 'Custody MPC pour hedge funds + institutions. Réseau de règlement ClearLoop.',
+      jurs: ['🇬🇧', '🇨🇭'],
+      xrplEn: 'XRP supported in institutional custody and ClearLoop settlement rails.',
+      xrplFr: 'XRP supporté en custody institutionnelle et rails de règlement ClearLoop.',
+    },
+    {
+      name: 'GateHub',
+      logo: '🚪',
+      website: 'https://gatehub.net',
+      focusEn: 'XRPL-native retail/SME wallet and custody since 2014. Slovenia VASP.',
+      focusFr: 'Wallet + custody XRPL-native retail/SME depuis 2014. VASP Slovénie.',
+      jurs: ['🇪🇺'],
+      xrplEn: 'Reference implementation of the XRPL IOU / Trust Line stablecoin model.',
+      xrplFr: "Implémentation de référence du modèle stablecoin XRPL IOU / Trust Line.",
+    },
+    {
+      name: 'Dfns',
+      logo: '🔑',
+      website: 'https://www.dfns.co',
+      focusEn: 'Developer-first wallet-as-a-service, MPC-TSS key management via API.',
+      focusFr: 'Wallet-as-a-service dev-first, gestion de clés MPC-TSS par API.',
+      jurs: ['🇪🇺', '🇺🇸'],
+      xrplEn: 'XRPL supported as one of 30+ chains. SOC2 Type II + France registered.',
+      xrplFr: 'XRPL supporté parmi 30+ chaînes. SOC2 Type II + enregistré en France.',
+    },
+  ];
 
   const tabs: Array<{ key: XrplTab; label: string }> = [
     { key: 'legal', label: tabLabels.legal },
@@ -199,12 +282,49 @@ export default function XRPLPage() {
             <CustodyImplementations />
           </section>
 
-          {/* Note: the previous flat 'Providers with XRPL support' grid
-              was removed in favour of integrating providers directly into
-              the XRPL Custody Matrix above (one provider per regulatory
-              column). The disclaimer about provider verification still
-              applies — kept inline below the matrix. */}
-          <p className="text-xs text-gray-500 italic mt-4">{tabLabels.providersDisclaimer}</p>
+          {/* Detailed provider cards. Pairs with the matrix above (which
+              shows the same 8 by regulatory posture in compact chips):
+              the matrix answers 'where does each sit?', the cards answer
+              'what does each one do?'. */}
+          <section>
+            <h2 className="text-xl font-bold mb-2">{tabLabels.providersTitle}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tabLabels.providersDesc}</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {providers.map((p) => (
+                <a
+                  key={p.name}
+                  href={p.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card hover:border-violet-500 transition-colors block"
+                >
+                  <div className="flex items-start gap-3 mb-2">
+                    <span className="text-2xl">{p.logo}</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold">{p.name}</span>
+                        {p.jurs.map((f, i) => (
+                          <span key={i} className="text-sm">{f}</span>
+                        ))}
+                      </div>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        {isFr ? p.focusFr : p.focusEn}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-2 mt-2 border-t border-[var(--border)]">
+                    <div className="flex items-start gap-1.5">
+                      <span className="badge-xrpl text-[10px] shrink-0 mt-0.5">XRPL</span>
+                      <p className="text-xs text-gray-700 dark:text-gray-300">
+                        {isFr ? p.xrplFr : p.xrplEn}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 mt-4 italic">{tabLabels.providersDisclaimer}</p>
+          </section>
         </>
       )}
 
