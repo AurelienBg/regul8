@@ -317,6 +317,16 @@ export default function ConceptsPage() {
                         <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-snug">
                           {desc.short}
                         </div>
+                        {/* Promotion to the concept-led /topics surface —
+                            user can dive into a curated cross-link page for
+                            this concept (guides + quick checks + glossary +
+                            use cases). */}
+                        <Link
+                          href={`/topics/${topic}` as `/topics/${string}`}
+                          className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                          {isFr ? 'Page sujet' : 'Topic page'} &rarr;
+                        </Link>
                       </td>
                       <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.what}</td>
                       <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{desc.when}</td>
@@ -350,6 +360,12 @@ export default function ConceptsPage() {
                         <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-snug">
                           {jDesc.short}
                         </div>
+                        <Link
+                          href="/topics/jurisdiction"
+                          className="inline-flex items-center gap-1 mt-2 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                          {isFr ? 'Page sujet' : 'Topic page'} &rarr;
+                        </Link>
                       </td>
                       <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{jDesc.what}</td>
                       <td className="p-3 align-top text-gray-700 dark:text-gray-300 leading-relaxed">{jDesc.when}</td>
