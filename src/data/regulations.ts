@@ -255,6 +255,26 @@ export const REGULATIONS: RegData = {
       authority: "Central Bank of Ireland (CBI)",
       xrplNote: "English-speaking EU hub — popular for US firms expanding into Europe (Coinbase Ireland, Payward Europe for Kraken, Ripple Labs Ireland for RippleNet CBI CASP)."
     },
+    il: {
+      regime: "Financial Services Regulation Law 2016 (CMISA) + AML Order 2018 (IMPA) — crypto exchanges supervised as non-bank financial services providers.",
+      risk: "med",
+      licenses: ["CMISA Regulated Financial Services Provider (RFSP) licence", "IMPA registration (financial-services AML)", "ISA approval if any listed token is a security under Securities Law 1968"],
+      obligations: ["Full KYC/CDD per AML Order 2018", "Suspicious Transaction Reports to IMPA", "ILS-denominated capital + insurance per CMISA tier", "Source-of-funds checks", "Sanctions screening (Israeli + UN + OFAC)"],
+      time: "9–15 months",
+      cost: "$150K–$500K (capital + setup)",
+      alts: ["Dubai VARA", "EU MiCA via Lithuania or Cyprus", "Singapore MAS"],
+      authority: "CMISA + IMPA + ISA (for security tokens)"
+    },
+    id: {
+      regime: "Bappebti — Physical Crypto Asset Trading regime (Reg. 8/2021). Transition to OJK in 2025 under Law 4/2023 (UU P2SK) reframes crypto as a financial instrument.",
+      risk: "med",
+      licenses: ["Bappebti PFAK licence (Pedagang Fisik Aset Kripto)", "CFX (Indonesia Crypto-Asset Futures Exchange) membership mandatory", "OJK supervision from 2025"],
+      obligations: ["IDR 100B paid-up capital (~$6M)", "Local Indonesian incorporation + local director", "Mandatory CFX clearing", "Bappebti-approved coin list only (~229 tokens)", "0.1% transaction tax (income + VAT)", "KYC + AML per Bappebti rules"],
+      time: "9–15 months",
+      cost: "$6M paid-up + $200K–$500K legal",
+      alts: ["Singapore MAS", "Dubai VARA", "Australia AUSTRAC"],
+      authority: "Bappebti (transitioning to OJK in 2025)"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -524,6 +544,26 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg EMI", "Lithuania EMI", "Malta MFSA"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "BoI + ISA joint oversight. Israeli framework for stablecoin issuance still emerging — fiat-pegged stablecoins likely fall under BoI payment systems supervision; non-fiat-referenced may fall under ISA.",
+      risk: "med",
+      licenses: ["BoI authorisation (payment / money services)", "CMISA RFSP if non-bank issuer", "ISA approval if asset-referenced (security-like)"],
+      obligations: ["1:1 reserves required (per BoI guidance)", "Reserve attestation + redemption rights", "AML/KYC per IMPA", "Israeli capital controls + reporting"],
+      time: "12–24 months",
+      cost: "$500K–$2M (legal + capital + reserves)",
+      alts: ["EU MiCA EMT", "Bermuda DABA", "Singapore MAS SCS"],
+      authority: "BoI + ISA + CMISA"
+    },
+    id: {
+      regime: "Bank Indonesia + OJK — stablecoin issuance not yet explicitly authorised. Fiat-pegged would require e-money licence (BI). Non-IDR stablecoins effectively blocked from domestic distribution.",
+      risk: "high",
+      licenses: ["BI Electronic Money Issuer licence (Penyelenggara Uang Elektronik)", "OJK approval likely required from 2025"],
+      obligations: ["Local issuer required (no foreign-issued stablecoins for retail)", "1:1 IDR reserves on-shore", "Reserve segregation", "BI reporting + AML", "No yield/interest allowed"],
+      time: "12–24 months (regulatory clarity pending)",
+      cost: "Capital + IDR-onshore setup, $1M–$3M",
+      alts: ["Singapore MAS SCS", "Hong Kong HKMA", "EU MiCA EMT"],
+      authority: "Bank Indonesia + OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -782,6 +822,26 @@ export const REGULATIONS: RegData = {
       alts: ["Liechtenstein TVTG", "Luxembourg CSSF", "Germany BaFin"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "Financial Services Regulation Law 2016 — crypto custody falls within CMISA scope as a regulated financial service.",
+      risk: "med",
+      licenses: ["CMISA RFSP licence (custody-of-financial-assets sub-category)", "IMPA registration", "ISA approval if security tokens"],
+      obligations: ["Asset segregation (client vs proprietary)", "Insurance / fidelity bond", "Cyber-security per Israeli National Cyber Directorate guidelines", "KYC/AML", "Annual audit"],
+      time: "9–15 months",
+      cost: "$200K–$700K",
+      alts: ["Dubai DFSA", "Switzerland FINMA DLT", "EU CASP via Liechtenstein TVTG"],
+      authority: "CMISA + IMPA"
+    },
+    id: {
+      regime: "Bappebti — custody by PFAKs is built into the licence; transitioning to OJK 2025. Customer assets must be held in CFX-supervised storage.",
+      risk: "med",
+      licenses: ["Bappebti PFAK with custody scope", "Bappebti-approved cold storage operator (Pengelola Tempat Penyimpanan Aset Kripto)", "OJK from 2025"],
+      obligations: ["≥70% cold storage requirement", "CFX-supervised wallets", "Daily reconciliation reports to Bappebti", "Local data hosting (Indonesia)", "AML per Bappebti + PPATK reporting"],
+      time: "9–15 months",
+      cost: "Part of PFAK setup ($6M paid-up + custody infra)",
+      alts: ["Singapore MAS DPT custody", "Dubai VARA", "Australia ASIC"],
+      authority: "Bappebti + PPATK (transitioning to OJK)"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1031,6 +1091,26 @@ export const REGULATIONS: RegData = {
       alts: ["Lithuania MiCA", "Luxembourg CSSF"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "ISA + CMISA case-by-case classification. Truly decentralised DeFi front-ends sit in a grey zone; centralised DeFi (CeFi) likely needs CMISA + ISA approval.",
+      risk: "med",
+      licenses: ["CMISA RFSP if controlling user funds", "ISA approval if dealing in security tokens", "IMPA registration"],
+      obligations: ["KYC at fiat on/off-ramp", "Smart-contract audit", "Front-end terms-of-service", "Sanctions screening"],
+      time: "6–12 months (case-by-case)",
+      cost: "$100K–$400K legal",
+      alts: ["Switzerland FINMA DLT", "Liechtenstein TVTG", "Singapore MAS"],
+      authority: "ISA + CMISA + IMPA"
+    },
+    id: {
+      regime: "Bappebti / OJK — DeFi not explicitly authorised. Central operator faces PFAK requirements; truly decentralised in legal grey zone.",
+      risk: "high",
+      licenses: ["Bappebti PFAK if identifiable operator", "Offshore structure typical (Singapore, Cayman)"],
+      obligations: ["KYC/AML if centralised", "Geo-blocking sometimes used", "Local incorporation if user-facing"],
+      time: "9–18 months",
+      cost: "$200K–$1M depending on structure",
+      alts: ["Singapore MAS", "Cayman", "Dubai VARA"],
+      authority: "Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1170,6 +1250,26 @@ export const REGULATIONS: RegData = {
     bm: { regime: "Pure utility outside DABA — Bermuda Digital Asset Act sandbox available if novel", risk: "low", licenses: ["No DABA for pure utility", "DABA Class M (sandbox) if novel model"], obligations: ["PIPA data protection", "Consumer protection"], time: "1–3 months", cost: "BMD 30K–100K", alts: ["Cayman", "BVI"], authority: "N/A" },
     lt: { regime: "MiCA light — pure utility outside scope; GDPR applies", risk: "low", licenses: ["No CASP for pure utility", "Lietuvos bankas CASP if financial"], obligations: ["GDPR", "Lithuania Consumer Protection"], time: "1–3 months", cost: "€15K–€60K", alts: ["Malta MiCA", "Liechtenstein"], authority: "N/A (only if financial)" },
     ie: { regime: "MiCA light — pure utility outside scope; GDPR + Irish Data Protection Act apply", risk: "low", licenses: ["No CBI CASP for pure utility", "CBI CASP if financial element"], obligations: ["GDPR + Data Protection Act 2018", "Consumer Protection Code (CBI)"], time: "1–3 months", cost: "€40K–€150K", alts: ["Luxembourg", "Malta"], authority: "N/A (only if financial)" },
+    il: {
+      regime: "Outside crypto financial scope when truly utility-only. Israeli consumer protection + privacy law (PPL) apply.",
+      risk: "low",
+      licenses: ["No crypto-specific licence for pure utility DApps", "Israeli company registration"],
+      obligations: ["Consumer protection compliance", "PPL data privacy (similar to GDPR)", "ISA notification only if any tokenised value transferred"],
+      time: "1–3 months",
+      cost: "$10K–$50K",
+      alts: ["UAE DMCC Free Zone", "EU under MiCA exemptions"],
+      authority: "ISA (only if VA element)"
+    },
+    id: {
+      regime: "No crypto licence for pure utility DApps; treated as software products. Indonesian data protection law (UU PDP, 2022) applies.",
+      risk: "low",
+      licenses: ["No licence required for utility-only DApp"],
+      obligations: ["UU PDP data protection", "Consumer protection", "Bappebti notification only if any virtual asset element"],
+      time: "1–3 months",
+      cost: "IDR 100M–500M ($6K–$30K)",
+      alts: ["Singapore (no licence for utility)", "UAE DMCC"],
+      authority: "Kominfo (Ministry of Communications) — only if app/service"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1417,6 +1517,26 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg CSSF", "Malta MFSA"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "ISA + CMISA on case-by-case. Pure collectible NFTs typically out-of-scope. Fractional / yield-bearing NFTs likely securities under Securities Law 1968.",
+      risk: "med",
+      licenses: ["No licence for pure collectibles", "ISA approval if fractional / financial NFT", "CMISA RFSP if marketplace controls funds"],
+      obligations: ["Israeli copyright + IP law", "AML per IMPA if marketplace", "Consumer protection"],
+      time: "3–9 months",
+      cost: "$30K–$200K",
+      alts: ["Switzerland FINMA", "Dubai VARA", "Singapore MAS"],
+      authority: "ISA (financial NFTs) + IMPA"
+    },
+    id: {
+      regime: "Bappebti / OJK case-by-case. NFTs as digital assets fall outside Bappebti's explicit list (which targets fungibles); fractional NFTs may need OJK after 2025.",
+      risk: "med",
+      licenses: ["No specific NFT licence", "Bappebti PFAK if fractional/financial element", "Local marketplace registration with Kominfo"],
+      obligations: ["Indonesian IP law + UU PDP", "AML if marketplace handles fiat", "Tax: 0.1% on NFT sales (income tax + VAT)"],
+      time: "3–9 months",
+      cost: "$50K–$300K",
+      alts: ["Singapore MAS", "Dubai VARA", "EU MiCA exemption"],
+      authority: "Kominfo + Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1556,6 +1676,26 @@ export const REGULATIONS: RegData = {
     bm: { regime: "DABA Class F/M — classification per function", risk: "med", licenses: ["DABA Class F + supplementary BMA approval for novel MPT"], obligations: ["AML/ATF per POCA", "BMA Cyber Risk Management Code"], time: "6–12 months", cost: "BMD 100K–350K", alts: ["Cayman VASP", "BVI"], authority: "BMA" },
     lt: { regime: "MiCA — classification per function via Lietuvos bankas", risk: "high", licenses: ["Lietuvos bankas CASP + classification-specific requirements", "EMI if fiat-backed"], obligations: ["Legal qualification required", "Whitepaper", "KYC/AML"], time: "6–12 months", cost: "€50K–€250K", alts: ["Malta MiCA", "Luxembourg"], authority: "Lietuvos bankas" },
     ie: { regime: "MiCA — classification per function via CBI", risk: "high", licenses: ["CBI CASP + classification-specific licences", "EMI if fiat-backed", "MiFID investment firm if security-like"], obligations: ["Legal qualification required per CJA 2010", "Whitepaper", "KYC/AML", "DORA operational resilience"], time: "9–15 months", cost: "€150K–€500K", alts: ["Luxembourg CSSF", "Malta MFSA"], authority: "Central Bank of Ireland (CBI)" },
+    il: {
+      regime: "ISA classification depends on programmable terms. MPT with yield / pooled value likely security under Securities Law 1968. Pure utility MPT case-by-case.",
+      risk: "med",
+      licenses: ["ISA approval likely required (security characteristics)", "CMISA RFSP if issued by non-bank", "IMPA registration"],
+      obligations: ["Disclosure regime depending on classification", "AML/KYC", "Capital requirements per CMISA tier"],
+      time: "9–18 months",
+      cost: "$150K–$600K",
+      alts: ["Switzerland FINMA DLT", "EU MiCA via TVTG", "Singapore MAS"],
+      authority: "ISA + CMISA"
+    },
+    id: {
+      regime: "Bappebti / OJK — MPT with multiple uses needs case-by-case approval. Programmable features may trigger OJK securities-style oversight from 2025.",
+      risk: "med",
+      licenses: ["Bappebti notification minimum", "OJK approval likely from 2025 for hybrid features", "PFAK if traded on a platform"],
+      obligations: ["Token whitepaper + use-case disclosure", "Reserve transparency if asset-backed", "AML per PPATK"],
+      time: "9–15 months",
+      cost: "$100K–$500K",
+      alts: ["Singapore MAS", "Dubai VARA", "EU MiCA"],
+      authority: "Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1804,6 +1944,26 @@ export const REGULATIONS: RegData = {
       authority: "Central Bank of Ireland (CBI)",
       xrplNote: "Ireland is a top 2 EU fund-administration hub. Major BlackRock BUIDL-style tokenised-fund custodians (BNY Mellon Ireland, State Street Ireland) are experimenting with XRPL for RWA settlement."
     },
+    il: {
+      regime: "ISA — Securities Law 1968 applies; tokenised real-world assets are typically securities requiring full prospectus or accredited-investor exemption (Section 15A).",
+      risk: "high",
+      licenses: ["ISA prospectus filing OR Section 15A private placement (≤35 investors / accredited only)", "CMISA RFSP for issuer / platform", "BoI for fiat settlement"],
+      obligations: ["Full prospectus disclosure", "Underlying asset valuation + custody", "Investor protection (Section 22A)", "Annual reporting"],
+      time: "12–24 months",
+      cost: "$500K–$2M (prospectus + legal + audit)",
+      alts: ["EU DLT Pilot Regime", "Switzerland FINMA DLT", "Liechtenstein TVTG"],
+      authority: "ISA + CMISA"
+    },
+    id: {
+      regime: "OJK (from 2025) — RWAs almost certainly fall under securities regulation. Currently a grey zone; Bappebti only authorises commodities, not securities.",
+      risk: "high",
+      licenses: ["OJK securities prospectus + issuer licence", "Local SRO membership (e.g. KSEI)", "BI for IDR fiat leg"],
+      obligations: ["Prospectus + audited financials", "Custody by KSEI-recognised custodian", "Local incorporation", "Quarterly reporting"],
+      time: "12–24 months",
+      cost: "$500K–$2M",
+      alts: ["Singapore MAS DLT pilot", "Switzerland FINMA DLT", "EU DLT Pilot Regime"],
+      authority: "OJK (from 2025) + Bank Indonesia"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -1943,6 +2103,26 @@ export const REGULATIONS: RegData = {
     bm: { regime: "Bermuda Gaming Commission + DABA if financial tokens", risk: "med", licenses: ["Bermuda Gaming Commission licence if gambling", "DABA Class F/M if financial tokens"], obligations: ["Player protection", "AML/ATF per POCA 1997"], time: "6–12 months", cost: "BMD 100K–300K", alts: ["Cayman", "Malta"], authority: "Gaming Commission + BMA" },
     lt: { regime: "Lithuania Gaming Control Authority + MiCA if financial tokens", risk: "low", licenses: ["Gaming Control Authority licence if gambling", "Lietuvos bankas CASP if financial tokens"], obligations: ["Player protection", "GDPR", "AML"], time: "4–9 months", cost: "€50K–€200K", alts: ["Malta", "Liechtenstein"], authority: "Gaming Authority + Lietuvos bankas" },
     ie: { regime: "Gaming and Lotteries Act + MiCA if financial tokens; Ireland's Gambling Regulation Act 2024 strengthening oversight", risk: "med", licenses: ["Irish Gaming licence (under Gambling Regulatory Authority, Jun 2025)", "CBI CASP if financial tokens"], obligations: ["Player protection per GR Act 2024", "GDPR", "AML per CJA 2010"], time: "9–15 months", cost: "€150K–€500K", alts: ["Malta MGA", "Lithuania"], authority: "Gambling Regulatory Authority + CBI" },
+    il: {
+      regime: "Israeli gambling law (Penal Law §224) prohibits most gambling. NFT gaming with monetisable items may trigger gambling provisions if chance-based.",
+      risk: "high",
+      licenses: ["No general gaming licence available in Israel (gambling largely illegal)", "ISA notification if NFT items are securities"],
+      obligations: ["Avoid chance-based mechanics for Israeli users", "Geo-block from Israel if gambling-adjacent", "Consumer protection law"],
+      time: "n/a (no licensing path for gambling)",
+      cost: "Legal review $20K–$100K",
+      alts: ["UK Gambling Commission", "Malta MGA", "France ANJ JONUM"],
+      authority: "Ministry of Internal Security + ISA"
+    },
+    id: {
+      regime: "Indonesian Penal Code prohibits gambling (Article 303). NFT/Web3 gaming with chance + monetisable rewards effectively blocked for Indonesian users.",
+      risk: "high",
+      licenses: ["No gaming licence available for chance-based crypto games", "Kominfo registration for game publishers"],
+      obligations: ["Geo-block Indonesian IPs if gambling-adjacent", "UU PDP data privacy", "Consumer protection"],
+      time: "n/a (gambling prohibited)",
+      cost: "Legal review $30K–$150K",
+      alts: ["Philippines PAGCOR", "Malta MGA", "Singapore MAS sandbox"],
+      authority: "Kominfo + Indonesian National Police"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2191,6 +2371,26 @@ export const REGULATIONS: RegData = {
       authority: "Central Bank of Ireland (CBI)",
       xrplNote: "Ireland-based Ripple Labs Ireland Ltd uses this licensing stack for RippleNet payments + Palisade MPC wallet services into the EU market."
     },
+    il: {
+      regime: "BoI + Payment Services Law 5779-2019 — crypto-payment providers regulated as payment service providers.",
+      risk: "med",
+      licenses: ["BoI Payment Services Provider licence (PSPSL)", "CMISA RFSP for crypto leg", "IMPA registration"],
+      obligations: ["Customer fund segregation", "KYC/AML per IMPA", "Israeli ILS currency rules", "Consumer protection (Payment Services Law §29)"],
+      time: "9–15 months",
+      cost: "$200K–$700K",
+      alts: ["EU MiCA + EMI passport", "UK FCA EMI", "Singapore MAS MPI"],
+      authority: "BoI + CMISA + IMPA"
+    },
+    id: {
+      regime: "Bank Indonesia — Payment Services regime (PJP) for crypto payment providers. PADG (BI Reg.) tightly controls non-bank payment services.",
+      risk: "med",
+      licenses: ["BI PJP (Penyelenggara Jasa Pembayaran) licence — Category 1 / 2 / 3 by activity", "Bappebti PFAK if crypto trading involved", "Local Indonesian incorporation"],
+      obligations: ["IDR-onshore settlement", "Local data hosting", "BI reporting + STR to PPATK", "Customer fund segregation", "KYC per BI rules"],
+      time: "9–15 months",
+      cost: "IDR 50B–100B (~$3–6M) + setup",
+      alts: ["Singapore MAS MPI", "Philippines BSP", "Australia AUSTRAC"],
+      authority: "Bank Indonesia + Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2468,6 +2668,26 @@ export const REGULATIONS: RegData = {
       authority: "Central Bank of Ireland (CBI)",
       xrplNote: "English-speaking EU entry-point used by Coinbase Ireland, Kraken (Payward Europe), Ripple Labs Ireland. Common choice for US firms offering XRPL onramp to EU users."
     },
+    il: {
+      regime: "BoI Payment Services Law + AML Order 2018 (IMPA). Fiat-crypto on/off-ramps trigger payment services regulation + non-bank financial services (CMISA).",
+      risk: "med",
+      licenses: ["BoI Payment Services Provider", "CMISA RFSP (currency exchange / custody scope)", "IMPA registration", "Israeli bank partnership for ILS settlement"],
+      obligations: ["Strict KYC including ID verification", "Source-of-funds for >₪50K", "Sanctions screening", "Daily ILS reporting to BoI"],
+      time: "9–15 months",
+      cost: "$200K–$600K",
+      alts: ["EU MiCA EMI", "UAE VARA", "Singapore MAS MPI"],
+      authority: "BoI + CMISA + IMPA"
+    },
+    id: {
+      regime: "BI Payment Services + Bappebti PFAK. Fiat-crypto on/off-ramps require both: BI for fiat leg, Bappebti for crypto leg.",
+      risk: "med",
+      licenses: ["BI PJP licence (payment leg)", "Bappebti PFAK (crypto leg)", "Local bank partnership for IDR rails"],
+      obligations: ["IDR-onshore only — no foreign currency settlement", "Strict KYC (e-KTP verification)", "Local data hosting", "PPATK STR reporting", "Daily reconciliation"],
+      time: "12–18 months (dual licence)",
+      cost: "$8M+ (combined PFAK + PJP capital + setup)",
+      alts: ["Singapore MAS MPI", "Philippines BSP VASP", "Australia AUSTRAC"],
+      authority: "Bank Indonesia + Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2730,6 +2950,26 @@ export const REGULATIONS: RegData = {
       authority: "Central Bank of Ireland (CBI)",
       xrplNote: "Ripple Labs Ireland Ltd uses this stack for RippleNet corridor services into the EU. Common EU cross-border base for US remittance fintechs."
     },
+    il: {
+      regime: "BoI Payment Services Law + Foreign Exchange Control Law 1978. Cross-border ILS movements tracked; crypto rails require enhanced reporting.",
+      risk: "med",
+      licenses: ["BoI Payment Services Provider", "BoI foreign-currency dealer authorisation", "IMPA registration", "Travel Rule compliance"],
+      obligations: ["Travel Rule (FATF R.16) — sender + receiver data", "BoI capital-controls reporting", "Sanctions screening (UN + Israeli + OFAC)", "Annual audit"],
+      time: "12–18 months",
+      cost: "$300K–$800K",
+      alts: ["UAE DFSA / VARA", "Singapore MAS MPI", "UK FCA EMI"],
+      authority: "BoI + IMPA"
+    },
+    id: {
+      regime: "Bank Indonesia — Cross-Border Payment Services regulated under PADG. Foreign-currency settlement tightly controlled.",
+      risk: "high",
+      licenses: ["BI PJP cross-border category", "Local bank partnership", "Bappebti PFAK if crypto leg"],
+      obligations: ["Mandatory IDR conversion at point of receipt", "Local data hosting", "BI reporting on every transaction", "Travel Rule (PPATK)", "Source-of-funds per AML POJK"],
+      time: "12–18 months",
+      cost: "$5M+ (cross-border capital tier)",
+      alts: ["Singapore MAS MPI", "Hong Kong HKMA", "Australia AUSTRAC"],
+      authority: "Bank Indonesia + PPATK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -2976,6 +3216,26 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg CSSF", "Malta MFSA"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "ISA — Securities Law 1968 case-by-case. Pure utility tokens with current immediate use typically out-of-scope; speculative or yield-bearing tokens are securities.",
+      risk: "med",
+      licenses: ["ISA notification or no-action letter", "Section 15A private placement if accredited only", "CMISA RFSP if platform-issued"],
+      obligations: ["Non-investment-character disclosure", "Marketing restrictions (no yield language)", "AML if traded"],
+      time: "3–9 months (notification) or 12+ (full prospectus)",
+      cost: "$50K–$300K",
+      alts: ["Switzerland FINMA (utility category)", "Liechtenstein TVTG", "EU MiCA Other crypto-asset"],
+      authority: "ISA"
+    },
+    id: {
+      regime: "Bappebti — utility tokens may need to be on the approved list (~229 tokens) to be tradable on PFAKs. OJK from 2025 may add securities-style scrutiny.",
+      risk: "med",
+      licenses: ["Bappebti list inclusion application", "OJK approval from 2025 for higher-scrutiny tokens"],
+      obligations: ["Token whitepaper + utility-only justification", "Bappebti review (CDDC criteria)", "AML if traded on PFAK"],
+      time: "6–12 months",
+      cost: "$50K–$200K",
+      alts: ["Singapore MAS", "Dubai VARA", "Switzerland FINMA"],
+      authority: "Bappebti / OJK"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -3222,6 +3482,26 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg CSSF", "Malta MFSA"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "ISA — Securities Law 1968 fully applies. Token offerings are securities offerings; full prospectus or Section 15A exemption required.",
+      risk: "high",
+      licenses: ["ISA prospectus filing", "OR Section 15A private placement (≤35 investors / accredited only)", "ISA-licensed underwriter", "TASE listing if public market"],
+      obligations: ["Full prospectus disclosure", "Audit + ongoing reporting", "Insider trading + disclosure rules", "Annual report", "Sukar / proxy obligations"],
+      time: "12–24 months",
+      cost: "$500K–$2M (prospectus + legal + audit)",
+      alts: ["EU Prospectus + DLT Pilot", "Switzerland FINMA", "Liechtenstein TVTG"],
+      authority: "ISA + Tel Aviv Stock Exchange (TASE) if listed"
+    },
+    id: {
+      regime: "OJK (from 2025) — security tokens fall under securities law. Currently in transition: Bappebti only handles commodity-like tokens.",
+      risk: "high",
+      licenses: ["OJK prospectus + securities issuer licence", "KSEI custody arrangement", "Local SRO membership"],
+      obligations: ["OJK prospectus disclosure", "Indonesian-incorporated issuer", "Quarterly + annual reporting", "Auditor required"],
+      time: "12–24 months",
+      cost: "$500K–$2M",
+      alts: ["Singapore MAS", "Switzerland FINMA", "EU Prospectus Regulation"],
+      authority: "OJK (from 2025)"
+    }
   },
 
   // ═══════════════════════════════════════════════════════════════
@@ -3468,5 +3748,25 @@ export const REGULATIONS: RegData = {
       alts: ["Luxembourg CSSF", "Malta MFSA"],
       authority: "Central Bank of Ireland (CBI)"
     },
+    il: {
+      regime: "ISA applies the strictest reading — hybrid tokens with any investment characteristic treated as securities under Section 1 (Howey-like test).",
+      risk: "high",
+      licenses: ["ISA prospectus + CMISA RFSP", "Section 15A if private", "Multi-licence stack likely"],
+      obligations: ["Full disclosure", "Cannot use 'utility' framing if ISA classifies as security", "Annual + interim reports"],
+      time: "15–24 months",
+      cost: "$700K–$2M+",
+      alts: ["Switzerland FINMA (more flexible)", "Liechtenstein TVTG (Token Container Model)", "Dubai VARA"],
+      authority: "ISA + CMISA"
+    },
+    id: {
+      regime: "Bappebti / OJK case-by-case — hybrid tokens with investment features will likely fall under OJK securities oversight from 2025.",
+      risk: "high",
+      licenses: ["Bappebti list inclusion + OJK approval likely required", "Multi-regulator filings"],
+      obligations: ["Full disclosure of hybrid features", "Indonesian-incorporated issuer", "Quarterly reports"],
+      time: "12–24 months",
+      cost: "$500K–$1.5M",
+      alts: ["UAE VARA", "Switzerland FINMA", "EU MiCA"],
+      authority: "Bappebti + OJK"
+    }
   },
 };

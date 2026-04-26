@@ -4,9 +4,9 @@ export type Jurisdiction =
   | 'eu' | 'us' | 'ca'
   | 'uae' | 'sg' | 'uk' | 'hk' | 'au'
   | 'ch' | 'li' | 'lu' | 'mt' | 'lt' | 'ie'
-  | 'jp' | 'kr' | 'in' | 'br'
+  | 'jp' | 'kr' | 'in' | 'br' | 'id'
   | 'ky' | 'vg' | 'bm'
-  | 'ng' | 'ke' | 'za'
+  | 'ng' | 'ke' | 'za' | 'il'
 
 /** Visual tier for the /report + /compare UI. "emerging" = evolving framework, less data depth. */
 export type JurisdictionTier = 'established' | 'emerging'
@@ -182,6 +182,9 @@ export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; t
   kr: { name: 'South Korea', flag: '🇰🇷' },
   in: { name: 'India', flag: '🇮🇳' },
   br: { name: 'Brazil', flag: '🇧🇷' },
+  id: { name: 'Indonesia', flag: '🇮🇩', tier: 'emerging' },
+  // Middle East emerging
+  il: { name: 'Israel', flag: '🇮🇱', tier: 'emerging' },
   // Offshore financial centers
   ky: { name: 'Cayman Islands', flag: '🇰🇾', tier: 'emerging' },
   vg: { name: 'BVI', flag: '🇻🇬', tier: 'emerging' },

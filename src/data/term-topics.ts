@@ -64,6 +64,10 @@ export const TERM_TOPICS: Record<string, Topic> = {
   FINTRAC: 'regulator', CSA: 'regulator', OSC: 'regulator', IIROC: 'regulator',
   // Latin America
   BCB: 'regulator', CVM: 'regulator', CMN: 'regulator',
+  // Israel
+  ISA: 'regulator', BoI: 'regulator', IMPA: 'regulator', CMISA: 'regulator',
+  // Indonesia
+  Bappebti: 'regulator', OJK: 'regulator', BI: 'regulator', PFAK: 'licence',
   // Africa
   'SEC Nigeria': 'regulator', CBN: 'regulator', NFIU: 'regulator',
   CBK: 'regulator', CMA: 'regulator', FSCA: 'regulator', SARB: 'regulator',

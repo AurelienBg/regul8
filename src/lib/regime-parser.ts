@@ -165,6 +165,17 @@ const CLASSIFICATION: Record<string, RegimeItemType> = {
   'ANJ': 'regulator',
   'NLRC': 'regulator',
   'BCLB': 'regulator',
+  // Israel + Indonesia regulators (added Apr 2026 with the IL/ID juri batch)
+  'ISA': 'regulator',
+  'BoI': 'regulator',
+  'IMPA': 'regulator',
+  'CMISA': 'regulator',
+  'Bappebti': 'regulator',
+  'OJK': 'regulator',
+  // Note: 'BI' is too short / generic to use as a parser keyword (would
+  // match inside many other tokens) — handled at glossary-only level.
+  'PFAK': 'licence-framework',
+  'CFX': 'licence-framework',
 };
 
 const SORTED_KEYS = Object.keys(CLASSIFICATION).sort((a, b) => b.length - a.length);
