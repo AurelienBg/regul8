@@ -323,28 +323,29 @@ export default function LandingPage() {
           <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             {t('xrplDesc')}
           </p>
-          {/* 4 pillar chips = direct deep-links to the matching /learn/xrpl
-              tab (?tab=legal|tech|custody|companies). Each chip is an
-              interactive Link so a user skips the hub's default (Legal)
-              and lands on the exact tab they clicked. */}
+          {/* 4 pillar chips = direct deep-links to each /learn/xrpl sub-route.
+              Each tab is now a real Next.js page (with its own SEO metadata),
+              so chip clicks land on /learn/xrpl/tech, /custody, /companies
+              directly. The 'Legal status' chip points to the bare /learn/xrpl
+              (default route). */}
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {(isFr
               ? [
-                  { icon: '🌍', label: 'Statut légal', tab: 'legal' },
-                  { icon: '⚡', label: 'Technologie', tab: 'tech' },
-                  { icon: '🔐', label: 'Custody', tab: 'custody' },
-                  { icon: '🏢', label: 'Entreprises', tab: 'companies' },
+                  { icon: '🌍', label: 'Statut légal', href: '/learn/xrpl' as const },
+                  { icon: '⚡', label: 'Technologie', href: '/learn/xrpl/tech' as const },
+                  { icon: '🔐', label: 'Custody', href: '/learn/xrpl/custody' as const },
+                  { icon: '🏢', label: 'Entreprises', href: '/learn/xrpl/companies' as const },
                 ]
               : [
-                  { icon: '🌍', label: 'Legal status', tab: 'legal' },
-                  { icon: '⚡', label: 'Technology', tab: 'tech' },
-                  { icon: '🔐', label: 'Custody', tab: 'custody' },
-                  { icon: '🏢', label: 'Companies', tab: 'companies' },
+                  { icon: '🌍', label: 'Legal status', href: '/learn/xrpl' as const },
+                  { icon: '⚡', label: 'Technology', href: '/learn/xrpl/tech' as const },
+                  { icon: '🔐', label: 'Custody', href: '/learn/xrpl/custody' as const },
+                  { icon: '🏢', label: 'Companies', href: '/learn/xrpl/companies' as const },
                 ]
             ).map((pillar) => (
               <Link
                 key={pillar.label}
-                href={`/learn/xrpl?tab=${pillar.tab}`}
+                href={pillar.href}
                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-xrpl-50 text-xrpl-700 dark:bg-xrpl/20 dark:text-xrpl-100 border border-xrpl-100 dark:border-xrpl/40 hover:bg-xrpl-100 dark:hover:bg-xrpl/40 transition-colors"
               >
                 <span>{pillar.icon}</span>
