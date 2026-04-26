@@ -700,9 +700,9 @@ export default function ComparePage() {
               {/* Jurisdiction arbitrage diagram — rendered under the table so
                   users who just compared N juri for one activity can also see
                   the big-picture speed-vs-cost positioning of every juri we
-                  cover. Inline in /compare because it's a decision-support
-                  asset that belongs next to the comparison, not buried on a
-                  standalone diagram page. */}
+                  cover. The 3 quadrant cards below give the strategic read
+                  of the diagram (was previously on the standalone diagrams
+                  page, migrated here when that page was retired). */}
               <section className="mt-10">
                 <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
                   <span>🗺️</span>
@@ -714,20 +714,59 @@ export default function ComparePage() {
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 max-w-3xl">
                   {isFr
-                    ? 'Où se situe chaque juridiction sur l\'axe délai × coût ? Taille du point = accès marché, couleur = risque.'
-                    : 'Where does each jurisdiction sit on the speed × cost axis? Dot size = market access, colour = risk.'}
+                    ? "Où se situe chaque juridiction sur l'axe délai × coût ? Taille du point = accès marché, couleur = risque. Trouvez votre sweet spot."
+                    : 'Where does each jurisdiction sit on the speed × cost axis? Dot size = market access, colour = risk. Find your sweet spot.'}
                 </p>
-                <div className="card">
+                <div className="card mb-4">
                   <JurisdictionArbitrage />
                 </div>
-                <div className="text-center mt-3">
-                  <Link
-                    href="/learn/diagrams/jurisdiction-arbitrage"
-                    className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
-                  >
+
+                {/* 3 quadrant cards — strategic read of the scatter plot. */}
+                <div className="grid md:grid-cols-3 gap-4 mb-6 text-sm">
+                  <div className="card">
+                    <div className="font-bold mb-2">
+                      {isFr ? '⭐ Quadrant rapide & abordable' : '⭐ Fast & cheap quadrant'}
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {isFr
+                        ? "Liechtenstein TVTG, Brésil, Suisse. Points de départ idéaux quand le budget et le délai sont les contraintes principales. Le Liechtenstein ajoute le passeport EEE en bonus."
+                        : 'Liechtenstein TVTG, Brazil, Switzerland. Ideal starting points when budget and time are the top constraints. Liechtenstein adds EEA passporting as a bonus.'}
+                    </p>
+                  </div>
+                  <div className="card">
+                    <div className="font-bold mb-2">
+                      {isFr ? '🚀 Rapide & structuré' : '🚀 Fast & structured'}
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {isFr
+                        ? "Dubaï VARA, Singapour MAS. Règlements modernes, ~9 mois, 50-150K€. Excellent choix pour les opérateurs globaux qui veulent une première licence crédible."
+                        : 'Dubai VARA, Singapore MAS. Modern rulebooks, ~9 months, 50-150K€. Strong pick for global operators who want a credible first licence.'}
+                    </p>
+                  </div>
+                  <div className="card">
+                    <div className="font-bold mb-2">
+                      {isFr ? '🏛 Lent & cher' : '🏛 Slow & expensive'}
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {isFr
+                        ? "MTLs d'État US, UE MiCA, Hong Kong SFC. Nécessaires pour accéder aux plus gros marchés. Prévoyez capital et 12-24 mois ; passportez ou empilez une fois approuvé."
+                        : 'US state MTLs, EU MiCA, Hong Kong SFC. Required for access to the biggest markets. Plan capital and 12-24 months; passport or stack once approved.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* CTA to the jurisdiction quick-check diagnostic. */}
+                <div className="p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
+                  <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">
+                    {isFr ? 'Prêt à en choisir une ?' : 'Ready to pick one?'}
+                  </div>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
                     {isFr
-                      ? 'Ouvrir la page dédiée (analyse quadrants)'
-                      : 'Open the dedicated page (quadrant analysis)'} &rarr;
+                      ? "Le diagnostic vous guide à travers vos priorités délai / coût / marché / réputation et propose une juridiction recommandée."
+                      : 'The diagnostic walks you through speed / cost / market / reputation priorities and outputs a recommended jurisdiction.'}
+                  </p>
+                  <Link href="/assess/quick/jurisdiction" className="btn-primary text-sm inline-block">
+                    {isFr ? 'Quelle juridiction choisir ?' : 'Which jurisdiction should I choose?'} &rarr;
                   </Link>
                 </div>
               </section>

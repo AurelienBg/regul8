@@ -100,14 +100,52 @@ export default function LearningPathPage({ params }: { params: Params }) {
           <div className="card">
             <MicaTaxonomy />
           </div>
-          <div className="text-center mt-3">
-            <Link
-              href="/learn/diagrams/mica-taxonomy"
-              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
-            >
+
+          {/* 3 category cards — strategic read of the taxonomy tree
+              (was previously on the standalone /learn/diagrams/mica-taxonomy
+              page, migrated here when that page was retired). */}
+          <div className="grid md:grid-cols-3 gap-4 mt-6">
+            <div className="card">
+              <div className="font-bold text-emerald-700 dark:text-emerald-300 mb-1">EMT</div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {isFr
+                  ? "Référencé à une monnaie unique. L'émetteur doit être un EME ou un établissement de crédit. Règles strictes de capital et de réserves."
+                  : 'Single-currency peg. Issuer must be EMI or credit institution. Capital + reserve rules strict.'}
+              </p>
+            </div>
+            <div className="card">
+              <div className="font-bold text-emerald-700 dark:text-emerald-300 mb-1">ART</div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {isFr
+                  ? "Référencé à plusieurs actifs / commodities / paniers. Autorisation NCA requise. Whitepaper approuvé."
+                  : 'References multiple assets / commodities / baskets. NCA authorization required. Whitepaper approved.'}
+              </p>
+            </div>
+            <div className="card">
+              <div className="font-bold text-emerald-700 dark:text-emerald-300 mb-1">
+                {isFr ? 'Autre crypto-actif' : 'Other crypto-asset'}
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {isFr
+                  ? "Pas de mécanisme de stabilisation. Whitepaper + notification NCA au-dessus de 1M€. Les utility tokens y sont."
+                  : 'No stabilization mechanism. Whitepaper + NCA notification above €1M threshold. Utility tokens land here.'}
+              </p>
+            </div>
+          </div>
+
+          {/* CTA to the CASP quick-check diagnostic — was on the
+              standalone diagram page. */}
+          <div className="mt-6 p-5 rounded-xl bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
+            <div className="font-bold text-blue-900 dark:text-blue-200 mb-1">
+              {isFr ? "Envie de l'appliquer à votre token ?" : 'Want to apply this to your token?'}
+            </div>
+            <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
               {isFr
-                ? 'Ouvrir le diagramme MiCA en page dédiée'
-                : 'Open the MiCA taxonomy on its dedicated page'} &rarr;
+                ? "Utilisez le diagnostic pour examiner les exigences CASP spécifiques à votre service."
+                : 'Use the Decision Tree to walk through CASP requirements specific to your service.'}
+            </p>
+            <Link href="/assess/quick/casp" className="btn-primary text-sm inline-block">
+              {isFr ? "Ai-je besoin d'un agrément CASP ?" : 'Do I need a CASP licence?'} &rarr;
             </Link>
           </div>
         </section>

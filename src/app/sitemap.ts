@@ -12,9 +12,7 @@ const ROUTES = [
   '/learn/guides/xrpl-custody',
   '/learn/guides/howey-test',
   '/learn/diagrams',
-  '/learn/diagrams/mica-taxonomy',
   '/learn/diagrams/xrpl-custody',
-  '/learn/diagrams/jurisdiction-arbitrage',
   '/assess/quick',
   '/assess/quick/howey',
   '/assess/quick/casp',
@@ -22,8 +20,12 @@ const ROUTES = [
   '/assess/quick/jurisdiction',
   '/search',
   '/learn/glossary',
-  '/xrpl',
-  '/assess',
+  '/learn/xrpl',
+  '/learn/xrpl/tech',
+  '/learn/xrpl/custody',
+  '/learn/xrpl/companies',
+  '/learn/usecases',
+  '/learn/concepts',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
