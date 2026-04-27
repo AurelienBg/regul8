@@ -11,6 +11,7 @@ import EmergingBadge from '@/components/ui/EmergingBadge';
 import LinkedText from '@/components/ui/LinkedText';
 import XRPLNote from '@/components/report/XRPLNote';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
+import CustodyPartnersSection from '@/components/report/CustodyPartnersSection';
 import SourcesList from '@/components/report/SourcesList';
 import RegimeDisplay from '@/components/report/RegimeDisplay';
 import RegimeLegend from '@/components/report/RegimeLegend';
@@ -613,8 +614,9 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         </section>
       ))}
 
-      {/* Custody implementations */}
+      {/* Custody implementations + matching partners (only when custody is in scope) */}
       {hasCustody && <CustodyImplementations />}
+      {hasCustody && <CustodyPartnersSection jurisdictions={jurisdictions} />}
 
       {/* Sources — auto-detected from regime / licences / obligations */}
       <SourcesList

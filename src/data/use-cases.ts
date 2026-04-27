@@ -448,6 +448,38 @@ export const USE_CASES: UseCase[] = [
     },
     since: '2021',
   },
+  {
+    id: 'peersyst',
+    company: 'Peersyst Technology',
+    logo: '🌐',
+    website: 'https://peersyst.com',
+    tag: 'dapp',
+    xrpl: true,
+    licences: [
+      { jur: 'eu', name: 'Software / engineering services (no licensable activity)', note: 'Andorra + Spain HQ. Peersyst builds infrastructure rather than operating a regulated VA service — no VASP / CASP licence required. Operator-side compliance sits with their clients (Ripple, banks, public-sector partners).' },
+    ],
+    useCase: {
+      en: "Andorra/Spain-based engineering firm and one of the most active XRPL builders. Lead developer of the XRPL EVM Sidechain (with Ripple) and the public testnet at evm.xrpl.org. Builds Levitation tools for XRPL state queries + ZK proofs, contributes core code to xrpl.js, and partners with public-sector clients on tokenisation pilots (e.g. Andorran government projects).",
+      fr: "Société d'ingénierie basée Andorre/Espagne, l'un des builders XRPL les plus actifs. Lead developer de la XRPL EVM Sidechain (avec Ripple) et du testnet public evm.xrpl.org. Construit les outils Levitation pour les state queries XRPL + ZK proofs, contribue au code de xrpl.js, et accompagne des clients du secteur public sur des pilotes de tokenisation (ex. projets du gouvernement andorran).",
+    },
+    since: '2017',
+  },
+  {
+    id: 'towo-labs',
+    company: 'Towo Labs',
+    logo: '🛡️',
+    website: 'https://towolabs.com',
+    tag: 'dapp',
+    xrpl: true,
+    licences: [
+      { jur: 'eu', name: 'Software / security services (no licensable activity)', note: 'Stockholm-based. Towo Labs sells security tooling and consulting, not custody — no VASP / CASP licence required at the company level. Their multi-sig and signing libraries are operated by clients (custodians, banks, exchanges) under their own regulated stacks.' },
+    ],
+    useCase: {
+      en: "Swedish XRPL infrastructure firm focused on multi-signature security and on-ledger compliance tooling. Co-author of XLS-43 (Hardware-Wallet Signing Spec) and key contributor to XRPL.js. Their products + consulting underpin the multi-sig + SignerList implementations used by several institutional XRPL custodians and exchanges.",
+      fr: "Firme suédoise d'infrastructure XRPL spécialisée dans la sécurité multi-signature et l'outillage de conformité on-ledger. Co-autrice du XLS-43 (Hardware-Wallet Signing Spec) et contributrice clé de XRPL.js. Leurs produits + conseil sous-tendent les implémentations multi-sig + SignerList utilisées par plusieurs custodians et exchanges institutionnels XRPL.",
+    },
+    since: '2018',
+  },
 ];
 
 export function getUseCasesByTag(tag: UseCaseTag | 'all'): UseCase[] {

@@ -3,6 +3,8 @@ import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import CustodyImplementations from '@/components/report/CustodyImplementations';
 import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
+import { CUSTODY_PROVIDERS } from '@/data/custody-providers';
+import { JURISDICTIONS } from '@/types';
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const isFr = params.locale === 'fr';
@@ -16,91 +18,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
-// Provider data — kept in this page (the only consumer). Each detailed
-// card has an id={`provider-{slug}`} that matches the matrix chips' href
-// so clicking a chip smooth-scrolls down to the matching card.
-const PROVIDERS = [
-  {
-    name: 'Ripple Custody',
-    logo: '🔐',
-    website: 'https://ripple.com/solutions/custody/',
-    focusEn: 'Metaco (Swiss bank-grade tech) + Palisade (France-licensed MPC WaaS)',
-    focusFr: 'Metaco (techno niveau bancaire Suisse) + Palisade (WaaS MPC licencié France)',
-    jurs: ['🇨🇭', '🇪🇺'],
-    xrplEn: 'XRPL-native — deepest integration (signer lists, Regular Key, trust lines)',
-    xrplFr: 'Natif XRPL — intégration la plus profonde (signer lists, Regular Key, trust lines)',
-  },
-  {
-    name: 'Fireblocks',
-    logo: '🧱',
-    website: 'https://www.fireblocks.com',
-    focusEn: 'MPC custody for exchanges, banks, fintechs. ~2 000 institutional clients.',
-    focusFr: 'Custody MPC pour exchanges, banques, fintechs. ~2 000 clients institutionnels.',
-    jurs: ['🇮🇱', '🇺🇸', '🇪🇺'],
-    xrplEn: 'XRPL supported since 2021, XRP + issued tokens + trust lines.',
-    xrplFr: 'XRPL supporté depuis 2021, XRP + tokens émis + trust lines.',
-  },
-  {
-    name: 'Anchorage Digital',
-    logo: '⚓',
-    website: 'https://www.anchorage.com',
-    focusEn: 'Federally chartered crypto bank (OCC National Trust, 2021). HSM + cold storage.',
-    focusFr: 'Banque crypto à charte fédérale (OCC National Trust, 2021). HSM + cold storage.',
-    jurs: ['🇺🇸'],
-    xrplEn: 'XRP supported for qualified custody + staking workflows (where applicable).',
-    xrplFr: 'XRP supporté en qualified custody + workflows staking (selon le cas).',
-  },
-  {
-    name: 'BitGo',
-    logo: '🛡️',
-    website: 'https://www.bitgo.com',
-    focusEn: 'Multi-sig + MPC custody. SD state trust (South Dakota) + NY trust. Settlement provider.',
-    focusFr: 'Custody multi-sig + MPC. Trust SD (South Dakota) + NY trust. Provider de règlement.',
-    jurs: ['🇺🇸', '🇪🇺'],
-    xrplEn: 'XRP supported in multi-sig cold wallet + institutional qualified custody.',
-    xrplFr: 'XRP supporté en cold wallet multi-sig + qualified custody institutionnelle.',
-  },
-  {
-    name: 'Taurus',
-    logo: '♉',
-    website: 'https://www.taurushq.com',
-    focusEn: 'Swiss bank-grade custody (FINMA DLT framework). Used by Deutsche Bank, State Street.',
-    focusFr: 'Custody niveau bancaire suisse (cadre DLT FINMA). Utilisée par Deutsche Bank, State Street.',
-    jurs: ['🇨🇭', '🇪🇺'],
-    xrplEn: 'XRPL supported for tokenised assets + RWAs via T-PROTECT platform.',
-    xrplFr: 'XRPL supporté pour actifs tokenisés + RWAs via la plateforme T-PROTECT.',
-  },
-  {
-    name: 'Copper',
-    logo: '🟠',
-    website: 'https://copper.co',
-    focusEn: 'MPC custody for hedge funds + institutions. ClearLoop settlement network.',
-    focusFr: 'Custody MPC pour hedge funds + institutions. Réseau de règlement ClearLoop.',
-    jurs: ['🇬🇧', '🇨🇭'],
-    xrplEn: 'XRP supported in institutional custody and ClearLoop settlement rails.',
-    xrplFr: 'XRP supporté en custody institutionnelle et rails de règlement ClearLoop.',
-  },
-  {
-    name: 'GateHub',
-    logo: '🚪',
-    website: 'https://gatehub.net',
-    focusEn: 'XRPL-native retail/SME wallet and custody since 2014. Slovenia VASP.',
-    focusFr: 'Wallet + custody XRPL-native retail/SME depuis 2014. VASP Slovénie.',
-    jurs: ['🇪🇺'],
-    xrplEn: 'Reference implementation of the XRPL IOU / Trust Line stablecoin model.',
-    xrplFr: "Implémentation de référence du modèle stablecoin XRPL IOU / Trust Line.",
-  },
-  {
-    name: 'Dfns',
-    logo: '🔑',
-    website: 'https://www.dfns.co',
-    focusEn: 'Developer-first wallet-as-a-service, MPC-TSS key management via API.',
-    focusFr: 'Wallet-as-a-service dev-first, gestion de clés MPC-TSS par API.',
-    jurs: ['🇪🇺', '🇺🇸'],
-    xrplEn: 'XRPL supported as one of 30+ chains. SOC2 Type II + France registered.',
-    xrplFr: 'XRPL supporté parmi 30+ chaînes. SOC2 Type II + enregistré en France.',
-  },
-];
+// Provider data is now sourced from the shared CUSTODY_PROVIDERS module
+// so /report's CustodyPartnersSection renders the same set, filtered by
+// the report's selected jurisdictions. Single source of truth — adding
+// a provider here lights it up everywhere.
 
 export default async function XrplCustodyPage() {
   const locale = await getLocale();
@@ -172,10 +93,10 @@ export default async function XrplCustodyPage() {
         <h2 className="text-xl font-bold mb-2">{tr.providersTitle}</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{tr.providersDesc}</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {PROVIDERS.map((p) => (
+          {CUSTODY_PROVIDERS.map((p) => (
             <a
-              key={p.name}
-              id={`provider-${p.name.toLowerCase().replace(/\s+/g, '-')}`}
+              key={p.id}
+              id={`provider-${p.id}`}
               href={p.website}
               target="_blank"
               rel="noopener noreferrer"
@@ -186,8 +107,10 @@ export default async function XrplCustodyPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-bold">{p.name}</span>
-                    {p.jurs.map((f, i) => (
-                      <span key={i} className="text-sm">{f}</span>
+                    {p.jurisdictions.map((j) => (
+                      <span key={j} className="text-sm" title={JURISDICTIONS[j]?.name}>
+                        {JURISDICTIONS[j]?.flag}
+                      </span>
                     ))}
                   </div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
