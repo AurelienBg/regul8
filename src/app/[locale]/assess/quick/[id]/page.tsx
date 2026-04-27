@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { getDecisionTree } from '@/data/decision-trees';
@@ -5,6 +6,18 @@ import { getDecisionTreeFr } from '@/data/decision-trees.fr';
 import DecisionTreeRunner from '@/components/assess/DecisionTreeRunner';
 
 type Params = { id: string; locale: string };
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const isFr = params.locale === 'fr';
+  const tree = isFr ? getDecisionTreeFr(params.id) : getDecisionTree(params.id);
+  if (!tree) return {};
+  return {
+    title: `${tree.icon} ${tree.title} — Regul8`,
+    description: tree.description,
+    alternates: { canonical: `/${params.locale}/assess/quick/${params.id}` },
+    openGraph: { title: `${tree.icon} ${tree.title}`, description: tree.description, type: 'article' },
+  };
+}
 
 export default function DecisionTreePage({ params }: { params: Params }) {
   const isFr = params.locale === 'fr';

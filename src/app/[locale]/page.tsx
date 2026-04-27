@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { JURISDICTIONS, ACTIVITIES } from '@/types';
@@ -5,6 +6,19 @@ import { TOPIC_META, type Topic } from '@/data/term-topics';
 import Image from 'next/image';
 import ReportCardPreview from '@/components/layout/ReportCardPreview';
 import ConceptsNarrative from '@/components/learn/ConceptsNarrative';
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const isFr = params.locale === 'fr';
+  return {
+    title: isFr
+      ? 'Regul8 — Naviguez la régulation crypto. Partout.'
+      : 'Regul8 — Navigate Crypto Regulation. Anywhere.',
+    description: isFr
+      ? "Comprenez quelles régulations, licences et obligations s'appliquent à votre startup crypto/blockchain — partout. MiCA, GENIUS Act, CASP, VASP sur 30 juridictions. Couverture XRPL approfondie."
+      : 'Understand which regulations, licences and compliance obligations apply to your crypto/blockchain startup — globally. MiCA, GENIUS Act, CASP, VASP, and more across 30 jurisdictions. Deep XRPL coverage.',
+    alternates: { canonical: `/${params.locale}` },
+  };
+}
 
 const ACTIVITY_LABELS_EN: Record<string, string> = {
   exchange: 'Exchange', dapp_fin: 'DeFi', dapp_util: 'Utility DApp', nft: 'NFT',

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { getLearningPath } from '@/data/learning-paths';
@@ -10,6 +11,22 @@ import MicaTaxonomy from '@/components/learn/diagrams/MicaTaxonomy';
 import XrplCustodyMatrix from '@/components/learn/diagrams/XrplCustodyMatrix';
 
 type Params = { id: string; locale: string };
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const isFr = params.locale === 'fr';
+  const p = isFr ? getLearningPathFr(params.id) : getLearningPath(params.id);
+  if (!p) return {};
+  return {
+    title: `${p.icon} ${p.title} — Regul8`,
+    description: p.subtitle,
+    alternates: { canonical: `/${params.locale}/learn/guides/${params.id}` },
+    openGraph: {
+      title: `${p.icon} ${p.title}`,
+      description: p.subtitle,
+      type: 'article',
+    },
+  };
+}
 
 const levelStyles: Record<string, string> = {
   beginner: 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-200',

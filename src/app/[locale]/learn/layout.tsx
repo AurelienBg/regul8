@@ -1,5 +1,23 @@
+import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 import LearnTabs from '@/components/learn/LearnTabs';
+
+/** Default metadata for /learn and any sub-route that doesn't override it
+ *  via its own layout.tsx. Children that DO have their own layout.tsx
+ *  (concepts, glossary, guides, faq, usecases, topics, xrpl) override
+ *  this. The /learn index itself uses these defaults. */
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const isFr = params.locale === 'fr';
+  return {
+    title: isFr
+      ? 'Apprendre — guides régulation crypto, glossaire, hub XRPL'
+      : 'Learn — crypto regulation guides, glossary, XRPL hub',
+    description: isFr
+      ? "Guides régulation crypto, glossaire complet, deep-dive XRPL, cas d'usage et diagnostics éclair. Explications en clair de MiCA, GENIUS Act, Howey, Travel Rule sur 30 juridictions."
+      : 'Curated crypto regulation guides, full glossary, XRPL deep-dive, use cases and quick diagnostics. Plain-English explanations of MiCA, GENIUS Act, Howey, Travel Rule and 30-jurisdiction coverage.',
+    alternates: { canonical: `/${params.locale}/learn` },
+  };
+}
 
 export default async function LearnLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
