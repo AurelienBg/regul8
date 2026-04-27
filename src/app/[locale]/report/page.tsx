@@ -262,11 +262,11 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
       };
 
   const stickyLabelCls =
-    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top border-r border-[var(--border)]';
+    'sticky left-0 z-10 bg-[var(--background)] p-2 sm:p-3 align-top border-r border-[var(--border)]';
   // Header class for the "Field" column — peer weight to the
   // per-jurisdiction headers (bold, normal case) instead of tiny grey.
   const stickyHeaderCls =
-    'sticky left-0 z-20 bg-[var(--background)] text-left p-3 border-b border-r border-[var(--border)] w-28 sm:w-40 font-bold leading-snug';
+    'sticky left-0 z-20 bg-[var(--background)] text-left p-2 sm:p-3 border-b border-r border-[var(--border)] w-24 sm:w-40 font-bold leading-snug';
   const fieldLabel = isFr ? 'Champ' : 'Field';
   const fieldCell = (label: string, desc: string) => (
     <td className={stickyLabelCls}>
@@ -393,13 +393,13 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
 
           {/* If multiple jurisdictions, show comparison */}
           {jurisdictions.length > 1 ? (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 [scrollbar-width:thin]">
               <table className="w-full text-sm border-collapse">
                 <thead>
                   <tr>
                     <th className={stickyHeaderCls}>{fieldLabel}</th>
                     {jurisdictions.map((j) => (
-                      <th key={j} className="text-left p-3 border-b border-[var(--border)] min-w-[160px] sm:min-w-[200px]">
+                      <th key={j} className="text-left p-2 sm:p-3 border-b border-[var(--border)] min-w-[140px] sm:min-w-[200px]">
                         {/* Stacked: flag+name on one line, ⚠️ Emerging market on its own line below */}
                         <div className="flex items-center gap-1.5">
                           <span className="text-lg">{JURISDICTIONS[j]?.flag}</span>
@@ -417,14 +417,14 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {fieldCell(t('regime'), fieldDescs.regime)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" excludeTypes={['licence-framework']} /> : 'N/A'}</td>;
+                      return <td key={j} className="p-2 sm:p-3 align-top text-sm">{r ? <RegimeDisplay result={r} variant="inline" excludeTypes={['licence-framework']} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     {fieldCell(t('risk'), fieldDescs.risk)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
+                      return <td key={j} className="p-2 sm:p-3 align-top">{r ? <RiskBadge risk={r.risk} /> : 'N/A'}</td>;
                     })}
                   </tr>
                   {/* 🟢 ZONE B — OUTPUTS (what you must do) */}
@@ -440,7 +440,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3 align-top">
+                        <td key={j} className="p-2 sm:p-3 align-top">
                           {r ? (
                             <ul className="space-y-1">
                               {r.licenses.map((l, i) => (
@@ -457,7 +457,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3 align-top">
+                        <td key={j} className="p-2 sm:p-3 align-top">
                           {r ? (
                             <ul className="space-y-1">
                               {r.obligations.map((o, i) => (
@@ -481,21 +481,21 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {fieldCell(t('timeline'), fieldDescs.timeline)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.time ?? 'N/A'}</td>;
+                      return <td key={j} className="p-2 sm:p-3 align-top font-bold text-sm whitespace-pre-line">{r?.time ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     {fieldCell(t('cost'), fieldDescs.cost)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top font-bold text-sm whitespace-pre-line">{r?.cost ?? 'N/A'}</td>;
+                      return <td key={j} className="p-2 sm:p-3 align-top font-bold text-sm whitespace-pre-line">{r?.cost ?? 'N/A'}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
                     {fieldCell(t('authority'), fieldDescs.authority)}
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
-                      return <td key={j} className="p-3 align-top">{r?.authority ? <LicencePillsDisplay value={r.authority} size="xs" /> : <span className="text-xs text-gray-500">N/A</span>}</td>;
+                      return <td key={j} className="p-2 sm:p-3 align-top">{r?.authority ? <LicencePillsDisplay value={r.authority} size="xs" /> : <span className="text-xs text-gray-500">N/A</span>}</td>;
                     })}
                   </tr>
                   <tr className="border-b border-[var(--border)]">
@@ -503,7 +503,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     {jurisdictions.map((j) => {
                       const r = lookupRegulation(activity, j, locale);
                       return (
-                        <td key={j} className="p-3 align-top">
+                        <td key={j} className="p-2 sm:p-3 align-top">
                           {r?.alts?.map((a, i) => (
                             <div key={i} className="text-xs text-blue-600 dark:text-blue-400">&rarr; {a}</div>
                           )) ?? 'N/A'}
@@ -517,7 +517,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
                     return r?.reportingFrequency || r?.marketingRules || r?.clientEligibility;
                   }) && (
                     <tr>
-                      <td colSpan={jurisdictions.length + 1} className="p-3 align-top">
+                      <td colSpan={jurisdictions.length + 1} className="p-2 sm:p-3 align-top">
                         <div className="grid md:grid-cols-2 gap-3">
                           {jurisdictions.map((j) => {
                             const r = lookupRegulation(activity, j, locale);

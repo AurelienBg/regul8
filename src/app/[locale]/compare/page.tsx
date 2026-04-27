@@ -214,7 +214,7 @@ export default function ComparePage() {
   // --- shared cell classes ---
   // Sticky first column; bold dark label + optional muted description below.
   const stickyLabelCls =
-    'sticky left-0 z-10 bg-[var(--background)] p-3 align-top border-r border-[var(--border)]';
+    'sticky left-0 z-10 bg-[var(--background)] p-2 sm:p-3 align-top border-r border-[var(--border)]';
 
   // Header cell class for the "Field" column header — same visual weight as
   // the per-activity / per-jurisdiction headers (bold, normal case) rather
@@ -362,7 +362,7 @@ export default function ComparePage() {
                 <div className="mt-2"><EmergingBadge code={jurisdiction} /></div>
               </div>
 
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 [scrollbar-width:thin]">
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr>
@@ -372,7 +372,7 @@ export default function ComparePage() {
                       {activityRows.map((r) => (
                         <th
                           key={r.activity}
-                          className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
+                          className="text-left p-2 sm:p-3 border-b border-[var(--border)] min-w-[150px] sm:min-w-[220px]"
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="font-bold leading-snug">{tw(`activities.${r.activity}`)}</div>
@@ -386,7 +386,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.regime, tr.regimeDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top">
                           {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
                         </td>
                       ))}
@@ -394,7 +394,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.risk, tr.riskDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top">
                           {r.result && <RiskBadge risk={r.result.risk} />}
                         </td>
                       ))}
@@ -410,7 +410,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.licences, tr.licencesDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top">
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
                               <li key={i} className="block mb-1">
@@ -424,7 +424,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.obligations, tr.obligationsDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
                             {r.result?.obligations.map((o, i) => (
                               <li key={i}><LinkedText>{o}</LinkedText></li>
@@ -444,7 +444,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.timeline, tr.timelineDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
                         </td>
                       ))}
@@ -452,7 +452,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.cost, tr.costDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top font-semibold whitespace-pre-line">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
                         </td>
                       ))}
@@ -460,7 +460,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.authority, tr.authorityDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top text-sm">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top text-sm">
                           {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
                         </td>
                       ))}
@@ -468,7 +468,7 @@ export default function ComparePage() {
                     <tr>
                       {fieldCell(tr.xrplNote, tr.xrplNoteDesc)}
                       {activityRows.map((r) => (
-                        <td key={r.activity} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
+                        <td key={r.activity} className="p-2 sm:p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                           {r.result?.xrplNote ?? '—'}
                         </td>
                       ))}
@@ -584,7 +584,7 @@ export default function ComparePage() {
                 <ActivityXRPLStatus activity={activity} />
               </div>
 
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 [scrollbar-width:thin]">
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr>
@@ -594,7 +594,7 @@ export default function ComparePage() {
                       {jurisdictionRows.map((r) => (
                         <th
                           key={r.jurisdiction}
-                          className="text-left p-3 border-b border-[var(--border)] min-w-[180px] sm:min-w-[220px]"
+                          className="text-left p-2 sm:p-3 border-b border-[var(--border)] min-w-[150px] sm:min-w-[220px]"
                         >
                           {/* Stacked: flag+name on one line, ⚠️ Emerging market on its own line below */}
                           <div className="flex items-center gap-2">
@@ -610,7 +610,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.regime, tr.regimeDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top">
                           {r.result ? <RegimeDisplay result={r.result} variant="inline" excludeTypes={['licence-framework']} /> : tr.noData}
                         </td>
                       ))}
@@ -618,7 +618,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.risk, tr.riskDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top">
                           {r.result && <RiskBadge risk={r.result.risk} />}
                         </td>
                       ))}
@@ -634,7 +634,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.licences, tr.licencesDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top">
                           <ul className="space-y-1">
                             {r.result?.licenses.map((l, i) => (
                               <li key={i} className="block mb-1">
@@ -648,7 +648,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.obligations, tr.obligationsDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top">
                           <ul className="list-disc ml-4 text-xs space-y-1">
                             {r.result?.obligations.map((o, i) => (
                               <li key={i}><LinkedText>{o}</LinkedText></li>
@@ -668,7 +668,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.timeline, tr.timelineDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.time}
                         </td>
                       ))}
@@ -676,7 +676,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.cost, tr.costDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top font-semibold whitespace-pre-line">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top font-semibold whitespace-pre-line">
                           {r.result?.cost}
                         </td>
                       ))}
@@ -684,7 +684,7 @@ export default function ComparePage() {
                     <tr className="border-b border-[var(--border)]">
                       {fieldCell(tr.authority, tr.authorityDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top text-sm">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top text-sm">
                           {r.result?.authority && <LicencePillsDisplay value={r.result.authority} size="xs" />}
                         </td>
                       ))}
@@ -692,7 +692,7 @@ export default function ComparePage() {
                     <tr>
                       {fieldCell(tr.xrplNote, tr.xrplNoteDesc)}
                       {jurisdictionRows.map((r) => (
-                        <td key={r.jurisdiction} className="p-3 align-top text-xs text-gray-600 dark:text-gray-400">
+                        <td key={r.jurisdiction} className="p-2 sm:p-3 align-top text-xs text-gray-600 dark:text-gray-400">
                           {r.result?.xrplNote ?? '—'}
                         </td>
                       ))}
