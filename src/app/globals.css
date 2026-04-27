@@ -65,26 +65,31 @@ body {
 }
 
 @media print {
-  /* Elements to hide when printing */
+  /* ── Hide non-content chrome ──────────────────────────────────────── */
   .no-print,
   header,
   footer,
   [aria-label="Close"],
-  .fixed {
+  /* Floating Ask FAB and any other position-fixed UI */
+  .fixed,
+  /* Skeleton loader rows for the AI section */
+  .animate-pulse {
     display: none !important;
   }
 
-  /* Elements to show only on print */
+  /* Print-only elements (e.g. the duplicate <h1> on /report) */
   .print-only {
     display: block !important;
   }
 
-  /* Reset backgrounds, colors and layout padding for clean print */
+  /* ── Page setup ───────────────────────────────────────────────────── */
   html, body {
     background: white !important;
     color: black !important;
     padding-top: 0 !important;
     overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .print-container {
@@ -93,23 +98,33 @@ body {
     margin: 0 !important;
   }
 
-  /* Dark-mode overrides — force light for print */
+  /* ── Dark-mode overrides — force light for print ──────────────────── */
   .dark body,
   .dark {
     background: white !important;
     color: black !important;
   }
 
+  /* Common Tailwind-ish backgrounds that read poorly on paper */
+  .bg-gray-900\/40,
+  .bg-gray-900\/60,
+  [class*="dark:bg-"] {
+    background: transparent !important;
+  }
+
+  /* ── Cards + sections ─────────────────────────────────────────────── */
   .card {
     background: white !important;
     border: 1px solid #E2E8F0 !important;
     box-shadow: none !important;
     page-break-inside: avoid;
+    break-inside: avoid;
   }
 
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     color: black !important;
     page-break-after: avoid;
+    break-after: avoid;
   }
 
   p, li, span, div {
@@ -123,20 +138,60 @@ body {
 
   /* Avoid orphan sections */
   section {
-    page-break-inside: avoid;
-    break-inside: avoid;
+    page-break-inside: auto;
+    break-inside: auto;
   }
 
-  /* Ensure tables print cleanly */
+  /* ── Tables ───────────────────────────────────────────────────────── */
+  /* Force the responsive table wrapper to print all columns instead of
+     clipping at a viewport width — at print time we have the whole page. */
+  .overflow-x-auto {
+    overflow: visible !important;
+  }
   table {
+    width: 100% !important;
     page-break-inside: auto;
+    border-collapse: collapse !important;
+  }
+  thead {
+    display: table-header-group; /* repeat header on each printed page */
   }
   tr {
     page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  th, td {
+    color: #111827 !important;
+    border-color: #E2E8F0 !important;
+  }
+  /* Sticky columns/headers — drop sticky in print so layout flows */
+  .sticky {
+    position: static !important;
+    background: white !important;
   }
 
-  /* Page margins */
+  /* ── AI analysis card ─────────────────────────────────────────────── */
+  /* The AI section uses a coloured gradient; flatten for paper. */
+  .ai-markdown,
+  .ai-markdown * {
+    color: #111827 !important;
+    background: transparent !important;
+  }
+
+  /* Pills, chips, badges — keep text readable, drop coloured bg */
+  [class*="rounded-full"],
+  [class*="rounded-md"] {
+    background: transparent !important;
+    border: 1px solid #CBD5E1 !important;
+  }
+
+  /* ── Page margins + page numbers ──────────────────────────────────── */
   @page {
-    margin: 1.2cm;
+    margin: 1.4cm 1.2cm;
+    @bottom-right {
+      content: counter(page) " / " counter(pages);
+      font-size: 9pt;
+      color: #64748B;
+    }
   }
 }

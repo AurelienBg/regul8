@@ -318,10 +318,27 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
         </div>
       </div>
 
-      {/* Print-only title */}
-      <h1 className="hidden print-only text-2xl font-bold mb-6">
-        Regul8 — {t('title')}
-      </h1>
+      {/* Print-only title block — Regul8 brand + report title + summary line */}
+      <div className="hidden print-only mb-6 pb-3 border-b border-gray-300">
+        <div className="flex items-baseline justify-between gap-4">
+          <h1 className="text-2xl font-bold">
+            Regul8 — {t('title')}
+          </h1>
+          <span className="text-xs text-gray-500">
+            {new Date().toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
+              year: 'numeric', month: 'long', day: 'numeric',
+            })}
+          </span>
+        </div>
+        <p className="mt-1 text-xs text-gray-600">
+          {locale === 'fr' ? 'Activités' : 'Activities'}: {activities.map((a) => tw(`activities.${a}`)).join(' · ')}
+          {' — '}
+          {locale === 'fr' ? 'Juridictions' : 'Jurisdictions'}: {jurisdictions.map((j) => JURISDICTIONS[j]?.name ?? j).join(' · ')}
+        </p>
+        <p className="mt-1 text-[10px] text-gray-500">
+          regul8app.vercel.app · {locale === 'fr' ? 'Information générale uniquement, pas un conseil juridique.' : 'General information only, not legal advice.'}
+        </p>
+      </div>
 
       {/* Custom activity banner — when the user filled the 'Other' field in /assess */}
       {otherActivity && (
