@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import GlossaryContent from '@/components/glossary/GlossaryContent';
+import GlossaryLegend from '@/components/glossary/GlossaryLegend';
 import ConceptsNarrative from '@/components/learn/ConceptsNarrative';
 
 export default function GlossaryPage() {
@@ -12,7 +13,7 @@ export default function GlossaryPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <header className="mb-8">
+      <header className="mb-6">
         <div className="flex items-center gap-3 mb-2 flex-wrap">
           <span className="text-4xl leading-none">🔤</span>
           <h1 className="text-3xl sm:text-4xl font-bold">{t('title')}</h1>
@@ -22,17 +23,13 @@ export default function GlossaryPage() {
             ? 'Cherchez n\'importe quel terme — 150+ acronymes, lois, régulateurs et primitives.'
             : 'Look up any term — 150+ acronyms, laws, regulators, and primitives.'}
         </p>
-        <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-          <a
-            href={`/${locale}/learn/concepts`}
-            className="underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            ❓ {isFr
-              ? 'Que signifient ces topics, drapeaux, et portées ? → Concepts'
-              : 'What do these topics, flags, and scopes mean? → Concepts'}
-          </a>
-        </p>
       </header>
+
+      {/* Inline legend — open by default, explains flags / topics / scopes
+          in 3 visual cards. Replaces the previous tiny text link out to
+          /learn/concepts. The link is preserved at the bottom of the
+          legend for users wanting the full deep-dive. */}
+      <GlossaryLegend />
 
       {/* Narrative intro — clickable card linking to /learn/concepts */}
       <section className="mb-6 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-900">
