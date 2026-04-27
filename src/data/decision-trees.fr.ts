@@ -1259,6 +1259,816 @@ export const TRAVEL_RULE_TREE_FR: DecisionTree = {
   }
 };
 
+export const JONUM_TREE_FR: DecisionTree = {
+  "id": "jonum",
+  "title": "Puis-je utiliser JONUM pour mon produit NFT-gaming ?",
+  "description": "Parcourez le régime expérimental français JONUM (Jeux à Objets Numériques Monétisables, 2024-2027) — le seul cadre UE conçu spécifiquement pour le NFT-gaming avec récompenses monétisables. Sandbox loi SREN.",
+  "icon": "🎮",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Votre produit distribue-t-il des objets numériques monétisables (NFT / tokens) comme résultats de jeu — drops, récompenses, items obtenus en jeu et revendables sur un marché secondaire ?",
+      "hint": "JONUM est spécifiquement le pont entre le gambling traditionnel (scope ANJ) et la crypto (scope AMF). Si vos items peuvent être revendus en valeur hors du jeu, vous êtes dans le scope.",
+      "choices": [
+        {
+          "label": "Oui — items à valeur de marché secondaire",
+          "next": "q2"
+        },
+        {
+          "label": "Non — pure cosmétique, pas de revente, pas de monétisation",
+          "next": "out-out-of-scope"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Le résultat du jeu est-il déterminé par compétence, hasard, ou un mix ?",
+      "hint": "JONUM est le régime pour les objets numériques monétisables basés sur le hasard. Le pure-skill avec récompenses NFT peut sortir de JONUM (et du gambling ANJ) entièrement.",
+      "choices": [
+        {
+          "label": "Hasard ou élément de hasard significatif",
+          "next": "q3"
+        },
+        {
+          "label": "Pure skill — pas d'élément de hasard",
+          "next": "out-skill-game"
+        }
+      ]
+    },
+    "q3": {
+      "type": "question",
+      "question": "Êtes-vous prêt à opérer exclusivement pour les résidents français pendant l'expérimentation (2024-2027) ?",
+      "hint": "JONUM est un sandbox, pas un passport UE. Vous déclarez à l'ANJ pour le marché français uniquement. Les utilisateurs UE hors France nécessitent un cadre différent (MiCA Other crypto-asset + licence gambling nationale par État membre).",
+      "choices": [
+        {
+          "label": "Oui — focus marché français initialement",
+          "next": "q4"
+        },
+        {
+          "label": "Non — besoin de portée UE-wide maintenant",
+          "next": "out-not-eu-wide"
+        }
+      ]
+    },
+    "q4": {
+      "type": "question",
+      "question": "Pouvez-vous engager les exigences JONUM de protection consommateur (caps de compte joueur, vérification 18 ans, mentions de prévention contre l'addiction, disclosure transparente du mécanisme aléatoire) ?",
+      "hint": "JONUM est plus léger que l'ANJ gambling mais impose tout de même des règles de protection consommateur — caps de dépense joueur, age-gating obligatoire, signalétique addiction visible, disclosure statistique des probabilités de drop.",
+      "choices": [
+        {
+          "label": "Oui",
+          "next": "out-jonum-fit"
+        },
+        {
+          "label": "Non / pas sûr",
+          "next": "out-jonum-non-compliant"
+        }
+      ]
+    },
+    "out-out-of-scope": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Hors scope JONUM — pure cosmétique",
+      "explanation": "Si vos items en jeu n'ont pas de valeur de revente et pas de résultat monétaire, JONUM ne s'applique pas. Vous êtes un produit gaming classique — RGPD / droit consommateur s'appliquent, pas de régime crypto / gambling spécifique.",
+      "nextSteps": [
+        "Conformité RGPD",
+        "Directive Droits des Consommateurs 2011/83 si B2C",
+        "Vérifier qu'il n'y a pas de canal de trading secondaire (sinon vous repassez dans JONUM)",
+        "Si vous ajoutez plus tard du trading NFT ou de la monétisation, refaire ce diagnostic"
+      ],
+      "relatedTerms": [
+        "JONUM",
+        "NFT",
+        "ANJ"
+      ]
+    },
+    "out-skill-game": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Pure skill — hors JONUM ET hors gambling",
+      "explanation": "Un jeu skill-only avec récompenses NFT n'est pas du gambling sous le droit français (Code pénal §324) et peut sortir de JONUM. Mais MiCA peut classifier vos NFT — items fongibles / yield-bearing peuvent tomber sous Other crypto-asset.",
+      "nextSteps": [
+        "Lancer le diagnostic classification MiCA sur votre token",
+        "Documenter la balance skill-vs-hasard avec un avis juridique écrit",
+        "Le droit consommateur s'applique toujours",
+        "Le marketing ne doit pas invoquer hasard / chance"
+      ],
+      "relatedTerms": [
+        "JONUM",
+        "NFT",
+        "MiCA"
+      ]
+    },
+    "out-not-eu-wide": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "JONUM ne passporte pas — choisir un autre régime pour UE-wide",
+      "explanation": "JONUM est une expérimentation nationale française, pas un passport UE. Pour une portée UE-wide en NFT-gaming, vous aurez besoin de MiCA Other crypto-asset + licences gambling par État membre (Malta MGA est le favori).",
+      "nextSteps": [
+        "Considérer Malta MGA + MiCA Other crypto-asset pour la portée UE-wide",
+        "Ou choisir JONUM et géo-restreindre à la France pour le sandbox 2024-2027",
+        "Hors UE : UK Gambling Commission, Curaçao"
+      ],
+      "relatedTerms": [
+        "JONUM",
+        "MiCA",
+        "MGA"
+      ]
+    },
+    "out-jonum-fit": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "JONUM est votre voie — déclarer à l'ANJ",
+      "explanation": "Votre produit est exactement ce pour quoi JONUM a été conçu. Déclarez à l'ANJ (Autorité Nationale des Jeux) sous le régime expérimental. Sandbox de trois ans jusqu'en 2027.",
+      "nextSteps": [
+        "Déposer la déclaration JONUM auprès de l'ANJ (portail en ligne, ~6 mois de traitement)",
+        "Implémenter caps de compte joueur + vérification 18 ans + disclosure des probabilités de drop",
+        "Conserver les logs de gameplay pour inspection ANJ",
+        "Géo-fencer le marché français pendant le sandbox",
+        "Surveiller la revue 2027 — JONUM peut devenir permanent ou être abandonné"
+      ],
+      "relatedTerms": [
+        "JONUM",
+        "ANJ",
+        "NFT"
+      ]
+    },
+    "out-jonum-non-compliant": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Lacunes JONUM protection consommateur à combler d'abord",
+      "explanation": "JONUM semble favorable pour votre produit mais l'ANJ ne donnera pas suite tant que les exigences de protection consommateur ne sont pas remplies. La barre est plus basse que l'ANJ gambling complet mais plus haute que la pure crypto / NFT.",
+      "nextSteps": [
+        "Implémenter caps de dépense joueur (configurables par session / mois)",
+        "Vérification d'identité 18 ans à l'onboarding",
+        "Signalétique addiction visible (Joueurs Info Service)",
+        "Disclosure statistique des probabilités de drop NFT (visible in-app)",
+        "Rédiger CGU + politique de confidentialité en français"
+      ],
+      "relatedTerms": [
+        "JONUM",
+        "ANJ"
+      ]
+    }
+  }
+};
+
+export const ACCREDITED_INVESTOR_TREE_FR: DecisionTree = {
+  "id": "accredited-investor",
+  "title": "Puis-je offrir ce security token au retail ?",
+  "description": "Parcourez le gating investisseurs accrédités / qualifiés pour les valeurs mobilières tokenisées — la question STO classique 'le retail peut-il acheter, ou seulement les sophistiqués'. Couvre US Reg D / Reg S + exemptions Prospectus UE.",
+  "icon": "💼",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Avez-vous confirmé que votre token EST une valeur mobilière (ex. via Howey Test aux US, ou MiFID II en UE) ?",
+      "hint": "Ce diagnostic est en aval de la classification security. Si votre token est utility / Other crypto-asset, les règles d'investisseurs accrédités ne s'appliquent pas — cadre différent.",
+      "choices": [
+        {
+          "label": "Oui — security confirmée",
+          "next": "q2"
+        },
+        {
+          "label": "Non / pas sûr",
+          "next": "out-classify-first"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Quels marchés ciblez-vous ?",
+      "hint": "Chaque juridiction a ses propres règles retail-vs-accrédité. Les principales sont US Reg D + Reg S, exemptions du Prospectus Regulation UE, et règles nationales similaires.",
+      "choices": [
+        {
+          "label": "US uniquement",
+          "next": "q3-us"
+        },
+        {
+          "label": "UE uniquement",
+          "next": "q3-eu"
+        },
+        {
+          "label": "Les deux US + UE",
+          "next": "q3-both"
+        },
+        {
+          "label": "Autres juridictions",
+          "next": "out-other-juri"
+        }
+      ]
+    },
+    "q3-us": {
+      "type": "question",
+      "question": "Voulez-vous publiciser l'offre publiquement (mass marketing) ?",
+      "hint": "Reg D US a deux voies : 506(b) (pas de sollicitation générale, accrédités uniquement) et 506(c) (sollicitation générale autorisée mais chaque acheteur doit être vérifié-accrédité). 506(c) est la voie pour les offres crypto en ligne.",
+      "choices": [
+        {
+          "label": "Oui — marketing public",
+          "next": "out-us-regd-506c"
+        },
+        {
+          "label": "Non — canaux privés uniquement",
+          "next": "out-us-regd-506b"
+        },
+        {
+          "label": "Je veux du retail (non-accrédité) aussi",
+          "next": "out-us-rega-plus"
+        }
+      ]
+    },
+    "q3-eu": {
+      "type": "question",
+      "question": "Quelle taille de levée totale et votre disposition à rédiger un prospectus complet ?",
+      "hint": "Le Prospectus Regulation UE (2017/1129) a 3 seuils d'exemption principaux : <€8M pas de prospectus, <150 investisseurs retail par État membre, qualifiés-uniquement.",
+      "choices": [
+        {
+          "label": "<€8M levée totale",
+          "next": "out-eu-small"
+        },
+        {
+          "label": "<150 investisseurs retail par État membre",
+          "next": "out-eu-narrow-retail"
+        },
+        {
+          "label": "Investisseurs qualifiés uniquement (HNW + institutionnel)",
+          "next": "out-eu-qualified-only"
+        },
+        {
+          "label": "Offre publique retail complète",
+          "next": "out-eu-full-prospectus"
+        }
+      ]
+    },
+    "q3-both": {
+      "type": "question",
+      "question": "Traiterez-vous US et UE comme des offres parallèles séparées (docs différents, gating différents) ?",
+      "hint": "Les STO cross-border se structurent typiquement comme : Reg S (offshore, vend aux non-US persons) + Reg D 506(c) (US accrédités) + exemption UE. Trois sous-offres parallèles sous un master prospectus / whitepaper.",
+      "choices": [
+        {
+          "label": "Oui — structure parallèle Reg S + Reg D + exemption UE",
+          "next": "out-cross-border-parallel"
+        },
+        {
+          "label": "Non — offre retail globale unique",
+          "next": "out-cross-border-public"
+        }
+      ]
+    },
+    "out-classify-first": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Classifier le token d'abord",
+      "explanation": "Lancez le diagnostic Howey Test (US) ou classification MiCA (UE) avant celui-ci. Les règles d'investisseurs accrédités ne s'appliquent que si le token EST une security sous le droit applicable.",
+      "nextSteps": [
+        "Lancer /assess/quick/howey pour la classification US",
+        "Lancer /assess/quick/mica-classification pour la classification UE",
+        "Puis revenir ici une fois le statut security confirmé"
+      ],
+      "relatedTerms": [
+        "Howey Test",
+        "MiCA",
+        "Other crypto-asset"
+      ]
+    },
+    "out-other-juri": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Autre juridiction — cas par cas",
+      "explanation": "La plupart des juridictions majeures (UK, Suisse, Singapour, Japon, Australie) ont leur propre variante des règles investisseurs accrédités / qualifiés. La structure ressemble à Reg D US — gating sophistiqués avec restrictions sur le mass-marketing.",
+      "nextSteps": [
+        "UK : règles FCA non-readily-realisable / sophisticated investor",
+        "Suisse : FinSA Qualified Investor (HNW + institutionnel)",
+        "Singapour : MAS Accredited Investor (revenu / patrimoine / institutionnel)",
+        "Japon : FSA Qualified Institutional Investor",
+        "Australie : ASIC Sophisticated Investor / Wholesale Client"
+      ],
+      "relatedTerms": [
+        "FCA",
+        "FINMA",
+        "MAS",
+        "ASIC"
+      ]
+    },
+    "out-us-regd-506c": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "US — Reg D 506(c) (accrédités uniquement, marketing public OK)",
+      "explanation": "506(c) est la voie pour les offres crypto en ligne : vous pouvez publiciser publiquement mais chaque acheteur doit être vérifié accrédité (revenu >$200K solo / $300K couple, OU patrimoine >$1M ex-résidence, OU détient une licence qualifiante). Vérification par tiers qualifié (Series 65, banque, avocat).",
+      "nextSteps": [
+        "Déposer Form D auprès de la SEC dans les 15 jours de la première vente",
+        "Utiliser un fournisseur de vérification 506(c) (ex. VerifyInvestor, Parallel Markets)",
+        "Pas de revue Blue Sky d'État (préempté)",
+        "Restrictions de revente par les acheteurs (période de détention Rule 144)",
+        "Tokens commercialisables au retail uniquement après enregistrement ou détention 1 an"
+      ],
+      "relatedTerms": [
+        "Reg D",
+        "SEC",
+        "Howey Test"
+      ]
+    },
+    "out-us-regd-506b": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "US — Reg D 506(b) (privé, accrédités uniquement)",
+      "explanation": "506(b) est l'ancienne voie de placement privé : pas de sollicitation générale mais vous pouvez vendre à jusqu'à 35 investisseurs non-accrédités qui passent les tests de sophistication. Les acheteurs auto-certifient leur statut accrédité. La plupart des STO préfèrent désormais 506(c) pour le marketing.",
+      "nextSteps": [
+        "Déposer Form D auprès de la SEC dans les 15 jours de la première vente",
+        "Les acheteurs auto-certifient le statut accrédité (pas de vérification tiers)",
+        "Pas de sollicitation générale — règle stricte 'pre-existing relationship'",
+        "Jusqu'à 35 investisseurs non-accrédités avec représentations de sophistication"
+      ],
+      "relatedTerms": [
+        "Reg D",
+        "SEC"
+      ]
+    },
+    "out-us-rega-plus": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "US — considérer Reg A+ pour le retail",
+      "explanation": "Reg D est accrédités-uniquement. Pour une offre retail US, Reg A+ Tier 2 autorise jusqu'à $75M / 12 mois aux non-accrédités mais exige un offering circular qualifié SEC + reporting continu. Plus proche d'une mini-IPO. Utilisé par certains STO (ex. INX, tZERO).",
+      "nextSteps": [
+        "Reg A+ Tier 2 — jusqu'à $75M / 12 mois aux retail",
+        "Offering circular qualifié SEC (~6-12 mois)",
+        "Reporting continu annuel + semestriel",
+        "Revue d'État NON préemptée (vs Reg D)",
+        "Ou structurer en Reg D 506(c) accrédités + Reg S retail offshore"
+      ],
+      "relatedTerms": [
+        "Reg A+",
+        "SEC",
+        "STO"
+      ]
+    },
+    "out-eu-small": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UE — exemption petite offre (<€8M)",
+      "explanation": "En dessous d'€8M de levée, pas de prospectus requis (Prospectus Regulation Art. 1(3)). Certains États membres fixent des seuils locaux plus bas (ex. €1M dans certains). Règles nationales + disclosures légères s'appliquent toujours.",
+      "nextSteps": [
+        "Vérifier le seuil local dans votre État membre d'origine",
+        "Test de suitability MiFID II si intermédiation au retail",
+        "Document de disclosure léger (règles nationales)",
+        "DLT Pilot Regime disponible pour les venues de settlement tokenisées"
+      ],
+      "relatedTerms": [
+        "Prospectus Regulation",
+        "MiFID II",
+        "DLT Pilot Regime"
+      ]
+    },
+    "out-eu-narrow-retail": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UE — <150 investisseurs retail par État membre",
+      "explanation": "Prospectus Regulation Art. 1(4)(b) — les offres à moins de 150 investisseurs retail par État membre sont exemptées. Combiné avec la carve-out qualifiés (4)(a), vous pouvez bâtir un petit groupe retail + HNW/institutionnel illimité sans prospectus complet.",
+      "nextSteps": [
+        "Cap dur à 150 investisseurs retail par État membre (compter avec soin)",
+        "Suitability + appropriateness MiFID II s'appliquent toujours",
+        "Restrictions marketing — règles anti-sollicitation publique",
+        "Combiner avec voie qualifiés-uniquement pour la tranche institutionnelle"
+      ],
+      "relatedTerms": [
+        "Prospectus Regulation"
+      ]
+    },
+    "out-eu-qualified-only": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UE — Investisseurs qualifiés uniquement (voie la plus légère)",
+      "explanation": "Prospectus Regulation Art. 1(4)(a) — les offres à investisseurs qualifiés (institutionnel, HNW avec portefeuille €500K+, clients professionnels MiFID II) sont exemptées. C'est la voie STO la plus légère en UE.",
+      "nextSteps": [
+        "Définir le processus de vérification investisseurs qualifiés",
+        "Vérification statut client professionnel MiFID II",
+        "Pas de prospectus requis — memo de placement privé léger suffit",
+        "Marketing restreint aux audiences investisseurs qualifiés"
+      ],
+      "relatedTerms": [
+        "Prospectus Regulation",
+        "MiFID II"
+      ]
+    },
+    "out-eu-full-prospectus": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UE — Prospectus complet + suitability MiFID II",
+      "explanation": "Une offre publique retail complète exige un prospectus approuvé par la NCA d'origine. ~12-24 mois, €500K-2M de coût, mais débloque le retail illimité. DLT Pilot Regime disponible pour les venues de settlement tokenisées.",
+      "nextSteps": [
+        "Déposer le prospectus auprès de la NCA d'origine (Annexes I-VI Règl. 2017/1129)",
+        "États financiers audités (3 ans)",
+        "Agrément firme d'investissement MiFID II si intermédiation",
+        "Licence DLT Pilot Regime (DLT MTF / DLT SS / DLT TSS) pour les venues de trading",
+        "Obligations de transparence continue (Directive Transparence)"
+      ],
+      "relatedTerms": [
+        "Prospectus Regulation",
+        "MiFID II",
+        "DLT Pilot Regime"
+      ]
+    },
+    "out-cross-border-parallel": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Structure parallèle cross-border (recommandée)",
+      "explanation": "STO industry-standard : sous-offres parallèles sous un document master unique. (1) Reg D 506(c) pour US accrédités, (2) Reg S pour non-US persons (offshore), (3) Exemption UE (qualifiés-uniquement ou <150 retail par État membre). Chaque tranche conforme indépendamment.",
+      "nextSteps": [
+        "Reg D 506(c) — US accrédités + vérification",
+        "Reg S — non-US persons, pas de directed selling efforts aux US, période de distribution-compliance",
+        "UE — choisir l'exemption par État membre",
+        "Master whitepaper / prospectus avec wrappers par juridiction",
+        "Conformité on-chain : exemption whitepaper MiCA Art. 4(2) pour tokens déjà tradés ; flags MPT (XLS-33) pour gating KYC"
+      ],
+      "relatedTerms": [
+        "Reg D",
+        "Reg S",
+        "Prospectus Regulation",
+        "MPT"
+      ]
+    },
+    "out-cross-border-public": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Retail global unique — pas réaliste",
+      "explanation": "Un document unique ouvert au retail mondial simultanément est essentiellement impossible — il faudrait un enregistrement retail SEC + UE + UK + chaque autre juridiction en parallèle. L'industrie utilise une structure à tranches parallèles à la place.",
+      "nextSteps": [
+        "Restructurer en offres parallèles (Reg D + Reg S + exemption UE)",
+        "Ou pivoter vers des plateformes crowd-equity qui gèrent la conformité par juridiction (Republic, StartEngine, Crowdcube)",
+        "Ou utiliser le DLT Pilot Regime pour le trading de valeurs tokenisées sur venues régulées"
+      ],
+      "relatedTerms": [
+        "Reg D",
+        "Reg S",
+        "DLT Pilot Regime"
+      ]
+    }
+  }
+};
+
+export const DLT_PILOT_TREE_FR: DecisionTree = {
+  "id": "dlt-pilot",
+  "title": "Ma valeur tokenisée est-elle DLT-Pilot-éligible ?",
+  "description": "Le DLT Pilot Regime UE (Règl. 2022/858, en vigueur mars 2023) est un sandbox de 6 ans pour les market infrastructures DLT négociant et settlant des valeurs mobilières tokenisées. Parcourez les critères d'éligibilité.",
+  "icon": "🧪",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Opérez-vous une market infrastructure (venue de trading, système de settlement) pour des valeurs tokenisées — OU êtes-vous l'émetteur ?",
+      "hint": "DLT Pilot est pour les OPÉRATEURS D'INFRASTRUCTURE (ceux qui font tourner la venue de trading ou la couche de settlement), pas pour les émetteurs eux-mêmes. Les émetteurs en bénéficient indirectement parce que leurs tokens peuvent settler sur une venue DLT.",
+      "choices": [
+        {
+          "label": "Opérateur d'infrastructure (venue trading OU settlement)",
+          "next": "q2"
+        },
+        {
+          "label": "Émetteur de valeurs tokenisées",
+          "next": "out-issuer-side"
+        },
+        {
+          "label": "Investisseur / acheteur",
+          "next": "out-investor-side"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Quelle catégorie de licence DLT correspond à votre activité ?",
+      "hint": "Trois catégories sous le règlement : DLT MTF (multilateral trading facility), DLT SS (settlement system), DLT TSS (combiné trading + settlement, le slot le plus innovant).",
+      "choices": [
+        {
+          "label": "DLT MTF — venue de trading uniquement",
+          "next": "q3"
+        },
+        {
+          "label": "DLT SS — settlement uniquement",
+          "next": "q3"
+        },
+        {
+          "label": "DLT TSS — combiné trading + settlement",
+          "next": "q3"
+        }
+      ]
+    },
+    "q3": {
+      "type": "question",
+      "question": "Vos instruments tradés tiennent-ils dans les caps DLT Pilot ? (Actions : market cap <€500M par émetteur · Obligations / autres dettes : <€1Md par émission · Parts UCITS : <€500M)",
+      "hint": "Les caps ont été doublés en 2024 (originellement €200M / €500M / €250M). Au-dessus des caps il faut utiliser l'infrastructure MiFID II / CSDR classique.",
+      "choices": [
+        {
+          "label": "Oui — sous tous les caps applicables",
+          "next": "q4"
+        },
+        {
+          "label": "Non — au-dessus des caps",
+          "next": "out-caps-exceeded"
+        }
+      ]
+    },
+    "q4": {
+      "type": "question",
+      "question": "Capperez-vous la valeur de marché totale de tous les instruments tradés DLT sous votre licence à €6Md (le cap global) ?",
+      "hint": "Cap dur sur la valeur nominale totale de tous les instruments tradés sur la venue DLT à tout moment. Une fois dépassé, la venue doit baisser progressivement ou transitionner vers une structure MiFID II / CSDR classique.",
+      "choices": [
+        {
+          "label": "Oui — sous €6Md agrégé",
+          "next": "out-eligible"
+        },
+        {
+          "label": "Non — susceptible de dépasser",
+          "next": "out-cap-too-tight"
+        }
+      ]
+    },
+    "out-issuer-side": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Côté émetteur — trouver une venue DLT-Pilot où lister",
+      "explanation": "Comme émetteur, vous ne demandez pas la licence DLT vous-même — vous listez vos valeurs tokenisées sur une venue qui en détient une. Plusieurs venues sont désormais agréées en UE (ex. SDX en Suisse est similaire mais pas EU-DLT-Pilot ; LCH SA, Euronext Securities, 21X sont opérateurs EU-DLT-Pilot).",
+      "nextSteps": [
+        "Approcher les venues agréées DLT-Pilot pour le listing (LCH SA, 21X, Euronext Securities)",
+        "La tokenisation peut utiliser IOU / Trust Line sur XRPL ou Single Asset Vault (XLS-72, proposé)",
+        "Whitepaper / prospectus selon Prospectus Regulation s'appliquent toujours — pas un substitut",
+        "Base d'investisseurs limitée par les caps DLT-Pilot (€500M actions, €1Md obligations)"
+      ],
+      "relatedTerms": [
+        "DLT Pilot Regime",
+        "Prospectus Regulation",
+        "MPT"
+      ]
+    },
+    "out-investor-side": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Côté investisseur — les venues DLT-Pilot sont ouvertes au retail (avec caveats)",
+      "explanation": "Les venues DLT-Pilot peuvent servir des investisseurs retail, sous réserve de la suitability MiFID II + des caps par émission. L'avantage versus les marchés classiques est le settlement plus rapide (T+0 / atomique) et la disponibilité 24/7 du trading.",
+      "nextSteps": [
+        "Ouvrir un compte sur une venue agréée DLT-Pilot",
+        "Évaluation de suitability MiFID II standard s'applique",
+        "Settlement T+0 / atomique vs T+2 sur marchés classiques",
+        "Choix custody : self-custody (où supportée) ou via un CSD DLT-Pilot"
+      ],
+      "relatedTerms": [
+        "DLT Pilot Regime",
+        "MiFID II"
+      ]
+    },
+    "out-caps-exceeded": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Au-dessus des caps DLT-Pilot — utiliser MiFID II / CSDR classique",
+      "explanation": "Vos instruments tradés sont trop gros pour le sandbox DLT-Pilot. Vous devrez opérer comme MTF / OTF MiFID II classique + un CSD agréé CSDR pour le settlement. Infrastructure plus lourde mais pas de caps.",
+      "nextSteps": [
+        "Agrément MTF / OTF MiFID II (€730K capital min.)",
+        "CSD agréé CSDR pour le settlement (beaucoup plus lourd)",
+        "Ou splitter votre offre : tranche DLT-Pilot plus petite + tranche classique plus grande",
+        "Ou attendre la revue DLT-Pilot (2027) — les caps peuvent monter encore"
+      ],
+      "relatedTerms": [
+        "MiFID II",
+        "CSDR",
+        "DLT Pilot Regime"
+      ]
+    },
+    "out-eligible": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Éligible DLT-Pilot — déposer auprès de la NCA d'origine",
+      "explanation": "Vous tenez dans les trois caps (par-instrument + €6Md agrégé). Demandez l'une des trois licences DLT (MTF / SS / TSS) auprès de votre NCA d'origine. ~9-15 mois.",
+      "nextSteps": [
+        "Déposer auprès de la NCA d'origine (ex. AMF pour FR, BaFin pour DE, CSSF pour LU)",
+        "Plan business + IT + juridique détaillé requis (regulatory technical standards)",
+        "Avis ESMA + EBA sollicités pendant l'application",
+        "Opération live : le système DLT doit enregistrer + settler les transactions on-ledger",
+        "Monitoring continu + reporting des breaches (cap, sécurité, IT)",
+        "Le système DLT peut être public (Ethereum, XRPL) ou privé — protocol-agnostic"
+      ],
+      "relatedTerms": [
+        "DLT Pilot Regime",
+        "MiFID II",
+        "CSDR"
+      ]
+    },
+    "out-cap-too-tight": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Cap agrégé €6Md probablement trop serré — splitter ou monter en gamme",
+      "explanation": "Si vous prévoyez de dépasser le cap global €6Md, le régime Pilot ne convient peut-être pas. Soit splittez la venue à travers plusieurs entités agréées (chacune avec son propre cap €6Md), soit opérez comme infrastructure MiFID II / CSDR classique.",
+      "nextSteps": [
+        "Structure multi-entités : une licence DLT-Pilot par ligne business",
+        "Ou opérer comme MTF MiFID II + CSD CSDR classique (pas de cap)",
+        "Ou attendre la revue DLT-Pilot 2027 — les caps peuvent encore monter"
+      ],
+      "relatedTerms": [
+        "DLT Pilot Regime",
+        "MiFID II",
+        "CSDR"
+      ]
+    }
+  }
+};
+
+export const TVTG_VS_CASP_TREE_FR: DecisionTree = {
+  "id": "tvtg-vs-casp",
+  "title": "TVTG (Liechtenstein) ou CASP MiCA direct ?",
+  "description": "Décider entre commencer au Liechtenstein sous TVTG (Token Container Model) et passporter vers l'UE, ou demander directement un CASP MiCA dans un État membre. Trade-offs en délai, coût et complexité opérationnelle.",
+  "icon": "🇱🇮",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Êtes-vous EU-headquartered ou déjà résident UE, OU avez-vous besoin d'une base européenne fraîche ?",
+      "hint": "TVTG est super pour les fondateurs non-UE qui construisent une portée européenne from scratch. Les équipes résidentes UE ont souvent une NCA État-membre proche qui est tout aussi rapide.",
+      "choices": [
+        {
+          "label": "Résident UE déjà",
+          "next": "q2"
+        },
+        {
+          "label": "Non-UE — construire base européenne",
+          "next": "q3-non-eu"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Quel État membre est votre base ?",
+      "hint": "Certaines NCA sont plus rapides + moins chères que d'autres pour CASP MiCA. La Lituanie est actuellement la voie la plus rapide ; Irlande / Luxembourg sont plus lents / chers ; FR / DE sont moyens.",
+      "choices": [
+        {
+          "label": "Lituanie (le plus rapide, le moins cher)",
+          "next": "out-lt-direct"
+        },
+        {
+          "label": "Irlande ou Luxembourg (institutionnel, plus lent)",
+          "next": "out-ie-lu-direct"
+        },
+        {
+          "label": "Allemagne / France / Espagne (moyen)",
+          "next": "out-major-eu-direct"
+        },
+        {
+          "label": "Autre État membre",
+          "next": "out-other-eu-direct"
+        }
+      ]
+    },
+    "q3-non-eu": {
+      "type": "question",
+      "question": "Quelle est votre priorité — vitesse-de-mise-en-marché ou crédibilité institutionnelle ?",
+      "hint": "TVTG = vitesse (3-9 mois). CASP MiCA via Irlande / Luxembourg = crédibilité institutionnelle mais 12-18 mois.",
+      "choices": [
+        {
+          "label": "Vitesse — besoin de lancer ASAP",
+          "next": "out-tvtg-speed"
+        },
+        {
+          "label": "Crédibilité institutionnelle — réputation niveau bancaire",
+          "next": "out-mica-institutional"
+        },
+        {
+          "label": "Mix — TVTG d'abord, MiCA ensuite",
+          "next": "out-tvtg-then-mica"
+        }
+      ]
+    },
+    "out-lt-direct": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "CASP MiCA direct via Lituanie (Lietuvos bankas) — voie UE la plus rapide",
+      "explanation": "La Lituanie a l'autorisation CASP MiCA la plus rapide + la moins chère en UE (~6 mois, €50-150K). Passport UE dès le jour 1. C'est ce que la plupart des fondateurs UE cost-conscious devraient faire.",
+      "nextSteps": [
+        "Déposer la demande CASP auprès de Lietuvos bankas",
+        "Capital min €125K (tier exchange CASP)",
+        "Exigence de directeur local + AML officer (résident ou remote-acceptable au cas par cas)",
+        "Passport sur les 27 États membres une fois accordé",
+        "TVTG n'offre pas d'avantage si vous êtes déjà résident UE — MiCA direct est plus rapide globalement"
+      ],
+      "relatedTerms": [
+        "CASP",
+        "MiCA",
+        "Lietuvos bankas",
+        "TVTG"
+      ]
+    },
+    "out-ie-lu-direct": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "CASP MiCA direct via Irlande ou Luxembourg — voie institutionnelle",
+      "explanation": "L'Irlande (CBI) et le Luxembourg (CSSF) prennent 12-18 mois et coûtent €200-600K mais offrent une crédibilité institutionnelle — Coinbase Ireland, Kraken Payward Europe, Standard Custody Lux ont tous choisi cette voie. Mieux pour fund-raising / partenariats bancaires.",
+      "nextSteps": [
+        "Déposer la demande CASP auprès de CBI (IE) ou CSSF (LU)",
+        "Capital min €125K (CASP exchange) ou tier supérieur",
+        "Substance locale — directeur + opérations significatives",
+        "Passport sur les 27 États membres une fois accordé",
+        "TVTG ajouterait juste une étape — MiCA direct est plus propre ici"
+      ],
+      "relatedTerms": [
+        "CASP",
+        "MiCA",
+        "CBI",
+        "CSSF",
+        "TVTG"
+      ]
+    },
+    "out-major-eu-direct": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "CASP MiCA direct dans votre État membre d'origine — choix par défaut sensé",
+      "explanation": "Les NCA État-membre de tier moyen (BaFin DE, AMF FR, CNMV ES) prennent 9-15 mois. CASP MiCA direct est la voie naturelle pour les équipes résidentes — pas d'avantage à ajouter une couche Liechtenstein.",
+      "nextSteps": [
+        "Déposer la demande CASP auprès de votre NCA d'origine",
+        "Exigences de langue locale peuvent s'appliquer (FR, DE)",
+        "Capital min €125K",
+        "Passport sur les 27 États membres une fois accordé",
+        "Spécificités FR : régime PSAN transitionnel auto-converti en CASP"
+      ],
+      "relatedTerms": [
+        "CASP",
+        "MiCA",
+        "BaFin",
+        "AMF"
+      ]
+    },
+    "out-other-eu-direct": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Autre État membre — vérifier les délais NCA-spécifiques",
+      "explanation": "Les États membres plus petits varient largement. Chypre, Estonie, Malte, République tchèque ont chacun leur rythme et capacité. Comparer avec la Lituanie (le benchmark vitesse) avant de s'engager.",
+      "nextSteps": [
+        "Comparer les délais CASP publiés par votre NCA d'origine",
+        "Vérifier la capacité — les petites NCA peuvent être en backlog",
+        "Si votre NCA d'origine est lente, considérer CASP Lituanie + passport vers chez vous",
+        "TVTG est rarement la voie optimale si vous avez une base UE"
+      ],
+      "relatedTerms": [
+        "CASP",
+        "MiCA"
+      ]
+    },
+    "out-tvtg-speed": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "TVTG (Liechtenstein) pour la vitesse — puis passport MiCA",
+      "explanation": "TVTG est la voie la plus rapide vers la portée européenne pour les équipes non-UE. ~3-9 mois. Le Liechtenstein est dans l'EEE — une fois TVTG + passport EEE obtenus, vous pouvez servir des utilisateurs UE sans CASP MiCA séparé. Bon pour les fondateurs non-UE qui construisent une portée européenne from scratch.",
+      "nextSteps": [
+        "Déposer la demande TVTG TT Service Provider auprès de la FMA",
+        "Capital min dépend de la catégorie de service (€100K-€250K)",
+        "Substance locale — directeur + AML officer au Liechtenstein",
+        "Passport EEE = servir tout l'UE + Norvège / Islande",
+        "Surveiller l'interplay TVTG / MiCA — le Liechtenstein implémente MiCA par-dessus TVTG"
+      ],
+      "relatedTerms": [
+        "TVTG",
+        "MiCA",
+        "CASP",
+        "FMA"
+      ]
+    },
+    "out-mica-institutional": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "CASP MiCA via Irlande ou Luxembourg — crédibilité institutionnelle",
+      "explanation": "Si les partenariats bancaires et le fund-raising sont critiques, le CASP MiCA d'Irlande ou Luxembourg est la voie de plus haute crédibilité. Plus lent (12-18 mois) et plus cher (€200-600K) mais signale 'institutionnel' aux contreparties.",
+      "nextSteps": [
+        "Déposer la demande CASP auprès de CBI (IE) ou CSSF (LU)",
+        "Substance locale — directeur + opérations réelles à Dublin / Luxembourg",
+        "Capital min €125K + attentes prudentielles bien plus élevées",
+        "L'onboarding par les partenaires bancaires bien plus fluide qu'à partir du Liechtenstein",
+        "Si vous pouvez attendre 12-18 mois, c'est la meilleure voie pour les jeux institutionnels"
+      ],
+      "relatedTerms": [
+        "CASP",
+        "MiCA",
+        "CBI",
+        "CSSF"
+      ]
+    },
+    "out-tvtg-then-mica": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "TVTG d'abord, MiCA ensuite — approche staged (recommandée pour beaucoup)",
+      "explanation": "Le split pragmatique : TVTG Liechtenstein vous met sur le marché en 3-9 mois avec passport EEE. Une fois le revenu actif, vous pouvez ajouter un CASP MiCA en IE / LU / LT pour la crédibilité institutionnelle complète (parallèle, pas remplacement). Utilisé par plusieurs projets XRPL-natifs.",
+      "nextSteps": [
+        "Phase 1 (mois 0-9) : TVTG TT Service Provider au Liechtenstein",
+        "Phase 1 livrable : revenu live + passport EEE",
+        "Phase 2 (mois 12-30) : CASP MiCA dans l'État membre choisi",
+        "Phase 2 livrable : crédibilité institutionnelle + plus gros partenaires bancaires",
+        "Maintenir les deux autorisations pendant la transition"
+      ],
+      "relatedTerms": [
+        "TVTG",
+        "MiCA",
+        "CASP",
+        "FMA",
+        "CBI"
+      ]
+    }
+  }
+};
+
 export const DECISION_TREES_FR: DecisionTree[] = [
   HOWEY_TREE_FR,
   CASP_TREE_FR,
@@ -1267,6 +2077,10 @@ export const DECISION_TREES_FR: DecisionTree[] = [
   MICA_CLASSIFICATION_TREE_FR,
   GENIUS_STABLECOIN_TREE_FR,
   TRAVEL_RULE_TREE_FR,
+  JONUM_TREE_FR,
+  ACCREDITED_INVESTOR_TREE_FR,
+  DLT_PILOT_TREE_FR,
+  TVTG_VS_CASP_TREE_FR,
 ]
 
 export function getDecisionTreeFr(id: string): DecisionTree | undefined {
