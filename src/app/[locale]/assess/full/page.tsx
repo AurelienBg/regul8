@@ -39,6 +39,18 @@ export default function AssessPage() {
   const [reasoningOpen, setReasoningOpen] = useState(false);
   const [describeCollapsed, setDescribeCollapsed] = useState(false);
 
+  // Optional URL + file inputs that enrich the classification context
+  // (HIGH #2 — landing page fetcher + whitepaper / pitch / term-sheet upload).
+  const [url, setUrl] = useState('');
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [sourceReports, setSourceReports] = useState<Array<
+    | { kind: 'description'; chars: number }
+    | { kind: 'url'; url: string; ok: boolean; chars?: number; error?: string; truncated?: boolean }
+    | { kind: 'file'; filename: string; ok: boolean; chars?: number; error?: string; truncated?: boolean }
+  >>([]);
+
   // Free-form 'other activity' — covers exotic cases outside our 20-activity taxonomy
   // (insurance protocols, prediction markets, DID, oracle networks…). Claude may
   // populate this automatically when the description mentions something unlisted.
@@ -111,24 +123,73 @@ export default function AssessPage() {
     );
   };
 
+  /** Add picked / dropped files to state, validating count + total size +
+   *  format. Errors surface in `fileError` rather than throwing so we can
+   *  show inline feedback. */
+  const handleAddFiles = (incoming: File[]) => {
+    setFileError(null);
+    const ALLOWED_EXT = ['pdf', 'docx', 'md', 'markdown', 'txt'];
+    const accepted: File[] = [];
+    for (const f of incoming) {
+      const ext = f.name.split('.').pop()?.toLowerCase() ?? '';
+      if (!ALLOWED_EXT.includes(ext)) {
+        setFileError(isFr
+          ? `Format non supporté : ${f.name} (acceptés : PDF, DOCX, MD, TXT)`
+          : `Unsupported format: ${f.name} (accepted: PDF, DOCX, MD, TXT)`);
+        continue;
+      }
+      accepted.push(f);
+    }
+    setFiles((prev) => {
+      const merged = [...prev, ...accepted].slice(0, 3); // max 3 files
+      const total = merged.reduce((sum, f) => sum + f.size, 0);
+      const FOUR_MB = 4 * 1024 * 1024;
+      if (total > FOUR_MB) {
+        setFileError(isFr
+          ? `Limite dépassée : 4 Mo au total (3 fichiers max).`
+          : `Over limit: 4 MB total (max 3 files).`);
+        return prev;
+      }
+      return merged;
+    });
+  };
+
   const handleClassify = async () => {
     const trimmed = description.trim();
-    if (!trimmed || isClassifying) return;
+    const trimmedUrl = url.trim();
+    const hasFiles = files.length > 0;
+    // Need at least one source of context
+    if ((!trimmed && !trimmedUrl && !hasFiles) || isClassifying) return;
     setIsClassifying(true);
     setClassifyError(null);
+    setSourceReports([]);
     try {
-      const res = await fetch('/api/classify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ description: trimmed, locale }),
-      });
+      // Use multipart only when URL or files are present — keeps the
+      // pure-text path (the common case) on the lighter JSON code path.
+      let res: Response;
+      if (trimmedUrl || hasFiles) {
+        const fd = new FormData();
+        fd.set('description', trimmed);
+        fd.set('locale', locale);
+        if (trimmedUrl) fd.set('url', trimmedUrl);
+        for (const f of files) fd.append('files', f, f.name);
+        res = await fetch('/api/classify', { method: 'POST', body: fd });
+      } else {
+        res = await fetch('/api/classify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ description: trimmed, locale }),
+        });
+      }
       const data = await res.json() as {
         activities?: string[];
         jurisdictions?: string[];
         other?: string;
         reasoning?: string;
         error?: string;
+        sourceReports?: typeof sourceReports;
       };
+      if (data.sourceReports) setSourceReports(data.sourceReports);
       if (data.error) {
         setClassifyError(data.error);
         return;
@@ -205,10 +266,20 @@ export default function AssessPage() {
           analyzing: 'Analyse…',
           skip: 'Passer',
           chars: (n: number) => `${n}/500`,
+          charsUnit: 'car.',
           reasoningToggle: 'Pourquoi ces choix ?',
           aiLabel: 'IA',
           editAgain: 'Modifier la description',
           genericError: 'Erreur. Vous pouvez continuer manuellement.',
+          urlLabel: '🔗 Ou collez l\'URL de votre site',
+          urlHint: 'On lit votre landing publique pour enrichir le contexte. Aucune donnée stockée.',
+          urlPlaceholder: 'https://votre-startup.com',
+          filesLabel: '📎 Ou ajoutez whitepaper / pitch / term-sheet',
+          filesHint: 'PDF, DOCX, MD ou TXT — max 3 fichiers, 4 Mo au total. Traités en mémoire, pas conservés.',
+          filesDrop: 'Glissez vos fichiers ici, ou cliquez pour parcourir',
+          fileRemove: 'Retirer le fichier',
+          privacyNote: 'Tout est traité en mémoire pour cette analyse uniquement — rien n\'est stocké côté serveur.',
+          sourceDescription: 'description',
         },
         otherActivity: {
           label: 'Autre activité (hors taxonomie)',
@@ -247,10 +318,20 @@ export default function AssessPage() {
           analyzing: 'Analyzing…',
           skip: 'Skip',
           chars: (n: number) => `${n}/500`,
+          charsUnit: 'chars',
           reasoningToggle: 'Why these choices?',
           aiLabel: 'AI',
           editAgain: 'Edit description',
           genericError: 'Error. You can continue manually.',
+          urlLabel: '🔗 Or paste your website URL',
+          urlHint: 'We\'ll read your public landing page to enrich the context. No data stored.',
+          urlPlaceholder: 'https://your-startup.com',
+          filesLabel: '📎 Or upload whitepaper / pitch / term-sheet',
+          filesHint: 'PDF, DOCX, MD or TXT — max 3 files, 4 MB total. Processed in memory, not stored.',
+          filesDrop: 'Drop files here, or click to browse',
+          fileRemove: 'Remove file',
+          privacyNote: 'Everything processed in memory for this analysis only — nothing is stored server-side.',
+          sourceDescription: 'description',
         },
         otherActivity: {
           label: 'Other activity (outside our taxonomy)',
@@ -282,24 +363,109 @@ export default function AssessPage() {
               disabled={isClassifying}
               className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-white dark:bg-gray-900 text-sm focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 resize-y disabled:opacity-60"
             />
-            <div className="mt-2 flex items-center justify-between gap-3 flex-wrap">
+            <div className="mt-1 text-right">
               <span className="text-xs text-gray-500">{tr.describe.chars(description.length)}</span>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setDescribeCollapsed(true)}
-                  disabled={isClassifying}
-                  className="text-sm px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  {tr.describe.skip}
-                </button>
-                <button
-                  onClick={handleClassify}
-                  disabled={!description.trim() || isClassifying}
-                  className="text-sm px-4 py-1.5 rounded-lg bg-violet-600 text-white font-medium hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                >
-                  {isClassifying ? tr.describe.analyzing : tr.describe.analyze}
-                </button>
-              </div>
+            </div>
+
+            {/* URL — landing page fetcher */}
+            <label className="block mt-3 text-xs font-semibold text-gray-700 dark:text-gray-300">
+              {tr.describe.urlLabel}
+            </label>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-1.5">{tr.describe.urlHint}</p>
+            <input
+              type="url"
+              inputMode="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value.slice(0, 200))}
+              placeholder={tr.describe.urlPlaceholder}
+              disabled={isClassifying}
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-white dark:bg-gray-900 text-sm focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 disabled:opacity-60"
+            />
+
+            {/* File dropzone — whitepaper / pitch deck / term sheet */}
+            <label className="block mt-3 text-xs font-semibold text-gray-700 dark:text-gray-300">
+              {tr.describe.filesLabel}
+            </label>
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 mb-1.5">{tr.describe.filesHint}</p>
+            <label
+              htmlFor="assess-file-input"
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                const dropped = Array.from(e.dataTransfer.files);
+                handleAddFiles(dropped);
+              }}
+              className={`block cursor-pointer border-2 border-dashed rounded-lg px-3 py-4 text-center text-xs transition-colors ${
+                isDragging
+                  ? 'border-violet-500 bg-violet-100/60 dark:bg-violet-900/30'
+                  : 'border-gray-300 dark:border-gray-700 hover:border-violet-400 dark:hover:border-violet-600 bg-white/60 dark:bg-gray-900/40'
+              } ${isClassifying ? 'opacity-60 cursor-not-allowed' : ''}`}
+            >
+              <span className="text-gray-600 dark:text-gray-400">{tr.describe.filesDrop}</span>
+              <input
+                id="assess-file-input"
+                type="file"
+                multiple
+                accept=".pdf,.docx,.md,.markdown,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/markdown,text/plain"
+                disabled={isClassifying}
+                className="sr-only"
+                onChange={(e) => {
+                  const picked = Array.from(e.target.files ?? []);
+                  handleAddFiles(picked);
+                  // Reset so re-selecting the same file fires onChange again
+                  e.target.value = '';
+                }}
+              />
+            </label>
+            {files.length > 0 && (
+              <ul className="mt-2 space-y-1">
+                {files.map((f, i) => (
+                  <li
+                    key={`${f.name}-${i}`}
+                    className="flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-md bg-white dark:bg-gray-900 border border-[var(--border)] text-xs"
+                  >
+                    <span className="truncate">
+                      <span className="font-medium">📎 {f.name}</span>
+                      <span className="text-gray-500 ml-2">({Math.round(f.size / 1024)} KB)</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
+                      disabled={isClassifying}
+                      aria-label={tr.describe.fileRemove}
+                      className="text-gray-400 hover:text-red-500 transition-colors shrink-0"
+                    >
+                      ✕
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {fileError && (
+              <p className="mt-2 text-xs text-red-600 dark:text-red-400">{fileError}</p>
+            )}
+
+            <p className="mt-3 text-[11px] text-gray-500 dark:text-gray-400 italic">
+              🔒 {tr.describe.privacyNote}
+            </p>
+
+            <div className="mt-3 flex items-center justify-end gap-2 flex-wrap">
+              <button
+                onClick={() => setDescribeCollapsed(true)}
+                disabled={isClassifying}
+                className="text-sm px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                {tr.describe.skip}
+              </button>
+              <button
+                onClick={handleClassify}
+                disabled={(!description.trim() && !url.trim() && files.length === 0) || isClassifying}
+                className="text-sm px-4 py-1.5 rounded-lg bg-violet-600 text-white font-medium hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                {isClassifying ? tr.describe.analyzing : tr.describe.analyze}
+              </button>
             </div>
             {classifyError && (
               <p className="mt-2 text-xs text-red-600 dark:text-red-400">{classifyError}</p>
@@ -331,6 +497,32 @@ export default function AssessPage() {
                 <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400 italic truncate">
                   « {description} »
                 </p>
+              )}
+              {sourceReports.length > 0 && (
+                <ul className="mt-2 flex flex-wrap gap-1.5">
+                  {sourceReports.map((r, i) => {
+                    const ok = r.kind === 'description' ? true : r.ok;
+                    const label =
+                      r.kind === 'description'
+                        ? `📝 ${tr.describe.sourceDescription} · ${r.chars} ${tr.describe.charsUnit}`
+                        : r.kind === 'url'
+                          ? `🔗 ${ok ? r.chars ?? 0 : 0} ${tr.describe.charsUnit}${r.truncated ? ' …' : ''}`
+                          : `📎 ${r.filename}${r.truncated ? ' …' : ''}`;
+                    const errorPart = !ok && 'error' in r && r.error ? ` (${r.error})` : '';
+                    return (
+                      <li
+                        key={i}
+                        className={`text-[10px] px-2 py-0.5 rounded-md ${
+                          ok
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200'
+                            : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200'
+                        }`}
+                      >
+                        {ok ? '✓' : '✗'} {label}{errorPart}
+                      </li>
+                    );
+                  })}
+                </ul>
               )}
             </div>
             <button
