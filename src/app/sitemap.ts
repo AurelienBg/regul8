@@ -20,10 +20,13 @@ const ROUTES = [
   '/assess/quick/jurisdiction',
   '/search',
   '/learn/glossary',
-  '/learn/xrpl',
-  '/learn/xrpl/tech',
-  '/learn/xrpl/custody',
+  // XRPL hub — 4 real-route tabs. The bare /learn/xrpl now redirects to
+  // /learn/xrpl/legal so we list only the canonical sub-routes (alphabetical
+  // order with Legal first, matching the tab order in the UI).
+  '/learn/xrpl/legal',
   '/learn/xrpl/companies',
+  '/learn/xrpl/custody',
+  '/learn/xrpl/tech',
   '/learn/usecases',
   '/learn/concepts',
   // Concept-led topic landing pages — 1 hub + 8 concept pages.

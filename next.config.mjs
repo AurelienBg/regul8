@@ -125,6 +125,14 @@ const nextConfig = {
         destination: '/:locale/learn/topics/:path*',
         permanent: true,
       },
+      // /learn/xrpl → /learn/xrpl/legal (April 2026 — Legal status got its
+      // own /legal sub-route for parity with the other tabs; the bare
+      // hub URL now redirects to that canonical page).
+      {
+        source: '/:locale(en|fr)/learn/xrpl',
+        destination: '/:locale/learn/xrpl/legal',
+        permanent: true,
+      },
     ];
   },
 };

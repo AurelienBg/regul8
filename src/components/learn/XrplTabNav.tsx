@@ -4,38 +4,53 @@ import { useLocale } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 
 /**
- * Sub-tab navigation for /learn/xrpl/{legal,tech,custody,companies}.
+ * Sub-tab navigation for /learn/xrpl/{legal,companies,custody,tech}.
  *
  * Renders 4 anchor-style tab links. Active state is derived from the
  * pathname so each tab is a real route — bookmarkable, browser-back
  * native, individually indexable by search engines (each route has its
  * own generateMetadata in its page.tsx).
  *
- * The 'legal' tab maps to the bare /learn/xrpl path (default) — no
- * /learn/xrpl/legal sub-route.
+ * Order: 🌍 Legal status (the meta-overview) first, then the three
+ * detail tabs alphabetically (Companies, Custody, Technology).
+ *
+ * The bare /learn/xrpl URL redirects to /learn/xrpl/legal. The Legal
+ * tab's active matcher still recognises the bare URL during the
+ * redirect roundtrip so the highlight is correct on cold first paint.
  */
 export default function XrplTabNav() {
   const pathname = usePathname();
   const locale = useLocale();
   const isFr = locale === 'fr';
 
-  // Active tab detection — pathname shape after locale stripping by
-  // next-intl. Trailing-slash safe via startsWith fallback.
-  const isActive = (key: 'legal' | 'tech' | 'custody' | 'companies') => {
-    if (key === 'legal') return pathname === '/learn/xrpl' || pathname === '/learn/xrpl/';
-    return pathname === `/learn/xrpl/${key}` || pathname.startsWith(`/learn/xrpl/${key}/`);
+  const isActive = (key: 'legal' | 'companies' | 'custody' | 'tech') => {
+    if (key === 'legal') {
+      // Match either the new canonical /learn/xrpl/legal OR the legacy
+      // bare /learn/xrpl (during the redirect window / SSR roundtrip).
+      return (
+        pathname === '/learn/xrpl/legal' ||
+        pathname.startsWith('/learn/xrpl/legal/') ||
+        pathname === '/learn/xrpl' ||
+        pathname === '/learn/xrpl/'
+      );
+    }
+    return (
+      pathname === `/learn/xrpl/${key}` ||
+      pathname.startsWith(`/learn/xrpl/${key}/`)
+    );
   };
 
+  // Order: Legal first (meta-overview), then alphabetical.
   const tabs = [
     {
       key: 'legal' as const,
-      href: '/learn/xrpl' as const,
+      href: '/learn/xrpl/legal' as const,
       label: isFr ? '🌍 Statut légal' : '🌍 Legal status',
     },
     {
-      key: 'tech' as const,
-      href: '/learn/xrpl/tech' as const,
-      label: isFr ? '⚡ Technologie' : '⚡ Technology',
+      key: 'companies' as const,
+      href: '/learn/xrpl/companies' as const,
+      label: isFr ? '🏢 Entreprises' : '🏢 Companies',
     },
     {
       key: 'custody' as const,
@@ -43,9 +58,9 @@ export default function XrplTabNav() {
       label: isFr ? '🔐 Custody' : '🔐 Custody',
     },
     {
-      key: 'companies' as const,
-      href: '/learn/xrpl/companies' as const,
-      label: isFr ? '🏢 Entreprises' : '🏢 Companies',
+      key: 'tech' as const,
+      href: '/learn/xrpl/tech' as const,
+      label: isFr ? '⚡ Technologie' : '⚡ Technology',
     },
   ];
 
