@@ -283,7 +283,10 @@
     "tableFeature": "Feature",
     "tableStandard": "Standard",
     "tableStatus": "Status",
-    "tableRegNote": "Regulatory note"
+    "tableRegNote": "Regulatory note",
+    "upcomingTitle": "Upcoming amendments — what compliance should watch",
+    "upcomingSubtitle": "Selected XRPL protocol amendments in development or proposal. Each row notes what the change does + why a compliance team should care.",
+    "tableImpact": "Compliance impact"
   },
   "common": {
     "disclaimer": "Regul8 provides general information for educational purposes only. This is not legal advice. Information may not be up to date. Always consult a qualified lawyer specializing in digital asset law for advice specific to your situation.",

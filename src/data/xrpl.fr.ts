@@ -57,9 +57,9 @@ export const XRPL_KNOWLEDGE_FR = {
     status: "En production (2022)"
   },
   mpt_xls33: {
-    summary: "Standard Multi-Purpose Token (XLS-33, en développement en 2025). Jetons programmables avec frais de transfert, conditions de verrouillage, exigences d'autorisation et flags de conformité nativement sur XRPL.",
+    summary: "Standard Multi-Purpose Token (XLS-33, activé sur Mainnet en 2025). Jetons programmables avec frais de transfert, conditions de verrouillage, exigences d'autorisation et flags de conformité nativement sur XRPL.",
     regulatory_note: "Pas de catégorie MiCA explicite. Pourrait être Utility Token, EMT ou ART selon l'usage. lsfRequireAuth permet un filtrage KYC on-chain. lsfLocked permet des gels AML. Une qualification juridique est essentielle avant le lancement.",
-    status: "En développement (2025)"
+    status: "En production (2025)"
   },
   rlusd: {
     summary: "RLUSD est le stablecoin adossé au dollar américain émis par Ripple à la fois sur le XRPL Mainnet et Ethereum. Lancé fin 2024. Implémentation de référence d'un stablecoin régulé sur XRPL.",
@@ -92,13 +92,62 @@ export const XRPL_FEATURES_FR = [
   { name: "DEX natif", standard: "Protocole", status: "En production", note: "Le front-end peut déclencher un CASP" },
   { name: "AMM", standard: "XLS-30", status: "En production (2024)", note: "Pools de liquidité — analyse CASP pour le front-end" },
   { name: "NFT", standard: "XLS-20", status: "En production (2022)", note: "Mode broker = non custodial" },
-  { name: "MPT", standard: "XLS-33", status: "En développement (2025)", note: "Pas de catégorie MiCA explicite" },
+  { name: "MPT", standard: "XLS-33", status: "En production (2025)", note: "Activé sur Mainnet en 2025 · pas de catégorie MiCA explicite — au cas par cas" },
   { name: "RLUSD", standard: "—", status: "En production (2024)", note: "EMT de référence sur XRPL" },
   { name: "Payment Channels", standard: "Protocole", status: "En production", note: "Pas de conservation — pas de CASP" },
   { name: "Escrow", standard: "Protocole", status: "En production", note: "Pas de conservation si verrouillé dans le temps" },
   { name: "IOU / Trust Lines", standard: "Protocole", status: "En production", note: "Gateway = custodial" },
   { name: "Checks", standard: "Protocole", status: "En production", note: "Pas de conservation" },
 ];
+
+/**
+ * Amendments XRPL à venir / proposés, suivis pour leur impact compliance.
+ * Sélection à jour de la roadmap publique XRPL — avril 2026. Chaque entrée
+ * décrit CE QUE l'amendment change et POURQUOI un compliance officer s'y
+ * intéresse.
+ *
+ * Statuts : "Proposé" (XLS soumis, pas encore sur testnet),
+ * "Testnet" (en exécution sur devnet/testnet, en attente d'activation mainnet),
+ * "Vote" (les validateurs évaluent l'activation mainnet).
+ */
+export const XRPL_UPCOMING_AMENDMENTS_FR = [
+  {
+    name: "Permissioned Domains",
+    standard: "XLS-46",
+    status: "Testnet",
+    note: "Filtrage credential-based au niveau protocole — l'émetteur définit un 'domaine' de comptes KYC-vérifiés. Filtrage de conformité on-ledger sans whitelist off-chain.",
+    complianceImpact: "Primitive KYC native. Réduit la dépendance aux allowlists applicatives. Important pour les scénarios MiCA Art. 75 + Travel Rule où les transferts régulés doivent être restreints à un domaine.",
+  },
+  {
+    name: "Lending Protocol",
+    standard: "XLS-65",
+    status: "Testnet",
+    note: "Pools de prêt single-asset natifs sur XRPL. Emprunteurs, prêteurs et primitive vault — taux d'intérêt gérés par règles protocolaires.",
+    complianceImpact: "Le lending = activité régulée dans la plupart des juri (scope CASP lending sous MiCA, MiFID II pour la dette tokenisée). Le front-end nécessite probablement une licence ; le lending protocol-natif soulève des questions DeFi décentralisée.",
+  },
+  {
+    name: "Single Asset Vault",
+    standard: "XLS-72",
+    status: "Proposé",
+    note: "Primitive vault générique pour fonds tokenisés, tranches, et produits structurés. L'émetteur crée un vault détenant un seul type d'actif ; les share tokens émis représentent les droits.",
+    complianceImpact: "Levier direct pour la RWA tokenisée + les fonds tokenisés. Probablement capturé par le Prospectus Reg. + AIFMD si fund-like. DLT Pilot Regime applicable pour les venues de security tokens.",
+  },
+  {
+    name: "Permissioned DEX",
+    standard: "XLS-70",
+    status: "Proposé",
+    note: "Carnets d'ordres DEX restreints aux participants détenant un credential spécifique (ex. KYC-vérifié). Combine le carnet d'ordres natif XRPL avec le gating des Permissioned Domains.",
+    complianceImpact: "Permet aux venues régulées (MTF MiFID II / exchange CASP MiCA) d'opérer une couche de trading permissionnée on-ledger. Alignement substantiel avec MiCA Art. 76+.",
+  },
+  {
+    name: "Cross-Chain Bridge",
+    standard: "XLS-38d",
+    status: "Vote",
+    note: "Primitives de bridge protocolaires (witnesses, claims, attestations) pour déplacer des actifs entre XRPL Mainnet et les sidechains (notamment l'EVM Sidechain).",
+    complianceImpact: "Actifs bridgés = IOU wrappé sur la chaîne destination. Analyse custody requise des deux côtés. Le witness server set peut lui-même qualifier comme service CASP selon l'architecture.",
+  },
+];
+
 
 export const XRPL_CUSTODY_METHODS_FR: XRPLCustodyMethod[] = [
   {

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { XRPL_FEATURES, XRPL_KNOWLEDGE } from '@/data/xrpl';
-import { XRPL_FEATURES_FR, XRPL_KNOWLEDGE_FR } from '@/data/xrpl.fr';
+import { XRPL_FEATURES, XRPL_KNOWLEDGE, XRPL_UPCOMING_AMENDMENTS } from '@/data/xrpl';
+import { XRPL_FEATURES_FR, XRPL_KNOWLEDGE_FR, XRPL_UPCOMING_AMENDMENTS_FR } from '@/data/xrpl.fr';
+import LinkedText from '@/components/ui/LinkedText';
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const isFr = params.locale === 'fr';
@@ -21,6 +22,7 @@ export default async function XrplTechPage() {
   const t = await getTranslations('xrpl');
   const knowledge = isFr ? XRPL_KNOWLEDGE_FR : XRPL_KNOWLEDGE;
   const features = isFr ? XRPL_FEATURES_FR : XRPL_FEATURES;
+  const upcoming = isFr ? XRPL_UPCOMING_AMENDMENTS_FR : XRPL_UPCOMING_AMENDMENTS;
 
   return (
     <>
@@ -35,7 +37,7 @@ export default async function XrplTechPage() {
         </div>
       </section>
 
-      <section>
+      <section className="mb-10">
         <h2 className="text-xl font-bold mb-4">{t('nativeFeatures')}</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -54,6 +56,42 @@ export default async function XrplTechPage() {
                   <td className="p-3"><code className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800">{f.standard}</code></td>
                   <td className="p-3 text-xs">{f.status}</td>
                   <td className="p-3 text-xs text-gray-600 dark:text-gray-400">{f.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Upcoming amendments — what compliance should watch */}
+      <section>
+        <h2 className="text-xl font-bold mb-2">{t('upcomingTitle')}</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{t('upcomingSubtitle')}</p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-[var(--border)]">
+                <th className="text-left p-3">{t('tableFeature')}</th>
+                <th className="text-left p-3">{t('tableStandard')}</th>
+                <th className="text-left p-3">{t('tableStatus')}</th>
+                <th className="text-left p-3">{t('tableRegNote')}</th>
+                <th className="text-left p-3">{t('tableImpact')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {upcoming.map((a) => (
+                <tr key={a.name} className="border-b border-[var(--border)]">
+                  <td className="p-3 font-medium">{a.name}</td>
+                  <td className="p-3"><code className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800">{a.standard}</code></td>
+                  <td className="p-3 text-xs">
+                    <span className="inline-block px-2 py-0.5 rounded-md text-[10px] font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
+                      {a.status}
+                    </span>
+                  </td>
+                  <td className="p-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{a.note}</td>
+                  <td className="p-3 text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <LinkedText>{a.complianceImpact}</LinkedText>
+                  </td>
                 </tr>
               ))}
             </tbody>

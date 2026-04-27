@@ -283,7 +283,10 @@
     "tableFeature": "Fonctionnalité",
     "tableStandard": "Standard",
     "tableStatus": "Statut",
-    "tableRegNote": "Note réglementaire"
+    "tableRegNote": "Note réglementaire",
+    "upcomingTitle": "Amendments à venir — ce que la compliance doit surveiller",
+    "upcomingSubtitle": "Sélection d'amendments XRPL en développement ou proposition. Chaque ligne décrit ce que change l'amendment + pourquoi une équipe compliance s'y intéresse.",
+    "tableImpact": "Impact compliance"
   },
   "common": {
     "disclaimer": "Regul8 fournit des informations générales à des fins éducatives uniquement. Ce n'est pas un conseil juridique. Les informations peuvent ne pas être à jour. Consultez toujours un avocat qualifié spécialisé en droit des actifs numériques pour des conseils adaptés à votre situation spécifique.",

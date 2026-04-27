@@ -55,9 +55,9 @@ export const XRPL_KNOWLEDGE = {
     status: "Live (2022)"
   },
   mpt_xls33: {
-    summary: "Multi-Purpose Token standard (XLS-33, in development 2025). Programmable tokens with transfer fees, lock conditions, authorization requirements, and compliance flags natively on XRPL.",
+    summary: "Multi-Purpose Token standard (XLS-33, activated on Mainnet in 2025). Programmable tokens with transfer fees, lock conditions, authorization requirements, and compliance flags natively on XRPL.",
     regulatory_note: "No explicit MiCA category. Could be Utility Token, EMT, or ART depending on use. lsfRequireAuth enables on-chain KYC gating. lsfLocked enables AML holds. Legal qualification critical before launch.",
-    status: "In development (2025)"
+    status: "Live (2025)"
   },
   rlusd: {
     summary: "RLUSD is Ripple's USD-backed stablecoin issued on both XRPL Mainnet and Ethereum. Launched late 2024. Reference implementation of a regulated stablecoin on XRPL.",
@@ -90,10 +90,58 @@ export const XRPL_FEATURES = [
   { name: "Native DEX", standard: "Protocol", status: "Live", note: "Front-end may trigger CASP" },
   { name: "AMM", standard: "XLS-30", status: "Live (2024)", note: "Liquidity pools \u2014 CASP analysis for front-end" },
   { name: "NFT", standard: "XLS-20", status: "Live (2022)", note: "Broker mode = non-custodial" },
-  { name: "MPT", standard: "XLS-33", status: "In development (2025)", note: "No explicit MiCA category" },
+  { name: "MPT", standard: "XLS-33", status: "Live (2025)", note: "Activated on Mainnet 2025 · no explicit MiCA category — case-by-case" },
   { name: "RLUSD", standard: "\u2014", status: "Live (2024)", note: "EMT reference on XRPL" },
   { name: "Payment Channels", standard: "Protocol", status: "Live", note: "No custody \u2014 no CASP" },
   { name: "Escrow", standard: "Protocol", status: "Live", note: "No custody if time-locked" },
   { name: "IOU / Trust Lines", standard: "Protocol", status: "Live", note: "Gateway = custodial" },
   { name: "Checks", standard: "Protocol", status: "Live", note: "No custody" },
 ];
+
+/**
+ * Upcoming / proposed XRPL protocol amendments tracked for compliance impact.
+ * Hand-curated from the public XRPL roadmap as of April 2026. Each entry
+ * describes WHAT the amendment changes and WHY a compliance officer cares.
+ *
+ * Status values: "Proposed" (XLS submitted, not yet on testnet),
+ * "Testnet" (running on devnet/testnet, awaiting mainnet activation),
+ * "Voting" (validators evaluating mainnet activation).
+ */
+export const XRPL_UPCOMING_AMENDMENTS = [
+  {
+    name: "Permissioned Domains",
+    standard: "XLS-46",
+    status: "Testnet",
+    note: "Credential-based gating at protocol level — issuer can define a 'domain' of KYC-verified accounts. On-ledger compliance gating without an off-chain whitelist.",
+    complianceImpact: "Native KYC primitive. Reduces reliance on app-layer allowlists. Material for MiCA Art. 75 + Travel Rule scenarios where regulated transfers must be domain-restricted.",
+  },
+  {
+    name: "Lending Protocol",
+    standard: "XLS-65",
+    status: "Testnet",
+    note: "Native single-asset lending pools on XRPL. Borrowers, lenders and a vault primitive — interest rates managed by protocol-level rules.",
+    complianceImpact: "Lending = regulated activity in most juri (CASP lending scope under MiCA, MiFID II for tokenised debt). Front-end likely needs licence; protocol-native lending raises decentralised-DeFi questions.",
+  },
+  {
+    name: "Single Asset Vault",
+    standard: "XLS-72",
+    status: "Proposed",
+    note: "Generic vault primitive for tokenised funds, tranches, and structured products. Issuer creates a vault holding one asset type; share tokens issued represent claims.",
+    complianceImpact: "Direct enabler for tokenised RWA + tokenised funds. Likely captured by Prospectus Reg. + AIFMD if fund-like. DLT Pilot Regime applicable for security-token venues.",
+  },
+  {
+    name: "Permissioned DEX",
+    standard: "XLS-70",
+    status: "Proposed",
+    note: "DEX order books restricted to participants holding a specific credential (e.g. KYC-verified). Combines XRPL's native order book with Permissioned Domains gating.",
+    complianceImpact: "Allows regulated venues (MiFID II MTF / MiCA CASP exchange) to operate a permissioned trading layer on-ledger. Substantial alignment with MiCA Art. 76+.",
+  },
+  {
+    name: "Cross-Chain Bridge",
+    standard: "XLS-38d",
+    status: "Voting",
+    note: "Native protocol bridge primitives (witnesses, claims, attestations) for moving assets between XRPL Mainnet and sidechains (notably the EVM Sidechain).",
+    complianceImpact: "Bridged assets = wrapped IOU on the destination chain. Custody analysis needed on both sides. Witness server set may itself qualify as a CASP service depending on architecture.",
+  },
+];
+
