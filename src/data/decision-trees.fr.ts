@@ -654,11 +654,619 @@ export const JURISDICTION_TREE_FR: DecisionTree = {
   },
 }
 
+export const MICA_CLASSIFICATION_TREE_FR: DecisionTree = {
+  "id": "mica-classification",
+  "title": "Comment mon token est-il classé sous MiCA ?",
+  "description": "Parcourez la taxonomie MiCA en 3 niveaux — E-Money Token (EMT), Asset-Referenced Token (ART) ou Other crypto-asset. La classification détermine la licence et les obligations applicables.",
+  "icon": "🪙",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Votre token est-il indexé 1:1 sur une seule devise officielle (EUR, USD, GBP, JPY, CHF…) ?",
+      "hint": "L'EMT exige un peg sur une seule devise. RLUSD (USD), EURC, USDC, USDT qualifient tous. Un token référençant plusieurs devises ou autre chose n'est PAS un EMT.",
+      "choices": [
+        {
+          "label": "Oui — peg fiat unique",
+          "next": "q2"
+        },
+        {
+          "label": "Non",
+          "next": "q3"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "L'émetteur maintiendra-t-il une réserve (cash + HQLA) et offrira-t-il un remboursement à valeur faciale, à la demande, T+1 ?",
+      "hint": "MiCA Art. 49 + 50 exigent un remboursement à valeur faciale + composition des réserves. Pas d'intérêt aux détenteurs. L'émetteur doit être EME ou établissement de crédit.",
+      "choices": [
+        {
+          "label": "Oui",
+          "next": "out-emt"
+        },
+        {
+          "label": "Non / pas sûr",
+          "next": "out-emt-non-compliant"
+        }
+      ]
+    },
+    "q3": {
+      "type": "question",
+      "question": "La valeur du token est-elle référencée à L'UN DES suivants : un panier de devises, des matières premières (or, pétrole…), des crypto-actifs, des actifs réels (immobilier, obligations…), ou toute combinaison ?",
+      "hint": "L'ART couvre tout-sauf-peg-fiat-unique avec un mécanisme de stabilisation. Tokens or-backed, paniers crypto, paniers multi-devises, stablecoins RWA-backed tombent ici.",
+      "choices": [
+        {
+          "label": "Oui — référence multi-actifs / non-fiat",
+          "next": "q4"
+        },
+        {
+          "label": "Pas de référence / pas de mécanisme de stabilisation",
+          "next": "q5"
+        }
+      ]
+    },
+    "q4": {
+      "type": "question",
+      "question": "L'émetteur détiendra-t-il une réserve de ces actifs de référence (ou équivalent) et en publiera-t-il la composition ?",
+      "hint": "MiCA Art. 35 + 36 — transparence des réserves, ségrégation, monitoring quotidien pour l'ART significatif (>€5B / >10M détenteurs). Émetteur autorisé par la NCA d'origine.",
+      "choices": [
+        {
+          "label": "Oui",
+          "next": "out-art"
+        },
+        {
+          "label": "Non / pas sûr",
+          "next": "out-art-non-compliant"
+        }
+      ]
+    },
+    "q5": {
+      "type": "question",
+      "question": "Le token a-t-il un émetteur identifiable ou une offre centralisée (ICO, IDO, distribution par fondation) ?",
+      "hint": "Bitcoin et les tokens vraiment décentralisés pré-2024 antérieurs à MiCA peuvent échapper à la classification. Tout ce qui est lancé avec un émetteur clair tombe dans 'Other crypto-asset'.",
+      "choices": [
+        {
+          "label": "Oui — émetteur identifiable",
+          "next": "out-other-crypto-asset"
+        },
+        {
+          "label": "Non — entièrement décentralisé, pas d'origine centrale",
+          "next": "out-out-of-scope"
+        }
+      ]
+    },
+    "out-emt": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "EMT — E-Money Token (MiCA Titre III)",
+      "explanation": "Votre token est un E-Money Token. L'émetteur doit être un Établissement de Monnaie Électronique (EME) agréé ou un établissement de crédit. Notification du whitepaper + remboursement-à-valeur-faciale + ségrégation des réserves sont obligatoires.",
+      "nextSteps": [
+        "L'émetteur a besoin d'un agrément EME (EMD2, devenant EMD3) OU du statut d'établissement de crédit",
+        "Déposer le whitepaper MiCA auprès de la NCA d'origine avant toute offre",
+        "Réserves 1:1 en cash + HQLA, ségrégées bankruptcy-remote",
+        "Pas d'intérêt ni de yield aux détenteurs (MiCA Art. 50)",
+        "Si >€5Md émis ou >10M détenteurs → Significant EMT (S-EMT) → supervision directe ECB",
+        "Angle XRPL : RLUSD est l'implémentation EMT-sur-XRPL de référence (modèle IOU / Trust Line)"
+      ],
+      "relatedTerms": [
+        "EMT",
+        "MiCA",
+        "EMI",
+        "S-EMT",
+        "RLUSD"
+      ]
+    },
+    "out-emt-non-compliant": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Voie EMT — structure non-conforme",
+      "explanation": "Votre token vise une qualification EMT mais les mécaniques de remboursement / réserve ne respectent pas MiCA Art. 49-50. Sans ces éléments, vous ne pouvez pas opérer comme EMT en UE.",
+      "nextSteps": [
+        "Restructurer : nommer un EME ou s'associer à un établissement de crédit",
+        "Implémenter le remboursement T+1 à valeur faciale + réserve 1:1 cash + HQLA",
+        "Ou pivoter sur la voie ART (asset-referenced) si une structure panier convient",
+        "Ou pivoter sur Other crypto-asset sans claim de peg — mais vous ne pouvez plus marketer comme stablecoin"
+      ],
+      "relatedTerms": [
+        "EMT",
+        "MiCA",
+        "ART"
+      ]
+    },
+    "out-art": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "ART — Asset-Referenced Token (MiCA Titre IV)",
+      "explanation": "Votre token est un Asset-Referenced Token. L'autorisation par votre NCA d'origine est obligatoire avant toute offre. Les règles de composition + transparence des réserves s'appliquent.",
+      "nextSteps": [
+        "Déposer la demande d'autorisation ART auprès de la NCA d'origine",
+        "Whitepaper MiCA + disclosure de la composition des réserves",
+        "Actifs de réserve ségrégés, monitoring quotidien",
+        "Si >€5Md émis ou >10M détenteurs → Significant ART (S-ART) → supervision directe ECB + EBA",
+        "Restrictions marketing : pas de promesse d'investissement, pas de yield (MiCA Art. 40)"
+      ],
+      "relatedTerms": [
+        "ART",
+        "MiCA",
+        "S-ART",
+        "EBA"
+      ]
+    },
+    "out-art-non-compliant": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Voie ART — structure non-conforme",
+      "explanation": "Votre token référence plusieurs actifs mais vous ne prévoyez pas de l'adosser à une réserve vérifiable. Ce n'est pas un ART viable sous MiCA.",
+      "nextSteps": [
+        "Restructurer avec une réserve auditée + mécanisme de transparence",
+        "Ou abandonner le claim de stabilisation → le token devient Other crypto-asset",
+        "Les stablecoins synthétiques / algorithmiques NE sont PAS autorisés comme ART sous MiCA"
+      ],
+      "relatedTerms": [
+        "ART",
+        "MiCA"
+      ]
+    },
+    "out-other-crypto-asset": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Other crypto-asset (MiCA Titre II)",
+      "explanation": "Votre token relève de la voie MiCA la plus légère — Other crypto-asset. Une notification de whitepaper (pas une autorisation complète) suffit. Adapté aux utility tokens, governance tokens, et la plupart des tokens Web3-natifs.",
+      "nextSteps": [
+        "Notifier le whitepaper à la NCA d'origine (Art. 8) — pas d'autorisation, juste notification",
+        "Responsabilité de 12 mois sur l'exactitude du whitepaper (Art. 14)",
+        "Marketing cohérent avec le whitepaper (Art. 7)",
+        "Pas de promesse d'investissement / yield (Art. 7-9 règles marketing)",
+        "Agrément CASP requis pour les plateformes de distribution / trading",
+        "Angle XRPL : MPT (XLS-33) est conçu spécialement pour cette catégorie — flags de conformité programmables alignés"
+      ],
+      "relatedTerms": [
+        "Other crypto-asset",
+        "MiCA",
+        "Utility Token",
+        "CASP",
+        "MPT"
+      ]
+    },
+    "out-out-of-scope": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Hors scope MiCA (rare)",
+      "explanation": "Les tokens vraiment décentralisés sans émetteur identifiable et sans distribution centrale peuvent sortir de MiCA — réalistement, cela ne s'applique qu'à Bitcoin et quelques tokens protocole-natifs pré-2024. Les nouveaux lancements ne qualifient quasi jamais.",
+      "nextSteps": [
+        "Vérifier qu'il n'y a réellement pas d'émetteur / promoteur / fondation",
+        "Les CASP qui négocient le token nécessitent toujours un agrément MiCA — seul l'actif lui-même échappe",
+        "Un avis juridique est essentiel — la Q&A ESMA sur 'fully decentralised' est étroite"
+      ],
+      "relatedTerms": [
+        "MiCA",
+        "Decentralisation",
+        "CASP"
+      ]
+    }
+  }
+};
+
+export const GENIUS_STABLECOIN_TREE_FR: DecisionTree = {
+  "id": "genius-stablecoin",
+  "title": "Suis-je dans le scope du GENIUS Act ?",
+  "description": "Le GENIUS Act (signé juillet 2025) établit le cadre fédéral US pour les payment stablecoins. Parcourez la logique d'éligibilité + sélection de voie.",
+  "icon": "💵",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Votre token est-il un 'payment stablecoin' — conçu pour maintenir une valeur stable (typiquement peggé 1:1 USD) et utilisé pour des paiements / transferts ?",
+      "hint": "GENIUS cible spécifiquement les payment stablecoins (USDC, USDT, RLUSD sur XRPL, PYUSD…). Pas de yield-bearing, pas d'algorithmique, pas de commodity-backed. Les tokens à caractéristiques security relèvent de la SEC.",
+      "choices": [
+        {
+          "label": "Oui — payment stablecoin USD-peggé",
+          "next": "q2"
+        },
+        {
+          "label": "Non — algorithmique / yield / commodity-backed / non-USD",
+          "next": "out-not-stablecoin"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Les réserves seront-elles détenues en cash + US Treasuries court-terme (<93 jours) + repos, avec disclosures mensuelles ?",
+      "hint": "GENIUS Sec. 4 — règles strictes sur la composition des réserves. Disclosures mensuelles signées CFO + attestation indépendante annuelle. Pas de dépôts bancaires au-dessus des limites FDIC. Pas de commercial paper, pas d'obligations corporate.",
+      "choices": [
+        {
+          "label": "Oui",
+          "next": "q3"
+        },
+        {
+          "label": "Non / pas sûr",
+          "next": "out-not-genius-compliant"
+        }
+      ]
+    },
+    "q3": {
+      "type": "question",
+      "question": "Où l'émetteur est-il localisé ?",
+      "hint": "GENIUS autorise trois voies : (a) US fédéral-qualifié, (b) US état-qualifié (sous $10Md émis), (c) émetteur étranger d'une juridiction 'comparable regime' (réciprocité).",
+      "choices": [
+        {
+          "label": "Incorporé aux US",
+          "next": "q4"
+        },
+        {
+          "label": "Étranger — comparable regime (UE MiCA, Singapour MAS, UK FCA…)",
+          "next": "out-passportable"
+        },
+        {
+          "label": "Étranger — autre (pas de comparable regime)",
+          "next": "out-not-eligible"
+        }
+      ]
+    },
+    "q4": {
+      "type": "question",
+      "question": "Visez-vous plus de $10Md de market cap émise ?",
+      "hint": "Voie duale GENIUS : OCC Payment Stablecoin Issuer charter fédéral requis au-dessus de $10Md. Voie state-qualified disponible sous $10Md.",
+      "choices": [
+        {
+          "label": "Oui — au-dessus de $10Md",
+          "next": "out-federal-occ"
+        },
+        {
+          "label": "Non — sous $10Md",
+          "next": "q5"
+        }
+      ]
+    },
+    "q5": {
+      "type": "question",
+      "question": "Distribuerez-vous le stablecoin à des utilisateurs dans plusieurs États US ?",
+      "hint": "L'OCC charter fédéral couvre automatiquement les 50 États. La voie state-qualified exige des autorisations état-par-état (chaque État a ses propres règles d'émetteur qualifié).",
+      "choices": [
+        {
+          "label": "Oui — distribution multi-États",
+          "next": "out-federal-or-state-multi"
+        },
+        {
+          "label": "Non — un seul État dans un premier temps",
+          "next": "out-state-qualified"
+        }
+      ]
+    },
+    "out-not-stablecoin": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Hors scope GENIUS Act",
+      "explanation": "Votre token n'est pas un payment stablecoin au sens GENIUS. Les tokens algorithmiques, commodity-backed, yield-bearing ou non-USD relèvent d'autres cadres US (SEC pour les security tokens, CFTC pour les commodities).",
+      "nextSteps": [
+        "Évaluer la classification SEC (lancer le diagnostic Howey Test)",
+        "La CFTC peut s'appliquer aux tokens commodity-backed",
+        "Les lois state-level money transmitter peuvent encore s'appliquer si vous facilitez des transferts",
+        "Pour les stablecoins non-USD (EUR, GBP…) → la voie EMT MiCA s'applique en UE"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "SEC",
+        "CFTC",
+        "Howey Test",
+        "MTL"
+      ]
+    },
+    "out-not-genius-compliant": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Composition de réserve non-conforme GENIUS",
+      "explanation": "Votre mix de réserve ne respecte pas les standards GENIUS Sec. 4. Vous ne pouvez pas opérer comme émetteur GENIUS-qualifié aux US — mais vous pouvez restructurer.",
+      "nextSteps": [
+        "Restructurer les réserves : cash + US Treasuries court-terme (<93j) + repos uniquement",
+        "Implémenter disclosures mensuelles signées CFO + attestation indépendante annuelle",
+        "Ou pivoter sur la voie EMT MiCA (acceptation HQLA plus large) pour les marchés UE",
+        "Ou opérer comme token non-stablecoin sans claim de peg (mais perte du use case)"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "EMT",
+        "MiCA"
+      ]
+    },
+    "out-passportable": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Émetteur étranger — passportable aux US",
+      "explanation": "GENIUS inclut une voie de réciprocité / comparable-regime pour les émetteurs étrangers. Les cadres UE MiCA, Singapour MAS, UK FCA qualifieront probablement. Vous pouvez distribuer aux US persons sous réserve de la détermination de mutual-recognition par Treasury / OCC.",
+      "nextSteps": [
+        "Confirmer que votre régime d'origine est sur la liste comparable-regime (détermination Treasury en cours)",
+        "S'enregistrer comme émetteur étranger auprès de FinCEN + supervision OCC",
+        "Maintenir l'autorisation du régime d'origine (pas de double licensing)",
+        "Le filtrage sanctions OFAC s'applique à toute distribution US-facing",
+        "Angle XRPL : RLUSD (US-issued par Standard Custody / Ripple) est sur la voie fédérale ; les émetteurs UE-EMT étrangers peuvent passporter"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "MiCA",
+        "EMT",
+        "OFAC"
+      ]
+    },
+    "out-not-eligible": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "Émetteur étranger — non-éligible sans restructuration",
+      "explanation": "Votre juridiction d'origine n'est pas sur la liste comparable-regime. Vous ne pouvez pas distribuer légalement le stablecoin à des US persons sous GENIUS. La distribution aux wallets US-based doit être bloquée.",
+      "nextSteps": [
+        "Géo-bloquer les utilisateurs US + filtrage IP au niveau on-ramp / wallet",
+        "Restructurer : ouvrir une filiale US-incorporated comme émetteur GENIUS",
+        "Ou attendre que le régime d'origine obtienne sa détermination comparable-regime",
+        "La conformité sanctions US s'applique même sans distribution active"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "OFAC"
+      ]
+    },
+    "out-federal-occ": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Voie fédérale — OCC Payment Stablecoin Issuer charter requis",
+      "explanation": "Au-dessus de $10Md émis, GENIUS impose la voie fédérale. Vous avez besoin d'un OCC Payment Stablecoin Issuer charter. Application + supervision sous OCC, avec un oversight FDIC-style sur la gestion des réserves.",
+      "nextSteps": [
+        "Déposer la demande OCC Payment Stablecoin Issuer",
+        "Établir composition des réserves + disclosures mensuelles signées CFO dès le jour 1",
+        "Ségrégation bankruptcy-remote des réserves",
+        "Attestation indépendante annuelle par cabinet d'audit enregistré",
+        "Dashboard temps réel des volumes de remboursement pour la supervision OCC",
+        "Exemples : USDC (Circle, passe au fédéral), RLUSD (Ripple via Standard Custody)"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "OCC charter",
+        "FinCEN"
+      ]
+    },
+    "out-federal-or-state-multi": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "Fédéral OCC OU state-qualified multi — votre choix",
+      "explanation": "Sous $10Md et multi-États, vous avez de la flexibilité : (a) charter OCC fédéral (plus large mais plus lent / cher) ou (b) accumuler des autorisations state-qualified à travers les États ciblés.",
+      "nextSteps": [
+        "Driver de décision : OCC charter ~12-24 mois, ~$1M-2M setup. State-qualified ~6-12 mois par État.",
+        "Le fédéral préempte les exigences d'État — conformité courante plus simple",
+        "State-qualified moins cher initialement mais l'overhead conformité scale linéairement avec les États",
+        "La plupart des émetteurs >$1Md passent au fédéral à terme — envisager le fédéral dès le jour 1"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "OCC charter",
+        "MTL",
+        "BitLicense"
+      ]
+    },
+    "out-state-qualified": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Voie state-qualified — émetteur mono-État",
+      "explanation": "Mono-État, sous $10Md, US-incorporated → la voie state-qualified est la plus légère. Chaque État définit ses propres règles d'émetteur qualifié ; les hubs populaires sont NY (NYDFS Trust charter), SD (South Dakota Trust charter), Wyoming.",
+      "nextSteps": [
+        "NYDFS Trust charter (le plus exigeant mais le plus reconnu) — ou State Trust similaire",
+        "Wyoming Special Purpose Depository Institution (SPDI) — plus récent, crypto-friendly",
+        "SD State Trust — utilisé par BitGo, voie rapide",
+        "Délai 6-12 mois · Setup $300K-$700K",
+        "Composition des réserves + disclosures mensuelles s'appliquent quand même (GENIUS prime sur l'État)"
+      ],
+      "relatedTerms": [
+        "GENIUS Act",
+        "NY Trust Charter",
+        "South Dakota Trust Charter",
+        "NYDFS"
+      ]
+    }
+  }
+};
+
+export const TRAVEL_RULE_TREE_FR: DecisionTree = {
+  "id": "travel-rule",
+  "title": "Suis-je soumis à la Travel Rule GAFI ?",
+  "description": "Déterminez si votre activité déclenche les obligations Travel Rule d'échange de données et quel seuil juridictionnel s'applique — UE, US, UK, Singapour et baseline GAFI ont tous des seuils différents.",
+  "icon": "🛂",
+  "rootId": "q1",
+  "nodes": {
+    "q1": {
+      "type": "question",
+      "question": "Opérez-vous comme Virtual Asset Service Provider (VASP) — exchange, custodian, broker, service de transfert, ou on/off-ramp fiat ?",
+      "hint": "La R.15 du GAFI capture toute entreprise qui, comme service pour ou pour le compte d'une autre personne physique ou morale, effectue des transferts d'actifs virtuels ou activités liées. Les éditeurs de wallet logiciel sans custody sont typiquement hors scope.",
+      "choices": [
+        {
+          "label": "Oui — je suis un VASP",
+          "next": "q2"
+        },
+        {
+          "label": "Non — wallet logiciel non-custodial / pure protocol",
+          "next": "out-not-vasp"
+        }
+      ]
+    },
+    "q2": {
+      "type": "question",
+      "question": "Votre service implique-t-il le transfert de crypto-actifs entre deux parties (sender + bénéficiaire) ?",
+      "hint": "La Travel Rule se déclenche spécifiquement sur les TRANSFERTS. La pure custody où les actifs restent sur le même compte ne déclenche pas ; les transferts entre comptes (vous-vers-vous, vous-vers-autre-VASP, vous-vers-self-custody) déclenchent.",
+      "choices": [
+        {
+          "label": "Oui — je déplace des actifs entre parties",
+          "next": "q3"
+        },
+        {
+          "label": "Non — pure custody / pas de transferts initiés",
+          "next": "out-no-transfer"
+        }
+      ]
+    },
+    "q3": {
+      "type": "question",
+      "question": "Quelles juridictions sont impliquées dans le transfert (VASP émetteur et VASP bénéficiaire) ?",
+      "hint": "Chaque juridiction a son propre seuil Travel Rule. Appliquer le plus strict pour tout flux cross-border. Le crypto-to-crypto en UE n'a plus de de minimis depuis le TFR Règl. 2023/1113 (déc. 2024).",
+      "choices": [
+        {
+          "label": "Les deux dans l'UE (TFR Règl. 2023/1113)",
+          "next": "out-eu-tfr"
+        },
+        {
+          "label": "US impliqué (FinCEN BSA Travel Rule)",
+          "next": "out-us-bsa"
+        },
+        {
+          "label": "Singapour impliqué (MAS PSA)",
+          "next": "out-sg-mas"
+        },
+        {
+          "label": "UK impliqué (FCA Travel Rule, sept. 2023+)",
+          "next": "out-uk-trr"
+        },
+        {
+          "label": "Multiple / mixte / autre",
+          "next": "out-mixed"
+        }
+      ]
+    },
+    "out-not-vasp": {
+      "type": "outcome",
+      "verdict": "no",
+      "title": "La Travel Rule NE s'applique PAS — non-VASP",
+      "explanation": "Si vous opérez véritablement un wallet logiciel non-custodial (style Xaman / Lobstr) ou du pure protocol code sans composante de service, la R.15 GAFI ne vous atteint pas. L'utilisateur signe ses propres transactions ; vous ne gérez pas le transfert comme un service.",
+      "nextSteps": [
+        "Valider le framing non-custodial dans vos CGU / architecture",
+        "Pas d'obligations KYC au niveau protocole — mais les opérateurs en aval peuvent en avoir",
+        "Attention : ajouter custody / on-ramp fiat / service broker bascule en statut VASP",
+        "Le TFR UE Règl. 2023/1113 a une carve-out étroite self-hosted-wallet pour les transferts crypto-to-crypto"
+      ],
+      "relatedTerms": [
+        "VASP",
+        "FATF",
+        "Travel Rule"
+      ]
+    },
+    "out-no-transfer": {
+      "type": "outcome",
+      "verdict": "maybe",
+      "title": "La Travel Rule ne se déclenche typiquement pas sur la pure custody",
+      "explanation": "Les services custody-only (les actifs restent sur le même compte, pas de mouvement) ne déclenchent généralement pas l'échange de données Travel Rule. Mais beaucoup de régulateurs appliquent les obligations VASP AML à la custody quand même, et tout mouvement à la sortie déclenche la Travel Rule.",
+      "nextSteps": [
+        "Vérifier que votre framing 'pure custody' est exact — la plupart des custodians offrent des fonctions de transfert",
+        "AML / KYC à l'onboarding restent requis (séparé de la Travel Rule)",
+        "Suspicious Transaction Reports restent requis (juridictionnel)",
+        "Quand des transferts surviennent → relancer ce diagnostic avec le set de juridictions correct"
+      ],
+      "relatedTerms": [
+        "VASP",
+        "AML",
+        "Travel Rule"
+      ]
+    },
+    "out-eu-tfr": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UE — Transfer of Funds Regulation 2023/1113 s'applique (pas de de minimis)",
+      "explanation": "En UE, le TFR (Règl. 2023/1113, applicable déc. 2024) étend la Travel Rule à tous les transferts de crypto-actifs quel que soit le montant — il n'y a PAS de seuil. Les données originator + bénéficiaire doivent accompagner chaque transfert entre CASP.",
+      "nextSteps": [
+        "Pas de de minimis — chaque transfert de tout montant déclenche les données Travel Rule",
+        "Données requises : nom originator, compte/wallet, adresse (pour >€1K), n° d'ID",
+        "Données requises côté bénéficiaire : nom, compte/wallet (adresse seulement >€1K)",
+        "Les transferts self-hosted wallet >€1K déclenchent une vérification additionnelle (TFR Art. 14b)",
+        "Utiliser une solution technique Travel Rule (TRP, TRUST, OpenVASP, Sumsub Travel Rule…)"
+      ],
+      "relatedTerms": [
+        "Travel Rule",
+        "TFR",
+        "CASP",
+        "AMLD6"
+      ]
+    },
+    "out-us-bsa": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "US — FinCEN Travel Rule (BSA) s'applique",
+      "explanation": "Aux US, la Travel Rule BSA (31 CFR 1010.410(f)) s'applique aux transferts >$3,000. FinCEN l'étend au crypto via interpretive guidance. Le seuil pourrait baisser à $250 sous un rulemaking FinCEN proposé — à surveiller.",
+      "nextSteps": [
+        "Seuil actuel $3,000 — réduction proposée à $250 dans un rulemaking FinCEN en cours",
+        "Requis : nom originator, compte, adresse (ou autre identifiant)",
+        "Requis côté bénéficiaire : nom, compte",
+        "Filtrage sanctions OFAC sur chaque transfert quel que soit le montant",
+        "Les détenteurs de BitLicense (NY) sont aussi soumis aux règles d'échange de données NYDFS-spécifiques"
+      ],
+      "relatedTerms": [
+        "Travel Rule",
+        "FinCEN",
+        "BSA",
+        "OFAC"
+      ]
+    },
+    "out-sg-mas": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Singapour — MAS Notice PSN02 s'applique",
+      "explanation": "La MAS étend la Travel Rule aux services Digital Payment Token (DPT) via la Notice PSN02. Seuil S$1,500. Données sender + bénéficiaire requises pour tout transfert au-dessus.",
+      "nextSteps": [
+        "Seuil S$1,500 (~$1,100 USD)",
+        "Requis : nom originator, compte, ID, adresse",
+        "Requis côté bénéficiaire : nom, compte",
+        "Transmission de données en temps réel au VASP bénéficiaire",
+        "MPI / SPI agréés MAS doivent s'enregistrer auprès des fournisseurs de technologie Travel Rule MAS"
+      ],
+      "relatedTerms": [
+        "Travel Rule",
+        "MAS",
+        "DPT",
+        "MPI",
+        "SPI"
+      ]
+    },
+    "out-uk-trr": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "UK — Travel Rule (Money Laundering Regs amendment, sept. 2023)",
+      "explanation": "Le UK a étendu la Travel Rule au crypto via les Money Laundering and Terrorist Financing (Amendment) Regulations 2022, en vigueur sept. 2023. Seuil £1,000 — applicable aux sociétés cryptoasset enregistrées FCA.",
+      "nextSteps": [
+        "Seuil £1,000",
+        "Requis : nom originator, compte, adresse",
+        "Requis côté bénéficiaire : nom, compte",
+        "Cryptoasset registration FCA requis pour l'activité VASP sous-jacente",
+        "Transferts self-hosted wallet : enhanced due diligence + vérification de propriété pour >£1K"
+      ],
+      "relatedTerms": [
+        "Travel Rule",
+        "FCA",
+        "Cryptoasset registration"
+      ]
+    },
+    "out-mixed": {
+      "type": "outcome",
+      "verdict": "yes",
+      "title": "Juridictions mixtes — appliquer le seuil le plus strict",
+      "explanation": "Quand un transfert traverse des juridictions à seuils différents, appliquer le PLUS STRICT applicable. Le TFR UE (pas de de minimis) est le plus exigeant ; le BSA US à $3K le plus laxiste parmi les régimes majeurs. Baseline GAFI = $/€1,000.",
+      "nextSteps": [
+        "Maintenir un dataset Travel Rule sur chaque transfert quel que soit le montant (opérationnellement plus simple)",
+        "Utiliser une solution technique Travel Rule qui abstrait les règles juridictionnelles (TRP, TRUST, Sumsub, Notabene…)",
+        "Documenter le rationnel 'plus strict applicable' dans votre manuel AML",
+        "Former les équipes ops + compliance sur les spécificités par corridor"
+      ],
+      "relatedTerms": [
+        "Travel Rule",
+        "FATF",
+        "AMLD6",
+        "BSA"
+      ]
+    }
+  }
+};
+
 export const DECISION_TREES_FR: DecisionTree[] = [
   HOWEY_TREE_FR,
   CASP_TREE_FR,
   XRPL_CUSTODY_TREE_FR,
   JURISDICTION_TREE_FR,
+  MICA_CLASSIFICATION_TREE_FR,
+  GENIUS_STABLECOIN_TREE_FR,
+  TRAVEL_RULE_TREE_FR,
 ]
 
 export function getDecisionTreeFr(id: string): DecisionTree | undefined {
