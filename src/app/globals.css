@@ -65,132 +65,57 @@ body {
 }
 
 @media print {
-  /* ── Hide non-content chrome ──────────────────────────────────────── */
+  /* Minimal print stylesheet — kept lean because aggressive overrides
+     (print-color-adjust: exact, [class*="..."] substring selectors,
+     nested @page rules) caused Chrome's print preview to hang at
+     "loading preview" on the report page.
+
+     Strategy: hide the chrome, drop sticky/overflow constraints,
+     keep the rest of the look-and-feel as-is. The browser handles
+     dark mode → print rendering on its own. */
+
+  /* Hide non-content elements */
   .no-print,
   header,
   footer,
-  [aria-label="Close"],
-  /* Floating Ask FAB and any other position-fixed UI */
-  .fixed,
-  /* Skeleton loader rows for the AI section */
-  .animate-pulse {
+  .fixed {
     display: none !important;
   }
 
-  /* Print-only elements (e.g. the duplicate <h1> on /report) */
+  /* Show print-only elements (the report's branded header block) */
   .print-only {
     display: block !important;
   }
 
-  /* ── Page setup ───────────────────────────────────────────────────── */
-  html, body {
-    background: white !important;
-    color: black !important;
-    padding-top: 0 !important;
-    overflow: visible !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
+  /* Layout — let content flow without sticky / overflow constraints */
   .print-container {
     max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
-
-  /* ── Dark-mode overrides — force light for print ──────────────────── */
-  .dark body,
-  .dark {
-    background: white !important;
-    color: black !important;
-  }
-
-  /* Common Tailwind-ish backgrounds that read poorly on paper */
-  .bg-gray-900\/40,
-  .bg-gray-900\/60,
-  [class*="dark:bg-"] {
-    background: transparent !important;
-  }
-
-  /* ── Cards + sections ─────────────────────────────────────────────── */
-  .card {
-    background: white !important;
-    border: 1px solid #E2E8F0 !important;
-    box-shadow: none !important;
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-
-  h1, h2, h3, h4 {
-    color: black !important;
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
-  p, li, span, div {
-    color: #111827 !important;
-  }
-
-  a {
-    color: #1e40af !important;
-    text-decoration: none !important;
-  }
-
-  /* Avoid orphan sections */
-  section {
-    page-break-inside: auto;
-    break-inside: auto;
-  }
-
-  /* ── Tables ───────────────────────────────────────────────────────── */
-  /* Force the responsive table wrapper to print all columns instead of
-     clipping at a viewport width — at print time we have the whole page. */
   .overflow-x-auto {
     overflow: visible !important;
   }
-  table {
-    width: 100% !important;
-    page-break-inside: auto;
-    border-collapse: collapse !important;
+  .sticky {
+    position: static !important;
   }
+
+  /* Tables — repeat headers on each page, avoid mid-row page breaks */
   thead {
-    display: table-header-group; /* repeat header on each printed page */
+    display: table-header-group;
   }
   tr {
     page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  th, td {
-    color: #111827 !important;
-    border-color: #E2E8F0 !important;
-  }
-  /* Sticky columns/headers — drop sticky in print so layout flows */
-  .sticky {
-    position: static !important;
-    background: white !important;
   }
 
-  /* ── AI analysis card ─────────────────────────────────────────────── */
-  /* The AI section uses a coloured gradient; flatten for paper. */
-  .ai-markdown,
-  .ai-markdown * {
-    color: #111827 !important;
-    background: transparent !important;
+  /* Cards keep together where possible */
+  .card,
+  section {
+    page-break-inside: auto;
   }
 
-  /* Pills, chips, badges — keep text readable, drop coloured bg */
-  [class*="rounded-full"],
-  [class*="rounded-md"] {
-    background: transparent !important;
-    border: 1px solid #CBD5E1 !important;
-  }
-
-  /* ── Page margins ─────────────────────────────────────────────────── */
+  /* Keep page margins reasonable */
   @page {
-    margin: 1.4cm 1.2cm;
+    margin: 1.4cm;
   }
-  /* Note: dropped CSS Paged Media @bottom-right counters — Chrome's
-     print preview hangs when nested @-rules are used inside @page in
-     some versions. Native browser page numbering still appears in the
-     printer dialog. */
 }

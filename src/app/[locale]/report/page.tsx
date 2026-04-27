@@ -284,15 +284,25 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
       <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
         <div className="flex items-center gap-2">
+          {/* Save-as-PDF — disabled while the AI analysis is still streaming.
+              Chrome's print preview hangs at "loading preview" if the page
+              has an active fetch + ongoing DOM mutations from the streaming
+              markdown. Forcing the user to wait until aiLoading=false makes
+              the page DOM-stable + lets the print engine snapshot cleanly. */}
           <button
             onClick={handlePrintPdf}
-            className="btn-secondary text-sm flex items-center gap-2"
-            title={t('savePdf')}
+            disabled={aiLoading}
+            className="btn-secondary text-sm flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            title={aiLoading
+              ? (locale === 'fr' ? 'Patientez : analyse IA en cours…' : 'Please wait — AI analysis still streaming…')
+              : t('savePdf')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m-3-8a9 9 0 110 18 9 9 0 010-18z" />
             </svg>
-            {t('savePdf')}
+            {aiLoading
+              ? (locale === 'fr' ? 'IA en cours…' : 'AI loading…')
+              : t('savePdf')}
           </button>
           <button
             onClick={handleShare}
