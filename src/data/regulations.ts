@@ -6,6 +6,20 @@ export const REGULATIONS: RegData = {
   // ═══════════════════════════════════════════════════════════════
   exchange: {
     eu: {
+      regime: "MiCA — Title V (CASP, Art. 59+) — pan-EU exchange framework",
+      risk: "high",
+      licenses: ["CASP authorisation under MiCA", "Passport across all EU-27 Member States once granted (Art. 65)"],
+      obligations: ["KYC/KYB per AMLD6 + EU AML Package 2024", "AML/CFT program", "MiCA whitepaper for non-listed tokens (already-traded exemption Art. 4(2) for XRP/BTC/ETH)", "Capital min. €125K (CASP exchange tier — Art. 67)", "FATF Travel Rule >€1K (TFR Reg. 2023/1113)", "Market abuse rules (MiCA Art. 80+)", "Governance & fit-and-proper (Art. 68)", "Environmental impact disclosure (Art. 66)"],
+      time: "6–18 months (depends on chosen NCA — LT fastest, IE/LU/MT slower)",
+      cost: "€50K–€500K (varies by hub: LT cheapest, IE/LU more expensive)",
+      alts: ["Pick a Member-State juri (FR / IE / LU / LT / MT) for actual licensing — passporting via the cheapest hub (typically Lithuania) is standard", "Outside EU: UK FCA, Switzerland FINMA, Liechtenstein TVTG (with EEA passport)"],
+      authority: "ESMA (level-2 standards) + national competent authorities (NCAs) per Member State — actual licensing happens at NCA level",
+      xrplNote: "XRPL has a native DEX (order book built into the protocol). A front-end DApp accessing it for EU users still needs CASP if it routes orders or controls funds — independent of which NCA issues the licence.",
+      reportingFrequency: "Quarterly prudential + transaction reports to home-state NCA · Annual audited accounts · Monthly AML filings · Immediate incident reports · MiCA Art. 80 conflicts-of-interest report annually.",
+      marketingRules: "Mandatory risk warnings on all communications (MiCA Art. 66). No yield / return promises. Whitepaper and complaint channels must be clearly displayed. Non-misleading requirement strictly enforced. Influencer disclosures required.",
+      clientEligibility: "Single passported CASP serves all EU-27 residents. Enhanced due diligence for PEPs and FATF grey/black-list countries. No retail restriction but suitability test required for complex products. Must geo-block non-EU jurisdictions without reverse-solicitation chain."
+    },
+    fr: {
       regime: "CASP (MiCA) + DASP (AMF France)",
       risk: "high",
       licenses: ["CASP authorization (ESMA/NCA)", "DASP AMF registration (France)"],
@@ -322,6 +336,21 @@ export const REGULATIONS: RegData = {
   // ═══════════════════════════════════════════════════════════════
   stablecoin: {
     eu: {
+      regime: "MiCA — Title III (EMT, Art. 48+) or Title IV (ART, Art. 16+) — pan-EU stablecoin framework",
+      risk: "high",
+      licenses: ["EMI or credit institution licence (EMT) — supervised by EBA + home NCA", "ART authorisation by home NCA (significant ART → direct ECB/EBA supervision)", "CASP licence required if distributing third-party stablecoins"],
+      obligations: ["1:1 reserve requirement for EMT (cash + HQLA only)", "Whitepaper filed with home NCA before any offering", "Reserve asset management + bankruptcy-remote segregation", "Redemption rights at par (EMT, T+1)", "S-EMT / S-ART thresholds (>€5B / >10M holders) trigger ECB direct supervision + extra liquidity / cap rules", "Quarterly prudential reporting", "Capital requirements per Art. 35"],
+      time: "12–24 months",
+      cost: "€100K–€1M+ (capital + governance + legal)",
+      alts: ["Pick a Member-State juri (FR / IE / LU / LT / MT) for actual issuance", "Liechtenstein TVTG (often faster pre-MiCA path with EEA passport)", "Outside EU: Singapore MAS PSA, Switzerland FINMA, Bermuda DABA"],
+      authority: "EBA + ECB (for S-EMT/S-ART significant tokens) · ESMA + NCA per Member State (for ART) · Home NCA (for non-significant EMT)",
+      xrplNote: "RLUSD is Ripple's USD-backed stablecoin on XRPL + Ethereum — the reference MiCA-EMT implementation. Uses the IOU/Trust Line model on XRPL. Issuer must be EMI or credit institution.",
+      custodyNote: "Stablecoin on XRPL uses the IOU / Trust Line model: gateway holds reserve assets — custodial by definition. freeze and globalFreeze flags provide compliance controls (sanctions, redemption suspensions).",
+      reportingFrequency: "Monthly reserve composition disclosure · Quarterly prudential + liquidity reports · Annual audited accounts · Immediate notification of reserve composition changes · S-EMT/S-ART: daily monitoring + ECB oversight if thresholds crossed.",
+      marketingRules: "Cannot pay interest or present the stablecoin as an investment (MiCA Art. 50 EMT, Art. 40 ART). Mandatory whitepaper disclaimers. No misleading stability claims. S-EMT restrictions on volume/velocity may be imposed by ECB. Adverts must highlight redemption rights and risk.",
+      clientEligibility: "Passport across all EU-27 once EMT/ART authorisation granted. Enhanced due diligence on PEPs, FATF high-risk countries. Retail eligible but individual caps may apply for S-ART. Geo-blocking required outside EEA."
+    },
+    fr: {
       regime: "MiCA EMT (E-Money Token) or ART (Asset-Referenced Token)",
       risk: "high",
       licenses: ["EMI or credit institution licence (EMT)", "NCA authorization (ART)", "CASP if distributing"],
@@ -651,6 +680,21 @@ export const REGULATIONS: RegData = {
   // ═══════════════════════════════════════════════════════════════
   custody: {
     eu: {
+      regime: "MiCA — Title V Art. 75 (custody and administration of crypto-assets on behalf of clients)",
+      risk: "high",
+      licenses: ["CASP authorisation with custody scope under MiCA", "Passport across all EU-27 once granted"],
+      obligations: ["Strict client-asset segregation (Art. 75(7))", "Client agreement specifying rights + liabilities (Art. 75(2))", "Liability for loss of clients' crypto-assets (Art. 75(8))", "ICT risk + cybersecurity (DORA, applicable from Jan 2025)", "Insurance / capital coverage proportional to assets under custody", "Quarterly reporting to home NCA", "ICT third-party risk management"],
+      time: "9–18 months",
+      cost: "€150K–€700K (capital + insurance + ICT)",
+      alts: ["Pick a Member-State juri (FR / IE / LU / LT) for actual licensing", "Outside EU: Switzerland FINMA DLT custody, Liechtenstein TVTG TT Service Provider (faster, EEA passport)", "Bermuda DABA"],
+      authority: "ESMA (level-2 standards) + national competent authorities (NCAs) per Member State",
+      xrplNote: "On XRPL: SignerList majority + Single Key + IOU gateway models = custodial under MiCA Art. 75. Multi-sig SignerList (minority service participation) + non-custodial wallets = outside Art. 75 scope. MPC/TSS = grey zone (Art. 75 likely applies if service can sign alone).",
+      custodyNote: "MiCA Art. 75 captures any service that 'safekeeps or controls' crypto-assets on behalf of a client. The 'control' criterion is decisive on XRPL: holding the master key, being able to sign alone, or controlling an issuing gateway = custodial. SignerList minority + Escrow + Payment Channels = no Art. 75 trigger.",
+      reportingFrequency: "Quarterly prudential reports + custody-specific filings to home NCA · Annual audited accounts · ICT/DORA incident reports immediate · Monthly AML · Annual conflict-of-interest review.",
+      marketingRules: "Must disclose custody model + liability scope + insurance coverage (MiCA Art. 75(2)+(8)). No misleading 'cold-storage 100%' or 'fully insured' unless verifiable. Risk warnings mandatory.",
+      clientEligibility: "Passport across all EU-27 once granted. Custody for retail and professional clients allowed. Enhanced due diligence for PEPs / FATF high-risk countries. No suitability test for plain custody, but onboarding KYC mandatory."
+    },
+    fr: {
       regime: "CASP Art. 75 MiCA \u2014 Custody & Administration",
       risk: "high",
       licenses: ["CASP custody authorization (NCA)", "Capital min. \u20AC150K (custody)"],
@@ -968,7 +1012,7 @@ export const REGULATIONS: RegData = {
   // DAPP \u2014 FINANCIAL (DEX, AMM, Lending)
   // ═══════════════════════════════════════════════════════════════
   dapp_fin: {
-    eu: {
+    fr: {
       regime: "MiCA CASP (if operator identifiable) or DeFi exclusion",
       risk: "high",
       licenses: ["CASP authorization if identifiable operator", "DLT Pilot Regime (for security tokens)"],
@@ -1277,7 +1321,7 @@ export const REGULATIONS: RegData = {
   // DAPP \u2014 UTILITY (Social, Identity, DAO)
   // ═══════════════════════════════════════════════════════════════
   dapp_util: {
-    eu: {
+    fr: {
       regime: "MiCA light regime (utility tokens) or outside scope",
       risk: "low",
       licenses: ["No CASP needed if purely utility", "Whitepaper notification to NCA if token >\u20AC1M"],
@@ -1476,7 +1520,7 @@ export const REGULATIONS: RegData = {
   // NFT MINTING / MARKETPLACE
   // ═══════════════════════════════════════════════════════════════
   nft: {
-    eu: {
+    fr: {
       regime: "MiCA exclusion (unique NFTs) or ART (if fungible series)",
       risk: "med",
       licenses: ["No CASP for truly unique 1/1 NFTs", "CASP + ART rules if large fungible series", "Marketplace CASP if intermediating trades"],
@@ -1783,7 +1827,7 @@ export const REGULATIONS: RegData = {
   // MPT / MULTI-PURPOSE TOKEN (XLS-33)
   // ═══════════════════════════════════════════════════════════════
   mpt: {
-    eu: {
+    fr: {
       regime: "MiCA \u2014 classification depends on use (Utility/EMT/ART)",
       risk: "high",
       licenses: ["CASP if providing services around MPT", "EMI if fiat-backed", "NCA authorization if ART"],
@@ -1982,7 +2026,7 @@ export const REGULATIONS: RegData = {
   // RWA \u2014 REAL-WORLD ASSET TOKENISATION
   // ═══════════════════════════════════════════════════════════════
   rwa: {
-    eu: {
+    fr: {
       regime: "MiCA ART + MiFID II (if securities) + DLT Pilot Regime",
       risk: "high",
       licenses: ["CASP or investment firm licence", "DLT Pilot Regime participation (sandbox)", "Prospectus (if securities)"],
@@ -2290,7 +2334,7 @@ export const REGULATIONS: RegData = {
   // GAMING / GAMEFI / NFT GAMING
   // ═══════════════════════════════════════════════════════════════
   gaming: {
-    eu: {
+    fr: {
       regime: "MiCA + national gambling laws + JONUM (France)",
       risk: "med",
       licenses: ["CASP if in-game token is crypto-asset", "Gambling licence if chance + monetary gain", "JONUM compliance (France): 3 criteria test"],
@@ -2489,7 +2533,7 @@ export const REGULATIONS: RegData = {
   // CRYPTO PAYMENT / REMITTANCE
   // ═══════════════════════════════════════════════════════════════
   payment: {
-    eu: {
+    fr: {
       regime: "CASP (MiCA) + PSD2/PSD3 (if fiat conversion)",
       risk: "med",
       licenses: ["CASP authorization (crypto transfer service)", "EMI or PI licence (if fiat on/off-ramp)", "PSD2/PSD3 compliance (fiat leg)"],
@@ -2797,7 +2841,7 @@ export const REGULATIONS: RegData = {
   // ONRAMP / OFFRAMP (fiat ↔ crypto conversion gateway)
   // ═══════════════════════════════════════════════════════════════
   onramp_offramp: {
-    eu: {
+    fr: {
       regime: "CASP (MiCA) + EMI or PI licence (PSD2/PSD3) for the fiat leg",
       risk: "high",
       licenses: ["CASP authorisation (crypto-for-fiat exchange service, MiCA Art. 3)", "EMI licence (if holding customer fiat balances)", "PI licence (if pure routing, PSD2)", "Host-member-state EU passport (if crossing borders)"],
@@ -3134,7 +3178,7 @@ export const REGULATIONS: RegData = {
   // CROSS-BORDER PAYMENT (international remittance using crypto rails)
   // ═══════════════════════════════════════════════════════════════
   cross_border_payment: {
-    eu: {
+    fr: {
       regime: "CASP (MiCA) + PSD2/PSD3 + AMLD6 Travel Rule (EU Reg 2023/1113) + potentially SEPA Inst if Euro",
       risk: "high",
       licenses: ["CASP authorisation (crypto transfer service)", "PI or EMI licence (fiat leg)", "EU passport across member states"],
@@ -3456,7 +3500,7 @@ export const REGULATIONS: RegData = {
   // TOKEN ISSUANCE \u2014 UTILITY
   // ═══════════════════════════════════════════════════════════════
   token_utility: {
-    eu: {
+    fr: {
       regime: "MiCA Utility Token regime (light)",
       risk: "low",
       licenses: ["No CASP authorisation needed", "Whitepaper notification to NCA (if offering >\u20AC1M)"],
@@ -3763,6 +3807,20 @@ export const REGULATIONS: RegData = {
   // ═══════════════════════════════════════════════════════════════
   token_security: {
     eu: {
+      regime: "Prospectus Regulation (EU 2017/1129) + MiFID II (Dir. 2014/65) — security tokens are out-of-scope for MiCA (Art. 2(4)(a)) and fall under classic securities law. DLT Pilot Regime (Reg. 2022/858) provides a sandbox for tokenised securities trading + settlement.",
+      risk: "high",
+      licenses: ["Prospectus approved by home NCA (or exemption: <€8M, <150 retail investors, qualified-investors-only)", "MiFID II investment-firm authorisation if intermediating", "DLT Pilot Regime market-infrastructure licence (DLT MTF / DLT SS / DLT TSS) for tokenised-securities trading venues"],
+      obligations: ["Full prospectus disclosure (Annexes I-VI of Reg. 2017/1129)", "Audited financial statements (3 years)", "Ongoing transparency obligations (Transparency Directive 2004/109)", "Insider trading / market abuse rules (MAR Reg. 596/2014)", "MiFID II suitability + appropriateness if retail-distributed", "DLT Pilot caps: total market cap <€1B per issuer for shares, <€500M for bonds"],
+      time: "12–24 months (full prospectus) · 6–9 months (DLT Pilot or exemption-based)",
+      cost: "€500K–€2M (prospectus + legal + audit + listing)",
+      alts: ["Pick a Member-State juri (FR / IE / LU / DE) for actual issuance", "Outside EU: Switzerland FINMA DLT Act, Liechtenstein TVTG, US Reg D / Reg S, Singapore MAS"],
+      authority: "ESMA (level-2 standards) + national securities regulators (e.g. AMF, BaFin, CSSF, CMVM) for prospectus approval",
+      xrplNote: "Tokenised securities on XRPL typically use the IOU / Trust Line model (issuer-controlled) or the upcoming MPT (XLS-33) for programmable compliance flags (lsfRequireAuth = on-chain KYC). DLT Pilot Regime explicitly allows DLT-based settlement — XRPL technically eligible.",
+      reportingFrequency: "Continuous disclosure of inside information (MAR Art. 17) · Annual financial report · Half-year report · Quarterly trading-statement (where applicable) · Major-shareholding notifications (Transparency Dir. Art. 9).",
+      marketingRules: "Prospectus mandatory unless exemption. No advertising before prospectus approved. Promotional material must be consistent with prospectus + clearly identifiable as marketing (Art. 22 Reg. 2017/1129). MiFID II rules on inducements + best execution apply to intermediaries.",
+      clientEligibility: "Retail-eligible if full prospectus + MiFID II suitability. Qualified-investors-only path skips prospectus (Art. 1(4)(a)). Geographical scope = EEA passporting via host-NCA notification."
+    },
+    fr: {
       regime: "MiFID II + Prospectus Regulation + DLT Pilot Regime",
       risk: "high",
       licenses: ["Investment firm licence (MiFID II)", "DLT Pilot Regime (sandbox alternative)", "Prospectus approval"],
@@ -4068,7 +4126,7 @@ export const REGULATIONS: RegData = {
   // TOKEN ISSUANCE \u2014 HYBRID
   // ═══════════════════════════════════════════════════════════════
   token_hybrid: {
-    eu: {
+    fr: {
       regime: "MiCA + MiFID II analysis \u2014 stricter regime applies",
       risk: "high",
       licenses: ["CASP + potentially investment firm licence", "Legal qualification mandatory"],

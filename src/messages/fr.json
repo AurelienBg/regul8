@@ -12,7 +12,8 @@
     "ask": "Aide IA"
   },
   "jurisdictions": {
-    "eu": "UE / France",
+    "eu": "Union européenne",
+    "fr": "France",
     "us": "USA",
     "uae": "EAU / Dubaï",
     "sg": "Singapour",

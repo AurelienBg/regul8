@@ -1,7 +1,7 @@
 export type Risk = 'high' | 'med' | 'low'
 
 export type Jurisdiction =
-  | 'eu' | 'us' | 'ca'
+  | 'eu' | 'fr' | 'us' | 'ca'
   | 'uae' | 'sg' | 'uk' | 'hk' | 'au'
   | 'ch' | 'li' | 'lu' | 'mt' | 'lt' | 'ie'
   | 'jp' | 'kr' | 'in' | 'br' | 'id'
@@ -161,8 +161,13 @@ export interface XRPLCustodyMethod {
 }
 
 export const JURISDICTIONS: Record<Jurisdiction, { name: string; flag: string; tier?: JurisdictionTier }> = {
+  // EU pan-jurisdiction baseline + France-specific layer (split April 2026 —
+  // previously `eu` carried "EU / France" merging both layers; now split for
+  // clarity since IE/LU/LT/MT are already standalone EU Member States and
+  // France's PSAN/AMF/JONUM layer deserves its own bucket).
+  eu: { name: 'European Union', flag: '🇪🇺' },
+  fr: { name: 'France', flag: '🇫🇷' },
   // North America
-  eu: { name: 'EU / France', flag: '🇪🇺' },
   us: { name: 'USA', flag: '🇺🇸' },
   ca: { name: 'Canada', flag: '🇨🇦', tier: 'emerging' },
   // Gulf / APAC

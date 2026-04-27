@@ -12,7 +12,8 @@
     "ask": "Ask AI"
   },
   "jurisdictions": {
-    "eu": "EU / France",
+    "eu": "European Union",
+    "fr": "France",
     "us": "USA",
     "uae": "UAE / Dubai",
     "sg": "Singapore",
