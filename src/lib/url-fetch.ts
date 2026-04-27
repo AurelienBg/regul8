@@ -57,16 +57,34 @@ function isPrivateOrUnsafeHost(hostname: string): boolean {
   return false;
 }
 
+/** Normalise a user-supplied URL — most users paste bare domains
+ *  (`regolda.com`, `www.regolda.com`) without a protocol. Default to
+ *  https:// in that case so the URL parser doesn't reject the input. */
+function normaliseUrl(raw: string): string {
+  const trimmed = raw.trim();
+  // Strip Markdown link syntax if the user pasted "[label](url)" by accident
+  const md = /^\[[^\]]*\]\((https?:\/\/[^)]+)\)$/.exec(trimmed);
+  if (md) return md[1];
+  // Already has a protocol → return as-is
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)) return trimmed;
+  // Bare domain or path → prepend https://
+  return `https://${trimmed}`;
+}
+
 /** Validate the URL is safe to fetch. Throws on invalid input. */
 function validateUrl(rawUrl: string): URL {
   let parsed: URL;
   try {
-    parsed = new URL(rawUrl);
+    parsed = new URL(normaliseUrl(rawUrl));
   } catch {
     throw new Error('Invalid URL');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error('Only http(s) URLs are supported');
+  }
+  if (!parsed.hostname || !parsed.hostname.includes('.')) {
+    // Single-word strings like "test" or "localhost" without a dot — not real
+    throw new Error('URL is missing a valid hostname (e.g. "example.com")');
   }
   if (isPrivateOrUnsafeHost(parsed.hostname)) {
     throw new Error('Refusing to fetch private / loopback host');
