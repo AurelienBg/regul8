@@ -499,30 +499,35 @@ export default function AssessPage() {
                 </p>
               )}
               {sourceReports.length > 0 && (
-                <ul className="mt-2 flex flex-wrap gap-1.5">
-                  {sourceReports.map((r, i) => {
-                    const ok = r.kind === 'description' ? true : r.ok;
-                    const label =
-                      r.kind === 'description'
-                        ? `📝 ${tr.describe.sourceDescription} · ${r.chars} ${tr.describe.charsUnit}`
-                        : r.kind === 'url'
-                          ? `🔗 ${ok ? r.chars ?? 0 : 0} ${tr.describe.charsUnit}${r.truncated ? ' …' : ''}`
-                          : `📎 ${r.filename}${r.truncated ? ' …' : ''}`;
-                    const errorPart = !ok && 'error' in r && r.error ? ` (${r.error})` : '';
-                    return (
-                      <li
-                        key={i}
-                        className={`text-[10px] px-2 py-0.5 rounded-md ${
-                          ok
-                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200'
-                            : 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200'
-                        }`}
-                      >
-                        {ok ? '✓' : '✗'} {label}{errorPart}
-                      </li>
-                    );
-                  })}
-                </ul>
+                <div className="mt-3 pt-3 border-t border-violet-200/60 dark:border-violet-900/40">
+                  <div className="text-[11px] font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1.5">
+                    {isFr ? 'Sources analysées' : 'Sources analysed'}
+                  </div>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {sourceReports.map((r, i) => {
+                      const ok = r.kind === 'description' ? true : r.ok;
+                      const label =
+                        r.kind === 'description'
+                          ? `📝 ${tr.describe.sourceDescription} · ${r.chars} ${tr.describe.charsUnit}`
+                          : r.kind === 'url'
+                            ? `🔗 ${ok ? r.chars ?? 0 : 0} ${tr.describe.charsUnit}${r.truncated ? ' …' : ''}`
+                            : `📎 ${r.filename}${r.truncated ? ' …' : ''}`;
+                      const errorPart = !ok && 'error' in r && r.error ? ` (${r.error})` : '';
+                      return (
+                        <li
+                          key={i}
+                          className={`text-xs px-2 py-1 rounded-md font-medium ${
+                            ok
+                              ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200'
+                              : 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200'
+                          }`}
+                        >
+                          {ok ? '✓' : '✗'} {label}{errorPart}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               )}
             </div>
             <button

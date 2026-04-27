@@ -351,19 +351,35 @@ export const REGULATIONS_FR: RegData = {
       clientEligibility: "Passport sur les 27 États membres une fois l'autorisation EMT/ART accordée. Vigilance renforcée sur les PPE, pays GAFI à risque. Retail éligible mais des plafonds individuels peuvent s'appliquer pour les S-ART. Géo-blocage requis hors EEE."
     },
     fr: {
-      regime: "MiCA EMT (jeton de monnaie électronique) ou ART (jeton adossé à des actifs)",
-      risk: "high",
-      licenses: ["Licence EMI ou d'établissement de crédit (EMT)", "Agrément ANC (ART)", "CASP si distribution"],
-      obligations: ["Exigence de réserve 1:1 (EMT)", "Livre blanc déposé auprès de l'ANC", "Gestion des actifs de réserve", "Droits de remboursement au pair (EMT)", "Règles S-EMT/S-ART si significatif (>\u20AC5B ou >10M détenteurs)", "Reporting trimestriel", "Exigences de capital"],
-      time: "12\u201324 mois",
-      cost: "\u20AC100K\u2013\u20AC500K+",
-      alts: ["Liechtenstein TVTG (plus rapide)", "Singapour MAS (PSA)", "Suisse FINMA"],
-      authority: "BCE + ANC (pour S-EMT) / ESMA + ANC (pour S-ART)",
-      xrplNote: "RLUSD est le stablecoin adossé à l'USD de Ripple sur XRPL + Ethereum. Implémentation EMT de référence. Utilise le modèle IOU/trust line sur XRPL. L'émetteur doit être EMI ou établissement de crédit selon MiCA.",
-      custodyNote: "Un stablecoin sur XRPL utilise le modèle IOU/Trust Line. Le gateway détient les actifs de réserve \u2014 par définition custodial. Les flags freeze et globalFreeze fournissent des contrôles de conformité.",
-      reportingFrequency: "Divulgation mensuelle de la composition des réserves · Rapports prudentiels + liquidité trimestriels · Comptes audités annuels · Notification immédiate des changements de composition · S-EMT/S-ART : monitoring quotidien + supervision BCE si seuils franchis.",
-      marketingRules: "Interdiction de verser des intérêts ou de présenter le stablecoin comme un investissement (MiCA Art. 50). Avertissements obligatoires dans le whitepaper. Pas de revendications trompeuses de stabilité. Restrictions de volume/vélocité possibles pour S-EMT. Les pubs doivent souligner les droits de rachat et les risques.",
-      clientEligibility: "Passeportable dans les 27 États de l'UE une fois l'EMT/ART autorisé. Vigilance renforcée pour les PPE et les pays à haut risque GAFI. Clientèle retail éligible mais plafonds individuels possibles pour S-ART. Blocage géographique requis hors EEE."
+    "regime": "MiCA EMT/ART (pan-UE) + agrément ACPR pour les émetteurs e-money fiat-backed + supervision AMF pour l'émission ART + Banque de France pour l'impact système de paiement",
+    "risk": "high",
+    "licenses": [
+      "Agrément ACPR EME (ou statut établissement de crédit) — requis pour émetteurs EMT sous MiCA Art. 48",
+      "Autorisation ART par ACPR (ART significatif → supervision ECB directe)",
+      "Notification de whitepaper à l'AMF pour la distribution",
+      "Enregistrement PSAN AMF (France, transitionnel sous MiCA Art. 143)"
+    ],
+    "obligations": [
+      "Réserves 1:1 en cash + HQLA (MiCA Art. 49 + règles prudentielles ACPR)",
+      "Ségrégation des réserves bankruptcy-remote",
+      "Whitepaper déposé auprès de l'ACPR + AMF",
+      "Disclosure trimestrielle des réserves à l'ACPR",
+      "Pas d'intérêt / yield aux détenteurs (MiCA Art. 50)",
+      "Seuils S-EMT / S-ART → supervision directe ECB + EBA"
+    ],
+    "time": "12–24 mois",
+    "cost": "€100K–€1M+ (capital + gouvernance + juridique)",
+    "alts": [
+      "Liechtenstein TVTG (voie pré-MiCA plus rapide avec passport EEE)",
+      "Singapour MAS PSA",
+      "Suisse FINMA"
+    ],
+    "authority": "ACPR + AMF + Banque de France · ECB / EBA pour les tokens significatifs",
+    "xrplNote": "RLUSD est l'implémentation EMT-sur-XRPL de référence. Les émetteurs français utilisant XRPL nécessiteraient un agrément ACPR EME + notification whitepaper AMF.",
+    "custodyNote": "Stablecoin sur XRPL = modèle IOU / Trust Line : la gateway est custodial par définition. Les flags freeze + globalFreeze s'alignent avec les ordres de gel des avoirs Tracfin / sanctions.",
+    "reportingFrequency": "Disclosure mensuelle des réserves à l'ACPR · Reports prudentiels + liquidité trimestriels · Audit annuel · Notification immédiate à l'ACPR + AMF en cas de changement de composition · Déclarations Tracfin sur flux suspects.",
+    "marketingRules": "Interdiction de payer un intérêt ou de présenter comme investissement (MiCA Art. 50). Règles AMF + Loi SREN (2024) sur les disclosures influenceurs financiers. Disclaimers whitepaper en français obligatoires pour distribution retail. Avertissements de risque proéminents.",
+    "clientEligibility": "Passport sur les 27 États membres une fois accordé. Vigilance renforcée AMF / ACPR sur les PPE + pays GAFI à risque. Retail éligible en France mais règles ACPR de protection consommateur s'appliquent (info pré-contractuelle claire, droits de remboursement)."
     },
     us: {
       regime: "GENIUS Act (cadre fédéral stablecoin, signé juillet 2025) + MTL d'État + BitLicense (NY)",
@@ -695,19 +711,34 @@ export const REGULATIONS_FR: RegData = {
       clientEligibility: "Passport sur les 27 États membres une fois accordé. Custody pour clients retail et professionnels autorisée. Vigilance renforcée pour les PPE / pays GAFI à risque. Pas de test de suitability pour la simple custody, mais KYC à l'onboarding obligatoire."
     },
     fr: {
-      regime: "CASP Art. 75 MiCA \u2014 Conservation et administration",
-      risk: "high",
-      licenses: ["Agrément CASP custody (ANC)", "Capital minimum \u20AC150K (custody)"],
-      obligations: ["Ségrégation des actifs (on-chain + off-chain)", "Responsabilité en cas de perte d'actifs", "Gouvernance et cybersécurité", "Conservation des registres 5 ans", "Couverture par assurance ou fonds propres", "KYC/AML", "Règle du voyage FATF"],
-      time: "12\u201318 mois",
-      cost: "\u20AC100K\u2013\u20AC350K",
-      alts: ["Liechtenstein TVTG Token Custodian (3\u20139 mois)", "Suisse FINMA", "Singapour MAS"],
-      authority: "ANC / ESMA",
-      xrplNote: "XRPL propose 10 méthodes d'implémentation custody avec différentes classifications réglementaires. SingleKey (custodial), SignerList multisig (zone grise selon le quorum), MPC/TSS (zone grise), Escrow/PayChannels/Checks (non-custodial). Voir les implémentations custody pour plus de détails.",
-      custodyNote: "Selon l'Art. 75 MiCA, les conservateurs sont responsables de la perte des crypto-actifs sauf à prouver que la perte résulte d'événements hors de leur contrôle raisonnable. S'applique à tout service détenant des clés privées pour le compte de clients.",
-      reportingFrequency: "Rapports prudentiels + déclaration de ségrégation des actifs clients trimestriels · États financiers audités annuels · Déclarations AML mensuelles · Rapports d'incidents immédiats (brèche, perte de clé) · Rapport ICT annuel selon DORA.",
-      marketingRules: "Doit indiquer clairement que le service détient les clés des clients et le cadre de responsabilité. Ne peut pas faire la publicité d'un stockage 'sans risque'. Les conditions de couverture d'assurance doivent être divulguées. Pas d'offre de rendement sans agrément CASP supplémentaire.",
-      clientEligibility: "Résidents UE-27 servis sous agrément CASP passporté. Vigilance renforcée pour les PPE et liste grise GAFI. Les clients institutionnels peuvent nécessiter des contrôles de suitability MiFID supplémentaires si conseil impliqué. Personnes sanctionnées bloquées selon les mesures restrictives UE."
+    "regime": "MiCA Art. 75 (custody et administration) + AMF comme NCA française + ACPR pour les aspects prudentiels + DORA depuis janvier 2025",
+    "risk": "high",
+    "licenses": [
+      "Agrément CASP avec scope custody (supervision AMF)",
+      "Enregistrement PSAN AMF (France, transitionnel sous MiCA Art. 143 — auto-conversion en CASP)",
+      "Revue ACPR fit-and-proper sur le management"
+    ],
+    "obligations": [
+      "Ségrégation stricte des actifs clients (MiCA Art. 75(7) + guidance AMF)",
+      "Responsabilité en cas de perte des crypto-actifs clients (Art. 75(8))",
+      "Cybersécurité selon standards AMF + ACPR + DORA",
+      "Reporting AML Tracfin sur flux suspects",
+      "Assurance proportionnelle aux AUM (attente AMF : ~10% des AUM)",
+      "Report prudentiel trimestriel à l'AMF + ACPR"
+    ],
+    "time": "9–18 mois (revue coordonnée AMF + ACPR)",
+    "cost": "€150K–€700K (capital + assurance + ICT)",
+    "alts": [
+      "Choisir un autre État membre UE pour CASP (LT le moins cher, IE / LU institutionnel)",
+      "Suisse FINMA DLT custody",
+      "Liechtenstein TVTG TT Service Provider"
+    ],
+    "authority": "AMF (lead) + ACPR (prudentiel) · ESMA standards niveau 2",
+    "xrplNote": "Sur XRPL : Single Key + gateway IOU = custodial sous MiCA Art. 75 + PSAN. SignerList minoritaire = hors scope Art. 75. L'AMF n'a pas encore publié de guidance sur le multi-sig — un avis juridique écrit est recommandé.",
+    "custodyNote": "Doctrine AMF 2020-07 + mise à jour 2023 interprètent le scope custody PSAN. MiCA Art. 75 est désormais le régime principal ; PSAN est transitionnel. Les deux couvrent les opérateurs de wallets contrôlant les clés privées.",
+    "reportingFrequency": "Reports prudentiels + custody-spécifiques trimestriels à l'AMF + ACPR · Comptes audités annuels · Rapports d'incidents DORA (immédiats) · AML Tracfin mensuel · Revue annuelle des conflits d'intérêts.",
+    "marketingRules": "Disclosure du modèle custody + scope de responsabilité + couverture assurance (MiCA Art. 75(2)+(8)). Code monétaire et financier sur la communication non-trompeuse (pas de claim 'fully insured' ou '100% cold' sans vérification). Règles influenceurs Loi SREN s'appliquent.",
+    "clientEligibility": "Passport sur les 27 États membres. Clients retail et professionnels autorisés. Attente AMF : KYC renforcé pour transferts >€1K (TFR Règl. 2023/1113). Vigilance renforcée PPE / pays GAFI à risque."
     },
     us: {
       regime: "Charter trust d'État + règle SEC qualified custodian + dispositions custody du CLARITY Act (2025)",
@@ -1344,15 +1375,27 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "Les DApps XRPL utilitaires pures (gouvernance, identité, social) hors régulation financière crypto. Ajouter des tokens à valeur monétaire déclenche l'analyse CASP."
     },
     fr: {
-      regime: "Régime MiCA allégé (utility tokens) ou hors périmètre",
-      risk: "low",
-      licenses: ["Pas de CASP nécessaire si purement utility", "Notification du livre blanc à l'ANC si token >\u20AC1M"],
-      obligations: ["Livre blanc (simplifié)", "Pas de marketing trompeur", "RGPD si traitement de données personnelles", "DAO : risque de requalification en société"],
-      time: "1\u20133 mois",
-      cost: "\u20AC5K\u2013\u20AC30K",
-      alts: ["Liechtenstein TVTG (cadre DAO le plus complet)"],
-      authority: "ANC / ESMA",
-      xrplNote: "DApps d'identité ou sociaux basés sur XRPL utilisant des Trust Lines ou NFTs (XLS-20) pour les credentials : traitement utility token probable selon MiCA. Pas de CASP nécessaire en l'absence de service financier."
+    "regime": "Hors scope MiCA (pas d'élément financier crypto-actif) — RGPD + droit CNIL protection des données + Loi pour une République Numérique. Loi SREN (2024) couvre les obligations plateformes en ligne.",
+    "risk": "low",
+    "licenses": [
+      "Pas de licence crypto-spécifique",
+      "Déclaration cybersécurité ANSSI si infrastructure critique",
+      "Enregistrement Loi SREN si plateforme en ligne >5M utilisateurs mensuels"
+    ],
+    "obligations": [
+      "Déclarations RGPD + CNIL + désignation DPO",
+      "Règles influenceurs + transparence plateforme Loi SREN",
+      "Code de la consommation si B2C",
+      "Reporting DSA si plateforme contenu utilisateur"
+    ],
+    "time": "1–3 mois",
+    "cost": "€10K–€50K",
+    "alts": [
+      "Choisir un autre État membre UE pour incorporation (IE / LU)",
+      "Hors UE : UK GDPR-aligné, Singapour PDPA"
+    ],
+    "authority": "CNIL (données) · ANSSI (cybersécurité) · DGCCRF (protection consommateur) · ARCOM (audiovisuel / plateformes SREN)",
+    "xrplNote": "DApps XRPL utilitaires pures (gouvernance, identité, social) hors régulation financière crypto. L'ajout de tokens à valeur monétaire déclenche l'analyse MiCA + PSAN."
     },
     us: {
       regime: "Régulation fédérale minimale (si pas de service financier)",
@@ -1554,15 +1597,29 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "Le mode broker NFT XLS-20 XRPL = swap atomique non-custodial — la marketplace ne nécessite pas de CASP pour l'échange lui-même. La custody / gestion des royalties peut tout de même déclencher un CASP."
     },
     fr: {
-      regime: "Exclusion MiCA (NFTs uniques) ou ART (si série fongible)",
-      risk: "med",
-      licenses: ["Pas de CASP pour NFTs véritablement uniques 1/1", "CASP + règles ART si grande série fongible", "CASP marketplace si intermédiation des échanges"],
-      obligations: ["Évaluation d'unicité (MiCA Art. 4)", "AML si marketplace", "Protection des consommateurs (vente à distance)", "Gestion des droits de PI"],
-      time: "3\u20136 mois (marketplace) ou 1 mois (NFTs 1/1)",
-      cost: "\u20AC10K\u2013\u20AC100K",
-      alts: ["Liechtenstein TVTG", "Singapour (approche souple)"],
-      authority: "ANC / ESMA",
-      xrplNote: "NFTs XRPL (XLS-20) : standard natif avec broker mode. Le broker mode permet une marketplace non-custodiale \u2014 swap atomique, le broker ne détient jamais le NFT. Pas de CASP nécessaire pour le broker mode. TransferFee permet des royalties on-chain (0\u201350%)."
+    "regime": "MiCA Considérant 10 / Art. 2(3) (NFT uniques hors scope) + revue AMF cas par cas pour NFT fractionnés / financiers + Loi SREN (2024) pour les marketplaces + Code monétaire et financier",
+    "risk": "med",
+    "licenses": [
+      "Pas de licence MiCA pour les collections NFT véritablement uniques 1/1",
+      "PSAN / CASP si la marketplace contrôle les fonds OU si NFT fongible / financier (revue AMF)",
+      "Visa AMF si security-NFT (rare)",
+      "Enregistrement plateforme Loi SREN si >5M utilisateurs mensuels"
+    ],
+    "obligations": [
+      "Code de la propriété intellectuelle (droit d'auteur + PI)",
+      "Reporting AML Tracfin si la marketplace gère du fiat",
+      "Doctrine AMF 2022 sur la classification financière des NFT",
+      "Code de la consommation pour B2C",
+      "Traitement TVA selon BOFiP (jurisprudence CJUE Hedqvist)"
+    ],
+    "time": "3–9 mois",
+    "cost": "€30K–€200K",
+    "alts": [
+      "Choisir un autre État membre UE (IE / LU / MT) pour la marketplace",
+      "Hors UE : UK FCA, Singapour MAS, Suisse FINMA"
+    ],
+    "authority": "AMF (classification financière NFT) · CNIL (données) · DGCCRF (consommateur) · ARCOM (plateformes SREN)",
+    "xrplNote": "Le mode broker NFT XLS-20 XRPL = swap atomique non-custodial — la marketplace peut éviter PSAN / CASP pour l'échange lui-même. La custody / gestion des royalties peut tout de même déclencher PSAN."
     },
     us: {
       regime: "Analyse SEC requise (Howey Test par collection)",
@@ -1872,15 +1929,29 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "MPT (XLS-33) activé sur Mainnet en 2025. Les flags natifs (lsfRequireAuth, lsfLocked, transfer fee, lock conditions) s'alignent avec les attentes de conformité MiCA — particulièrement utiles pour les Permissioned Domains (XLS-46) à venir."
     },
     fr: {
-      regime: "MiCA \u2014 classification selon l'usage (Utility/EMT/ART)",
-      risk: "high",
-      licenses: ["CASP si prestation de services autour du MPT", "EMI si adossé au fiat", "Agrément ANC si ART"],
-      obligations: ["Qualification juridique obligatoire avant lancement", "Livre blanc", "KYC/AML", "lsfRequireAuth permet un gating KYC on-chain", "lsfLocked permet des retenues AML"],
-      time: "6\u201318 mois",
-      cost: "\u20AC50K\u2013\u20AC300K",
-      alts: ["Liechtenstein TVTG (classification des tokens flexible)", "Suisse FINMA"],
-      authority: "ANC / ESMA",
-      xrplNote: "MPT (XLS-33) est le standard de tokens programmables de XRPL. Pas de catégorie MiCA explicite à ce jour. lsfRequireAuth = gating KYC on-chain. lsfLocked = retenues AML. Frais de transfert programmables. Qualification juridique critique avant lancement."
+    "regime": "MiCA — MPT (XLS-33, en production 2025) classifié au cas par cas comme Other crypto-asset, EMT, ou ART. AMF cas par cas via doctrine + consultation pré-lancement. ACPR si EMT-like.",
+    "risk": "med",
+    "licenses": [
+      "Whitepaper MiCA notifié à l'AMF (Art. 8)",
+      "Autorisation EMT ou ART (ACPR / AMF) si les features qualifient",
+      "PSAN / CASP pour la distribution (transitionnel sous Art. 143)"
+    ],
+    "obligations": [
+      "Whitepaper + disclosure use-case (déposé auprès de l'AMF)",
+      "Consultation pré-lancement AMF recommandée pour features hybrides",
+      "Transparence des réserves si asset-backed",
+      "Marketing par règles de catégorie",
+      "Reporting Tracfin"
+    ],
+    "time": "6–18 mois",
+    "cost": "€100K–€500K",
+    "alts": [
+      "Choisir un autre État membre UE (LT pour notification rapide)",
+      "Suisse FINMA DLT",
+      "Liechtenstein TVTG (le Token Container Model convient bien au MPT)"
+    ],
+    "authority": "AMF (lead) · ACPR (si EMT-like) · ESMA standards niveau 2",
+    "xrplNote": "MPT (XLS-33) activé sur Mainnet en 2025. L'AMF n'a pas encore publié de doctrine MPT-spécifique — consultation pré-lancement fortement conseillée. Le flag lsfRequireAuth s'aligne avec les attentes AML françaises."
     },
     us: {
       regime: "Analyse SEC/CFTC requise par cas d'usage",
@@ -2611,15 +2682,30 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "Les Payment Channels XRPL permettent un settlement off-ledger — pas de CASP pour le canal lui-même mais la conversion en fiat à la sortie déclenche EME / CASP. RLUSD sur XRPL est la référence payment-token EMT-conforme."
     },
     fr: {
-      regime: "CASP (MiCA) + PSD2/PSD3 (si conversion fiat)",
-      risk: "med",
-      licenses: ["Agrément CASP (service de transfert crypto)", "Licence EMI ou EP (si on/off-ramp fiat)", "Conformité PSD2/PSD3 (volet fiat)"],
-      obligations: ["KYC/AML", "Règle du voyage FATF", "SCA PSD2 (si fiat)", "Surveillance des transactions", "Protection des consommateurs"],
-      time: "6\u201318 mois",
-      cost: "\u20AC50K\u2013\u20AC200K",
-      alts: ["Liechtenstein TVTG", "Singapour MAS", "UAE VARA"],
-      authority: "ANC / ESMA / BCE",
-      xrplNote: "Les Payment Channels XRPL permettent le streaming de micropaiements avec règlement off-chain instantané. Pas de custody = pas de CASP pour le canal lui-même. En cas de conversion fiat à la sortie : un service de transfert CASP ou une licence EMI peut s'appliquer. IOU/Trust Lines pour les remittances transfrontalières."
+    "regime": "MiCA CASP scope transfert + PSD2 (devenant PSD3) pour la jambe fiat + ACPR-licensed institution de paiement / EME + AMF-supervised PSAN (transitionnel) + supervision Banque de France",
+    "risk": "high",
+    "licenses": [
+      "Agrément CASP (AMF) pour le service de transfert crypto",
+      "Agrément ACPR EME (EMD2 / EMD3) pour l'émission de monnaie électronique",
+      "Agrément ACPR Institution de Paiement (PSD2 / PSD3) pour les services de paiement fiat",
+      "Enregistrement PSAN AMF (France, transitionnel sous MiCA Art. 143)"
+    ],
+    "obligations": [
+      "Ségrégation des fonds clients (PSD2 Art. 10 + règles ACPR)",
+      "KYC/AML selon AMLD6 + Code monétaire et financier + reporting Tracfin",
+      "Travel Rule >€1K via TFR Règl. 2023/1113",
+      "Règles marketing MiCA Art. 66 + AMF anti-trompeuse",
+      "Strong Customer Authentication (SCA PSD2)",
+      "Capital min. €350K (EME) / €125K (CASP)"
+    ],
+    "time": "12–24 mois (AMF + ACPR coordonnés)",
+    "cost": "€350K–€1M+ (capital + gouvernance + stack double licence)",
+    "alts": [
+      "Choisir un autre État membre UE (LT pour la vitesse, IE / LU pour institutionnel)",
+      "Hors UE : UK FCA EMI, Singapour MAS MPI"
+    ],
+    "authority": "AMF + ACPR + Banque de France · ESMA / EBA standards niveau 2",
+    "xrplNote": "Les Payment Channels XRPL permettent un settlement off-ledger — pas de CASP pour le canal lui-même mais la conversion en fiat à la sortie déclenche ACPR EME + AMF CASP. RLUSD est la référence payment-token EMT-conforme."
     },
     us: {
       regime: "FinCEN MSB + MTL d'État",
@@ -2930,15 +3016,30 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "L'ODL (On-Demand Liquidity) XRPL utilise le XRP comme devise de bridge pour les corridors fiat-to-fiat. Les opérateurs de flux ODL en UE nécessitent CASP + agrément institution de paiement + partenariats bancaires par corridor."
     },
     fr: {
-      regime: "CASP (MiCA) + licence EMI ou EP (PSD2/PSD3) pour la jambe fiat",
-      risk: "high",
-      licenses: ["Agrément CASP (service d'échange crypto contre fiat, art. 3 MiCA)", "Licence EMI (si détention de soldes fiat clients)", "Licence EP (si simple routage, PSD2)", "Passeport européen vers l'État membre d'accueil (si activités transfrontalières)"],
-      obligations: ["KYC/AML (AMLD + MiCA)", "Règle du voyage FATF (règlement UE 2023/1113)", "SCA PSD2 sur la jambe fiat", "Cantonnement des fonds clients (règles EMI/EP)", "Protection des consommateurs (droit de rétractation, délai de réflexion)", "Transparence tarifaire selon le titre III MiCA"],
-      time: "12\u201324 mois (deux licences en parallèle)",
-      cost: "\u20AC150K\u2013\u20AC500K",
-      alts: ["Liechtenstein TVTG (plus rapide)", "Suisse FINMA", "Lituanie / Estonie (hub pré-MiCA)"],
-      authority: "ANC + BCE (passeporting EMI) + ESMA",
-      xrplNote: "Les IOU et Trust Lines XRPL permettent une tokenisation native du fiat on-chain (RLUSD, EURCV). Le prestataire onramp peut régler la jambe fiat client via un partenaire EMI licencié et mint/burn les tokens XRPL. Les Payment Channels permettent un règlement off-ramp en moins d'une seconde."
+    "regime": "MiCA Art. 75 (transfert-de-crypto-actifs) + ACPR EME / Institution de Paiement pour la jambe fiat + AMF-supervised PSAN (transitionnel) + partenariat bancaire pour settlement SEPA + reporting Tracfin renforcé",
+    "risk": "high",
+    "licenses": [
+      "CASP avec scope on/off-ramp (AMF)",
+      "Agrément ACPR EME OU Institution de Paiement pour la jambe fiat",
+      "Enregistrement PSAN AMF (France, transitionnel sous MiCA Art. 143)",
+      "Partenariat bancaire pour settlement SEPA (supervision Banque de France)"
+    ],
+    "obligations": [
+      "KYC strict (AMLD6) + reporting Tracfin",
+      "Source-of-funds pour transferts à valeur élevée (attente AMF : >€10K)",
+      "Travel Rule >€1K (TFR Règl. 2023/1113)",
+      "Ségrégation des fonds clients (PSD2 Art. 10)",
+      "AMF + ACPR fit-and-proper sur le management",
+      "Filtrage sanctions (ONU + UE + France gel des avoirs)"
+    ],
+    "time": "12–24 mois (AMF + ACPR + onboarding bancaire)",
+    "cost": "€500K–€1.5M (capital + IT/conformité + partenariats bancaires)",
+    "alts": [
+      "Choisir un autre État membre UE (LT le moins cher)",
+      "UAE VARA, Singapour MAS MPI"
+    ],
+    "authority": "AMF + ACPR + Banque de France · ESMA / EBA standards niveau 2",
+    "xrplNote": "L'ODL (On-Demand Liquidity) XRPL utilise XRP comme devise de bridge pour les corridors fiat-to-fiat. Les opérateurs ODL basés en France nécessitent CASP + Institution de Paiement + partenariats bancaires par corridor (EUR / GBP / USD)."
     },
     us: {
       regime: "FinCEN MSB + MTL d'État (48+ États) + BitLicense (NY)",
@@ -3278,15 +3379,30 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "L'ODL (On-Demand Liquidity) XRPL — le XRP comme devise de bridge pour les corridors fiat cross-border — est le cas d'usage UE phare pour les paiements crypto cross-border institutionnels. Le Cross-Chain Bridge (XLS-38d, vote en cours) étendra à l'EVM Sidechain."
     },
     fr: {
-      regime: "CASP (MiCA) + PSD2/PSD3 + Règle du voyage AMLD6 (Règl. UE 2023/1113) + potentiellement SEPA Inst si Euro",
-      risk: "high",
-      licenses: ["Agrément CASP (service de transfert crypto)", "Licence PI ou EMI (jambe fiat)", "Passeport UE dans les États membres"],
-      obligations: ["Règle du voyage FATF (seuil bas = \u20AC1K+ = toujours pour la crypto)", "KYC/AML selon AMLD6", "Conformité SEPA / SCT (si fiat)", "Protection des consommateurs sous MiCA", "Filtrage des sanctions selon le Règl. UE 833/2014"],
-      time: "12\u201324 mois",
-      cost: "\u20AC150K\u2013\u20AC500K",
-      alts: ["UAE VARA (corridor MENA plus rapide)", "Singapour MAS (corridor APAC)", "Liechtenstein TVTG"],
-      authority: "ANC + BCE + ESMA",
-      xrplNote: "XRPL + RLUSD est une stack de référence pour le transfrontalier \u2014 règlement en moins d'une seconde, ~$0.0002 par transaction. Ripple ODL (On-Demand Liquidity) utilise XRP comme actif de pont. Corridors UE désormais opérationnels via partenaires licenciés (Bitstamp Europe, Uphold)."
+    "regime": "MiCA CASP transfert + PSD2 (devenant PSD3) + PSR + TFR Règl. 2023/1113 (Travel Rule) + supervision cross-border ACPR + reporting FX Banque de France",
+    "risk": "high",
+    "licenses": [
+      "Agrément CASP (AMF) — scope transfert-de-crypto-actifs",
+      "ACPR EME ou Institution de Paiement pour la jambe fiat",
+      "Enregistrement PSAN AMF (France, transitionnel sous MiCA Art. 143)",
+      "Infrastructure technique TFR Travel Rule"
+    ],
+    "obligations": [
+      "Travel Rule >€1K (TFR Règl. 2023/1113) — données originator + bénéficiaire",
+      "Filtrage sanctions (ONU + UE + France gel des avoirs Tracfin)",
+      "Monitoring AML (AMLD6 + Paquet AML UE + Tracfin)",
+      "Ségrégation des fonds clients",
+      "Reporting FX Banque de France sur flux cross-border >€10K",
+      "Source-of-funds checks pour transferts à valeur élevée"
+    ],
+    "time": "12–24 mois (stack multi-régulateur)",
+    "cost": "€500K–€1.5M+ (capital + IT/conformité + infra Travel Rule)",
+    "alts": [
+      "Choisir un autre État membre UE (LT pour la vitesse)",
+      "UAE DFSA / VARA, Singapour MAS MPI, UK FCA EMI"
+    ],
+    "authority": "AMF + ACPR + Banque de France · ESMA / EBA + AMLA UE à partir de 2025",
+    "xrplNote": "L'ODL (On-Demand Liquidity) XRPL — XRP comme devise de bridge pour les corridors fiat cross-border — est un cas d'usage phare pour les paiements crypto cross-border institutionnels français. Le Cross-Chain Bridge (XLS-38d, vote en cours) étend à l'EVM Sidechain."
     },
     us: {
       regime: "FinCEN MSB + MTL d'État (y compris Remittance Transfer Rule) + sanctions OFAC + CFPB Remittance Rule",
@@ -3611,14 +3727,29 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "Les utility tokens XRPL émis via IOU / Trust Lines ou le nouveau standard MPT (XLS-33). Le flag lsfRequireAuth de MPT permet un gating de conformité aligné avec la disclosure d'usage prévu de MiCA."
     },
     fr: {
-      regime: "Régime MiCA Utility Token (allégé)",
-      risk: "low",
-      licenses: ["Pas d'agrément CASP nécessaire", "Notification du livre blanc à l'ANC (si offre >\u20AC1M)"],
-      obligations: ["Publier un livre blanc MiCA", "Pas de marketing trompeur", "Notification à l'ANC", "Droit de rétractation (14 jours si clientèle de détail)"],
-      time: "1\u20133 mois",
-      cost: "\u20AC10K\u2013\u20AC50K",
-      alts: ["Liechtenstein TVTG", "Suisse"],
-      authority: "ANC"
+    "regime": "MiCA Titre II (Other crypto-assets, Art. 4+) — utility tokens. AMF comme NCA française — notification de whitepaper (pas d'autorisation complète). Loi SREN (2024) pour règles influenceurs + marketing.",
+    "risk": "med",
+    "licenses": [
+      "Whitepaper MiCA notifié à l'AMF (Art. 8) — pas d'approbation AMF requise, juste notification",
+      "PSAN / CASP pour la distribution / le trading (transitionnel sous Art. 143)",
+      "Exemption asset déjà tradé (Art. 4(2)) pour les tokens établis"
+    ],
+    "obligations": [
+      "Whitepaper conforme à l'Annexe I (description, droits, risques, tokenomics) — déposé auprès de l'AMF",
+      "Responsabilité de 12 mois sur l'exactitude du whitepaper (Art. 14)",
+      "Marketing cohérent avec le whitepaper (Art. 7) + règles AMF anti-trompeuse",
+      "Pas de promesse de yield / investissement",
+      "Traduction française obligatoire si marketing en France",
+      "Disclosures influenceurs Loi SREN"
+    ],
+    "time": "3–9 mois (voie notification)",
+    "cost": "€50K–€300K (juridique + rédaction + frais de dépôt AMF)",
+    "alts": [
+      "Choisir un autre État membre UE (LT le moins cher)",
+      "Hors UE : Suisse FINMA (catégorie utility), Liechtenstein TVTG, Singapour MAS Other Token"
+    ],
+    "authority": "AMF (basé sur notification) · ESMA standards niveau 2",
+    "xrplNote": "Utility tokens XRPL via IOU / Trust Lines ou nouveau standard MPT (XLS-33). Le lsfRequireAuth de MPT s'aligne avec les attentes AML françaises + doctrine AMF de gating de conformité."
     },
     us: {
       regime: "Howey Test + test 'mature blockchain' du CLARITY Act (2025)",
@@ -3931,14 +4062,30 @@ export const REGULATIONS_FR: RegData = {
       clientEligibility: "Retail éligible si prospectus complet + suitability MiFID II. La voie qualified-investors-only saute le prospectus (Art. 1(4)(a)). Scope géographique = passporting EEE via notification host-NCA."
     },
     fr: {
-      regime: "MiFID II + Règlement Prospectus + DLT Pilot Regime",
-      risk: "high",
-      licenses: ["Licence d'entreprise d'investissement (MiFID II)", "DLT Pilot Regime (alternative sandbox)", "Approbation du prospectus"],
-      obligations: ["Prospectus complet (ou exemption)", "Protection des investisseurs MiFID II", "KYC/AML/KYB", "Règles custody équivalentes CASS", "Publication continue"],
-      time: "12\u201324 mois",
-      cost: "\u20AC200K\u2013\u20AC500K+",
-      alts: ["DLT Pilot Regime (simplifié)", "Liechtenstein TVTG", "Suisse Loi DLT"],
-      authority: "ANC / ESMA"
+    "regime": "Hors MiCA (Art. 2(4)(a)) — Prospectus Regulation (UE 2017/1129) + MiFID II + Visa AMF pour approbation prospectus + DLT Pilot Regime (Règl. 2022/858) sandbox disponible",
+    "risk": "high",
+    "licenses": [
+      "Visa AMF sur prospectus (ou exemption : <€8M, <150 retail par État membre, qualified-investors-only)",
+      "Agrément firme d'investissement MiFID II (ACPR + AMF si intermédiation)",
+      "Licence DLT Pilot Regime (DLT MTF / DLT SS / DLT TSS)",
+      "Autorisation AIFMD si la structure vault qualifie comme placement collectif"
+    ],
+    "obligations": [
+      "Disclosure prospectus complet avec Visa AMF (Annexes I-VI Règl. 2017/1129)",
+      "États financiers audités (3 ans)",
+      "Directive Transparence 2004/109",
+      "Règles d'insider trading (MAR Règl. 596/2014) + doctrine AMF",
+      "Plafonds DLT Pilot : market cap <€1Md par émetteur pour les actions, <€500M pour les obligations",
+      "Suitability MiFID II si distribution retail"
+    ],
+    "time": "12–24 mois (Visa AMF) · 6–9 mois (DLT Pilot ou exemption)",
+    "cost": "€500K–€2M (prospectus + juridique + audit + listing)",
+    "alts": [
+      "Choisir un autre État membre UE (IE / LU pour institutionnel, DE pour échelle industrielle)",
+      "Hors UE : Suisse FINMA DLT Act, Liechtenstein TVTG, US Reg D / Reg S"
+    ],
+    "authority": "AMF (visa + supervision) · ACPR si élément bancaire · ESMA niveau 2 · Euronext si listé",
+    "xrplNote": "Les valeurs mobilières tokenisées sur XRPL utilisent typiquement IOU / Trust Line (contrôlées par l'émetteur) ou le futur Single Asset Vault (XLS-72, proposé). Le DLT Pilot Regime autorise explicitement le settlement DLT — XRPL techniquement éligible."
     },
     us: {
       regime: "SEC Securities Act (Reg D / Reg S / Reg A+) + cadre 'investment contract digital asset' du CLARITY Act (2025)",
@@ -4248,14 +4395,29 @@ export const REGULATIONS_FR: RegData = {
       xrplNote: "MPT (XLS-33) est conçu spécialement pour les tokens hybrides — les flags programmables permettent un comportement de conformité par token. Les émetteurs de tokens hybrides devraient mapper chaque flag MPT à son implication de classification MiCA avant le lancement."
     },
     fr: {
-      regime: "MiCA + analyse MiFID II \u2014 le régime le plus strict s'applique",
-      risk: "high",
-      licenses: ["CASP + potentiellement licence d'entreprise d'investissement", "Qualification juridique obligatoire"],
-      obligations: ["Double analyse : éléments utility vs titre financier", "Livre blanc + prospectus si éléments titre financier", "KYC/AML", "Le régime le plus strict s'applique toujours"],
-      time: "12\u201324 mois",
-      cost: "\u20AC100K\u2013\u20AC400K",
-      alts: ["Liechtenstein TVTG (classification flexible)", "Suisse FINMA"],
-      authority: "ANC / ESMA"
+    "regime": "Classification MiCA cas par cas + doctrine AMF sur tokens hybrides + ACPR si EMT-like + Prospectus Regulation si security-like. Stack multi-licence typique.",
+    "risk": "high",
+    "licenses": [
+      "Whitepaper MiCA au minimum (déposé auprès de l'AMF — Other crypto-asset)",
+      "Autorisation EMT ou ART (ACPR) si les features qualifient",
+      "Visa AMF sur prospectus si classifié comme valeur mobilière (hors MiCA)",
+      "PSAN / CASP pour la distribution (transitionnel sous Art. 143)"
+    ],
+    "obligations": [
+      "Disclosure complet de toutes les features dans le whitepaper (attente AMF)",
+      "Pas de framing 'utility' si comportement security-like présent (doctrine AMF)",
+      "Responsabilité de 12 mois sur l'exactitude du whitepaper",
+      "Marketing cohérent avec la classification dominante (pas de messaging mixte) + règles influenceurs Loi SREN",
+      "Reporting trimestriel + annuel"
+    ],
+    "time": "9–18 mois (coordination multi-régulateur)",
+    "cost": "€300K–€1M (stack multi-licence)",
+    "alts": [
+      "Choisir un autre État membre UE (LT / IE / LU)",
+      "Suisse FINMA (plus flexible sur classification hybride), Liechtenstein TVTG (Token Container Model convient bien aux hybrides)"
+    ],
+    "authority": "AMF (lead) + ACPR (si EMT) + ESMA / EBA · standards niveau 2",
+    "xrplNote": "MPT (XLS-33) est conçu spécialement pour les tokens hybrides — flags programmables permettent un comportement de conformité par token. Les émetteurs français devraient mapper chaque flag MPT à son implication de classification MiCA + lancer une consultation pré-lancement AMF."
     },
     us: {
       regime: "Analyse SEC \u2014 probablement titre financier si tout élément d'investissement",

@@ -185,13 +185,12 @@ body {
     border: 1px solid #CBD5E1 !important;
   }
 
-  /* ── Page margins + page numbers ──────────────────────────────────── */
+  /* ── Page margins ─────────────────────────────────────────────────── */
   @page {
     margin: 1.4cm 1.2cm;
-    @bottom-right {
-      content: counter(page) " / " counter(pages);
-      font-size: 9pt;
-      color: #64748B;
-    }
   }
+  /* Note: dropped CSS Paged Media @bottom-right counters — Chrome's
+     print preview hangs when nested @-rules are used inside @page in
+     some versions. Native browser page numbering still appears in the
+     printer dialog. */
 }

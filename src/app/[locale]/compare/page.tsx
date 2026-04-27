@@ -363,7 +363,7 @@ export default function ComparePage() {
               </div>
 
               <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 [scrollbar-width:thin]">
-                <table className="w-full text-sm border-collapse">
+                <table className="w-full text-sm border-collapse table-fixed">
                   <thead>
                     <tr>
                       <th className={stickyHeaderCls}>
@@ -585,7 +585,7 @@ export default function ComparePage() {
               </div>
 
               <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0 [scrollbar-width:thin]">
-                <table className="w-full text-sm border-collapse">
+                <table className="w-full text-sm border-collapse table-fixed">
                   <thead>
                     <tr>
                       <th className={stickyHeaderCls}>

@@ -6,7 +6,7 @@ import {
   CUSTODY_PROVIDERS,
   providerMatchesJurisdictions,
 } from '@/data/custody-providers';
-import type { Jurisdiction } from '@/types';
+import { JURISDICTIONS, type Jurisdiction } from '@/types';
 
 interface Props {
   /** Jurisdictions selected in the user's report — used to filter the
@@ -86,7 +86,21 @@ export default function CustodyPartnersSection({ jurisdictions }: Props) {
               <div className="flex items-start gap-3 mb-2">
                 <span className="text-2xl shrink-0">{p.logo}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-sm">{p.name}</div>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-bold text-sm">{p.name}</span>
+                    {/* Jurisdiction flags — same visual cue as on
+                        /learn/xrpl/custody so the user immediately sees
+                        WHERE the provider holds licences / passports. */}
+                    {p.jurisdictions.map((j) => (
+                      <span
+                        key={j}
+                        className="text-sm leading-none"
+                        title={JURISDICTIONS[j]?.name}
+                      >
+                        {JURISDICTIONS[j]?.flag}
+                      </span>
+                    ))}
+                  </div>
                   <div className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">
                     {p.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
                   </div>
