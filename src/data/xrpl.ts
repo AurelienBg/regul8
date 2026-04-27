@@ -17,6 +17,26 @@ export const XRPL_KNOWLEDGE = {
       ng: "SEC Nigeria / CBN: XRP is a digital asset under SEC Nigeria DASP framework (2022). Nigeria had one of the highest retail XRP adoption globally pre-2024. Post-Naira-crisis, cross-border flows now dominated by P2P + offshore (UAE, UK).",
       ke: "CMA: XRP is covered by the VASP Act 2025. Trading via licensed VASPs. Ripple-Onafriq partnerships route KES ↔ USD corridors using XRPL ODL. 3% Digital Asset Tax applies.",
       za: "FSCA: XRP is a crypto-asset requiring CASP licence under FAIS Act (Oct 2022 — first African jurisdiction to regulate crypto). Trading via Luno, VALR, AltCoinTrader. SARB evaluates XRPL for cross-border CBDC bridging.",
+      // Established markets — added Apr 2026
+      ca: "CSA / IIROC: XRP is a crypto-asset, traded on CSA Pre-Registration Undertaking platforms (Bitbuy, Newton, NDAX, Coinbase Canada). No security classification at federal level; provincial securities commissions assess case-by-case.",
+      au: "ASIC / AUSTRAC: XRP is a digital asset, traded via AUSTRAC-registered DCEs (Independent Reserve, BTC Markets, Swyftx). 2024 ASIC token-classification guidance did not flag XRP as a financial product.",
+      // EU MiCA hubs — added Apr 2026
+      lu: "CSSF: XRP is a crypto-asset under MiCA. CASP licence required. Luxembourg positioned as institutional MiCA hub for XRPL services (e.g., Standard Custody Lux).",
+      mt: "MFSA: XRP was a virtual financial asset (VFA) under VFA Act 2018; transitioning to MiCA crypto-asset classification. Trading via VFA-licensed exchanges → MiCA CASP from 2025.",
+      lt: "Lietuvos bankas: XRP is a crypto-asset under MiCA (transition from VASP register). Lithuania remains the dominant EU MiCA passporting hub for XRPL projects.",
+      ie: "CBI: XRP is a crypto-asset under MiCA. CASP licence required. Coinbase Ireland & Payward Europe (Kraken) operate from Dublin for XRP services to EU users.",
+      // Asia / Middle East emerging — added Apr 2026
+      id: "Bappebti: XRP is on the approved list (~229 tokens) tradable on PFAK exchanges (Indodax, Tokocrypto, Pintu). Transitioning to OJK supervision in 2025 under UU P2SK.",
+      il: "ISA / CMISA: XRP is generally treated as a crypto-asset, not a security under Securities Law 1968. Trading via CMISA-licensed RFSPs (Bits of Gold, Altshuler Shaham Crypto).",
+      // Offshore financial centres — added Apr 2026
+      ky: "CIMA: XRP is a virtual asset under VASP Act 2020. Common offshore location for XRPL token issuers and institutional funds — Cayman exempted-company structure widely used.",
+      vg: "FSC BVI: XRP is a virtual asset under VASP Act 2022. Common offshore foundation / company location for XRPL token issuers (token issuance vehicles, foundation companies).",
+      bm: "BMA: XRP is a digital asset under DABA 2018. DABA Class F/M/T licences cover XRP services. Bermuda was an early jurisdiction for institutional crypto custody on XRPL.",
+      // Africa + Latam emerging — added Apr 2026 (data limited / framework developing)
+      gh: "BoG / SEC Ghana: no formal XRP classification yet — falls under draft VAPA (2024 expected). BoG sandbox is the only formal pilot route. Banking-sector exposure restricted pre-VAPA.",
+      cm: "BEAC May-2022 directive prohibits crypto as a means of payment in the CEMAC zone. XRP trading not authorised domestically; activity is offshore P2P only. ANTIC issues public warnings.",
+      ar: "CNV: XRP falls under the PSAV registry created by Law 27.739 (March 2024). Trading via PSAV-registered platforms (Lemon Cash, Buenbit, Ripio). BCRA FX controls (cepo cambiario) apply to ARS↔crypto flows.",
+      sv: "CNAD: XRP is a digital asset under LEAD (Jan 2023). Pro-crypto stance — PSAD licence covers XRP services (distinct from the BSP Bitcoin-only licence). Whitepaper-based path significantly faster than peer regulators.",
     }
   },
   xrpl_evm_sidechain: {

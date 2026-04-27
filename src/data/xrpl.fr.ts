@@ -19,6 +19,26 @@ export const XRPL_KNOWLEDGE_FR = {
       ng: "SEC Nigeria / CBN : le XRP est un actif numérique dans le cadre DASP de la SEC Nigeria (2022). Le Nigéria avait l'une des plus fortes adoptions retail du XRP au monde avant 2024. Depuis la crise du Naira, les flux transfrontaliers passent majoritairement par P2P + offshore (UAE, UK).",
       ke: "CMA : le XRP est couvert par le VASP Act 2025. Négociation via les VASP licenciés. Les partenariats Ripple–Onafriq utilisent les corridors KES ↔ USD via l'ODL XRPL. Taxe sur les actifs numériques de 3 % applicable.",
       za: "FSCA : le XRP est un crypto-actif nécessitant un agrément CASP dans le cadre du FAIS Act (oct. 2022 — première juridiction africaine à réguler la crypto). Négociation via Luno, VALR, AltCoinTrader. La SARB étudie XRPL pour le bridging CBDC transfrontalier.",
+      // Marchés établis — ajouté avril 2026
+      ca: "CSA / IIROC : le XRP est un crypto-actif, négocié sur les plateformes signataires du Pre-Registration Undertaking de la CSA (Bitbuy, Newton, NDAX, Coinbase Canada). Pas de qualification de valeur mobilière au niveau fédéral ; les commissions provinciales évaluent au cas par cas.",
+      au: "ASIC / AUSTRAC : le XRP est un actif numérique, négocié via les DCE enregistrés AUSTRAC (Independent Reserve, BTC Markets, Swyftx). Les orientations 2024 de l'ASIC sur la classification des tokens n'ont pas qualifié le XRP de produit financier.",
+      // Hubs MiCA UE — ajouté avril 2026
+      lu: "CSSF : le XRP est un crypto-actif au sens de MiCA. Agrément CASP requis. Le Luxembourg se positionne comme hub MiCA institutionnel pour les services XRPL (ex. Standard Custody Lux).",
+      mt: "MFSA : le XRP était un virtual financial asset (VFA) sous le VFA Act 2018 ; transition vers la classification crypto-actif MiCA. Négociation via les exchanges agréés VFA → CASP MiCA à partir de 2025.",
+      lt: "Lietuvos bankas : le XRP est un crypto-actif au sens de MiCA (transition depuis le registre VASP). La Lituanie reste le hub UE dominant pour le passporting MiCA des projets XRPL.",
+      ie: "CBI : le XRP est un crypto-actif au sens de MiCA. Agrément CASP requis. Coinbase Ireland et Payward Europe (Kraken) opèrent depuis Dublin pour les services XRP aux utilisateurs UE.",
+      // Asie / Moyen-Orient émergents — ajouté avril 2026
+      id: "Bappebti : le XRP figure sur la liste approuvée (~229 tokens) négociable sur les exchanges PFAK (Indodax, Tokocrypto, Pintu). Transition vers la supervision OJK en 2025 sous la UU P2SK.",
+      il: "ISA / CMISA : le XRP est généralement traité comme un crypto-actif, pas comme une valeur mobilière sous la Securities Law 1968. Négociation via les RFSP agréés CMISA (Bits of Gold, Altshuler Shaham Crypto).",
+      // Centres financiers offshore — ajouté avril 2026
+      ky: "CIMA : le XRP est un actif virtuel sous le VASP Act 2020. Localisation offshore courante pour les émetteurs de tokens XRPL et les fonds institutionnels — la structure exempted-company de Cayman est largement utilisée.",
+      vg: "FSC BVI : le XRP est un actif virtuel sous le VASP Act 2022. Localisation offshore courante de foundation / company pour les émetteurs de tokens XRPL (véhicules d'émission, foundation companies).",
+      bm: "BMA : le XRP est un actif numérique sous DABA 2018. Les licences DABA Class F/M/T couvrent les services XRP. Les Bermudes ont été une juridiction pionnière pour la custody crypto institutionnelle sur XRPL.",
+      // Afrique + Amérique latine émergents — ajouté avril 2026 (data limitée / cadre en cours)
+      gh: "BoG / SEC Ghana : pas encore de classification formelle du XRP — relève du VAPA en projet (attendu 2024). Le sandbox BoG est la seule voie de pilote formelle. Exposition bancaire restreinte avant VAPA.",
+      cm: "La directive BEAC de mai 2022 prohibe la crypto comme moyen de paiement dans la zone CEMAC. La négociation du XRP n'est pas autorisée localement ; l'activité passe uniquement par P2P offshore. L'ANTIC émet des mises en garde publiques.",
+      ar: "CNV : le XRP relève du registre PSAV créé par la loi 27.739 (mars 2024). Négociation via les plateformes enregistrées PSAV (Lemon Cash, Buenbit, Ripio). Les contrôles BCRA (cepo cambiario) s'appliquent aux flux ARS↔crypto.",
+      sv: "CNAD : le XRP est un actif numérique sous LEAD (janv. 2023). Posture pro-crypto — la licence PSAD couvre les services XRP (distincte de la licence BSP Bitcoin uniquement). Voie basée sur whitepaper significativement plus rapide que les régulateurs comparables.",
     }
   },
   xrpl_evm_sidechain: {
