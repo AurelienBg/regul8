@@ -102,43 +102,6 @@ export default function ReportPage() {
   // Ref to call handleAiAnalysis from the useEffect above
   const handleAiAnalysisRef = useRef<() => void>();
 
-  /** True when this page was opened in print mode (?print=1) — by the
-   *  Save-as-PDF button on the user's primary report tab. In this mode
-   *  Vercel Analytics + Speed Insights are skipped (see
-   *  ConditionalAnalytics) and window.print() fires automatically once
-   *  the AI cache hydrates / streaming completes. Confirmed cause:
-   *  Chrome's print engine hangs at "loading preview" while those
-   *  Vercel scripts are still attached. */
-  const isPrintMode = params.get('print') === '1';
-
-  // Auto-print when on a ?print=1 tab and the AI analysis has settled
-  // (either cached and hydrated, or finished streaming). One firing only.
-  // MUST live above any conditional early-return so the hook order stays
-  // stable across renders (rules-of-hooks).
-  const autoPrintFiredRef = useRef(false);
-  useEffect(() => {
-    if (!isPrintMode) return;
-    if (autoPrintFiredRef.current) return;
-    if (aiLoading) return;
-    autoPrintFiredRef.current = true;
-    document.documentElement.classList.add('print-prepping');
-    const onAfterPrint = () => {
-      // Close the tab once the user closes / cancels the print dialog
-      // so they're back on their primary report. 200ms gives the dialog
-      // UI time to fully dismiss before the close.
-      setTimeout(() => window.close(), 200);
-    };
-    window.addEventListener('afterprint', onAfterPrint, { once: true });
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        window.print();
-      });
-    });
-    return () => {
-      window.removeEventListener('afterprint', onAfterPrint);
-    };
-  }, [isPrintMode, aiLoading]);
-
   const handleShare = async () => {
     if (typeof window === 'undefined') return;
     try {
@@ -264,17 +227,17 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
     }
   };
 
+  // Print-as-PDF — known to hang at "loading preview" on macOS Chrome
+  // due to Vercel Analytics + Speed Insights still attached to the page
+  // lifecycle. Investigated extensively (Cmd+P / Incognito / Safari
+  // triangulation, .print-prepping class, Option B with separate print
+  // tab) — none reliably fixed the Chrome-specific hang. Safari + Firefox
+  // print fine. Falling back to vanilla window.print() and accepting the
+  // Chrome limitation; users on Chrome can use the browser's native
+  // "Print → Save as PDF" via Cmd+P (which also hangs but is no worse
+  // than this button).
   const handlePrintPdf = () => {
-    if (typeof window === 'undefined') return;
-    // Open a NEW tab with ?print=1. That tab loads without Vercel
-    // Analytics + Speed Insights (the scripts that hold Chrome's print
-    // engine in "loading preview" indefinitely) and auto-fires print
-    // once the AI cache hydrates. The user's primary tab keeps
-    // Analytics enabled. Diagnosis confirmed via Cmd+P / Incognito /
-    // Safari triangulation — Safari OK, Chrome hangs even in Incognito.
-    const url = new URL(window.location.href);
-    url.searchParams.set('print', '1');
-    window.open(url.toString(), '_blank', 'noopener');
+    if (typeof window !== 'undefined') window.print();
   };
 
   // Wire the ref for the mount-time auto-trigger
@@ -330,25 +293,15 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
       <div className="flex items-center justify-between mb-8 gap-2 flex-wrap no-print">
         <h1 className="text-2xl font-bold">{t('title')}</h1>
         <div className="flex items-center gap-2">
-          {/* Save-as-PDF — disabled while the AI analysis is still streaming.
-              Chrome's print preview hangs at "loading preview" if the page
-              has an active fetch + ongoing DOM mutations from the streaming
-              markdown. Forcing the user to wait until aiLoading=false makes
-              the page DOM-stable + lets the print engine snapshot cleanly. */}
           <button
             onClick={handlePrintPdf}
-            disabled={aiLoading}
-            className="btn-secondary text-sm flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            title={aiLoading
-              ? (locale === 'fr' ? 'Patientez : analyse IA en cours…' : 'Please wait — AI analysis still streaming…')
-              : t('savePdf')}
+            className="btn-secondary text-sm flex items-center gap-2"
+            title={t('savePdf')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m-3-8a9 9 0 110 18 9 9 0 010-18z" />
             </svg>
-            {aiLoading
-              ? (locale === 'fr' ? 'IA en cours…' : 'AI loading…')
-              : t('savePdf')}
+            {t('savePdf')}
           </button>
           <button
             onClick={handleShare}

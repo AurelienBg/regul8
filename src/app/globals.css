@@ -64,27 +64,6 @@ body {
   display: none !important;
 }
 
-/* `.print-prepping` is added to <html> by handlePrintPdf BEFORE calling
-   window.print(). It strips animations / transitions / gradients so
-   Chrome (especially on macOS) doesn't hang at "loading preview" trying
-   to capture an animated / gradient-heavy snapshot of the live page. */
-html.print-prepping,
-html.print-prepping *,
-html.print-prepping *::before,
-html.print-prepping *::after {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-}
-html.print-prepping [class*="bg-gradient"],
-html.print-prepping .ai-markdown {
-  background-image: none !important;
-}
-html.print-prepping .animate-spin,
-html.print-prepping .animate-pulse {
-  display: none !important;
-}
-
 @media print {
   /* Minimal print stylesheet — kept lean because aggressive overrides
      (print-color-adjust: exact, [class*="..."] substring selectors,

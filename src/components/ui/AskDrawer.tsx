@@ -286,7 +286,7 @@ export default function AskDrawer({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={tr.title}
-        className={`fixed top-0 right-0 h-full w-full sm:max-w-md md:max-w-lg z-50 bg-[var(--background)] border-l border-[var(--border)] shadow-2xl transform transition-transform duration-300 flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full sm:max-w-sm md:max-w-md z-50 bg-[var(--background)] border-l border-[var(--border)] shadow-2xl transform transition-transform duration-300 flex flex-col ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
