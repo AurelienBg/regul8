@@ -73,41 +73,9 @@ export default function AssessHubPage() {
       </header>
 
       <div className="grid md:grid-cols-2 gap-5 mb-10">
-        {/* Quick diagnostic — amber/yellow accent (matches the old /check
-            card colour users are familiar with) */}
-        <Link
-          href="/assess/quick"
-          className="group block p-6 rounded-2xl border-2 border-amber-200 dark:border-amber-900/50 bg-gradient-to-br from-amber-50/60 to-transparent dark:from-amber-900/20 hover:border-amber-500 hover:shadow-lg hover:shadow-amber-500/10 transition-all"
-        >
-          <div className="flex items-start justify-between mb-4">
-            <div className="text-4xl leading-none">🎯</div>
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-200 text-amber-900 dark:bg-amber-900/60 dark:text-amber-100">
-              {tr.quickTime}
-            </span>
-          </div>
-          <h2 className="text-xl font-bold mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400">
-            {tr.quickLabel}
-          </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
-            {tr.quickDesc}
-          </p>
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {tr.quickTags.map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-0.5 rounded text-[10px] font-medium bg-white dark:bg-gray-900/60 border border-amber-200 dark:border-amber-900/50 text-gray-700 dark:text-gray-300"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="text-sm font-semibold text-amber-700 dark:text-amber-300">
-            {tr.quickCta} &rarr;
-          </div>
-        </Link>
-
-        {/* Full assessment — violet accent matching the Assess brand colour
-            used on the home page card */}
+        {/* Full assessment FIRST (primary CTA — violet brand colour). The
+            Quick diagnostic card sits second as a lighter alternative.
+            User reordering — Apr 2026: full report is the main entry-point. */}
         <Link
           href="/assess/full"
           className="group block p-6 rounded-2xl border-2 border-violet-200 dark:border-violet-900/50 bg-gradient-to-br from-violet-50/60 to-transparent dark:from-violet-900/20 hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10 transition-all"
@@ -136,6 +104,39 @@ export default function AssessHubPage() {
           </div>
           <div className="text-sm font-semibold text-violet-700 dark:text-violet-300">
             {tr.fullCta} &rarr;
+          </div>
+        </Link>
+
+        {/* Quick diagnostic — amber/yellow accent (lighter alternative;
+            short single-question decision-tree flow). */}
+        <Link
+          href="/assess/quick"
+          className="group block p-6 rounded-2xl border-2 border-amber-200 dark:border-amber-900/50 bg-gradient-to-br from-amber-50/60 to-transparent dark:from-amber-900/20 hover:border-amber-500 hover:shadow-lg hover:shadow-amber-500/10 transition-all"
+        >
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-4xl leading-none">🎯</div>
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-200 text-amber-900 dark:bg-amber-900/60 dark:text-amber-100">
+              {tr.quickTime}
+            </span>
+          </div>
+          <h2 className="text-xl font-bold mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400">
+            {tr.quickLabel}
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
+            {tr.quickDesc}
+          </p>
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {tr.quickTags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-0.5 rounded text-[10px] font-medium bg-white dark:bg-gray-900/60 border border-amber-200 dark:border-amber-900/50 text-gray-700 dark:text-gray-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="text-sm font-semibold text-amber-700 dark:text-amber-300">
+            {tr.quickCta} &rarr;
           </div>
         </Link>
       </div>

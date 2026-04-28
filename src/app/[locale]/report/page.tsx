@@ -102,6 +102,43 @@ export default function ReportPage() {
   // Ref to call handleAiAnalysis from the useEffect above
   const handleAiAnalysisRef = useRef<() => void>();
 
+  /** True when this page was opened in print mode (?print=1) — by the
+   *  Save-as-PDF button on the user's primary report tab. In this mode
+   *  Vercel Analytics + Speed Insights are skipped (see
+   *  ConditionalAnalytics) and window.print() fires automatically once
+   *  the AI cache hydrates / streaming completes. Confirmed cause:
+   *  Chrome's print engine hangs at "loading preview" while those
+   *  Vercel scripts are still attached. */
+  const isPrintMode = params.get('print') === '1';
+
+  // Auto-print when on a ?print=1 tab and the AI analysis has settled
+  // (either cached and hydrated, or finished streaming). One firing only.
+  // MUST live above any conditional early-return so the hook order stays
+  // stable across renders (rules-of-hooks).
+  const autoPrintFiredRef = useRef(false);
+  useEffect(() => {
+    if (!isPrintMode) return;
+    if (autoPrintFiredRef.current) return;
+    if (aiLoading) return;
+    autoPrintFiredRef.current = true;
+    document.documentElement.classList.add('print-prepping');
+    const onAfterPrint = () => {
+      // Close the tab once the user closes / cancels the print dialog
+      // so they're back on their primary report. 200ms gives the dialog
+      // UI time to fully dismiss before the close.
+      setTimeout(() => window.close(), 200);
+    };
+    window.addEventListener('afterprint', onAfterPrint, { once: true });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.print();
+      });
+    });
+    return () => {
+      window.removeEventListener('afterprint', onAfterPrint);
+    };
+  }, [isPrintMode, aiLoading]);
+
   const handleShare = async () => {
     if (typeof window === 'undefined') return;
     try {
@@ -229,28 +266,15 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
 
   const handlePrintPdf = () => {
     if (typeof window === 'undefined') return;
-    // Add the print-prepping class to <html> to strip animations,
-    // transitions and gradient backgrounds. Chrome on macOS is known
-    // to hang at "loading preview" when the snapshot includes ongoing
-    // CSS animations or heavy gradient renders.
-    document.documentElement.classList.add('print-prepping');
-    // Give the browser two animation frames to fully apply the new
-    // styles + finish any in-flight reflows before we open the print
-    // preview. Without this, window.print() races the style application
-    // and can still snapshot the animated state.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        try {
-          window.print();
-        } finally {
-          // Cleanup after the print dialog closes (or if the user cancels).
-          // 1s is enough for the dialog UI to fully open even on slow macs.
-          setTimeout(() => {
-            document.documentElement.classList.remove('print-prepping');
-          }, 1000);
-        }
-      });
-    });
+    // Open a NEW tab with ?print=1. That tab loads without Vercel
+    // Analytics + Speed Insights (the scripts that hold Chrome's print
+    // engine in "loading preview" indefinitely) and auto-fires print
+    // once the AI cache hydrates. The user's primary tab keeps
+    // Analytics enabled. Diagnosis confirmed via Cmd+P / Incognito /
+    // Safari triangulation — Safari OK, Chrome hangs even in Incognito.
+    const url = new URL(window.location.href);
+    url.searchParams.set('print', '1');
+    window.open(url.toString(), '_blank', 'noopener');
   };
 
   // Wire the ref for the mount-time auto-trigger
