@@ -122,7 +122,7 @@ export default function ReportPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
         <p className="text-gray-500 mb-4">{t('noSelection')}</p>
-        <Link href="/assess/full" className="btn-primary">{t('newCheck')}</Link>
+        <Link href={{ pathname: '/assess/full', query: { fresh: '1' } }} className="btn-primary">{t('newCheck')}</Link>
       </div>
     );
   }
@@ -324,7 +324,7 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
               </>
             )}
           </button>
-          <Link href="/assess/full" className="btn-secondary text-sm">{t('newCheck')}</Link>
+          <Link href={{ pathname: '/assess/full', query: { fresh: '1' } }} className="btn-secondary text-sm">{t('newCheck')}</Link>
         </div>
       </div>
 

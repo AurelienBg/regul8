@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { ACTIVITIES, JURISDICTIONS, type ActivityKey, type Jurisdiction } from '@/types';
@@ -76,8 +77,25 @@ export default function AssessPage() {
     [activityKeysSorted, xrplOnlyFilter],
   );
 
-  // Load previously saved selection on mount
+  // ?fresh=1 query param — set by the "New Compliance Check" button on
+  // /report. Signals "start a brand-new check from scratch" so we skip
+  // the localStorage hydration AND wipe the persisted selection. Without
+  // this, clicking "New Compliance Check" landed on /assess/full with
+  // the previous report's activities + jurisdictions still pre-selected.
+  const searchParams = useSearchParams();
+  const isFresh = searchParams.get('fresh') === '1';
+
+  // Load previously saved selection on mount (unless ?fresh=1)
   useEffect(() => {
+    if (isFresh) {
+      try {
+        if (typeof window !== 'undefined') localStorage.removeItem(ASSESS_STORAGE_KEY);
+      } catch {
+        // ignore — empty state is the fallback anyway
+      }
+      hydratedRef.current = true;
+      return;
+    }
     try {
       const raw = typeof window !== 'undefined' ? localStorage.getItem(ASSESS_STORAGE_KEY) : null;
       if (raw) {
@@ -94,6 +112,7 @@ export default function AssessPage() {
     } finally {
       hydratedRef.current = true;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Persist on every change (after hydration)
