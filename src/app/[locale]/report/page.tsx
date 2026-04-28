@@ -228,7 +228,29 @@ Be specific, actionable, and direct. Highlight any XRPL-specific considerations.
   };
 
   const handlePrintPdf = () => {
-    if (typeof window !== 'undefined') window.print();
+    if (typeof window === 'undefined') return;
+    // Add the print-prepping class to <html> to strip animations,
+    // transitions and gradient backgrounds. Chrome on macOS is known
+    // to hang at "loading preview" when the snapshot includes ongoing
+    // CSS animations or heavy gradient renders.
+    document.documentElement.classList.add('print-prepping');
+    // Give the browser two animation frames to fully apply the new
+    // styles + finish any in-flight reflows before we open the print
+    // preview. Without this, window.print() races the style application
+    // and can still snapshot the animated state.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        try {
+          window.print();
+        } finally {
+          // Cleanup after the print dialog closes (or if the user cancels).
+          // 1s is enough for the dialog UI to fully open even on slow macs.
+          setTimeout(() => {
+            document.documentElement.classList.remove('print-prepping');
+          }, 1000);
+        }
+      });
+    });
   };
 
   // Wire the ref for the mount-time auto-trigger
