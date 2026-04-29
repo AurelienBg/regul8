@@ -622,22 +622,20 @@ export default function AssessPage() {
                     )}
                   </span>
 
-                  {/* Label with the AI pill nested INSIDE so it flows with
-                      the text. When the label wraps to a second line, the
-                      pill follows the last word — never spills to its own
-                      third line. Using a plain text span (not a flex
-                      container) so browser text-wrap handles the layout. */}
-                  <span className="flex-1 min-w-0 text-sm font-medium leading-snug">
-                    {tw(`activities.${key}`)}
-                    {aiSuggested && (
-                      <span
-                        title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
-                        className="ml-1.5 inline-flex items-center align-middle px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300"
-                      >
-                        ✨ {tr.describe.aiLabel}
-                      </span>
-                    )}
-                  </span>
+                  {/* Label fills remaining space and wraps naturally to 2
+                      lines when needed (no truncate — keeps long names
+                      readable in full). The AI pill is a separate flex
+                      item with `shrink-0` so it pins to the right edge of
+                      the row, exactly like the jurisdiction cards do. */}
+                  <span className="flex-1 min-w-0 text-sm font-medium leading-snug">{tw(`activities.${key}`)}</span>
+                  {aiSuggested && (
+                    <span
+                      title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
+                      className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
+                    >
+                      ✨ {tr.describe.aiLabel}
+                    </span>
+                  )}
 
                   {/* XRPL mark — pinned to the far right edge of the card */}
                   <ActivityXRPLStatus activity={key} />
