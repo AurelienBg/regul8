@@ -716,7 +716,7 @@ export default function AssessPage() {
                       title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
                       className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
                     >
-                      ✨
+                      ✨ {tr.describe.aiLabel}
                     </span>
                   )}
                 </button>
