@@ -622,19 +622,22 @@ export default function AssessPage() {
                     )}
                   </span>
 
-                  {/* Label + optional AI badge — same inline pattern as the
-                      jurisdiction cards (truncate label, pill stays inline)
-                      so long activity names like "RWA — Real-World Asset
-                      Tokenisation" don't push the AI pill to a second row. */}
-                  <span className="text-sm font-medium truncate flex-1">{tw(`activities.${key}`)}</span>
-                  {aiSuggested && (
-                    <span
-                      title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
-                      className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
-                    >
-                      ✨ {tr.describe.aiLabel}
-                    </span>
-                  )}
+                  {/* Label with the AI pill nested INSIDE so it flows with
+                      the text. When the label wraps to a second line, the
+                      pill follows the last word — never spills to its own
+                      third line. Using a plain text span (not a flex
+                      container) so browser text-wrap handles the layout. */}
+                  <span className="flex-1 min-w-0 text-sm font-medium leading-snug">
+                    {tw(`activities.${key}`)}
+                    {aiSuggested && (
+                      <span
+                        title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
+                        className="ml-1.5 inline-flex items-center align-middle px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300"
+                      >
+                        ✨ {tr.describe.aiLabel}
+                      </span>
+                    )}
+                  </span>
 
                   {/* XRPL mark — pinned to the far right edge of the card */}
                   <ActivityXRPLStatus activity={key} />
