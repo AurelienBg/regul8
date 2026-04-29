@@ -622,18 +622,19 @@ export default function AssessPage() {
                     )}
                   </span>
 
-                  {/* Label + optional AI badge — fills the middle */}
-                  <span className="flex-1 min-w-0 flex items-center gap-1.5 flex-wrap">
-                    <span className="text-sm font-medium leading-snug">{tw(`activities.${key}`)}</span>
-                    {aiSuggested && (
-                      <span
-                        title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
-                        className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
-                      >
-                        ✨ {tr.describe.aiLabel}
-                      </span>
-                    )}
-                  </span>
+                  {/* Label + optional AI badge — same inline pattern as the
+                      jurisdiction cards (truncate label, pill stays inline)
+                      so long activity names like "RWA — Real-World Asset
+                      Tokenisation" don't push the AI pill to a second row. */}
+                  <span className="text-sm font-medium truncate flex-1">{tw(`activities.${key}`)}</span>
+                  {aiSuggested && (
+                    <span
+                      title={isFr ? 'Suggéré par l\'IA' : 'Suggested by AI'}
+                      className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 shrink-0"
+                    >
+                      ✨ {tr.describe.aiLabel}
+                    </span>
+                  )}
 
                   {/* XRPL mark — pinned to the far right edge of the card */}
                   <ActivityXRPLStatus activity={key} />
